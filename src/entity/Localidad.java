@@ -16,7 +16,7 @@ public class Localidad implements IEntity {
 	private Provincia provincia;
 	
 	@Expose(serialize = false)
-	public final Schema _schema = new Schema(
+	public final static Schema _schema = new Schema(
 		new SchemaProperty("id_loc") {{
 			required = true;
 			type = Types.INTEGER;
@@ -34,7 +34,7 @@ public class Localidad implements IEntity {
 		}}
 	);
 	@Expose(serialize = false)
-	public final IModel _model = new MySQLSchemaModel("localidades", "tif", _schema) {{
+	public final static IModel _model = new MySQLSchemaModel("localidades", "tif", _schema) {{
 		compile();
 	}};
 	

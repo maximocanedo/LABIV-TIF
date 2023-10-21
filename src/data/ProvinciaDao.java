@@ -37,7 +37,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
-		return Provincia._model.exists(Dictionary.fromArray("id", arg0));
+		return Provincia._model.exists(Dictionary.fromArray("id_provincia", arg0));
 	}
 
 	@Override
