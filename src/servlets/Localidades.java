@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 
 import max.data.Dictionary;
 import max.data.LogicResponse;
-import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 import entity.*;
