@@ -11,7 +11,7 @@ import max.oops.SchemaValidationException;
 
 public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	
-	private ProvinciaDao data = new ProvinciaDao();
+	private static ProvinciaDao data = new ProvinciaDao();
 	
 	public ProvinciaLogic() {
 		// TODO Auto-generated constructor stub 
