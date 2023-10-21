@@ -14,7 +14,6 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	private static LocalidadDao data = new LocalidadDao();
 	
 	public LocalidadLogic() {
-		// TODO Auto-generated constructor stub 
 		
 	}
 
