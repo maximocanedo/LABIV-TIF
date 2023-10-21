@@ -3,6 +3,7 @@ package data;
 import java.sql.SQLException;
 
 import entity.Localidad;
+import entity.Provincia;
 import logic.LocalidadLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
@@ -117,6 +118,10 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 			res.rowsReturned = logic.convert(r.rowsReturned);
 		}
 		return res;
+	}
+	
+	public TransactionResponse<Localidad> filterByProvince(Provincia p) throws SQLException {
+		return select("SELECT * FROM " + printTDB() + " WHERE provincia_loc = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
 	}
 
 

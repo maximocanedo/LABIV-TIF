@@ -83,6 +83,21 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
+	
+	public LogicResponse<Localidad> filterByProvince(Provincia p) {
+		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
+		try {
+			tn = data.filterByProvince(p);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(tn.nonEmptyResult()) {
+			res.fill(tn.rowsReturned);
+		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		return res;
+	}
 
 	@Override
 	public LogicResponse<Localidad> getById(Integer arg0) {
