@@ -10,8 +10,8 @@ import max.schema.*;
 public class Provincia implements IEntity  {
 	
 	// Propiedades
-	private int id_provincia;
-	private String nombre_provincia;
+	private int id;
+	private String nombre;
 	
 	/**
 	 * Estructura de datos de la entidad. Sirve para hacer validaciones.
@@ -44,23 +44,23 @@ public class Provincia implements IEntity  {
 
 	// Getters & Setters
 	public int getId() {
-		return id_provincia;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.id_provincia = id;
+		this.id = id;
 	}
 
 	public String getNombre() {
-		return nombre_provincia;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre_provincia = nombre;
+		this.nombre = nombre;
 	}
 	
 	public String toString() {
-		return "Provincia { Id: " + id_provincia + "; Nombre: " + nombre_provincia + "; }";
+		return "Provincia { Id: " + id + "; Nombre: " + nombre + "; }";
 	}
 	
 	/**
@@ -76,8 +76,8 @@ public class Provincia implements IEntity  {
 	 */
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-			"id_provincia", id_provincia,
-			"nombre_provincia", nombre_provincia
+			"id_provincia", id,
+			"nombre_provincia", nombre
 		);
 	}
 	
@@ -86,7 +86,7 @@ public class Provincia implements IEntity  {
 	 */
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray(
-			"id_provincia", id_provincia
+			"id_provincia", id
 		);
 	}
 
