@@ -7,27 +7,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Pais;
+import logic.PaisLogic;
+import max.data.LogicResponse;
+
 /**
  * Servlet implementation class Pais
  */
-@WebServlet("/Pais")
-public class Pais extends HttpServlet {
+@WebServlet("/api/countries/list")
+public class Paises extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Pais() {
+    public Paises() {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    PaisLogic logic = new PaisLogic();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		LogicResponse<Pais> res = logic.getAll();
+		String json = res.toFinalJSON();
+		response.getWriter().append(json);
 	}
 
 	/**
