@@ -25,7 +25,7 @@ public class Provincias extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LogicResponse<Provincia> res = logic.getAll();
 		Gson gson = new Gson();
-		String finalJSON = gson.toJson(res.listReturned);
+		String finalJSON = gson.toJson(res);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);
