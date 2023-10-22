@@ -98,7 +98,7 @@ public class Pais implements IEntity {
 				"full_name", nombre_completo,
 				"iso3", iso3,
 				"number", numero,
-				"continent_code", continente
+				"continent_code", continente.getCodigo()
 		);
 	}
 	@Override
