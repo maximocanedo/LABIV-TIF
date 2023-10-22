@@ -9,7 +9,7 @@ import entity.*;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class ContinenteLogic implements IRecordLogic<Continente, Integer> {
+public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	
 	private static ContinenteDao data = new ContinenteDao();
 	
@@ -50,7 +50,7 @@ public class ContinenteLogic implements IRecordLogic<Continente, Integer> {
 	}
 
 	@Override
-	public LogicResponse<Continente> exists(Integer arg0) {
+	public LogicResponse<Continente> exists(String arg0) {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
 		boolean tn = false;
 		try {
@@ -82,7 +82,7 @@ public class ContinenteLogic implements IRecordLogic<Continente, Integer> {
 	}
 
 	@Override
-	public LogicResponse<Continente> getById(Integer arg0) {
+	public LogicResponse<Continente> getById(String arg0) {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
 		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {

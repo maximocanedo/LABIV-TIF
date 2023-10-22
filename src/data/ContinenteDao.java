@@ -8,7 +8,7 @@ import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;
 
-public class ContinenteDao implements IRecord<Continente, Integer> {
+public class ContinenteDao implements IRecord<Continente, String> {
 	
 	private Connector db = new Connector(Continente._model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
@@ -36,7 +36,7 @@ public class ContinenteDao implements IRecord<Continente, Integer> {
 	}
 
 	@Override
-	public boolean exists(Integer arg0) throws SQLException {
+	public boolean exists(String arg0) throws SQLException {
 		return Continente._model.exists(Dictionary.fromArray("id_Continente", arg0));
 	}
 
@@ -53,7 +53,7 @@ public class ContinenteDao implements IRecord<Continente, Integer> {
 	}
 
 	@Override
-	public TransactionResponse<Continente> getById(Integer id) throws SQLException {
+	public TransactionResponse<Continente> getById(String id) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
 			"SELECT * FROM " + printTDB() + " WHERE id_Continente = @id",
 			Dictionary.fromArray("id", id)
