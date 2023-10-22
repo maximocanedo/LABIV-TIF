@@ -5,6 +5,7 @@ import java.sql.Types;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
+import max.data.Dictionary;
 import max.data.IEntity;
 import max.schema.*;
 
@@ -34,6 +35,12 @@ public class Continente implements IEntity {
 	public String toJSON() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
+	}
+	public Dictionary toIdentifiableDictionary() {
+		return Dictionary.fromArray("code", codigo);
+	}
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray("code", codigo, "name", nombre);
 	}
 	public String getCodigo() {
 		return codigo;

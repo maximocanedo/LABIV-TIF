@@ -25,6 +25,7 @@ public class Administrador implements IEntity {
 	private byte[] hash;
 	private byte[] salt;
 	private boolean estado;
+	
 	@Expose(serialize = false)
 	public static final Schema _schema = new Schema(
 		new SchemaProperty("usuario_admin") {{
@@ -253,6 +254,42 @@ public class Administrador implements IEntity {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray(
+			"usuario_admin", usuario,
+			"dni_admin", DNI,
+			"cuil_admin", CUIL,
+			"nombre_admin", nombre,
+			"apellido_admin", apellido,
+			"sexo_admin", sexo,
+			"nacionalidad_admin", nacionalidad.getCodigo(),
+			"fechaNacimiento_admin", fechaNacimiento,
+			"direccion_admin", direccion,
+			"localidad_admin", localidad.getId(),
+			"provincia_admin", provincia.getId(),
+			"correo_admin", correo,
+			"estado_admin", estado
+		);
+	}
+	
+	public Dictionary toSecret() {
+		return Dictionary.fromArray(
+				"usuario_admin", usuario,
+				"nombre_admin", nombre,
+				"apellido_admin", apellido,
+				"hash_admin", hash,
+				"salt_admin", salt
+			);
+	}
+
+	@Override
+	public Dictionary toIdentifiableDictionary() {
+		return Dictionary.fromArray(
+				"usuario_admin", usuario
+			);
 	}
 	
 	

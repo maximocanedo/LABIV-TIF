@@ -85,6 +85,8 @@ public class Localidades extends HttpServlet {
 			r.data = result.listReturned;
 		}
 		// TODO Auto-generated method stub
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(gson.toJson(r));
 	}
 

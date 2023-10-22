@@ -7,31 +7,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import entity.Pais;
+import logic.PaisLogic;
+import max.data.LogicResponse;
 
-import entity.*;
-import logic.*;
-import max.data.*;
-
-@WebServlet("/api/provinces/list")
-public class Provincias extends HttpServlet {
+/**
+ * Servlet implementation class Pais
+ */
+@WebServlet("/api/countries/list")
+public class Paises extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-    public Provincias() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Paises() {
         super();
+        // TODO Auto-generated constructor stub
     }
-    private static ProvinciaLogic logic = new ProvinciaLogic();
-	
+    
+    PaisLogic logic = new PaisLogic();
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogicResponse<Provincia> res = logic.getAll();
-		Gson gson = new Gson();
-		String finalJSON = gson.toJson(res.listReturned);
+		LogicResponse<Pais> res = logic.getAll();
+		String json = res.toFinalJSON();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(finalJSON);
+		response.getWriter().append(json);
 	}
 
-
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
