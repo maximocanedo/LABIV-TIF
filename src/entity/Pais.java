@@ -16,7 +16,14 @@ public class Pais implements IEntity {
 	private String iso3;
 	private String numero;
 	private Continente continente;
+	private String gentilicio;
 	
+	public String getGentilicio() {
+		return gentilicio;
+	}
+	public void setGentilicio(String gentilicio) {
+		this.gentilicio = gentilicio;
+	}
 	@Expose(serialize = false)
 	public static final Schema _schema = new Schema(
 		new SchemaProperty("code") {{
@@ -45,12 +52,18 @@ public class Pais implements IEntity {
 			type = Types.VARCHAR;
 			maxlength = 3;
 		}},
+		new SchemaProperty("demonym") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 75;
+		}},
 		new SchemaProperty("continent_code") {{
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 2;
 			ref = Continente._model.ref("code");
 		}}
+		
 	);
 	@Expose(serialize = false)
 	public static final IModel _model = new MySQLSchemaModel("countries", "tif", _schema);
@@ -98,7 +111,8 @@ public class Pais implements IEntity {
 				"full_name", nombre_completo,
 				"iso3", iso3,
 				"number", numero,
-				"continent_code", continente.getCodigo()
+				"continent_code", continente.getCodigo(),
+				"demonym", gentilicio
 		);
 	}
 	@Override
