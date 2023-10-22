@@ -34,6 +34,8 @@ public class Paises extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LogicResponse<Pais> res = logic.getAll();
 		String json = res.toFinalJSON();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(json);
 	}
 

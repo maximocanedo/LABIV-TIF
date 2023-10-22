@@ -26,6 +26,8 @@ public class Provincias extends HttpServlet {
 		LogicResponse<Provincia> res = logic.getAll();
 		Gson gson = new Gson();
 		String finalJSON = gson.toJson(res.listReturned);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);
 	}
 
