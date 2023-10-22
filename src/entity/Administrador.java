@@ -254,6 +254,42 @@ public class Administrador implements IEntity {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+	@Override
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray(
+			"usuario_admin", usuario,
+			"dni_admin", DNI,
+			"cuil_admin", CUIL,
+			"nombre_admin", nombre,
+			"apellido_admin", apellido,
+			"sexo_admin", sexo,
+			"nacionalidad_admin", nacionalidad,
+			"fechaNacimiento_admin", fechaNacimiento,
+			"direccion_admin", direccion,
+			"localidad_admin", localidad,
+			"provincia_admin", provincia,
+			"correo_admin", correo,
+			"estado_admin", estado
+		);
+	}
+	
+	public Dictionary toSecret() {
+		return Dictionary.fromArray(
+				"usuario_admin", usuario,
+				"nombre_admin", nombre,
+				"apellido_admin", apellido,
+				"hash_admin", hash,
+				"salt_admin", salt
+			);
+	}
+
+	@Override
+	public Dictionary toIdentifiableDictionary() {
+		return Dictionary.fromArray(
+				"usuario_admin", usuario
+			);
+	}
 	
 	
 

@@ -5,6 +5,7 @@ import java.sql.Types;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
+import max.data.Dictionary;
 import max.data.IEntity;
 import max.schema.*;
 
@@ -14,6 +15,7 @@ public class Pais implements IEntity {
 	private String nombre_completo;
 	private String iso3;
 	private String numero;
+	private Continente continente;
 	
 	@Expose(serialize = false)
 	public static final Schema _schema = new Schema(
@@ -87,6 +89,29 @@ public class Pais implements IEntity {
 	}
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+	@Override
+	public Dictionary toDictionary() {
+		return Dictionary.fromArray(
+				"code", codigo,
+				"name", nombre,
+				"full_name", nombre_completo,
+				"iso3", iso3,
+				"number", numero,
+				"continent_code", continente
+		);
+	}
+	@Override
+	public Dictionary toIdentifiableDictionary() {
+		return Dictionary.fromArray(
+			"code", codigo
+		);
+	}
+	public Continente getContinente() {
+		return continente;
+	}
+	public void setContinente(Continente continente) {
+		this.continente = continente;
 	}
 	
 }
