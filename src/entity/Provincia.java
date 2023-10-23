@@ -12,8 +12,6 @@ public class Provincia implements IEntity  {
 	private int id;
 	private String nombre;
 	
-	
-
 	public Provincia() {
 		
 	}
