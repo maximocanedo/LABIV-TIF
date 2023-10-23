@@ -28,7 +28,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> delete(Administrador a) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = _model.delete(a.toIdentifiableDictionary());
+			res = _model.modify(Dictionary.fromArray("estado_admin"), a.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
