@@ -30,13 +30,6 @@ public class Provincia implements IEntity  {
 		}}
 	);
 	
-	/**
-	 * Modelo de datos de la entidad. Sirve para hacer algunas validaciones extra y trabajar con bases de datos.
-	 */
-	@Expose(serialize = false)
-	public static IModel _model = new MySQLSchemaModel("provincias", "tif", _schema) {{
-		compile();
-	}};
 
 	public Provincia() {
 		

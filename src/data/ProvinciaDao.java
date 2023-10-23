@@ -7,10 +7,14 @@ import logic.*;
 import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 
 public class ProvinciaDao implements IRecord<Provincia, Integer> {
-	
-	private Connector db = new Connector(Provincia._model.getDatabaseName());
+	public static IModel _model = new MySQLSchemaModel("provincias", "tif", Provincia._schema) {{
+		compile();
+	}};
+	private Connector db = new Connector(_model.getDatabaseName());
 	private ProvinciaLogic logic = new ProvinciaLogic();
 	
 	public ProvinciaDao() {
@@ -18,7 +22,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 	}
 
 	public String printTDB() {
-		return Provincia._model.getDatabaseName() + "." + Provincia._model.getTableName();
+		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
 	/**
@@ -28,7 +32,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 	public TransactionResponse<?> delete(Provincia obj) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
-			res = Provincia._model.delete(obj.toIdentifiableDictionary());
+			res = _model.delete(obj.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +41,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
-		return Provincia._model.exists(Dictionary.fromArray("id_provincia", arg0));
+		return _model.exists(Dictionary.fromArray("id_provincia", arg0));
 	}
 
 	@Override
@@ -69,7 +73,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 	public TransactionResponse<?> insert(Provincia p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Provincia._model.create(p.toDictionary());
+			res = _model.create(p.toDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +84,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 	public TransactionResponse<?> modify(Provincia p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Provincia._model.modify(p.toDictionary(), p.toIdentifiableDictionary());
+			res = _model.modify(p.toDictionary(), p.toIdentifiableDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}

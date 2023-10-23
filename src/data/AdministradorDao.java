@@ -9,13 +9,18 @@ import max.data.IRecord;
 import max.data.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 
 public class AdministradorDao implements IRecord<Administrador, String> {
 	
-	private Connector db = new Connector(Administrador._model.getDatabaseName());
+	private Connector db = new Connector(_model.getDatabaseName());
 	private AdministradorLogic logic = new AdministradorLogic();
+
+	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", Administrador._schema);
+	
 	public String printTDB() {
-		return Administrador._model.getDatabaseName() + "." + Administrador._model.getTableName();
+		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
 
@@ -23,7 +28,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> delete(Administrador a) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Administrador._model.delete(a.toIdentifiableDictionary());
+			res = _model.delete(a.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,7 +40,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public boolean exists(String arg0) throws SQLException {
 		Administrador a = new Administrador();
 		a.setUsuario(arg0);
-		return Administrador._model.exists(a.toIdentifiableDictionary());
+		return _model.exists(a.toIdentifiableDictionary());
 	}
 
 	@Override
@@ -52,7 +57,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> insert(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Administrador._model.delete(arg0.toIdentifiableDictionary());
+			res = _model.delete(arg0.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +69,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> modify(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Administrador._model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
+			res = _model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

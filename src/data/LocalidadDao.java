@@ -10,10 +10,16 @@ import max.data.IRecord;
 import max.data.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 
 public class LocalidadDao implements IRecord<Localidad, Integer> {
 	
-	private Connector db = new Connector(Localidad._model.getDatabaseName());
+	public final static IModel _model = new MySQLSchemaModel("localidades", "tif", Localidad._schema) {{
+		compile();
+	}};
+	
+	private Connector db = new Connector(_model.getDatabaseName());
 	private LocalidadLogic logic = new LocalidadLogic();
 	
 	public LocalidadDao() {
@@ -21,7 +27,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 	}
 
 	public String printTDB() {
-		return Localidad._model.getDatabaseName() + "." + Localidad._model.getTableName();
+		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
 	/**
@@ -31,7 +37,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 	public TransactionResponse<?> delete(Localidad obj) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
-			res = Localidad._model.delete(obj.toIdentifiableDictionary());
+			res = _model.delete(obj.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +46,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
-		return Localidad._model.exists(Dictionary.fromArray("id_loc", arg0));
+		return _model.exists(Dictionary.fromArray("id_loc", arg0));
 	}
 
 	@Override
@@ -72,7 +78,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 	public TransactionResponse<?> insert(Localidad p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Localidad._model.create(p.toDictionary());
+			res = _model.create(p.toDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +89,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 	public TransactionResponse<?> modify(Localidad p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Localidad._model.modify(p.toDictionary(), p.toIdentifiableDictionary());
+			res = _model.modify(p.toDictionary(), p.toIdentifiableDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}

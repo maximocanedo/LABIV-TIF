@@ -61,12 +61,10 @@ public class Pais implements IEntity {
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 2;
-			ref = Continente._model.ref("code");
+			ref = data.ContinenteDao._model.ref("code");
 		}}
 		
 	);
-	@Expose(serialize = false)
-	public static final IModel _model = new MySQLSchemaModel("countries", "tif", _schema);
 	public Pais() {}
 	@Override
 	public String toJSON() {

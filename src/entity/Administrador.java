@@ -78,7 +78,7 @@ public class Administrador implements IEntity {
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 2;
-			ref = Pais._model.ref("code");
+			ref = data.PaisDao._model.ref("code");
 			minlength = 2;
 		}},
 		new SchemaProperty("fechaNacimiento_admin") {{
@@ -94,12 +94,12 @@ public class Administrador implements IEntity {
 		new SchemaProperty("localidad_admin") {{
 			required = true;
 			type = Types.INTEGER;
-			ref = Localidad._model.ref("id_loc");
+			ref = data.LocalidadDao._model.ref("id_loc");
 		}},
 		new SchemaProperty("provincia_admin") {{
 			required = true;
 			type = Types.INTEGER;
-			ref = Provincia._model.ref("id_provincia");
+			ref = data.ProvinciaDao._model.ref("id_provincia");
 		}},
 		new SchemaProperty("correo_admin") {{
 			required = true;
@@ -125,8 +125,6 @@ public class Administrador implements IEntity {
 			defaultValue = true;
 		}}
 	);
-	@Expose(serialize = false)
-	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", _schema);
 	
 	public Administrador() {}
 	

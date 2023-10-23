@@ -30,13 +30,9 @@ public class Localidad implements IEntity {
 		new SchemaProperty("provincia_loc") {{
 			required = true;
 			type = Types.INTEGER;
-			ref = Provincia._model.ref("id_provincia");
+			ref = data.ProvinciaDao._model.ref("id_provincia");
 		}}
 	);
-	@Expose(serialize = false)
-	public final static IModel _model = new MySQLSchemaModel("localidades", "tif", _schema) {{
-		compile();
-	}};
 	
 	public Localidad() {
 		// TODO Auto-generated constructor stub

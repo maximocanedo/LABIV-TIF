@@ -9,10 +9,13 @@ import max.data.IRecord;
 import max.data.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 
 public class PaisDao implements IRecord<Pais, String> {
-	
-	private Connector db = new Connector(Pais._model.getDatabaseName());
+
+	public static final IModel _model = new MySQLSchemaModel("countries", "tif", Pais._schema);
+	private Connector db = new Connector(_model.getDatabaseName());
 	private PaisLogic logic = new PaisLogic();
 	
 	public PaisDao() {
@@ -20,7 +23,7 @@ public class PaisDao implements IRecord<Pais, String> {
 	}
 
 	public String printTDB() {
-		return Pais._model.getDatabaseName() + "." + Pais._model.getTableName();
+		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
 	/**
@@ -30,7 +33,7 @@ public class PaisDao implements IRecord<Pais, String> {
 	public TransactionResponse<?> delete(Pais obj) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
-			res = Pais._model.delete(obj.toIdentifiableDictionary());
+			res = _model.delete(obj.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +42,7 @@ public class PaisDao implements IRecord<Pais, String> {
 
 	@Override
 	public boolean exists(String arg0) throws SQLException {
-		return Pais._model.exists(Dictionary.fromArray("code", arg0));
+		return _model.exists(Dictionary.fromArray("code", arg0));
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public class PaisDao implements IRecord<Pais, String> {
 	public TransactionResponse<?> insert(Pais p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Pais._model.create(p.toDictionary());
+			res = _model.create(p.toDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +85,7 @@ public class PaisDao implements IRecord<Pais, String> {
 	public TransactionResponse<?> modify(Pais p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Pais._model.modify(p.toDictionary(), p.toIdentifiableDictionary());
+			res = _model.modify(p.toDictionary(), p.toIdentifiableDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}

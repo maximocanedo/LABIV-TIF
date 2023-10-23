@@ -130,7 +130,7 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		LogicResponse<Pais> res = new LogicResponse<Pais>();
 		try {
 			res.status = validateConstraints 
-					? Pais._model.validate(arg0.toDictionary()) 
+					? PaisDao._model.validate(arg0.toDictionary()) 
 					: Pais._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block

@@ -37,7 +37,7 @@ public class Localidades extends HttpServlet {
     	new SchemaProperty("provinceId") {{
     		required = true;
     		type = Types.INTEGER;
-    		ref = Provincia._model.ref("id_provincia");
+    		ref = data.ProvinciaDao._model.ref("id_provincia");
     	}}
     );
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 

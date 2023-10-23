@@ -130,7 +130,7 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
 		try {
 			res.status = validateConstraints 
-					? Provincia._model.validate(arg0.toDictionary()) 
+					? ProvinciaDao._model.validate(arg0.toDictionary()) 
 					: Provincia._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block

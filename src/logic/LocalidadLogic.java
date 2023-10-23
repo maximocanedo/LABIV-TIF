@@ -149,7 +149,7 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
 		try {
 			res.status = validateConstraints 
-					? Localidad._model.validate(arg0.toDictionary()) 
+					? LocalidadDao._model.validate(arg0.toDictionary()) 
 					: Localidad._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block

@@ -7,18 +7,22 @@ import logic.*;
 import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 
 public class ContinenteDao implements IRecord<Continente, String> {
 	
-	private Connector db = new Connector(Continente._model.getDatabaseName());
+	private Connector db = new Connector(_model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
+
+	public static final IModel _model = new MySQLSchemaModel("continents", "tif", Continente._schema);
 	
 	public ContinenteDao() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public String printTDB() {
-		return Continente._model.getDatabaseName() + "." + Continente._model.getTableName();
+		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
 	/**
@@ -28,7 +32,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 	public TransactionResponse<?> delete(Continente obj) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
-			res = Continente._model.delete(obj.toIdentifiableDictionary());
+			res = _model.delete(obj.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +41,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 
 	@Override
 	public boolean exists(String arg0) throws SQLException {
-		return Continente._model.exists(Dictionary.fromArray("id_Continente", arg0));
+		return _model.exists(Dictionary.fromArray("id_Continente", arg0));
 	}
 
 	@Override
@@ -69,7 +73,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 	public TransactionResponse<?> insert(Continente p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Continente._model.create(p.toDictionary());
+			res = _model.create(p.toDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +84,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 	public TransactionResponse<?> modify(Continente p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = Continente._model.modify(p.toDictionary(), p.toIdentifiableDictionary());
+			res = _model.modify(p.toDictionary(), p.toIdentifiableDictionary());
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 		}

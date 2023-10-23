@@ -28,8 +28,6 @@ public class Continente implements IEntity {
 			maxlength = 255;
 		}}
 	);
-	@Expose(serialize = false)
-	public static final IModel _model = new MySQLSchemaModel("continents", "tif", _schema);
 	public Continente() {}
 	@Override
 	public String toJSON() {
