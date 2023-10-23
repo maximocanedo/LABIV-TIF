@@ -15,7 +15,7 @@ import max.schema.MySQLSchemaModel;
 
 public class LocalidadDao implements IRecord<Localidad, Integer> {
 	
-	public final static IModel _model = new MySQLSchemaModel("localidades", "tif", Localidad._schema) {{
+	public final static IModel _model = new MySQLSchemaModel("localidades", "tif", LocalidadLogic._schema) {{
 		compile();
 	}};
 	
