@@ -5,14 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>             
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>       
 <link rel="stylesheet" type="text/css" href="estiloPaginaCliente-Administrador.css">
+<link rel="stylesheet" type="text/css" href="estiloDatosCliente.css">
+
 </head>
 <body>
-
 <nav class="indigo darken-2">
     <div class="nav-wrapper">
       <a class="brand-logo" href="#"><img src="https://cadastro.iqnear.com.br/company_logos/banco-empresa-teste-1618528973-992.png" style="width:65px;"/></a>
@@ -24,7 +24,7 @@
         	<a href="#" class="dropdown-trigger" data-target="id_drop">Préstamos
         	<i class="material-icons right">arrow_drop_down</i></a>
         	<ul id="id_drop" class="dropdown-content">
-        	<li><a href="solicitarPrestamo.jsp">Solicitar préstamo</a></li>
+        	<li><a href="#">Solicitar préstamo</a></li>
         	<li class="divider"></li>
         	<li><a href="#">Préstamos otorgados</a></li>
         	<li class="divider"></li>
@@ -43,35 +43,55 @@
  </nav>
   
  <div class="transparent-bg"></div>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
  
- 
+<div class="center-align-container">
+			<div class="row">
+				<div class="col s12">
+					<div class="card">
+						<div class="card-content">
+							<span class="card-title"> Solicitud de prestamo</span>
+							<p><strong>Nombre:</strong> Daniel Rodríguez</p>
+                  		    <p><strong>DNI:</strong> 30457881</p>
+                    		<p><strong>CUIL:</strong> 20-30457881-5</p>
+                    		<p><strong>Dirección:</strong> av. Entre Ríos Piso:2 Dep:A</p>
+                    		<p><strong>Telefono:</strong> +54 3489 791496</p>
+                    		<p><strong>Email:</strong> Daniel@gmail.com</p>
+                    		
+                    	 	<span class="card-title">Información de Préstamo</span>
+                    	 	  <div class="input-field">
+                        <input id="monto" type="text">
+                        <label for="monto">Monto del Préstamo</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="plazo" type="text">
+                        <label for="plazo">Plazo (en meses)</label>
+                    </div>
+                    <!-- Combobox para seleccionar la cuenta -->
+                    <div class="input-field">
+                        <select id="cuenta" required>
+                            <option value="" disabled selected>Selecciona una cuenta</option>
+                            <option value="cuenta1">Cuenta 1</option>
+                            <option value="cuenta2">Cuenta 2</option>
+                        </select>
+                        <label for="cuenta">Cuenta a depositar el prestamo</label>
+                    </div>
+                    <div>
+                    <a class="waves-effect waves-light btn" href="#">Solicitar Préstamo</a>
+                    </div>
+                    		
+						</div>
+					</div>
+				</div> 
+			</div>
+</div>
 
 
- 
 
+ 
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
-
 <footer class="page-footer indigo darken-2">
           <div class="container">
             <div class="row">
@@ -93,6 +113,11 @@ $(document).ready(function(){
 	$(".dropdown-trigger").dropdown();
   });
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
 
 </html>
