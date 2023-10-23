@@ -13,6 +13,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	
 	private static LocalidadDao data = new LocalidadDao();
 	
+	
+	
 	public LocalidadLogic() {
 		
 	}
@@ -150,7 +152,7 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		try {
 			res.status = validateConstraints 
 					? LocalidadDao._model.validate(arg0.toDictionary()) 
-					: Localidad._schema.validate(arg0.toDictionary());
+					: LocalidadDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

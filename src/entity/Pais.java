@@ -1,13 +1,9 @@
 package entity;
 
-import java.sql.Types;
-
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
-import max.schema.*;
 
 public class Pais implements IEntity {
 	private String codigo;
@@ -24,47 +20,7 @@ public class Pais implements IEntity {
 	public void setGentilicio(String gentilicio) {
 		this.gentilicio = gentilicio;
 	}
-	@Expose(serialize = false)
-	public static final Schema _schema = new Schema(
-		new SchemaProperty("code") {{
-			required = true;
-			primary = true;
-			type = Types.VARCHAR;
-			maxlength = 2;
-		}},
-		new SchemaProperty("name") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 255;
-		}},
-		new SchemaProperty("full_name") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 255;
-		}},
-		new SchemaProperty("iso3") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 3;
-		}},
-		new SchemaProperty("number") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 3;
-		}},
-	//	new SchemaProperty("demonym") {{
-		//	required = true;
-	//		type = Types.VARCHAR;
-		//	maxlength = 75;
-	//	}},
-		new SchemaProperty("continent_code") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 2;
-			ref = data.ContinenteDao._model.ref("code");
-		}}
-		
-	);
+	
 	public Pais() {}
 	@Override
 	public String toJSON() {

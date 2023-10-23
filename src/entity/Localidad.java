@@ -1,13 +1,9 @@
 package entity;
 
-import java.sql.Types;
-
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
-import max.schema.*;
 
 public class Localidad implements IEntity {
 	
@@ -15,24 +11,6 @@ public class Localidad implements IEntity {
 	private String nombre;
 	private Provincia provincia;
 	
-	@Expose(serialize = false)
-	public final static Schema _schema = new Schema(
-		new SchemaProperty("id_loc") {{
-			required = true;
-			type = Types.INTEGER;
-			primary = true;
-		}},
-		new SchemaProperty("nombre_loc") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 75;
-		}},
-		new SchemaProperty("provincia_loc") {{
-			required = true;
-			type = Types.INTEGER;
-			ref = data.ProvinciaDao._model.ref("id_provincia");
-		}}
-	);
 	
 	public Localidad() {
 		// TODO Auto-generated constructor stub

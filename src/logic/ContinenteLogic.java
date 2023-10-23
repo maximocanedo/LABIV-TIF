@@ -13,6 +13,7 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	
 	private static ContinenteDao data = new ContinenteDao();
 	
+	
 	public ContinenteLogic() {
 		// TODO Auto-generated constructor stub 
 		
@@ -129,7 +130,7 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		try {
 			res.status = validateConstraints 
 					? ContinenteDao._model.validate(arg0.toDictionary()) 
-					: Continente._schema.validate(arg0.toDictionary());
+					: ContinenteDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

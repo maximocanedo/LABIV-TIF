@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.ProvinciaDao;
-import entity.*;
-import max.data.*;
+import entity.Provincia;
+import max.data.Dictionary;
+import max.data.IRecordLogic;
+import max.data.LogicResponse;
+import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
@@ -131,7 +134,7 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		try {
 			res.status = validateConstraints 
 					? ProvinciaDao._model.validate(arg0.toDictionary()) 
-					: Provincia._schema.validate(arg0.toDictionary());
+					: ProvinciaDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

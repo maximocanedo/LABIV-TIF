@@ -1,7 +1,6 @@
 package logic;
 
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +14,12 @@ import max.data.IRecordLogic;
 import max.data.LogicResponse;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class AdministradorLogic implements IRecordLogic<Administrador, String> {
-
+	
+	// Propiedades estáticas
 	private static AdministradorDao data = new AdministradorDao();
+	
 	@Override
 	public Administrador convert(Dictionary d) {
 		return convertR(d, false);
@@ -117,22 +116,13 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 
-	// PENDIENTE
 	@Override
 	public LogicResponse<Administrador> insert(Administrador arg0) throws SQLException {
+		System.out.println(arg0.toJSON());
 		return convertO(data.insert(arg0));
 	}
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-		Schema initialSchema = Administrador._schema;
-		initialSchema.remove("hash_admin");
-		initialSchema.remove("salt_admin");
-		initialSchema.put("password_admin", new SchemaProperty("password_admin") {{
-			required = true;
-			minlength = 8;
-			type = Types.VARCHAR;
-		}});
-		
-		return initialSchema.validate(d);
+			return AdministradorDao._initial.validate(d);
 	}
 	
 	
@@ -142,33 +132,37 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		boolean initialSchemaValidated = false;
 		try {
 			initialSchemaValidated = validateInitialSchema(d);
+			if(!initialSchemaValidated) {
+				res.die(false, "");
+				return res;
+			}
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());
 			return res;
 		}
-		// Validados.
+		// Accedemos a la clave provista.
 		String plainPassword = d.$("password_admin");
+		// La encriptamos
         byte[] salt = PasswordUtils.createSalt();
         byte[] hash = PasswordUtils.createHash(plainPassword, salt);
-
-        Dictionary lastC = d;
-        lastC.put("hash_admin", hash);
-        lastC.put("salt_admin", salt);
-        
-        Administrador obj = convertR(lastC, true);
+        // Creamos el dictionary final que se subirá a la base de datos.
+        Dictionary finalData = d;
+        finalData.put("hash_admin", hash);
+        finalData.put("salt_admin", salt);
+        // Convertimos el Dictionary en objeto entidad para trabajar con métodos DAO.
+        Administrador obj = convertR(finalData, true);
         try {
+        	// Insertamos el objeto en la base de datos.
 			res = insert(obj);
-			System.out.print(res.toFinalJSON());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        return res;
-		
-		
+        // Devolvemos el resultado de la operación.
+        return res;		
 	}
+	
 	public static void main(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "hec1932_e",
@@ -183,7 +177,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				"localidad_admin", 78007,
 				"provincia_admin", 78,
 				"correo_admin", "hector58@gmail.com",
-				"estado_admin", (Boolean)true,
+				"estado_admin", true,
 				"password_admin", "Hec34533344"
 			);
 		AdministradorLogic logic = new AdministradorLogic();
@@ -203,7 +197,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		try {
 			res.status = validateConstraints 
 					? AdministradorDao._model.validate(arg0.toDictionary()) 
-					: Administrador._schema.validate(arg0.toDictionary());
+					: AdministradorDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

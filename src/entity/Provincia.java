@@ -1,10 +1,9 @@
 package entity;
 
-import java.sql.Types;
-import com.google.gson.*;
-import com.google.gson.annotations.Expose;
-import max.data.*;
-import max.schema.*;
+import com.google.gson.Gson;
+
+import max.data.Dictionary;
+import max.data.IEntity;
 
 
 public class Provincia implements IEntity  {
@@ -13,24 +12,6 @@ public class Provincia implements IEntity  {
 	private int id;
 	private String nombre;
 	
-	/**
-	 * Estructura de datos de la entidad. Sirve para hacer validaciones.
-	 */
-	@Expose(serialize = false)
-	public static Schema _schema = new Schema(
-		new SchemaProperty("id_provincia") {{
-			required = true;
-			type = Types.INTEGER;
-			primary = true;
-		}},
-		new SchemaProperty("nombre_provincia") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 75;
-		}}
-	);
-	
-
 	public Provincia() {
 		
 	}

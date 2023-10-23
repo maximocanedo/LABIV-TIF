@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import entity.Pais;
 import logic.PaisLogic;
@@ -11,10 +12,51 @@ import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
 
 public class PaisDao implements IRecord<Pais, String> {
-
-	public static final IModel _model = new MySQLSchemaModel("countries", "tif", Pais._schema);
+	public static final Schema _schema = new Schema(
+			new SchemaProperty("code") {{
+				required = true;
+				primary = true;
+				type = Types.VARCHAR;
+				maxlength = 2;
+			}},
+			new SchemaProperty("name") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 255;
+			}},
+			new SchemaProperty("full_name") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 255;
+			}},
+			new SchemaProperty("iso3") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 3;
+			}},
+			new SchemaProperty("number") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 3;
+			}},
+		//	new SchemaProperty("demonym") {{
+			//	required = true;
+		//		type = Types.VARCHAR;
+			//	maxlength = 75;
+		//	}},
+			new SchemaProperty("continent_code") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 2;
+				ref = ContinenteDao._model.ref("code");
+			}}
+			
+		);
+	public static final IModel _model = new MySQLSchemaModel("countries", "tif", _schema);
 	private Connector db = new Connector(_model.getDatabaseName());
 	private PaisLogic logic = new PaisLogic();
 	

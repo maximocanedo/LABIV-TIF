@@ -109,7 +109,7 @@ public class SchemaProperty {
 	    } else if (obj instanceof Boolean) {
 	        return Types.BIT;
 	    } else if (obj instanceof byte[]) {
-	        return Types.BLOB;
+	        return Types.VARBINARY;
 	    } else if (obj instanceof String) {
 	        return Types.VARCHAR;
 	    } else if (obj instanceof java.sql.Date) {
@@ -153,7 +153,7 @@ public class SchemaProperty {
 	    } else if (obj instanceof Boolean) {
 	        return "BIT";
 	    } else if (obj instanceof byte[]) {
-	        return "BLOB";
+	        return "VARBINARY";
 	    } else if (obj instanceof String) {
 	        return "VARCHAR";
 	    } else if (obj instanceof java.sql.Date) {

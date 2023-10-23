@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.PaisDao;
-import entity.*;
-import max.data.*;
+import entity.Pais;
+import max.data.Dictionary;
+import max.data.IRecordLogic;
+import max.data.LogicResponse;
+import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class PaisLogic implements IRecordLogic<Pais, String> {
 	
 	private static PaisDao data = new PaisDao();
+
 	
 	public PaisLogic() {
 		// TODO Auto-generated constructor stub 
@@ -131,7 +135,7 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		try {
 			res.status = validateConstraints 
 					? PaisDao._model.validate(arg0.toDictionary()) 
-					: Pais._schema.validate(arg0.toDictionary());
+					: PaisDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

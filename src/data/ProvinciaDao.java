@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import entity.Provincia;
 import logic.*;
@@ -9,9 +10,24 @@ import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
 
 public class ProvinciaDao implements IRecord<Provincia, Integer> {
-	public static IModel _model = new MySQLSchemaModel("provincias", "tif", Provincia._schema) {{
+	
+	public static Schema _schema = new Schema(
+			new SchemaProperty("id_provincia") {{
+				required = true;
+				type = Types.INTEGER;
+				primary = true;
+			}},
+			new SchemaProperty("nombre_provincia") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 75;
+			}}
+		);
+	public static IModel _model = new MySQLSchemaModel("provincias", "tif", _schema) {{
 		compile();
 	}};
 	private Connector db = new Connector(_model.getDatabaseName());
