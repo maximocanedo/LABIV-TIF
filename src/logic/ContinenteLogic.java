@@ -87,13 +87,14 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {
 			tn = data.getById(arg0);
+			if(tn.nonEmptyResult()) {
+				res.fill(tn.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn.nonEmptyResult()) {
-			res.fill(tn.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 

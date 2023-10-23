@@ -58,13 +58,14 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
+			if(tn) {
+				res.die(true, "El registro existe. ");
+			} else res.die(false, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn) {
-			res.die(true, "El registro existe. ");
-		} else res.die(false, "No existe un registro con esas características. ");
 		return res;
 	}
 
@@ -74,13 +75,14 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.getAll();
+			if(tn.nonEmptyResult()) {
+				res.fill(tn.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn.nonEmptyResult()) {
-			res.fill(tn.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 	
@@ -89,13 +91,14 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.filterByProvince(p);
+			if(tn.nonEmptyResult()) {
+				res.fill(tn.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn.nonEmptyResult()) {
-			res.fill(tn.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 
@@ -105,13 +108,14 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.getById(arg0);
+			if(tn.nonEmptyResult()) {
+				res.fill(tn.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn.nonEmptyResult()) {
-			res.fill(tn.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 
