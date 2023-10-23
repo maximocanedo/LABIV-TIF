@@ -14,11 +14,19 @@ import max.data.IRecordLogic;
 import max.data.LogicResponse;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
+import max.schema.Schema;
 
 public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	
 	// Propiedades estáticas
 	private static AdministradorDao data = new AdministradorDao();
+	
+	public Schema getSchema() {
+		return AdministradorDao._schema;
+	}
+	public Schema getInitialSchema() {
+		return AdministradorDao._initial;
+	}
 	
 	@Override
 	public Administrador convert(Dictionary d) {
