@@ -52,11 +52,11 @@ public class Pais implements IEntity {
 			type = Types.VARCHAR;
 			maxlength = 3;
 		}},
-		new SchemaProperty("demonym") {{
-			required = true;
-			type = Types.VARCHAR;
-			maxlength = 75;
-		}},
+	//	new SchemaProperty("demonym") {{
+		//	required = true;
+	//		type = Types.VARCHAR;
+		//	maxlength = 75;
+	//	}},
 		new SchemaProperty("continent_code") {{
 			required = true;
 			type = Types.VARCHAR;
@@ -109,8 +109,8 @@ public class Pais implements IEntity {
 				"full_name", nombre_completo,
 				"iso3", iso3,
 				"number", numero,
-				"continent_code", continente.getCodigo(),
-				"demonym", gentilicio
+				"continent_code", continente.getCodigo()//,
+				//"demonym", gentilicio
 		);
 	}
 	@Override

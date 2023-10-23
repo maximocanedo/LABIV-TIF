@@ -17,7 +17,9 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	private Connector db = new Connector(_model.getDatabaseName());
 	private AdministradorLogic logic = new AdministradorLogic();
 
-	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", Administrador._schema);
+	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", Administrador._schema) {{
+		compile(true);
+	}};
 	
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
@@ -57,7 +59,9 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> insert(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			res = _model.delete(arg0.toIdentifiableDictionary());
+			System.out.println("FINAL TO ADD: ");
+			System.out.println(arg0.toFullDictionary());
+			res = _model.create(arg0.toFullDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
