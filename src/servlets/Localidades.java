@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Types;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,12 +42,7 @@ public class Localidades extends HttpServlet {
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 
     private IModel parameterModel = new MySQLSchemaModel("localidades", "tif", parameterSchema);
     
-    private static class Response {
-    	public boolean status;
-    	public String message;
-    	public List<Localidad> data;
-    	public Response() {}
-    }
+   
     
     private LocalidadLogic logic = new LocalidadLogic();
     
@@ -57,37 +51,33 @@ public class Localidades extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
-		Response r = new Response();
+		LogicResponse<Localidad> ress = new LogicResponse<Localidad>();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		int pid = -1;
 		try {
 			if(request.getParameter("provinceId") != null) pid = Integer.parseInt(request.getParameter("provinceId"));
 		} catch(NumberFormatException e) {
-			r.status = false;
+			ress.status = false;
 		}
 		Dictionary parameters = Dictionary.fromArray("provinceId", pid);
 		try {
 			boolean b = parameterModel.validate(parameters);
-			r.status = b;
+			ress.status = b;
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			r.status = false;
-			r.message = e.getMessage();
-			response.getWriter().append(gson.toJson(r));
+			ress.die(false, e.getMessage());
+			response.getWriter().append(ress.toFinalJSON());
 			return;
 		}
-		if(r.status) {
+		if(ress.status) {
 			Provincia pp = new Provincia();
 			pp.setId(pid);
-			LogicResponse<Localidad> result = logic.filterByProvince(pp);
-			r.status = result.status;
-			r.message = result.message;
-			r.data = result.listReturned;
+			ress = logic.filterByProvince(pp);
 		}
 		// TODO Auto-generated method stub
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(gson.toJson(r));
+		response.getWriter().append(gson.toJson(ress));
 	}
 
 	/**
