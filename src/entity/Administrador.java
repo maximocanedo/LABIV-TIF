@@ -1,13 +1,9 @@
 package entity;
 
-import java.sql.Types;
-
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 
 import logic.PasswordUtils;
 import max.data.*;
-import max.schema.*;
 
 public class Administrador implements IEntity {
 

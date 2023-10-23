@@ -15,7 +15,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 	private Connector db = new Connector(_model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
 
-	public static final IModel _model = new MySQLSchemaModel("continents", "tif", Continente._schema);
+	public static final IModel _model = new MySQLSchemaModel("continents", "tif", ContinenteLogic._schema);
 	
 	public ContinenteDao() {
 		// TODO Auto-generated constructor stub
