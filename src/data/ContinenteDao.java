@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import entity.Continente;
 import logic.*;
@@ -9,13 +10,28 @@ import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
 
 public class ContinenteDao implements IRecord<Continente, String> {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
-
-	public static final IModel _model = new MySQLSchemaModel("continents", "tif", ContinenteLogic._schema);
+	public static Schema _schema = new Schema(
+			new SchemaProperty("code") {{
+				primary = true;
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 2;
+			}},
+			new SchemaProperty("name") {{
+				primary = true;
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 255;
+			}}
+		);
+	public static final IModel _model = new MySQLSchemaModel("continents", "tif", _schema);
 	
 	public ContinenteDao() {
 		// TODO Auto-generated constructor stub

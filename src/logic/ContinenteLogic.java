@@ -1,7 +1,6 @@
 package logic;
 
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,29 +8,11 @@ import data.ContinenteDao;
 import entity.*;
 import max.data.*;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	
 	private static ContinenteDao data = new ContinenteDao();
-	public static class Fields {
-		
-	}
-	public static Schema _schema = new Schema(
-			new SchemaProperty("code") {{
-				primary = true;
-				required = true;
-				type = Types.VARCHAR;
-				maxlength = 2;
-			}},
-			new SchemaProperty("name") {{
-				primary = true;
-				required = true;
-				type = Types.VARCHAR;
-				maxlength = 255;
-			}}
-		);
+	
 	
 	public ContinenteLogic() {
 		// TODO Auto-generated constructor stub 
@@ -149,7 +130,7 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		try {
 			res.status = validateConstraints 
 					? ContinenteDao._model.validate(arg0.toDictionary()) 
-					: _schema.validate(arg0.toDictionary());
+					: ContinenteDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
