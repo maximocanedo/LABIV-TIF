@@ -1,17 +1,61 @@
 package logic;
 
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.ContinenteDao;
 import data.PaisDao;
 import entity.*;
 import max.data.*;
 import max.oops.SchemaValidationException;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
 
 public class PaisLogic implements IRecordLogic<Pais, String> {
 	
 	private static PaisDao data = new PaisDao();
+	public static final Schema _schema = new Schema(
+			new SchemaProperty("code") {{
+				required = true;
+				primary = true;
+				type = Types.VARCHAR;
+				maxlength = 2;
+			}},
+			new SchemaProperty("name") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 255;
+			}},
+			new SchemaProperty("full_name") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 255;
+			}},
+			new SchemaProperty("iso3") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 3;
+			}},
+			new SchemaProperty("number") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 3;
+			}},
+		//	new SchemaProperty("demonym") {{
+			//	required = true;
+		//		type = Types.VARCHAR;
+			//	maxlength = 75;
+		//	}},
+			new SchemaProperty("continent_code") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 2;
+				ref = ContinenteDao._model.ref("code");
+			}}
+			
+		);
 	
 	public PaisLogic() {
 		// TODO Auto-generated constructor stub 
@@ -131,7 +175,7 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		try {
 			res.status = validateConstraints 
 					? PaisDao._model.validate(arg0.toDictionary()) 
-					: Pais._schema.validate(arg0.toDictionary());
+					: _schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

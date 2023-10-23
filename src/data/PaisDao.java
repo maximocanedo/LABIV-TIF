@@ -14,7 +14,7 @@ import max.schema.MySQLSchemaModel;
 
 public class PaisDao implements IRecord<Pais, String> {
 
-	public static final IModel _model = new MySQLSchemaModel("countries", "tif", Pais._schema);
+	public static final IModel _model = new MySQLSchemaModel("countries", "tif", PaisLogic._schema);
 	private Connector db = new Connector(_model.getDatabaseName());
 	private PaisLogic logic = new PaisLogic();
 	
