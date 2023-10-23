@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import data.ProvinciaDao;
 import entity.*;
 import max.data.*;
 import max.oops.SchemaValidationException;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
 
 public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	
@@ -17,7 +20,18 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		// TODO Auto-generated constructor stub 
 		
 	}
-
+	public static Schema _schema = new Schema(
+			new SchemaProperty("id_provincia") {{
+				required = true;
+				type = Types.INTEGER;
+				primary = true;
+			}},
+			new SchemaProperty("nombre_provincia") {{
+				required = true;
+				type = Types.VARCHAR;
+				maxlength = 75;
+			}}
+		);
 	@Override
 	public Provincia convert(Dictionary data) {
 		Provincia p = new Provincia();
@@ -131,7 +145,7 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		try {
 			res.status = validateConstraints 
 					? ProvinciaDao._model.validate(arg0.toDictionary()) 
-					: Provincia._schema.validate(arg0.toDictionary());
+					: _schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

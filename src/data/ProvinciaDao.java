@@ -11,7 +11,7 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 
 public class ProvinciaDao implements IRecord<Provincia, Integer> {
-	public static IModel _model = new MySQLSchemaModel("provincias", "tif", Provincia._schema) {{
+	public static IModel _model = new MySQLSchemaModel("provincias", "tif", ProvinciaLogic._schema) {{
 		compile();
 	}};
 	private Connector db = new Connector(_model.getDatabaseName());
