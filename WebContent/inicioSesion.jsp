@@ -45,6 +45,9 @@
                         <div class="center-align">
                             <button class="btn waves-effect waves-light" type="submit">Iniciar Sesión</button>
                         </div>
+                        <div class="center-align">
+	                     <a href="Registro.jsp">No tengo cuenta</a>
+	                    </div>
                     </form>
                 </div>
             </div>

@@ -1,106 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="Registro.css" rel="stylesheet">
-<title>Registro</title>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <script src="Registro.js"></script>
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
-</head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-<div class="mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Registro</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            <form class="mdl-grid">
-        <!-- Correo Electrónico -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-            <input class="mdl-textfield__input" type="email" id="email">
-            <label class="mdl-textfield__label" for="email">E-Mail</label>
-        </div>
-        <!-- Contraseña -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="password" id="password">
-            <label class="mdl-textfield__label" for="password">Clave</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="password" id="Confirm_password">
-            <label class="mdl-textfield__label" for="Confirm_password">Confirmar Clave</label>
-        </div>
-        <!-- Provincia -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <select class="mdl-select__input" id="provincia">
-                <option value="" disabled selected>Elija una provincia</option>
-                <option value="provincia1">Provincia 1</option>
-                <option value="provincia2">Provincia 2</option>
-                <!-- Agregar más opciones aquí -->
-            </select>
+   <head>
+   	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+      <title>Registro Banco</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
-        </div>
-        <!-- Localidad -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <select class="mdl-select__input" id="localidad">
-                <option value="" disabled selected>Elija una localidad</option>
-                <option value="localidad1">Localidad 1</option>
-                <option value="localidad2">Localidad 2</option>
-            </select>
-            
-        </div>
-        <!-- Dirección -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="direccion">
-            <label class="mdl-textfield__label" for="direccion">Direccion</label>
-        </div>
-       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-		  <input class="mdl-textfield__input" type="date" id="fechaNacimiento">
-		  <label class="mdl-textfield__label" for="fechaNacimiento">Fecha de Nacimiento</label>
-		  <span class="mdl-textfield__error">Ingrese una fecha válida</span>
-	   </div>
-        <!-- Nacionalidad -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="nacionalidad">
-            <label class="mdl-textfield__label" for="nacionalidad">Nacionalidad</label>
-        </div>
-        <!-- Sexo (desplegable) -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <select class="mdl-select__input" id="sexo">
-                <option value="" disabled selected>Elija su sexo</option>
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femenino</option>
-                <option value="otro">Otro</option>
-            </select>
-        </div>
-        <!-- Apellido -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="apellido">
-            <label class="mdl-textfield__label" for="apellido">Apellido</label>
-        </div>
-        <!-- Nombre -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="nombre">
-            <label class="mdl-textfield__label" for="nombre">Nombre</label>
-        </div>
-        <!-- DNI -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="dni">
-            <label class="mdl-textfield__label" for="dni">DNI</label>
-        </div>
-        <!-- CUIL -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-            <input class="mdl-textfield__input" type="text" id="cuil">
-            <label class="mdl-textfield__label" for="cuil">CUIL</label>
-        </div>
-        <div class="mdl-cell mdl-cell--12-col">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Enviar</button>
-        </div>
-    </form>
-    </div>    
-</body>
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <script src="Registro.js"></script>
+      <link href="Registro.css" rel="stylesheet">	
+   </head>
+   <body>
+      <div class="container">
+         <h2 style="color:#1E90FF;font-family:Arial;font-size:30px;" class="center-align">Registro</h2>
+         <div class="register-container">
+            <div class="row">
+               <div class="col s12 m6 offset-m3">
+                  <form >
+                     <!-- Correo Electrónico -->
+                     <div class="input-field">
+                        <input class="validate" type="email" id="e-mail" required>
+                        <label for="e-mail">E-Mail</label>
+                     </div>
+                     <!-- Contraseña -->
+                     <div class="input-field">
+                        <input class="validate" type="password" id="password" required>
+                        <label for="password">Clave</label>
+                     </div>
+                     <div class="input-field">
+                        <input class="validate" type="password" id="Confirm_password" required>
+                        <label for="Confirm_password">Confirmar Clave</label>
+                     </div>
+                     <!-- Direccion -->
+                     <div class="input-field">
+                        <input class="validate" type="text" id="direccion" required>
+                        <label for="direccion">Direccion</label>
+                     </div>
+                     <div class="input-field">
+                        <input type="text" class="datepicker" id="fechaNacimiento" required>
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                     </div>
+                     <!-- Provincia -->
+                     <div class="input-field">
+                        <select id="provincia" required>
+                           <option value="" disabled selected>Elija una provincia</option>
+                           <option value="provincia1">Provincia 1</option>
+                           <option value="provincia2">Provincia 2</option>
+                           <!-- Agregar más opciones de provincias aquí -->
+                        </select>
+                        <label for="provincia">Provincia</label>
+                     </div>
+                     <!-- Localidad -->
+                     <div class="input-field">
+                        <select id="localidad" required>
+                           <option value="" disabled selected>Elija una localidad</option>
+                           <option value="localidad1">Localidad 1</option>
+                           <option value="localidad2">Localidad 2</option>
+                           <!-- Agregar más opciones de localidades aquí -->
+                        </select>
+                        <label for="localidad">Localidad</label>
+                     </div>
+                     <!-- Sexo (desplegable) -->
+                     <div class="input-field">
+                        <select id="sexo" required>
+                           <option value="" disabled selected>Elija su sexo</option>
+                           <option value="masculino">Masculino</option>
+                           <option value="femenino">Femenino</option>
+                           <option value="otro">Otro</option>
+                        </select>
+                        <label for="sexo">Sexo</label>
+                     </div>
+                     <!-- Apellido -->
+                     <div class="input-field">
+                        <input class="validate" type="text" id="apellido" required>
+                        <label for="apellido">Apellido</label>
+                     </div>
+                     <!-- Nombre -->
+                     <div class="input-field">
+                        <input class="validate" type="text" id="nombre" required>
+                        <label for="nombre">Nombre</label>
+                     </div>
+                     <!-- DNI -->
+                     <div class="input-field">
+                        <input class="validate" type="text" id="dni" required>
+                        <label for="dni">DNI</label>
+                     </div>
+                     <!-- CUIL -->
+                     <div class="input-field">
+                        <input class="validate" type="text" id="cuil" required>
+                        <label for="cuil">CUIL</label>
+                     </div>
+                     <div class="center-align">
+                        <button class="btn waves-effect waves-light" type="submit">Enviar</button>
+                     </div>
+                     <br/>
+                     <div class="center-align">
+                     <a href="inicioSesion.jsp">Ya tengo cuenta</a>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script>
+	   document.addEventListener('DOMContentLoaded', function() {
+	    var elems = document.querySelectorAll('.datepicker');
+	    M.Datepicker.init(elems, {});
+	   });
+	  </script>
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+           var provinciaSelect = document.getElementById('provincia');
+           M.FormSelect.init(provinciaSelect);
+         
+           var localidadSelect = document.getElementById('localidad');
+           M.FormSelect.init(localidadSelect);
+         
+           var sexoSelect = document.getElementById('sexo');
+           M.FormSelect.init(sexoSelect);
+         });
+      </script>
+   </body>
 </html>
