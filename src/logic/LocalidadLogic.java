@@ -1,39 +1,19 @@
 package logic;
 
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import data.LocalidadDao;
-import data.ProvinciaDao;
 import entity.*;
 import max.data.*;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	
 	private static LocalidadDao data = new LocalidadDao();
 	
-	public final static Schema _schema = new Schema(
-			new SchemaProperty("id_loc") {{
-				required = true;
-				type = Types.INTEGER;
-				primary = true;
-			}},
-			new SchemaProperty("nombre_loc") {{
-				required = true;
-				type = Types.VARCHAR;
-				maxlength = 75;
-			}},
-			new SchemaProperty("provincia_loc") {{
-				required = true;
-				type = Types.INTEGER;
-				ref = ProvinciaDao._model.ref("id_provincia");
-			}}
-		);
+	
 	
 	public LocalidadLogic() {
 		
@@ -172,7 +152,7 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		try {
 			res.status = validateConstraints 
 					? LocalidadDao._model.validate(arg0.toDictionary()) 
-					: _schema.validate(arg0.toDictionary());
+					: LocalidadDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
