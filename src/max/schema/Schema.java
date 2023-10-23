@@ -25,6 +25,7 @@ public class Schema extends HashMap<String, SchemaProperty> {
 	        String key = entry.getKey();
 	        SchemaProperty sp = entry.getValue();
 	        // Ver si existe
+	        System.out.println("SchemaFor: " + key + ": " + sp.name + " // " + (data.$(key) != null ? data.$(key) : "NULL"));
 	        if (data.$(key) != null) {
 	            // El dato existe.
 	            if(!sp.validate(data.$(key), key)) return false;	           

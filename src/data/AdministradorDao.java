@@ -17,7 +17,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	private Connector db = new Connector(_model.getDatabaseName());
 	private AdministradorLogic logic = new AdministradorLogic();
 
-	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", Administrador._schema) {{
+	public static final IModel _model = new MySQLSchemaModel("administradores", "tif", AdministradorLogic._schema) {{
 		compile(true);
 	}};
 	

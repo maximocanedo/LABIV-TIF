@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.AdministradorDao;
+import data.LocalidadDao;
+import data.PaisDao;
+import data.ProvinciaDao;
 import entity.Administrador;
 import entity.Localidad;
 import entity.Pais;
@@ -19,8 +22,150 @@ import max.schema.Schema;
 import max.schema.SchemaProperty;
 
 public class AdministradorLogic implements IRecordLogic<Administrador, String> {
-
+	
+	// Propiedades estáticas
 	private static AdministradorDao data = new AdministradorDao();
+	// Campos
+	public static class Fields {
+		public static SchemaProperty usuario = new SchemaProperty("usuario_admin") {{
+			primary = true;
+			required = true;
+			type = Types.VARCHAR;
+			matches = "^[a-zA-Z0-9_]{4,20}$";
+			minlength = 4;
+			maxlength = 20;
+			trim = true;
+			
+		}};
+		public static SchemaProperty dni = new SchemaProperty("dni_admin") {{
+			unique = true;
+			required = true;
+			type = Types.VARCHAR;
+			matches = "^[0-9]+$";
+			maxlength = 12;
+			trim = true;
+		}};
+		public static SchemaProperty cuil = new SchemaProperty("cuil_admin") {{
+			unique = true;
+			required = true;
+			type = Types.VARCHAR;
+			matches = "^[0-9]+$";
+			maxlength = 16;
+			trim = true;
+		}};
+		public static SchemaProperty nombre = new SchemaProperty("nombre_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 48;
+			minlength = 1;
+			trim = true;
+		}};
+		public static SchemaProperty apellido = new SchemaProperty("apellido_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 48;
+			minlength = 1;
+			trim = true;
+		}};
+		public static SchemaProperty sexo = new SchemaProperty("sexo_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 3;
+			minlength = 1;
+			trim = true;
+		}};
+		public static SchemaProperty nacionalidad = new SchemaProperty("nacionalidad_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 2;
+			ref = PaisDao._model.ref("code");
+			minlength = 2;
+		}};
+		public static SchemaProperty fechaNacimiento = new SchemaProperty("fechaNacimiento_admin") {{
+			required = true;
+			type = Types.DATE;
+		}};
+		public static SchemaProperty direccion = new SchemaProperty("direccion_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 128;
+			minlength = 1;
+		}};
+		public static SchemaProperty localidad = new SchemaProperty("localidad_admin") {{
+			required = true;
+			type = Types.INTEGER;
+			ref = LocalidadDao._model.ref("id_loc");
+		}};
+		public static SchemaProperty provincia = new SchemaProperty("provincia_admin") {{
+			required = true;
+			type = Types.INTEGER;
+			ref = ProvinciaDao._model.ref("id_provincia");
+		}};
+		public static SchemaProperty correo = new SchemaProperty("correo_admin") {{
+			required = true;
+			type = Types.VARCHAR;
+			matches = "^(.+)@(\\S+)$";
+			minlength = 5;
+			maxlength = 255;
+		}};
+		public static SchemaProperty hash = new SchemaProperty("hash_admin") {{
+			required = true;
+			select = false;
+			type = Types.VARBINARY;
+			maxlength = 64;
+		}};
+		public static SchemaProperty salt = new SchemaProperty("salt_admin") {{
+			required = true;
+			select = false;
+			type = Types.VARBINARY;
+			maxlength = 24;
+		}};
+		public static SchemaProperty estado = new SchemaProperty("estado_admin") {{
+			required = true;
+			type = Types.BIT;
+			defaultValue = true;
+		}};
+		public static SchemaProperty contraseña = new SchemaProperty("password_admin") {{
+			required = true;
+			minlength = 8;
+			type = Types.VARCHAR;
+		}};
+		
+	}
+	// Estructuras de datos
+	public static final Schema _schema = new Schema(
+			Fields.usuario,
+			Fields.dni,
+			Fields.cuil,
+			Fields.nombre,
+			Fields.apellido,
+			Fields.sexo,
+			Fields.nacionalidad,
+			Fields.fechaNacimiento,
+			Fields.direccion,
+			Fields.localidad,
+			Fields.provincia,
+			Fields.correo,
+			Fields.hash,
+			Fields.salt,
+			Fields.estado
+		);
+	public static final Schema _initial = new Schema(
+			Fields.usuario,
+			Fields.dni,
+			Fields.cuil,
+			Fields.nombre,
+			Fields.apellido,
+			Fields.sexo,
+			Fields.nacionalidad,
+			Fields.fechaNacimiento,
+			Fields.direccion,
+			Fields.localidad,
+			Fields.provincia,
+			Fields.correo,
+			Fields.contraseña,
+			Fields.estado
+		);
 	@Override
 	public Administrador convert(Dictionary d) {
 		return convertR(d, false);
@@ -117,22 +262,13 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 
-	// PENDIENTE
 	@Override
 	public LogicResponse<Administrador> insert(Administrador arg0) throws SQLException {
+		System.out.println(arg0.toJSON());
 		return convertO(data.insert(arg0));
 	}
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-		Schema initialSchema = Administrador._schema;
-		initialSchema.remove("hash_admin");
-		initialSchema.remove("salt_admin");
-		initialSchema.put("password_admin", new SchemaProperty("password_admin") {{
-			required = true;
-			minlength = 8;
-			type = Types.VARCHAR;
-		}});
-		
-		return initialSchema.validate(d);
+			return _initial.validate(d);
 	}
 	
 	
@@ -142,33 +278,37 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		boolean initialSchemaValidated = false;
 		try {
 			initialSchemaValidated = validateInitialSchema(d);
+			if(!initialSchemaValidated) {
+				res.die(false, "");
+				return res;
+			}
 		} catch(SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());
 			return res;
 		}
-		// Validados.
+		// Accedemos a la clave provista.
 		String plainPassword = d.$("password_admin");
+		// La encriptamos
         byte[] salt = PasswordUtils.createSalt();
         byte[] hash = PasswordUtils.createHash(plainPassword, salt);
-
-        Dictionary lastC = d;
-        lastC.put("hash_admin", hash);
-        lastC.put("salt_admin", salt);
-        
-        Administrador obj = convertR(lastC, true);
+        // Creamos el dictionary final que se subirá a la base de datos.
+        Dictionary finalData = d;
+        finalData.put("hash_admin", hash);
+        finalData.put("salt_admin", salt);
+        // Convertimos el Dictionary en objeto entidad para trabajar con métodos DAO.
+        Administrador obj = convertR(finalData, true);
         try {
+        	// Insertamos el objeto en la base de datos.
 			res = insert(obj);
-			System.out.print(res.toFinalJSON());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        return res;
-		
-		
+        // Devolvemos el resultado de la operación.
+        return res;		
 	}
+	
 	public static void main(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "hec1932_e",
@@ -183,7 +323,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				"localidad_admin", 78007,
 				"provincia_admin", 78,
 				"correo_admin", "hector58@gmail.com",
-				"estado_admin", (Boolean)true,
+				"estado_admin", true,
 				"password_admin", "Hec34533344"
 			);
 		AdministradorLogic logic = new AdministradorLogic();
@@ -203,7 +343,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		try {
 			res.status = validateConstraints 
 					? AdministradorDao._model.validate(arg0.toDictionary()) 
-					: Administrador._schema.validate(arg0.toDictionary());
+					: _schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
