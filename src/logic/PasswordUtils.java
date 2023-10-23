@@ -3,14 +3,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
-import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordUtils {
-	private static final Random RANDOM = new SecureRandom();
-    private static final int ITERATIONS = 10000;
+	private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
     public static byte[] createSalt() {
     	SecureRandom random = new SecureRandom();
