@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-   <head>
-   	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
       
       <title>Registro Banco</title>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,7 +12,6 @@
       <!--Import materialize.css-->
       <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
@@ -56,7 +55,6 @@
                            <option value="" disabled selected>Elija una provincia</option>
                            <option value="provincia1">Provincia 1</option>
                            <option value="provincia2">Provincia 2</option>
-                           <!-- Agregar más opciones de provincias aquí -->
                         </select>
                         <label for="provincia">Provincia</label>
                      </div>
@@ -70,7 +68,7 @@
                         </select>
                         <label for="localidad">Localidad</label>
                      </div>
-                     <!-- Sexo (desplegable) -->
+                     <!-- Sexo  -->
                      <div class="input-field">
                         <select id="sexo" required>
                            <option value="" disabled selected>Elija su sexo</option>
