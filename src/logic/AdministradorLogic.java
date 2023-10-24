@@ -57,7 +57,8 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
 		a.setFechaNacimiento(edate);
 		a.setDireccion(d.$("direccion_admin"));
-		double loc = d.$("localidad_admin"), prov = d.$("provincia_admin");
+		Object loc = (d.$("localidad_admin"))
+			 , prov = d.get("provincia_admin");
 		int locc = -1, provv = -1;
 		try {
 			locc = Integer.parseUnsignedInt(loc + "");
@@ -167,7 +168,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		try {
 			initialSchemaValidated = validateInitialSchema(d);
 			if(!initialSchemaValidated) {
-				res.die(false, "");
+				res.die(false, "Unknown error during validation. ");
 				return res;
 			}
 		} catch(SchemaValidationException e) {
@@ -199,17 +200,17 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	
 	public static void main(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
-				"usuario_admin", "hec1932_e",
-				"dni_admin", "34533344",
-				"cuil_admin", "27345333445",
+				"usuario_admin", "hec191e3rwee2_e5",
+				"dni_admin", "34533344513e2",
+				"cuil_admin", "27345333414e55432",
 				"nombre_admin", "Héctor",
 				"apellido_admin", "Da Silva",
 				"sexo_admin", "M",
 				"nacionalidad_admin", "US",
 				"fechaNacimiento_admin", new java.sql.Date(123),
 				"direccion_admin", "Av. Portugal 1320",
-				"localidad_admin", 78007,
-				"provincia_admin", 78,
+				"localidad_admin", 191,
+				"provincia_admin", 728,
 				"correo_admin", "hector58@gmail.com",
 				"estado_admin", true,
 				"password_admin", "Hec34533344"

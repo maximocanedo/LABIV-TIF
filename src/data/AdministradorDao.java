@@ -25,6 +25,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		public static SchemaProperty usuario = new SchemaProperty("usuario_admin") {{
 			primary = true;
 			required = true;
+			unique = true;
 			type = Types.VARCHAR;
 			matches = "^[a-zA-Z0-9_]{4,20}$";
 			minlength = 4;
@@ -89,11 +90,13 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		public static SchemaProperty localidad = new SchemaProperty("localidad_admin") {{
 			required = true;
 			type = Types.INTEGER;
+			min = 0;
 			ref = LocalidadDao._model.ref("id_loc");
 		}};
 		public static SchemaProperty provincia = new SchemaProperty("provincia_admin") {{
 			required = true;
 			type = Types.INTEGER;
+			min = 0;
 			ref = ProvinciaDao._model.ref("id_provincia");
 		}};
 		public static SchemaProperty correo = new SchemaProperty("correo_admin") {{

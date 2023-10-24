@@ -88,7 +88,6 @@ public class Administrador__CrearCuenta extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Schema expect = AL.getInitialSchema();
 		Dictionary parameters = getParameters(request);
 		if(parameters == null) {
 			status(response, 400);

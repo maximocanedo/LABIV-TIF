@@ -80,7 +80,6 @@ public class MySQLSchemaModel implements IModel {
 
 	@Override
 	public int count(Dictionary select) {
-		System.out.println("COMIENZA CONTEO");
 		QueryAndParameters q = count__generateQuery(select, this.tableName, this.databaseName);
 		try {
 			TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
@@ -90,13 +89,11 @@ public class MySQLSchemaModel implements IModel {
 			if(res.nonEmptyResult()) {
 				Dictionary row = res.rowsReturned.get(0);
 				long counted = row.$("counted");
-				System.out.println("TERMINA CONTEO = " + counted);
 				return Integer.parseInt("" + counted);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();			
 		}
-		System.out.println("TERMINA CONTEO");
 		return -1;
 	}
 
@@ -106,27 +103,32 @@ public class MySQLSchemaModel implements IModel {
 	}
 
 	public boolean validateReference(ReferenceInfo ref, Object obj) {
+		Dictionary oo = Dictionary.fromArray(ref.getColumnName(), obj);
+		System.out.println(oo.toJSON());
 		QueryAndParameters q = count__generateQuery(
-				Dictionary.fromArray(ref.getColumnName(), obj), 
+				oo, 
 				ref.getTableName(), 
 				ref.getDbName()
 		);
-		System.out.println(Dictionary.fromArray(ref.getColumnName(), obj));
-		try {
-			System.out.println(q.query);
-			System.out.println(q.params);
-			TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
-				q.query,
-				q.params
-			);
-			if(res.nonEmptyResult()) {
-				Dictionary row = res.rowsReturned.get(0);
-				long counted = row.$("counted");
-				return Integer.parseInt("" + counted) > 0;
+		System.out.println(q.query);
+		if(2+2==5) {
+			try {
+				TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
+					q.query,
+					q.params
+				);
+				if( res != null && res.nonEmptyResult()) {
+					Dictionary row = res.rowsReturned.get(0);
+					long counted = row.$("counted");
+					// SYSOUT
+					System.out.println("COUNTED: " + ref.getColumnName() + " : " + counted);
+					return Integer.parseInt("" + counted) > 0;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();			
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();			
 		}
+		
 		return false;
 	}
 	
@@ -166,6 +168,7 @@ public class MySQLSchemaModel implements IModel {
 	}
 	
 	public void compile(boolean verbose) {
+		verbose = false;
 		Connector c = new Connector();
 		try {
 			c.transact("CREATE DATABASE IF NOT EXISTS " + this.databaseName + ";");
@@ -255,8 +258,6 @@ public class MySQLSchemaModel implements IModel {
 			}
 		}
 		_query.setLength(_query.length() - 2);
-		System.out.println(_query.toString());
-		System.out.println(parameters.toString());
 		return new QueryAndParameters() {{
 			query = _query.toString();
 			params = parameters;
@@ -277,8 +278,6 @@ public class MySQLSchemaModel implements IModel {
 			}
 		}
 		_query.setLength(_query.length() - 2);
-		System.out.println(_query.toString());
-		System.out.println(parameters.toString());
 		return new QueryAndParameters() {{
 			query = _query.toString();
 			params = parameters;
@@ -286,28 +285,25 @@ public class MySQLSchemaModel implements IModel {
 	}
 	private QueryAndParameters count__generateQuery(Dictionary where, String t, String d) {
 		Dictionary parameters = new Dictionary();
+		String content = parameters.toJSON();
 		StringBuilder _query = new StringBuilder();
 		_query
 		.append("SELECT COUNT(*) AS counted FROM ")
 		.append(d)
 		.append(".")
 		.append(t + "  ");
-		System.out.println("WHERE A CONT IN " + d + "." + t);
-		System.out.println(where.toString());
 		if(where != null && where.size() > 0) {
-				
+			System.out.println("IF 1 OK");
 			int l = 0;
 			for(Map.Entry<String, Object> prop : where.entrySet()) {
+				System.out.println(prop.getKey());
 				String key = prop.getKey();
 				if(schema.containsKey(key) && where.$(key) != null) {
-					System.out.println(94);
 					if(l == 0) _query.append(" WHERE ");
 					_query.append(key).append(" = @").append(key).append(", ");
-					System.out.println(_query.toString());
 					parameters.put(key, where.$(key));
 					l++;
 				} else {
-					System.out.println("Pasó por acá en " + d + "." + t);
 				}
 			}
 			_query.setLength(_query.length() - 2);

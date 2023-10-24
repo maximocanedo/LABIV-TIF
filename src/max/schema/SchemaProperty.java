@@ -103,7 +103,6 @@ public class SchemaProperty {
 	private boolean validateSqlType(Object obj, int expectedSqlType) {
 	    E actualSqlType = sqlTypeNameFor(obj);
 	    E expected = getEByQValue(expectedSqlType);
-	    System.out.println("####34: " + (expected != null ? expected.sup : "NOT_FOUND") + " " + actualSqlType.sup);
 	    return actualSqlType.q == expectedSqlType || (expected != null ? expected.sup == actualSqlType.sup : false);
 	}
 	
@@ -292,7 +291,6 @@ public class SchemaProperty {
 					Integer.parseInt(obj + "");
 		            validateType = true;
 				} catch(NumberFormatException errr) {
-					System.out.println("HEREEEEEE");
 					throw err;
 				}
 			} else if(type == Types.DATE && sqlTypeNameFor(obj).q == Types.VARCHAR) {
