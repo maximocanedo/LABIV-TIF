@@ -20,68 +20,101 @@ import logic.*;
 /**
  * Servlet implementation class Localidades
  */
-@WebServlet("/api/locality/list")
+@WebServlet("/api/locality/list/*")
 public class Localidades extends HttpServlet {
+	
+	// Serial Version
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Localidades() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-    private Schema parameterSchema = new Schema(
-    	new SchemaProperty("provinceId") {{
-    		required = true;
-    		type = Types.INTEGER;
-    		ref = data.ProvinciaDao._model.ref("id_provincia");
-    	}}
-    );
+	// Constante que representa el nombre del campo de ID de Provincia.
+    public final String PROVINCE_ID = "provinceId";
+    
+    // Esquema para los parámetros
+	private Schema parameterSchema = new Schema(
+	    	new SchemaProperty(PROVINCE_ID) {{
+	    		required = true;
+	    		type = Types.INTEGER;
+	    		min = 0;
+	    		ref = data.ProvinciaDao._model.ref("id_provincia");
+	    	}}
+	    );
+	
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 
     private IModel parameterModel = new MySQLSchemaModel("localidades", "tif", parameterSchema);
-    
-   
-    
+    // Acceso a métodos de lógica.
     private LocalidadLogic logic = new LocalidadLogic();
+    // Acceso a métodos de manejo de JSON.
+    private Gson gson = new Gson();
+    
+    // Constructor
+    public Localidades() {
+        super();
+    }
+    
+    /**
+     * Transforma los parámetros de la ruta dinámica en parámetros aceptables por el Servlet.
+     * @param request El objeto Request
+     * @return Dictionary
+     */
+    private Dictionary getParams(HttpServletRequest request) {
+    	String requestURI = request.getRequestURI();
+        String[] segments = requestURI.split("/");
+        String provinceId = segments[segments.length - 1];
+        int pid = -1;
+        try {
+        	pid = Integer.parseInt(provinceId);
+        } catch(NumberFormatException e) {
+        	pid = -1;
+        	e.printStackTrace();
+        }
+    	return Dictionary.fromArray(
+    		PROVINCE_ID, pid
+    	);
+    }
+
+    /**
+     * Configura la salida del servlet, como un JSON en UTF-8.
+     * @param res Objeto Respuesta.
+     */
+    protected void configureResponse(HttpServletResponse res) {
+    	res.setContentType("application/json");
+    	res.setCharacterEncoding("UTF-8");
+    }
     
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Acción que se ejecutará al recibir una petición GET.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Gson gson = new Gson();
-		LogicResponse<Localidad> ress = new LogicResponse<Localidad>();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		int pid = -1;
+		// Creamos el objeto que vamos a enviar como respuesta, y el código HTTP.
+		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+		int statusCode = 200;
+		// Configuramos la salida como JSON y en UTF-8
+		configureResponse(response);
+		// Obtenemos los parámetros.
+		Dictionary parameters = getParams(request);
+		// Validamos
 		try {
-			if(request.getParameter("provinceId") != null) pid = Integer.parseInt(request.getParameter("provinceId"));
-		} catch(NumberFormatException e) {
-			ress.status = false;
-		}
-		Dictionary parameters = Dictionary.fromArray("provinceId", pid);
-		try {
-			boolean b = parameterModel.validate(parameters);
-			ress.status = b;
-		} catch (SchemaValidationException e) {
-			// TODO Auto-generated catch block
+			res.status = parameterModel.validate(parameters);
+			if(res.status) {
+				int provinceId = parameters.$(PROVINCE_ID);
+				Provincia prov = new Provincia();
+				prov.setId(provinceId);
+				res = logic.filterByProvince(prov);
+				statusCode = res.status ? 200 : 500;
+			}
+		} catch(SchemaValidationException e) {
+			// Si hay un error de validación:
 			e.printStackTrace();
-			ress.die(false, e.getMessage());
-			response.getWriter().append(ress.toFinalJSON());
-			return;
+			// La respuesta tendrá código false, y el mensaje de error.
+			res.die(false, e.getMessage());
+			statusCode = 400;
 		}
-		if(ress.status) {
-			Provincia pp = new Provincia();
-			pp.setId(pid);
-			ress = logic.filterByProvince(pp);
-		}
-		// TODO Auto-generated method stub
-		response.getWriter().append(gson.toJson(ress));
+		// Enviamos la respuesta.
+		response.setStatus(statusCode);
+		response.getWriter().append(gson.toJson(res));
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Acción que se ejecutará al recibir una petición POST.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
