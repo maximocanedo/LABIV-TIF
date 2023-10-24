@@ -11,6 +11,7 @@ import max.oops.SchemaValidationException;
 import java.sql.Types;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class SchemaProperty {
 	
@@ -90,101 +91,161 @@ public class SchemaProperty {
 		System.out.println(e);
 	}
 	
+	public E getEByQValue(int qValue) {
+	    for (E e : tipoDeDatoMap.values()) {
+	        if (e.q == qValue) {
+	            return e;
+	        }
+	    }
+	    return null;
+	}
 	
 	private boolean validateSqlType(Object obj, int expectedSqlType) {
-	    int actualSqlType = sqlTypeFor(obj);
-	    //System.out.println("Actual: " + sqlTypeFor(obj) + "; Expected: " + expectedSqlType);
-	    return expectedSqlType == actualSqlType;
+	    E actualSqlType = sqlTypeNameFor(obj);
+	    E expected = getEByQValue(expectedSqlType);
+	    System.out.println("####34: " + (expected != null ? expected.sup : "NOT_FOUND") + " " + actualSqlType.sup);
+	    return actualSqlType.q == expectedSqlType || (expected != null ? expected.sup == actualSqlType.sup : false);
 	}
 	
 	public int sqlTypeFor(Object obj) {
-	    if (obj == null) {
-	        return Types.NULL;
-	    } else if (obj instanceof Integer) {
-	        return Types.INTEGER;
-	    } else if (obj instanceof Long) {
-	        return Types.BIGINT;
-	    } else if (obj instanceof Byte[]) {
-	        return Types.BINARY;
-	    } else if (obj instanceof Boolean) {
-	        return Types.BIT;
-	    } else if (obj instanceof byte[]) {
-	        return Types.VARBINARY;
-	    } else if (obj instanceof String) {
-	        return Types.VARCHAR;
-	    } else if (obj instanceof java.sql.Date) {
-	        return Types.DATE;
-	    } else if (obj instanceof java.math.BigDecimal) {
-	        return Types.DECIMAL;
-	    } else if (obj instanceof Double) {
-	        return Types.DOUBLE;
-	    } else if (obj instanceof Float) {
-	        return Types.FLOAT;
-	    }  else if (obj instanceof byte[]) {
-	        return Types.LONGVARBINARY;
-	    } else if (obj instanceof String) {
-	        return Types.LONGVARCHAR;
-	    } else if (obj instanceof String) {
-	        return Types.CLOB;
-	    } else if (obj instanceof java.sql.Timestamp) {
-	        return Types.TIMESTAMP;
-	    } else if (obj instanceof java.sql.Time) {
-	        return Types.TIME;
-	    } else if (obj instanceof java.sql.Date) {
-	        return Types.DATE;
-	    } else if (obj instanceof Short) {
-	        return Types.SMALLINT;
-	    } else if (obj instanceof String) {
-	        return Types.VARBINARY;
-	    }
-	    
-	    return Types.OTHER; // Tipo de datos no reconocido.
+    	if(obj == null) {
+		return Types.NULL;
+	} else if(obj instanceof Number ) {
+		if (obj instanceof Integer) {
+			return Types.INTEGER;
+		} else if (obj instanceof Long) {
+			return Types.BIGINT;
+		} else if (obj instanceof java.math.BigDecimal) {
+			return Types.DECIMAL;
+		} else if (obj instanceof Double) {
+			return Types.DOUBLE;
+		} else if (obj instanceof Float) {
+			return Types.FLOAT;
+		} else if (obj instanceof Integer) {
+			return Types.INTEGER;
+		} else if (obj instanceof Short) {
+			return Types.SMALLINT;
+		}
+	} else if (obj instanceof Byte[]) {
+        return Types.BINARY;
+    } else if (obj instanceof Boolean) {
+        return Types.BIT;
+    } else if (obj instanceof byte[]) {
+        return Types.VARBINARY;
+    } else if (obj instanceof String) {
+        return Types.VARCHAR;
+    } else if (obj instanceof java.sql.Date) {
+        return Types.DATE;
+    }  else if (obj instanceof byte[]) {
+        return Types.LONGVARBINARY;
+    } else if (obj instanceof String) {
+        return Types.LONGVARCHAR;
+    } else if (obj instanceof String) {
+        return Types.CLOB;
+    } else if (obj instanceof java.sql.Timestamp) {
+        return Types.TIMESTAMP;
+    } else if (obj instanceof java.sql.Time) {
+        return Types.TIME;
+    } else if (obj instanceof java.sql.Date) {
+        return Types.DATE;
+    }  else if (obj instanceof String) {
+        return Types.VARBINARY;
+    }
+    
+    return Types.OTHER; // Tipo de datos no reconocido.
+}
+	
+	private static class E {
+		public String type;
+		public String sup;
+		public int q;
+		public E(String type, String sup, int q) {
+			this.type = type;
+			this.sup = sup;
+			this.q = q;
+		}
 	}
 
-	public String sqlTypeNameFor(Object obj) {
-	    if (obj == null) {
-	        return "NULL";
-	    } else if (obj instanceof Integer) {
-	        return "INTEGER";
-	    } else if (obj instanceof Long) {
-	        return "BIGINT";
-	    } else if (obj instanceof Byte[]) {
-	        return "BINARY";
+	 // Crear un HashMap estático para mapear los tipos de datos
+    private static final Map<Class<?>, E> tipoDeDatoMap = new HashMap<>();
+
+    static {
+        // Mapear los tipos de datos con las instancias de E
+        tipoDeDatoMap.put(null, new E("NULL", "NULL", Types.NULL));
+        tipoDeDatoMap.put(Integer.class, new E("INTEGER", "NUMERIC", Types.INTEGER));
+        tipoDeDatoMap.put(Long.class, new E("BIGINT", "NUMERIC", Types.BIGINT));
+        tipoDeDatoMap.put(java.math.BigDecimal.class, new E("DECIMAL", "NUMERIC", Types.DECIMAL));
+        tipoDeDatoMap.put(Double.class, new E("DOUBLE", "NUMERIC", Types.DOUBLE));
+        tipoDeDatoMap.put(Float.class, new E("FLOAT", "NUMERIC", Types.FLOAT));
+        tipoDeDatoMap.put(Short.class, new E("SMALLINT", "NUMERIC", Types.SMALLINT));
+        tipoDeDatoMap.put(Byte[].class, new E("BINARY", "BINARY", Types.BINARY));
+        tipoDeDatoMap.put(Boolean.class, new E("BIT", "BINARY", Types.BIT));
+        tipoDeDatoMap.put(byte[].class, new E("VARBINARY", "BINARY", Types.VARBINARY));
+        tipoDeDatoMap.put(String.class, new E("VARCHAR", "STRING", Types.VARCHAR));
+        tipoDeDatoMap.put(java.sql.Date.class, new E("DATE", "DATE", Types.DATE));
+        tipoDeDatoMap.put(java.sql.Timestamp.class, new E("TIMESTAMP", "BINARY", Types.TIMESTAMP));
+        tipoDeDatoMap.put(java.sql.Time.class, new E("TIME", "DATE", Types.TIME));
+    }
+
+    public E sqlTypeNameFor(Object obj) {
+        // Verificar si el tipo de dato está mapeado en el HashMap
+        E tipoDeDato = tipoDeDatoMap.get(obj.getClass());
+
+        if (tipoDeDato != null) {
+            return tipoDeDato;
+        } else {
+            return new E("OTHER", "OTHER", Types.OTHER);
+        }
+    }
+
+
+
+
+	
+	public E sqlTypeNameForOLD(Object obj) {
+		if(obj == null) {
+			return new E("NULL", "NULL", Types.NULL);
+		} else if(obj instanceof Number) {
+			if (obj instanceof Integer) {
+				return new E("INTEGER", "NUMERIC", Types.INTEGER);
+			} else if (obj instanceof Long) {
+				return new E("BIGINT", "NUMERIC", Types.BIGINT);
+			} else if (obj instanceof java.math.BigDecimal) {
+				return new E("DECIMAL", "NUMERIC", Types.DECIMAL);
+			} else if (obj instanceof Double) {
+				return new E("DOUBLE", "NUMERIC", Types.DOUBLE);
+			} else if (obj instanceof Float) {
+				return new E("FLOAT", "NUMERIC", Types.FLOAT);
+			} else if (obj instanceof Short) {
+				return new E("SMALLINT", "NUMERIC", Types.SMALLINT);
+			}
+		} else if (obj instanceof Byte[]) {
+	        return new E("BINARY", "BINARY", Types.BINARY);
 	    } else if (obj instanceof Boolean) {
-	        return "BIT";
+	        return new E("BIT", "BINARY", Types.BIT);
 	    } else if (obj instanceof byte[]) {
-	        return "VARBINARY";
+	        return new E("VARBINARY", "BINARY", Types.VARBINARY);
 	    } else if (obj instanceof String) {
-	        return "VARCHAR";
+	        return new E("VARCHAR", "STRING", Types.VARCHAR);
 	    } else if (obj instanceof java.sql.Date) {
-	        return "DATE";
-	    } else if (obj instanceof java.math.BigDecimal) {
-	        return "DECIMAL";
-	    } else if (obj instanceof Double) {
-	        return "DOUBLE";
-	    } else if (obj instanceof Float) {
-	        return "FLOAT";
-	    } else if (obj instanceof Integer) {
-	        return "INTEGER";
-	    } else if (obj instanceof byte[]) {
-	        return "LONGVARBINARY";
+	        return new E("DATE", "DATE", Types.DATE);
+	    }  else if (obj instanceof byte[]) {
+	        return new E("LONGVARBINARY", "BINARY", Types.LONGVARBINARY);
 	    } else if (obj instanceof String) {
-	        return "LONGVARCHAR";
+	        return new E("LONGVARCHAR", "STRING", Types.LONGVARCHAR);
 	    } else if (obj instanceof String) {
-	        return "CLOB";
+	        return new E("CLOB", "BINARY", Types.CLOB);
 	    } else if (obj instanceof java.sql.Timestamp) {
-	        return "TIMESTAMP";
+	        return new E("TIMESTAMP", "BINARY", Types.TIMESTAMP);
 	    } else if (obj instanceof java.sql.Time) {
-	        return "TIME";
+	        return new E("TIME", "DATE", Types.TIME);
 	    } else if (obj instanceof java.sql.Date) {
-	        return "DATE";
-	    } else if (obj instanceof Short) {
-	        return "SMALLINT";
-	    } else if (obj instanceof String) {
-	        return "VARBINARY";
+	        return new E("DATE", "DATE", Types.DATE);
+	    }  else if (obj instanceof String) {
+	        return new E("VARBINARY", "BINARY", Types.VARBINARY);
 	    }
 	    
-	    return "OTHER"; // Tipo de datos no reconocido.
+	    return new E("OTHER", "OTHER", Types.OTHER); // Tipo de datos no reconocido.
 	}
 	
 	public boolean isText() {
@@ -225,7 +286,28 @@ public class SchemaProperty {
 			validateType = (obj != null) && (type == Types.NULL || validateSqlType(obj, type));
 	    }
 		if(!validateType) { 
-			throw new SchemaValidationException(key, "A " + sqlTypeNameFor(obj) + " object was provided, but a " + getSQLTypeName(this.type) + " was expected. ");
+			SchemaValidationException err = new SchemaValidationException(key, "A " + sqlTypeNameFor(obj).type + " object was provided, but a " + getSQLTypeName(this.type) + " was expected. ");
+			if(type == Types.INTEGER) {
+				try {
+					Integer.parseInt(obj + "");
+		            validateType = true;
+				} catch(NumberFormatException errr) {
+					System.out.println("HEREEEEEE");
+					throw err;
+				}
+			} else if(type == Types.DATE && sqlTypeNameFor(obj).q == Types.VARCHAR) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date parsedDate;
+				try {
+					parsedDate = dateFormat.parse(obj + "");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					throw err;
+				}
+	            obj = new java.sql.Date(parsedDate.getTime());
+	            validateType = true;
+			} else throw err;
 		}
 		boolean isParseableToNumber = false;
 		double val = 0;

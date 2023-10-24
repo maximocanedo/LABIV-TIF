@@ -1,6 +1,8 @@
 package logic;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import max.data.IRecordLogic;
 import max.data.LogicResponse;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
+import max.schema.IModel;
+import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 
 public class AdministradorLogic implements IRecordLogic<Administrador, String> {
@@ -42,10 +46,31 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		a.setApellido(d.$("apellido_admin"));
 		a.setSexo(d.$("sexo_admin"));
 		a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad_admin")); }});
-		a.setFechaNacimiento(d.$("fechaNacimiento_admin"));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsedDate = new java.util.Date();
+		try {
+			parsedDate = dateFormat.parse(d.$("fechaNacimiento_admin") + "");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
+		a.setFechaNacimiento(edate);
 		a.setDireccion(d.$("direccion_admin"));
-		a.setLocalidad(new Localidad() {{ setId(d.$("localidad_admin")); }});
-		a.setProvincia(new Provincia() {{ setId(d.$("provincia_admin")); }});
+		double loc = d.$("localidad_admin"), prov = d.$("provincia_admin");
+		int locc = -1, provv = -1;
+		try {
+			locc = Integer.parseUnsignedInt(loc + "");
+			provv = Integer.parseUnsignedInt(prov + "");
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
+		int locId = locc;
+		int provId = provv;
+		
+		a.setLocalidad(new Localidad() {{ setId(locId); }});
+		a.setProvincia(new Provincia() {{ setId(provId); }});
 		if(privateData) a.setHash(d.$("hash_admin"));
 		if(privateData) a.setSalt(d.$("salt_admin"));
 		a.setCorreo(d.$("correo_admin"));
@@ -130,7 +155,8 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return convertO(data.insert(arg0));
 	}
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-			return AdministradorDao._initial.validate(d);
+		IModel _eModel = new MySQLSchemaModel("administradores", "tif", AdministradorDao._initial);
+		return _eModel.validate(d);
 	}
 	
 	

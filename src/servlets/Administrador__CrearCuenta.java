@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
 import javax.servlet.ServletException;
@@ -47,10 +48,10 @@ public class Administrador__CrearCuenta extends HttpServlet {
 	private AdministradorLogic AL = new AdministradorLogic();
 	
 	protected String getBody(HttpServletRequest req) throws IOException {
-		 // Obtener el cuerpo de la solicitud como texto
-        BufferedReader reader = req.getReader();
-        StringBuilder body = new StringBuilder();
-        String line;
+		// Obtener el cuerpo de la solicitud como texto
+		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
+	    StringBuilder body = new StringBuilder();
+	    String line;
 
         while ((line = reader.readLine()) != null) {
             body.append(line);
