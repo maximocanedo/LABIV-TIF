@@ -198,7 +198,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         return res;		
 	}
 	
-	public static void main(String[] args) {
+	public static void maina(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "hec191e3rwee2_e5",
 				"dni_admin", "34533344513e2",
@@ -206,7 +206,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				"nombre_admin", "Héctor",
 				"apellido_admin", "Da Silva",
 				"sexo_admin", "M",
-				"nacionalidad_admin", "US",
+				"nacionalidad_admin", "AR",
 				"fechaNacimiento_admin", new java.sql.Date(123),
 				"direccion_admin", "Av. Portugal 1320",
 				"localidad_admin", 191,

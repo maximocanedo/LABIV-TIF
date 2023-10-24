@@ -80,7 +80,10 @@ public class MySQLSchemaModel implements IModel {
 
 	@Override
 	public int count(Dictionary select) {
-		QueryAndParameters q = count__generateQuery(select, this.tableName, this.databaseName);
+		return count(select, true);
+	}
+	public int count(Dictionary select, boolean sameSchema) {
+		QueryAndParameters q = count__generateQuery(select, this.tableName, this.databaseName, true);
 		try {
 			TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
 				q.query,
@@ -101,33 +104,35 @@ public class MySQLSchemaModel implements IModel {
 	public boolean exists(Dictionary select) {
 		return count(select) > 0;
 	}
-
 	public boolean validateReference(ReferenceInfo ref, Object obj) {
+		return validateReference(ref, obj, true);
+	}
+	public boolean validateReference(ReferenceInfo ref, Object obj, boolean sameSchema) {
 		Dictionary oo = Dictionary.fromArray(ref.getColumnName(), obj);
 		System.out.println(oo.toJSON());
 		QueryAndParameters q = count__generateQuery(
 				oo, 
 				ref.getTableName(), 
-				ref.getDbName()
+				ref.getDbName(),
+				sameSchema
 		);
 		System.out.println(q.query);
-		if(2+2==5) {
-			try {
-				TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
-					q.query,
-					q.params
-				);
-				if( res != null && res.nonEmptyResult()) {
-					Dictionary row = res.rowsReturned.get(0);
-					long counted = row.$("counted");
-					// SYSOUT
-					System.out.println("COUNTED: " + ref.getColumnName() + " : " + counted);
-					return Integer.parseInt("" + counted) > 0;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();			
+		try {
+			TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
+				q.query,
+				q.params
+			);
+			if( res != null && res.nonEmptyResult()) {
+				Dictionary row = res.rowsReturned.get(0);
+				long counted = row.$("counted");
+				// SYSOUT
+				System.out.println("COUNTED: " + ref.getColumnName() + " : " + counted);
+				return Integer.parseInt("" + counted) > 0;
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();			
 		}
+		
 		
 		return false;
 	}
@@ -150,7 +155,8 @@ public class MySQLSchemaModel implements IModel {
 	        // Ver si existe
 	        if (data.$(key) != null && sp.ref != null) {
 	            // Validar en caso de haber referencias
-	            	boolean vref = validateReference(sp.ref, data.$(key));
+	        		boolean sameSchema = sp.ref.getDbName() == this.databaseName && sp.ref.getTableName() == this.tableName;
+	            	boolean vref = validateReference(sp.ref, data.$(key), sameSchema);
 	            	if(!vref) {
 	            		throw new SchemaValidationException(key, "Value does not exist in the referenced table. ");
 	            	}
@@ -283,7 +289,7 @@ public class MySQLSchemaModel implements IModel {
 			params = parameters;
 		}};
 	}
-	private QueryAndParameters count__generateQuery(Dictionary where, String t, String d) {
+	private QueryAndParameters count__generateQuery(Dictionary where, String t, String d, boolean useSchemaProps) {
 		Dictionary parameters = new Dictionary();
 		String content = parameters.toJSON();
 		StringBuilder _query = new StringBuilder();
@@ -298,7 +304,7 @@ public class MySQLSchemaModel implements IModel {
 			for(Map.Entry<String, Object> prop : where.entrySet()) {
 				System.out.println(prop.getKey());
 				String key = prop.getKey();
-				if(schema.containsKey(key) && where.$(key) != null) {
+				if((useSchemaProps && schema.containsKey(key)) || where.$(key) != null) {
 					if(l == 0) _query.append(" WHERE ");
 					_query.append(key).append(" = @").append(key).append(", ");
 					parameters.put(key, where.$(key));

@@ -208,7 +208,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	public TransactionResponse<?> insert(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			System.out.println("FINAL TO ADD: ");
+			System.out.println("$$$FINAL TO ADD: ");
 			System.out.println(arg0.toFullDictionary());
 			res = _model.create(arg0.toFullDictionary());
 		} catch (SchemaValidationException e) {
