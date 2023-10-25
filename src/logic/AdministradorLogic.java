@@ -57,12 +57,14 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
 		a.setFechaNacimiento(edate);
 		a.setDireccion(d.$("direccion_admin"));
-		Object loc = (d.$("localidad_admin"))
-			 , prov = d.get("provincia_admin");
+		Double loc = (d.$("localidad_admin"))
+			 , prov = d.$("provincia_admin");
 		int locc = -1, provv = -1;
 		try {
-			locc = Integer.parseUnsignedInt(loc + "");
-			provv = Integer.parseUnsignedInt(prov + "");
+			loc = Double.parseDouble(loc + "");
+			prov = Double.parseDouble(prov + "");
+			locc = (int) Math.round(loc);
+			provv = (int) Math.round(prov);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -152,7 +154,6 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 
 	@Override
 	public LogicResponse<Administrador> insert(Administrador arg0) throws SQLException {
-		System.out.println(arg0.toJSON());
 		return convertO(data.insert(arg0));
 	}
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
@@ -198,22 +199,22 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         return res;		
 	}
 	
-	public static void maina(String[] args) {
+	public static void main(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
-				"usuario_admin", "hec191e3rwee2_e5",
-				"dni_admin", "34533344513e2",
-				"cuil_admin", "27345333414e55432",
+				"usuario_admin", "roote3035",
+				"dni_admin", "47006272",
+				"cuil_admin", "20240555",
 				"nombre_admin", "Héctor",
-				"apellido_admin", "Da Silva",
+				"apellido_admin", "Hernández",
 				"sexo_admin", "M",
 				"nacionalidad_admin", "AR",
-				"fechaNacimiento_admin", new java.sql.Date(123),
+				"fechaNacimiento_admin", "1980-07-05",
 				"direccion_admin", "Av. Portugal 1320",
-				"localidad_admin", 191,
-				"provincia_admin", 728,
-				"correo_admin", "hector58@gmail.com",
+				"localidad_admin", 78007,
+				"provincia_admin", 78,
+				"correo_admin", "3015@gmail.com",
 				"estado_admin", true,
-				"password_admin", "Hec34533344"
+				"password_admin", "mip.ass_9036"
 			);
 		AdministradorLogic logic = new AdministradorLogic();
 		logic.createAccount(exampleUser);

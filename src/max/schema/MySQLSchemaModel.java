@@ -109,14 +109,12 @@ public class MySQLSchemaModel implements IModel {
 	}
 	public boolean validateReference(ReferenceInfo ref, Object obj, boolean sameSchema) {
 		Dictionary oo = Dictionary.fromArray(ref.getColumnName(), obj);
-		System.out.println(oo.toJSON());
 		QueryAndParameters q = count__generateQuery(
 				oo, 
 				ref.getTableName(), 
 				ref.getDbName(),
 				sameSchema
 		);
-		System.out.println(q.query);
 		try {
 			TransactionResponse<Dictionary> res = new Connector(this.databaseName).fetch(
 				q.query,
@@ -126,7 +124,6 @@ public class MySQLSchemaModel implements IModel {
 				Dictionary row = res.rowsReturned.get(0);
 				long counted = row.$("counted");
 				// SYSOUT
-				System.out.println("COUNTED: " + ref.getColumnName() + " : " + counted);
 				return Integer.parseInt("" + counted) > 0;
 			}
 		} catch (SQLException e) {
@@ -155,7 +152,7 @@ public class MySQLSchemaModel implements IModel {
 	        // Ver si existe
 	        if (data.$(key) != null && sp.ref != null) {
 	            // Validar en caso de haber referencias
-	        		boolean sameSchema = sp.ref.getDbName() == this.databaseName && sp.ref.getTableName() == this.tableName;
+ 	        		boolean sameSchema = sp.ref.getDbName() == this.databaseName && sp.ref.getTableName() == this.tableName;
 	            	boolean vref = validateReference(sp.ref, data.$(key), sameSchema);
 	            	if(!vref) {
 	            		throw new SchemaValidationException(key, "Value does not exist in the referenced table. ");
@@ -197,7 +194,6 @@ public class MySQLSchemaModel implements IModel {
 			}
 			t.setLength(t.length() - 2);
 			t.append(" );");
-			if(verbose) System.out.println("Query: " + t.toString());
 			new Connector(this.databaseName).transact(t.toString());
 			
 		} catch (Exception e) {
@@ -291,7 +287,6 @@ public class MySQLSchemaModel implements IModel {
 	}
 	private QueryAndParameters count__generateQuery(Dictionary where, String t, String d, boolean useSchemaProps) {
 		Dictionary parameters = new Dictionary();
-		String content = parameters.toJSON();
 		StringBuilder _query = new StringBuilder();
 		_query
 		.append("SELECT COUNT(*) AS counted FROM ")
@@ -299,10 +294,8 @@ public class MySQLSchemaModel implements IModel {
 		.append(".")
 		.append(t + "  ");
 		if(where != null && where.size() > 0) {
-			System.out.println("IF 1 OK");
 			int l = 0;
 			for(Map.Entry<String, Object> prop : where.entrySet()) {
-				System.out.println(prop.getKey());
 				String key = prop.getKey();
 				if((useSchemaProps && schema.containsKey(key)) || where.$(key) != null) {
 					if(l == 0) _query.append(" WHERE ");
