@@ -1,15 +1,21 @@
 package logic;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import io.jsonwebtoken.Claims;
+import data.AdministradorDao;
+import entity.Administrador;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
-import max.data.Dictionary;
+import max.data.LogicResponse;
+import max.data.TransactionResponse;
 
 public class AuthManager {
 	
@@ -36,24 +42,116 @@ public class AuthManager {
 				.compact();
 	}
     public static TokenData readJWT(String data) {
-    	Jwt<?, ?> jwt = Jwts.parser()
-    			.verifyWith(SECRET_KEY)
-    			.build()
-    			.parse((CharSequence)data);
-    	DefaultClaims claims = (DefaultClaims) jwt.getPayload();
-    	System.out.println(claims.get("sub"));
-    	System.out.println(claims.get("role"));
-    	
-    	return new TokenData() {{
-    		username = (String) claims.get("sub");
-    		role = (String) claims.get("role");
+    	TokenData td = new TokenData();
+    	try {
+    		Jwt<?, ?> jwt = Jwts.parser()
+        			.verifyWith(SECRET_KEY)
+        			.build()
+        			.parseSignedClaims((CharSequence)data);
+        	DefaultClaims claims = (DefaultClaims) jwt.getPayload();
+        	td.username = (String) (claims.get("sub"));
+        	td.role = (String) (claims.get("role"));
+    	} catch (JwtException e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+    	return td;
+    }
+    
+    public static void sendToken(HttpServletResponse res, String token) {
+    	res.setHeader("Authorization", "Bearer " + token);
+    }
+    
+    private static class Error {
+    	public static LogicResponse<Object> InvalidOrCorruptToken = new LogicResponse<Object>() {{
+    		status = false;
+    		message = "Token is corrupt or invalid. ";
+    		http = 401;
+    	}};
+    	public static LogicResponse<Object> RejectedRole = new LogicResponse<Object>() {{
+    		status = false;
+    		message = "You don't have access right to this resource. ";
+    		http = 403;
+    	}};
+    	public static LogicResponse<Object> emptyAuthHeader = new LogicResponse<Object>() {{
+    		status = false;
+    		message = "You must log in to access to this resource. ";
+    		http = 401;
+    	}};
+    	public static LogicResponse<Object> sqlError = new LogicResponse<Object>() {{
+    		status = false;
+    		message = "An error occured while trying to fetch some data. ";
+    		http = 500;
+    	}};
+    	public static LogicResponse<Object> actualUserDoesNotExistAnymore = new LogicResponse<Object>() {{
+    		status = false;
+    		message = "Your user may have been deleted or blocked from the database. ";
+    		http = 404;
     	}};
     }
-    public static void main(String[] args) {
-    	String jwt = generateJWT("root", AuthManager.ADMIN);
-    	System.out.println(jwt);
-    	TokenData td = readJWT(jwt);
-    	System.out.println(td.username + "; " + td.role);
+    
+    public static void send(HttpServletResponse res, LogicResponse<Object> mes) {
+    	res.setStatus(mes.http);
+    	try {
+			res.getWriter().append(mes.toFinalJSON());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return;
+    }
+    
+    public static boolean authenticate(HttpServletRequest req, HttpServletResponse res, String roleRequired) {
+    	String authHeader = req.getHeader("Authorization");
+    	if(authHeader != null && authHeader.startsWith("Bearer ")) {
+    		// Autenticable
+    		String token = authHeader.substring(7);
+    		TokenData td = readJWT(token);
+    		if(td == null) {
+    			send(res, Error.InvalidOrCorruptToken);
+    			return false;
+    		}
+    		if(td.role == roleRequired) {
+    			return true;
+    		} else {
+    			send(res, Error.RejectedRole);
+    			return false;
+    		}
+    	} else {
+    		send(res, Error.emptyAuthHeader); 
+    		return false;
+    	}
+    }
+    
+    public static Administrador getActualAdmin(HttpServletRequest req, HttpServletResponse res) {
+    	boolean auth = authenticate(req, res, ADMIN);
+    	if(auth) {
+    		String authHeader = req.getHeader("Authorization");
+    		String token = authHeader.substring(7);
+    		TokenData td = readJWT(token);
+    		AdministradorDao admindao = new AdministradorDao();
+    		try {
+				TransactionResponse<Administrador> findResult = admindao.getById(td.username);
+				if(findResult.nonEmptyResult()) {
+					Administrador adm = findResult.rowsReturned.get(0);
+					return adm;
+				} else {
+					send(res, Error.actualUserDoesNotExistAnymore);
+					return null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				send(res, Error.sqlError);
+				return null;
+			}
+    	} else return null;
+    }
+    
+    
+    
+    public static void maina(String[] args) {
+    	
+    	
     	
     }
     

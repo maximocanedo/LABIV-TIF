@@ -261,7 +261,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	}
 	
 	public static void maina(String[] args) {
-		Dictionary exampleUser = Dictionary.fromArray(
+		/*Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "roote3035",
 				"dni_admin", "47006272",
 				"cuil_admin", "20240555",
@@ -276,10 +276,10 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				"correo_admin", "3015@gmail.com",
 				"estado_admin", true,
 				"password_admin", "mip.ass_9036"
-			);
-		AdministradorLogic logic = new AdministradorLogic();
+			); */
+		//AdministradorLogic logic = new AdministradorLogic();
 		//logic.createAccount(exampleUser);
-		LogicResponse<Administrador> resInicioSesion = logic.login("roote3035", "mip.ass_9036");
+		//LogicResponse<Administrador> resInicioSesion = logic.login("roote3035", "mip.ass_9036");
 	}
 	
 	
