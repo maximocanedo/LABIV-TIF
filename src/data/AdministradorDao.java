@@ -227,6 +227,13 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		}
 		return res;
 	}
+	
+	public TransactionResponse<Administrador> getFullById(String arg0) throws SQLException {
+		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
+		TransactionResponse<Dictionary> rd = db.fetch("SELECT * FROM " + printTDB() + " WHERE usuario_admin = @user", Dictionary.fromArray( "user", arg0 ));
+		if(rd.nonEmptyResult()) res.rowsReturned = logic.convert(rd.rowsReturned, true);
+		return res;
+	}
 
 	@Override
 	public TransactionResponse<Administrador> select(String arg0) throws SQLException {

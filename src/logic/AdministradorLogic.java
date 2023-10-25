@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import data.AdministradorDao;
@@ -57,14 +58,14 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
 		a.setFechaNacimiento(edate);
 		a.setDireccion(d.$("direccion_admin"));
-		Double loc = (d.$("localidad_admin"))
+		Number loc = (d.$("localidad_admin"))
 			 , prov = d.$("provincia_admin");
 		int locc = -1, provv = -1;
 		try {
-			loc = Double.parseDouble(loc + "");
-			prov = Double.parseDouble(prov + "");
-			locc = (int) Math.round(loc);
-			provv = (int) Math.round(prov);
+			Double loc2 = Double.parseDouble(loc + "");
+			Double prov2 = Double.parseDouble(prov + "");
+			locc = (int) Math.round(loc2);
+			provv = (int) Math.round(prov2);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -81,13 +82,17 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return a;
 	}
 
-	@Override
-	public List<Administrador> convert(List<Dictionary> arg0) {
+	
+	public List<Administrador> convert(List<Dictionary> arg0, boolean includePrivateData) {
 		List<Administrador> l = new ArrayList<Administrador>();
 		for(Dictionary d : arg0) {
-			l.add(convert(d));
+			l.add(convertR(d, includePrivateData));
 		}
 		return l;
+	}
+	@Override
+	public List<Administrador> convert(List<Dictionary> arg0) {
+		return convert(arg0, false);
 	}
 	public LogicResponse<Administrador> convert(TransactionResponse<Administrador> data) {
 		LogicResponse<Administrador> x = new LogicResponse<Administrador>();
@@ -143,7 +148,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	public LogicResponse<Administrador> getById(String arg0) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		try {
-			res = convert(data.getAll());
+			res = convert(data.getById(arg0));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,7 +204,63 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         return res;		
 	}
 	
-	public static void main(String[] args) {
+	public LogicResponse<Administrador> validatePassword(Administrador admin, String pass) {
+		LogicResponse<Administrador> response = new LogicResponse<Administrador>();
+		byte[] originalHash = admin.getHash();
+		byte[] originalSalt = admin.getSalt();
+		byte[] newHash = PasswordUtils.createHash(pass, originalSalt);
+		if(Arrays.equals(originalHash, newHash)) {
+			response.status = true;
+		} else {
+			response.http = 401;
+			response.status = false;
+		}
+		return response;
+	}
+	
+	public LogicResponse<Administrador> login(String user, String pass) {
+		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+		// Validar que el usuario exista:
+		LogicResponse<Administrador> userExists =  exists(user);
+		if(userExists.status) {
+			try {
+				TransactionResponse<Administrador> res2 = data.getFullById(user);
+				if(res2.nonEmptyResult()) {
+					Administrador adm = res2.rowsReturned.get(0);
+					return validatePassword(adm, pass);
+				}
+			} catch (SQLException e) {
+				res.status = false;
+				res.http = 500; // INTERNAL SERVER ERROR
+				e.printStackTrace();
+			}
+		} else {
+			res.http = 401; // UNAUTHORIZED
+		}
+		return res;
+	}
+	
+	public LogicResponse<Administrador> login(Dictionary servlet_parameters) {
+		LogicResponse<Administrador> response = new LogicResponse<Administrador>();
+		Schema schema = new Schema(AdministradorDao.Fields.usuario, AdministradorDao.Fields.contraseña);
+		try {
+			boolean validationResult = schema.validate(servlet_parameters);
+			if(validationResult) {
+				return login(
+						servlet_parameters.$(AdministradorDao.Fields.usuario.name),
+						servlet_parameters.$(AdministradorDao.Fields.contraseña.name)
+					);
+			}
+		} catch (SchemaValidationException e) {
+			response.http = 400;
+			response.status = false;
+			response.message = e.getMessage();
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	public static void maina(String[] args) {
 		Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "roote3035",
 				"dni_admin", "47006272",
@@ -217,7 +278,8 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				"password_admin", "mip.ass_9036"
 			);
 		AdministradorLogic logic = new AdministradorLogic();
-		logic.createAccount(exampleUser);
+		//logic.createAccount(exampleUser);
+		LogicResponse<Administrador> resInicioSesion = logic.login("roote3035", "mip.ass_9036");
 	}
 	
 	

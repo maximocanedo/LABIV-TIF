@@ -15,6 +15,7 @@ public class LogicResponse<T> {
 	public T objectReturned = null;
 	public T[] arrayReturned = null;
 	public List<T> listReturned = null;
+	public int http = 200;
 	public String toFinalJSON() {
 		Gson gson = new Gson();
 		return gson.toJson(this);

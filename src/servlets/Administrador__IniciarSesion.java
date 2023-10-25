@@ -15,36 +15,17 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-import entity.*;
+import entity.Administrador;
 import logic.AdministradorLogic;
 import max.data.Dictionary;
 import max.data.LogicResponse;
 
 /**
- * Servlet implementation class Administrador__CrearCuenta
+ * Servlet implementation class Administrador__IniciarSesion
  */
-@WebServlet("/api/admin/signup")
-public class Administrador__CrearCuenta extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Administrador__CrearCuenta() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("CANNOT GET /api/admin/signup");
-	}
-
-	
-	private AdministradorLogic AL = new AdministradorLogic();
+@WebServlet("/api/admin/login")
+public class Administrador__IniciarSesion extends HttpServlet {
+private AdministradorLogic AL = new AdministradorLogic();
 	
 	protected String getBody(HttpServletRequest req) throws IOException {
 		// Obtener el cuerpo de la solicitud como texto
@@ -83,18 +64,31 @@ public class Administrador__CrearCuenta extends HttpServlet {
 		r.message = content;
 		res.getWriter().append(r.toFinalJSON());
 	}
-	
-	
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Administrador__IniciarSesion() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Cannot GET ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
-		if(parameters == null) {
-			status(response, 400);
-			sendMessage(response, false, "Bad request");
-			return;
-		}
-		LogicResponse<Administrador> finalRes = AL.createAccount(parameters);
-		// TODO: Cuando se implemente bien inicio de sesión, ingresar acá sólo con autenticación de administrador.
-		status(response, finalRes.status ? 201 : 400);
+		LogicResponse<Administrador> finalRes = AL.login(parameters);
+		status(response, finalRes.http);
         response.getWriter().append(finalRes.toFinalJSON());
 	}
 
