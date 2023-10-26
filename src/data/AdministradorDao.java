@@ -31,6 +31,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			minlength = 4;
 			maxlength = 20;
 			trim = true;
+			modifiable = false;
 			
 		}};
 		public static SchemaProperty dni = new SchemaProperty("dni_admin") {{
@@ -40,6 +41,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			matches = "^[0-9]+$";
 			maxlength = 12;
 			trim = true;
+			modifiable = false;
 		}};
 		public static SchemaProperty cuil = new SchemaProperty("cuil_admin") {{
 			unique = true;
@@ -48,6 +50,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			matches = "^[0-9]+$";
 			maxlength = 16;
 			trim = true;
+			modifiable = false;
 		}};
 		public static SchemaProperty nombre = new SchemaProperty("nombre_admin") {{
 			required = true;
@@ -148,6 +151,18 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			Fields.salt,
 			Fields.estado
 		);
+	public static final Schema _editable = new Schema(
+			Fields.usuario,
+			Fields.nombre,
+			Fields.apellido,
+			Fields.sexo,
+			Fields.nacionalidad,
+			Fields.fechaNacimiento,
+			Fields.direccion,
+			Fields.localidad,
+			Fields.provincia,
+			Fields.correo
+	);
 	public static final Schema _initial = new Schema(
 				Fields.usuario,
 				Fields.dni,
@@ -180,16 +195,19 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			// Bug #41. Descomentar cuando se haya resuelto.
-			// res = _model.modify(Dictionary.fromArray("estado_admin", 0), a.toIdentifiableDictionary());
-			res = new Connector(_model.getDatabaseName())
+			res = _model.modify(Dictionary.fromArray("estado_admin", false), a.toIdentifiableDictionary());
+			/*res = new Connector(_model.getDatabaseName())
 					.transact(
 						"UPDATE " + printTDB() + " SET " + Fields.estado.name + " = @estado WHERE " + Fields.usuario.name + " = @usuario",
 						Dictionary.fromArray(
 							"estado", false,
 							"usuario", a.getUsuario()
 						)
-					);
+					); */
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (SchemaValidationException e) {
+			res.status = false;
 			e.printStackTrace();
 		}
 		return res;
@@ -228,8 +246,10 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 	@Override
 	public TransactionResponse<?> modify(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
+		IModel model = new MySQLSchemaModel("administradores", "tif", _editable);
 		try {
-			res = _model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
+			System.out.println(arg0.toString());
+			res = model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
