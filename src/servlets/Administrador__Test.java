@@ -30,7 +30,8 @@ public class Administrador__Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Cannot GET ").append(request.getContextPath());
+		Utils.status(response, 200);
+		Utils.write(response, "Conexión exitosa. ");
 	}
 
 	/**
