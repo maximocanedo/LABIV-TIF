@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.AdministradorDao;
 import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
 import max.data.LogicResponse;
-
+import max.schema.Schema;
 import servlets.Utils;
 
 /**
@@ -76,13 +77,27 @@ public class Administrador_Main extends HttpServlet {
     	Utils.write(response, result.toFinalJSON());
     }
     
+    protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
+    	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+    	Dictionary params = Utils.getParameters(request);
+    	if(params != null) {
+    		result = AL.updatePassword(actualUser, params);
+    		Utils.status(response, result.http);
+    		Utils.write(response, result.toFinalJSON());
+    		return;
+    	}
+    	result.message = "There are no parameters. ";
+    	Utils.status(response, 400);
+    	Utils.write(response, result.toFinalJSON());
+    	return;
+    }
     
     
     
     /**
-     * MÉTODOS FUNCIONANDO: GET, POST
-     * MÉTODOS EN PROCESO: DELETE
-     * MÉTODOS POR IMPLEMENTAR: PATCH, PUT
+     * MÉTODOS FUNCIONANDO: GET, POST, DELETE, PATCH
+     * MÉTODOS POR IMPLEMENTAR: PUT (Complicado porque implica traer todos los datos.)
+     * Idea: Obtener Dictionary completo y sobreescribir valores.
      */
     
     /**
@@ -129,8 +144,24 @@ public class Administrador_Main extends HttpServlet {
 	 * Método PATCH. Actualizar contraseña del usuario actual.
 	 */
 	protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.getWriter().append("PATCH at: ").append(request.getContextPath());
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		if(admin != null) {
+			onAuthenticated__UpdatePassword(request, response, admin);
+		}
+		return;
 	}
 
+	/**
+	 * Sobreescribe el método service para que sea compatible con los métodos HTTP PATCH.
+	 */
+	@Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method = req.getMethod();
+        if (!method.equals("PATCH")) {
+            super.service(req, resp);
+            return;
+        }
+        this.doPatch(req, resp);
+    }
+	
 }

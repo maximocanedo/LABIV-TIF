@@ -216,6 +216,31 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         return res;		
 	}
 	
+	public LogicResponse<Administrador> updatePassword(Administrador admin, Dictionary params) {
+		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+		Schema updatePasswordSchema = new Schema(AdministradorDao.Fields.contraseña);
+		try {
+			boolean validationStatus = updatePasswordSchema.validate(params);
+			if(validationStatus) {
+				byte[] salt = PasswordUtils.createSalt();
+				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDao.Fields.contraseña.name), salt);
+				try {
+					result = convertO(data.updatePassword(admin.getUsuario(), hash, salt));
+					result.http = result.status ? 200 : 500;
+					result.errorMessage = result.status ? "La contraseña se actualizó correctamente. " : "No se actualizó la contraseña. ";
+				} catch (SQLException e) {
+					result.die(false, 500, "Hubo un problema al intentar actualizar la contraseña. ");
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (SchemaValidationException e) {
+			result.die(false, 400, e.getMessage());
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public LogicResponse<Administrador> validatePassword(Administrador admin, String pass) {
 		LogicResponse<Administrador> response = new LogicResponse<Administrador>();
 		byte[] originalHash = admin.getHash();

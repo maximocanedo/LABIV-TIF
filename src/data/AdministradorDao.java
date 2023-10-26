@@ -224,6 +224,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		return res;
 	}
 
+	// Solucionar bug antes de usar este método.
 	@Override
 	public TransactionResponse<?> modify(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -233,6 +234,19 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return res;
+	}
+	public TransactionResponse<?> updatePassword(String username, byte[] hash, byte[] salt) throws SQLException {
+		TransactionResponse<?> res = TransactionResponse.create();
+		res = new Connector(_model.getDatabaseName())
+				.transact(
+					"UPDATE " + printTDB() + " SET " + Fields.hash.name + " = @hash, " + Fields.salt.name + " = @salt WHERE " + Fields.usuario.name + " = @usuario", 
+					Dictionary.fromArray(
+						"hash", hash,
+						"salt", salt,
+						"usuario", username
+					)
+				);
 		return res;
 	}
 	
