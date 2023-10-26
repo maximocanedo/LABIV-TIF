@@ -3,22 +3,40 @@ package max.data;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 public class LogicResponse<T> {
+	@Expose(serialize = true)
 	public String message = "";
+	@Expose(serialize = true)
 	public boolean status;
+	
+	@Expose(serialize = false)
 	public String eField = null;
+	
 	@Expose(serialize = false)
 	public String errorMessage = "";
+	
 	@Expose(serialize = false)
 	public Exception exception = null;
+
+	@Expose(serialize = true)
 	public T objectReturned = null;
+	@Expose(serialize = true)
 	public T[] arrayReturned = null;
+	@Expose(serialize = true)
 	public List<T> listReturned = null;
+	
+	@Expose(serialize = false)
 	public int http = 200;
+	
+	
 	public String toFinalJSON() {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+		        .setPrettyPrinting()
+		        .excludeFieldsWithoutExposeAnnotation()
+		        .create();
 		return gson.toJson(this);
 	}
 	
