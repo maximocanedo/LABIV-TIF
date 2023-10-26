@@ -23,21 +23,42 @@ import max.schema.Schema;
 
 public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	
-	// Propiedades estáticas
+	/**
+	 * Clase de datos.
+	 */
 	private static AdministradorDao data = new AdministradorDao();
 	
+	/**
+	 * Obtener la estructura de datos de la entidad.
+	 * @return
+	 */
 	public Schema getSchema() {
 		return AdministradorDao._schema;
 	}
+	
+	/**
+	 * Obtener la estructura inicial de datos de la entidad. La que se usa a la hora de crear una cuenta.
+	 * @return
+	 */
 	public Schema getInitialSchema() {
 		return AdministradorDao._initial;
 	}
 	
+	/**
+	 * Convierte un Dictionary a un objeto Administrador, omitiendo los campos HASH y SALT.
+	 */
 	@Override
 	public Administrador convert(Dictionary d) {
-		return convertR(d, false);
+		return convertFull(d, false);
 	}
-	private Administrador convertR(Dictionary d, boolean pass) {
+	
+	/**
+	 * Convierte un Dictionary a un objeto Administrador, con la opción de omitir los campos HASH y SALT.
+	 * @param d El objeto Dictionary a convertir.
+	 * @param pass Especifica si se deben incluir los campos HASH y SALT.
+	 * @return Objeto Administrador convertido.
+	 */
+	private Administrador convertFull(Dictionary d, boolean pass) {
 		boolean privateData = pass;
 		Administrador a = new Administrador();
 		a.setUsuario(d.$("usuario_admin"));
@@ -46,54 +67,88 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		a.setNombre(d.$("nombre_admin"));
 		a.setApellido(d.$("apellido_admin"));
 		a.setSexo(d.$("sexo_admin"));
-		a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad_admin")); }});
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsedDate = new java.util.Date();
-		try {
-			parsedDate = dateFormat.parse(d.$("fechaNacimiento_admin") + "");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(d.$("nacionalidad_admin") != null) {
+			a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad_admin")); }});
 		}
-        java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
-		a.setFechaNacimiento(edate);
+		if(d.$("fechaNacimiento_admin") != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        java.util.Date parsedDate = new java.util.Date();
+			try {
+				parsedDate = dateFormat.parse(d.$("fechaNacimiento_admin") + "");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
+			a.setFechaNacimiento(edate);
+			
+		}
 		a.setDireccion(d.$("direccion_admin"));
-		Number loc = (d.$("localidad_admin"))
-			 , prov = d.$("provincia_admin");
-		int locc = -1, provv = -1;
-		try {
-			Double loc2 = Double.parseDouble(loc + "");
-			Double prov2 = Double.parseDouble(prov + "");
-			locc = (int) Math.round(loc2);
-			provv = (int) Math.round(prov2);
-		} catch(NumberFormatException e) {
-			e.printStackTrace();
+		if(d.$("localidad_admin") != null) {
+			Number loc = (d.$("localidad_admin"));
+			int locc = -1;
+			try {
+				Double loc2 = Double.parseDouble(loc + "");
+				locc = (int) Math.round(loc2);
+			} catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+			int locId = locc;
+			a.setLocalidad(new Localidad() {{ setId(locId); }});
+		}
+		if(d.$("provincia_admin") != null) {
+			Number prov = d.$("provincia_admin");
+			int provv = -1;
+			try {
+				Double prov2 = Double.parseDouble(prov + "");
+				provv = (int) Math.round(prov2);
+			} catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+			int provId = provv;
+			a.setProvincia(new Provincia() {{ setId(provId); }});
 		}
 		
-		int locId = locc;
-		int provId = provv;
-		
-		a.setLocalidad(new Localidad() {{ setId(locId); }});
-		a.setProvincia(new Provincia() {{ setId(provId); }});
-		if(privateData) a.setHash(d.$("hash_admin"));
-		if(privateData) a.setSalt(d.$("salt_admin"));
+		if(privateData) {
+			a.setHash(d.$("hash_admin"));
+			a.setSalt(d.$("salt_admin"));
+		}
 		a.setCorreo(d.$("correo_admin"));
-		a.setEstado(d.$("estado_admin"));
+		if(d.$("estado_admin") != null) {
+			a.setEstado(d.$("estado_admin"));
+		}
 		return a;
 	}
 
-	
+	/**
+	 * Convierte una lista de Dictionary en una lista de objetos Administrador, con la opción de omitir los campos HASH y SALT.
+	 * @param arg0 Lista de Dictionary que se desea convertir.
+	 * @param includePrivateData Especifica si se deben incluir los campos HASH y SALT.
+	 * @return Lista de objetos Administrador.
+	 */
 	public List<Administrador> convert(List<Dictionary> arg0, boolean includePrivateData) {
 		List<Administrador> l = new ArrayList<Administrador>();
 		for(Dictionary d : arg0) {
-			l.add(convertR(d, includePrivateData));
+			l.add(convertFull(d, includePrivateData));
 		}
 		return l;
 	}
+	
+	/**
+	 * Convierte una lista de Dictionary en una lista de objetos Administrador, omitiendo los campos HASH y SALT.
+	 * @param arg0 Lista de Dictionary que se desea convertir.
+	 * @return Lista de objetos Administrador.
+	 */
 	@Override
 	public List<Administrador> convert(List<Dictionary> arg0) {
 		return convert(arg0, false);
 	}
+	
+	/**
+	 * Convierte un objeto TransactionResponse a un LogicResponse.
+	 * @param data Objeto a convertir.
+	 * @return Objeto convertido.
+	 */
 	public LogicResponse<Administrador> convert(TransactionResponse<Administrador> data) {
 		LogicResponse<Administrador> x = new LogicResponse<Administrador>();
 		x.status = data.status;
@@ -103,7 +158,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return x;
 	}
 	
-	public LogicResponse<Administrador> convertO(TransactionResponse<?> data) {
+	/**
+	 * Convierte un objeto TransactionResponse con wildcard a un LogicResponse parametrizado.
+	 * @param data Objeto a convertir.
+	 * @return Objeto convertido.
+	 */
+	public LogicResponse<Administrador> convertWildcard(TransactionResponse<?> data) {
 		LogicResponse<Administrador> x = new LogicResponse<Administrador>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
@@ -111,11 +171,22 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return x;
 	}
 
+	/**
+	 * Deshabilita una cuenta de administrador.
+	 * @param arg0 Objeto Administrador con los datos del usuario a deshabilitar.
+	 * @returns Resultado de la operación.
+	 */
 	@Override
 	public LogicResponse<Administrador> delete(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = data.delete(arg0);
-		return convertO(res);		
+		return convertWildcard(res);		
 	}
+	
+	/**
+	 * Deshabilita una cuenta de administrador, pero no arroja excepcioens.
+	 * @param arg0 Objeto Administrador con los datos del usaurio a deshabilitar.
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> deleteOne(Administrador arg0) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		try {
@@ -129,6 +200,10 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 
+	/**
+	 * Examina si existe un usuario en la base de datos a partir de su nombre de usuario.
+	 * @param arg0 Nombre de usuario.
+	 */
 	@Override
 	public LogicResponse<Administrador> exists(String arg0) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
@@ -142,6 +217,9 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 
+	/**
+	 * Devuelve todos los registros de la base de datos.
+	 */
 	@Override
 	public LogicResponse<Administrador> getAll() {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
@@ -156,6 +234,10 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		
 	}
 
+	/**
+	 * Devuelve un registro cuyo nombre de usuario coincida con el dado.
+	 * @param arg0 Nombre de usuario.
+	 */
 	@Override
 	public LogicResponse<Administrador> getById(String arg0) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
@@ -169,16 +251,32 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 
+	/**
+	 * Inserta un nuevo registro en la base de datos.
+	 * @param arg0 Objeto Administrador con los datos a insertar.
+	 */
 	@Override
 	public LogicResponse<Administrador> insert(Administrador arg0) throws SQLException {
-		return convertO(data.insert(arg0));
+		return convertWildcard(data.insert(arg0));
 	}
+	
+	/**
+	 * Valida los datos recibidos en base a la estructura inicial.
+	 * Se usa para validar la información antes de crear una cuenta de administrador.
+	 * @param d Datos a validar.
+	 * @return Resultado de la validación.
+	 * @throws SchemaValidationException Si uno de los campos no cumple alguna de las validaciones requeridas.
+	 */
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
 		IModel _eModel = new MySQLSchemaModel("administradores", "tif", AdministradorDao._initial);
 		return _eModel.validate(d);
 	}
 	
-	
+	/**
+	 * Crea una cuenta de administrador.
+	 * @param d Datos del nuevo usuario.
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> createAccount(Dictionary d) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		// Validar datos
@@ -204,7 +302,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         finalData.put("hash_admin", hash);
         finalData.put("salt_admin", salt);
         // Convertimos el Dictionary en objeto entidad para trabajar con métodos DAO.
-        Administrador obj = convertR(finalData, true);
+        Administrador obj = convertFull(finalData, true);
         try {
         	// Insertamos el objeto en la base de datos.
 			res = insert(obj);
@@ -215,7 +313,13 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         // Devolvemos el resultado de la operación.
         return res;		
 	}
-	
+
+	/**
+	 * Actualiza la contraseña de un administrador.
+	 * @param admin Objeto Administrador con su nombre de usuario establecido.
+	 * @param params La nueva contraseña.
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> updatePassword(Administrador admin, Dictionary params) {
 		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
 		Schema updatePasswordSchema = new Schema(AdministradorDao.Fields.contraseña);
@@ -225,7 +329,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				byte[] salt = PasswordUtils.createSalt();
 				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDao.Fields.contraseña.name), salt);
 				try {
-					result = convertO(data.updatePassword(admin.getUsuario(), hash, salt));
+					result = convertWildcard(data.updatePassword(admin.getUsuario(), hash, salt));
 					result.http = result.status ? 200 : 500;
 					result.errorMessage = result.status ? "La contraseña se actualizó correctamente. " : "No se actualizó la contraseña. ";
 				} catch (SQLException e) {
@@ -241,6 +345,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return result;
 	}
 	
+	/**
+	 * Valida una contraseña en texto plano con la contraseña encriptada de una cuenta de administrador existente.
+	 * @param admin Objeto Administrador con su nombre de usuario, hash y salt establecidos.
+	 * @param pass Contraseña en texto plano a validar.
+	 * @return Resultado de la operación. 
+	 */
 	public LogicResponse<Administrador> validatePassword(Administrador admin, String pass) {
 		LogicResponse<Administrador> response = new LogicResponse<Administrador>();
 		byte[] originalHash = admin.getHash();
@@ -255,6 +365,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return response;
 	}
 	
+	/**
+	 * Intenta iniciar sesión, y devuelve un token JWT.
+	 * @param user Usuario
+	 * @param pass Contraseña, en texto plano
+	 * @return
+	 */
 	public LogicResponse<Administrador> login(String user, String pass) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		// Validar que el usuario exista:
@@ -287,6 +403,11 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 	
+	/**
+	 * [TODO Mover de sitio] Inicia sesión a partir de parámetros del Servlet.
+	 * @param servlet_parameters Parámetros recibidos del servlet.
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> login(Dictionary servlet_parameters) {
 		LogicResponse<Administrador> response = new LogicResponse<Administrador>();
 		Schema schema = new Schema(AdministradorDao.Fields.usuario, AdministradorDao.Fields.contraseña);
@@ -307,40 +428,67 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return response;
 	}
 	
-	public static void main(String[] args) {
+	/**
+	 * Método main usado para pruebas.
+	 * @param args
+	 */
+	public static void test(String[] args) {
 		AdministradorLogic logic = new AdministradorLogic();
 		
-		Administrador admin = new Administrador();
-		admin.setUsuario("roote3035");
-		logic.deleteOne(admin);
-		/*Dictionary exampleUser = Dictionary.fromArray(
-				"usuario_admin", "roote3035",
-				"dni_admin", "47006272",
-				"cuil_admin", "20240555",
-				"nombre_admin", "Héctor",
-				"apellido_admin", "Hernández",
+		Dictionary exampleUser = Dictionary.fromArray(
+				"usuario_admin", "root",
+				"dni_admin", "10000001",
+				"cuil_admin", "10100000010",
+				"nombre_admin", "Administrador",
+				"apellido_admin", "del Sistema",
 				"sexo_admin", "M",
 				"nacionalidad_admin", "AR",
-				"fechaNacimiento_admin", "1980-07-05",
-				"direccion_admin", "Av. Portugal 1320",
+				"fechaNacimiento_admin", "2000-01-01",
+				"direccion_admin", " ~ No address ~ ",
 				"localidad_admin", 78007,
 				"provincia_admin", 78,
-				"correo_admin", "3015@gmail.com",
+				"correo_admin", "root@support.bank.org",
 				"estado_admin", true,
-				"password_admin", "mip.ass_9036"
-			); */
+				"password_admin", "D2g%CF**#3$9!62bNL&F$T$7724"
+			); //*/
 		//AdministradorLogic logic = new AdministradorLogic();
-		//logic.createAccount(exampleUser);
+		logic.createAccount(exampleUser);
 		//LogicResponse<Administrador> resInicioSesion = logic.login("roote3035", "mip.ass_9036");
 	}
 	
-	
-
+	/**
+	 * Modifica datos en un objeto Administrador.
+	 */
 	@Override
 	public LogicResponse<Administrador> modify(Administrador arg0) throws SQLException {
-		return convertO(data.modify(arg0));
+		System.out.println(arg0.toJSON());
+		return convertWildcard(data.modify(arg0));
 	}
-
+	public LogicResponse<Administrador> modify(Dictionary arg0, Administrador user) {
+		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+		Administrador obj = new Administrador();
+		try {
+			MySQLSchemaModel model = new MySQLSchemaModel("administradores", "tif", AdministradorDao._editable);
+			Dictionary v = model.prepareForEditing(arg0);
+			v.put(AdministradorDao.Fields.usuario.name, user.getUsuario());
+			
+			obj = convert(v);
+			return modify(obj);
+		} catch (SchemaValidationException e) {
+			res.die(false, 400, e.getMessage());
+			e.printStackTrace();
+		} catch (SQLException e) {
+			res.die(false, 500, e.getMessage());
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	/**
+	 * Valida un objeto Administrador.
+	 * @param arg0 Objeto Administrador a validar.
+	 * @param validateConstraints Especifica si se deben validar las claves foráneas o únicas, como el usuario o el DNI.
+	 */
 	@Override
 	public LogicResponse<Administrador> validate(Administrador arg0, boolean validateConstraints) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
