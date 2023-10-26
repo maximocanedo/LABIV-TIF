@@ -1,5 +1,12 @@
 [
 	{
+		"alias": "Cuenta ROOT",
+		"login_data": {
+			"usuario_admin": "root",
+			"password_admin": "D2g%CF**#3$9!62bNL&F$T$7724"
+		}
+	},
+	{
 		"alias": "Joseph Derrick Dime",
 		"login_data": {
 			"usuario_admin": "joseph_dime",
