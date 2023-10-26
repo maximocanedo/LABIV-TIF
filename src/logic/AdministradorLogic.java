@@ -116,6 +116,18 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		TransactionResponse<?> res = data.delete(arg0);
 		return convertO(res);		
 	}
+	public LogicResponse<Administrador> deleteOne(Administrador arg0) {
+		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+		try {
+			res = delete(arg0);
+			res.message = res.status ? "El registro se eliminó correctamente. " : "No se eliminó el registro. ";
+			res.http = res.status ? 201 : 500;
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un problema al intentar eliminar el registro. ");
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 	@Override
 	public LogicResponse<Administrador> exists(String arg0) {
@@ -270,7 +282,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return response;
 	}
 	
-	public static void maina(String[] args) {
+	public static void main(String[] args) {
+		AdministradorLogic logic = new AdministradorLogic();
+		
+		Administrador admin = new Administrador();
+		admin.setUsuario("roote3035");
+		logic.deleteOne(admin);
 		/*Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "roote3035",
 				"dni_admin", "47006272",

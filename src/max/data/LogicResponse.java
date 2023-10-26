@@ -46,6 +46,10 @@ public class LogicResponse<T> {
 		this.status = status;
 		this.message = message;
 	}
+	public void die(boolean status, int code, String message) {
+		die(status, message);
+		this.http = code;
+	}
 	public void err(Exception err) {
 		this.status = false;
 		this.exception = err;
