@@ -77,6 +77,13 @@ public class Administrador__FirstPerson extends HttpServlet {
     	Utils.write(response, result.toFinalJSON());
     }
     
+    /**
+     * Actualizar la contraseña del usuario en sesión. Sólo ejecutar tras haber autenticado.
+     * @param request
+     * @param response
+     * @param actualUser
+     * @throws IOException
+     */
     protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
     	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
     	Dictionary params = Utils.getParameters(request);
@@ -92,7 +99,22 @@ public class Administrador__FirstPerson extends HttpServlet {
     	return;
     }
     
-    
+    /**
+     * Actualiza los datos editables del usuario en sesión. Sólo ejecutar tras haber autenticado.
+     * @param request
+     * @param response
+     * @param actualUser
+     * @throws IOException
+     */
+    protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
+    	Dictionary params = Utils.getParameters(request);
+    	if(params != null) {
+        	LogicResponse<Administrador> res = AL.modify(params, actualUser);
+        	Utils.write(response, res.toFinalJSON());
+    	} else {
+    		Utils.status(response, 400);
+    	}
+    }
     
     /**
      * MÉTODOS FUNCIONANDO: GET, POST, DELETE, PATCH
@@ -126,7 +148,11 @@ public class Administrador__FirstPerson extends HttpServlet {
 	 * Método PUT. Modificar datos de la cuenta actual.
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("No handler for PUT method. ");
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		if(admin != null) {
+			onAuthenticated__ModifyAccount(request, response, admin);
+		}
+		return;
 	}
 	
 	/**

@@ -7,13 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.AdministradorDao;
 import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
 import max.data.LogicResponse;
-import max.schema.Schema;
 import servlets.Utils;
 
 /**
@@ -22,7 +20,7 @@ import servlets.Utils;
  * @author Máximo
  *
  */
-@WebServlet("/api/admin/*")
+@WebServlet("/api/admin/user/*")
 public class Administrador__ThirdPerson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -48,7 +46,6 @@ public class Administrador__ThirdPerson extends HttpServlet {
     	return null; 
     }
 
-    
     /**
      * Mostrar datos del usuario. Sólo ejecutar tras haber autenticado.
      * @param request
@@ -73,6 +70,13 @@ public class Administrador__ThirdPerson extends HttpServlet {
     	Utils.write(response, result.toFinalJSON());
     }
     
+    /**
+     * Actualizar la contraseña del usuario. Sólo ejecutar tras haber autenticado.
+     * @param request
+     * @param response
+     * @param actualUser
+     * @throws IOException
+     */
     protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
     	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
     	Dictionary params = Utils.getParameters(request);
@@ -91,9 +95,7 @@ public class Administrador__ThirdPerson extends HttpServlet {
     
     
     /**
-     * MÉTODOS FUNCIONANDO: GET, POST, DELETE, PATCH
-     * MÉTODOS POR IMPLEMENTAR: PUT (Complicado porque implica traer todos los datos.)
-     * Idea: Obtener Dictionary completo y sobreescribir valores.
+     * MÉTODOS: GET, DELETE
      */
     
     /**
@@ -108,38 +110,42 @@ public class Administrador__ThirdPerson extends HttpServlet {
 	}
 
 	/**
-	 * Método POST. Sin función en este contexto.
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utils.write(response, "No handler for POST method. ");
-	}
-	
-	/**
-	 * Método PUT. Modificar datos de la cuenta actual.
-	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("No handler for PUT method. ");
-	}
-	
-	/**
-	 * Método DELETE. Dar de baja la cuenta actual.
+	 * Método DELETE. Dar de baja la cuenta de alguien más.
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
-		if(admin != null) {
-			onAuthenticated__DeleteAccount(request, response, admin);
-		}
+		Administrador adminToDelete = getAdmin(request, response);
+		if(admin != null && adminToDelete != null) {
+			onAuthenticated__DeleteAccount(request, response, adminToDelete);
+			
+		} 
 		return;
 	}
 	
 	/**
-	 * Método PATCH. Actualizar contraseña del usuario actual.
+	 * Método POST. Sin función en este contexto.
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utils.status(response, 405);
+		Utils.write(response, "Cannot POST. ");
+		return;
+	}
+	
+	/**
+	 * Método PUT. Sin función en este contexto.
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utils.status(response, 405);
+		response.getWriter().append("Cannot PUT. ");
+		return;
+	}
+	
+	/**
+	 * Método PATCH. Sin función en este contexto.
 	 */
 	protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Administrador admin = AuthManager.getActualAdmin(request, response);
-		if(admin != null) {
-			onAuthenticated__UpdatePassword(request, response, admin);
-		}
+		Utils.status(response, 405);
+		Utils.write(response, "Cannot PATCH.");
 		return;
 	}
 
