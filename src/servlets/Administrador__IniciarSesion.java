@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import entity.Administrador;
 import logic.AdministradorLogic;
+import logic.AuthManager;
 import max.data.Dictionary;
 import max.data.LogicResponse;
 
@@ -88,6 +89,12 @@ private AdministradorLogic AL = new AdministradorLogic();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
 		LogicResponse<Administrador> finalRes = AL.login(parameters);
+		if(finalRes.status) {
+			String tk = finalRes.eField;
+			if(tk != null) {
+				AuthManager.sendToken(response, tk);
+			}
+		}
 		status(response, finalRes.http);
         response.getWriter().append(finalRes.toFinalJSON());
 	}

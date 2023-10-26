@@ -8,6 +8,8 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import data.AdministradorDao;
 import entity.Administrador;
 import io.jsonwebtoken.Jwt;
@@ -47,7 +49,7 @@ public class AuthManager {
     		Jwt<?, ?> jwt = Jwts.parser()
         			.verifyWith(SECRET_KEY)
         			.build()
-        			.parseSignedClaims((CharSequence)data);
+        			.parse((CharSequence)data);
         	DefaultClaims claims = (DefaultClaims) jwt.getPayload();
         	td.username = (String) (claims.get("sub"));
         	td.role = (String) (claims.get("role"));
@@ -59,41 +61,28 @@ public class AuthManager {
     }
     
     public static void sendToken(HttpServletResponse res, String token) {
-    	res.setHeader("Authorization", "Bearer " + token);
+    	res.setHeader("Authorization", token);
     }
     
-    private static class Error {
-    	public static LogicResponse<Object> InvalidOrCorruptToken = new LogicResponse<Object>() {{
-    		status = false;
-    		message = "Token is corrupt or invalid. ";
-    		http = 401;
-    	}};
-    	public static LogicResponse<Object> RejectedRole = new LogicResponse<Object>() {{
-    		status = false;
-    		message = "You don't have access right to this resource. ";
-    		http = 403;
-    	}};
-    	public static LogicResponse<Object> emptyAuthHeader = new LogicResponse<Object>() {{
-    		status = false;
-    		message = "You must log in to access to this resource. ";
-    		http = 401;
-    	}};
-    	public static LogicResponse<Object> sqlError = new LogicResponse<Object>() {{
-    		status = false;
-    		message = "An error occured while trying to fetch some data. ";
-    		http = 500;
-    	}};
-    	public static LogicResponse<Object> actualUserDoesNotExistAnymore = new LogicResponse<Object>() {{
-    		status = false;
-    		message = "Your user may have been deleted or blocked from the database. ";
-    		http = 404;
-    	}};
+    protected static class Error {
+    	public static LogicResponse<Administrador> InvalidOrCorruptToken = 
+    			new LogicResponse<Administrador>(false, 401, "Token is corrupt or invalid. ");
+    	public static LogicResponse<Administrador> RejectedRole = 
+    			new LogicResponse<Administrador>(false, 403, "You don't have access right to this resource. ");
+    	public static LogicResponse<Administrador> emptyAuthHeader = 
+    			new LogicResponse<Administrador>(false, 401, "You must log in to access to this resource. ");
+    	public static LogicResponse<Administrador> sqlError = 
+    			new LogicResponse<Administrador>(false, 500, "An error occured while trying to fetch some data. ");
+    	public static LogicResponse<Administrador> actualUserDoesNotExistAnymore = 
+    			new LogicResponse<Administrador>(false, 404, "Your user may have been deleted or blocked from the database. ");
+    
     }
     
-    public static void send(HttpServletResponse res, LogicResponse<Object> mes) {
+    public static void send(HttpServletResponse res, LogicResponse<Administrador> mes) {
     	res.setStatus(mes.http);
     	try {
-			res.getWriter().append(mes.toFinalJSON());
+    		String jsn = new Gson().toJson(mes);
+			res.getWriter().append(jsn);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,7 +100,7 @@ public class AuthManager {
     			send(res, Error.InvalidOrCorruptToken);
     			return false;
     		}
-    		if(td.role == roleRequired) {
+    		if(td.role.equalsIgnoreCase(roleRequired)) {
     			return true;
     		} else {
     			send(res, Error.RejectedRole);
@@ -149,7 +138,9 @@ public class AuthManager {
     
     
     
-    public static void maina(String[] args) {
+    public static void maine(String[] args) {
+    	String js = Error.InvalidOrCorruptToken.toFinalJSON();
+    	System.out.println(js);
     	
     	
     	

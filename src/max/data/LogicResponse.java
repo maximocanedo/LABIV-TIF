@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 public class LogicResponse<T> {
 	public String message = "";
 	public boolean status;
+	public String eField = null;
 	@Expose(serialize = false)
 	public String errorMessage = "";
 	@Expose(serialize = false)
@@ -23,6 +24,10 @@ public class LogicResponse<T> {
 	
 	public LogicResponse() {}
 	public LogicResponse(boolean status, String message) {
+		die(status, message);
+	}
+	public LogicResponse(boolean status, int code, String message) {
+		http = code;
 		die(status, message);
 	}
 	public LogicResponse(Exception err) {

@@ -227,7 +227,17 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				TransactionResponse<Administrador> res2 = data.getFullById(user);
 				if(res2.nonEmptyResult()) {
 					Administrador adm = res2.rowsReturned.get(0);
-					return validatePassword(adm, pass);
+					LogicResponse<Administrador> resI = validatePassword(adm, pass);
+					if(resI.status) {
+						// Inicio de sesión válido.
+						String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
+						LogicResponse<Administrador> resT = new LogicResponse<Administrador>();
+						resT.die(true, "");
+						resT.eField = token;
+						return resT;
+					}
+					return resI;
+					
 				}
 			} catch (SQLException e) {
 				res.status = false;
