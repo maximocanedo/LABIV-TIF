@@ -213,11 +213,19 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		return res;
 	}
 
+	/**
+	 * Verifica si existe un registro con ese nombre de usuario.
+	 * (!) No diferencia entre activo y no activo. 
+	 * Si hay un registro inactivo con el nombre de usuario dado devuelve true.
+	 */
 	@Override
 	public boolean exists(String arg0) throws SQLException {
 		Administrador a = new Administrador();
 		a.setUsuario(arg0);
 		return _model.exists(a.toIdentifiableDictionary());
+	}
+	public boolean exists(Dictionary d) throws SQLException {
+		return _model.exists(d);
 	}
 
 	@Override

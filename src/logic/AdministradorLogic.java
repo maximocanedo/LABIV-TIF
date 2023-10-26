@@ -210,10 +210,36 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		boolean o = false;
 		try {
 			o = data.exists(arg0);
+			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			res.die(false, 500, "");
 		}
-		res.die(o, "");
+		return res;
+	}
+	public LogicResponse<Administrador> DNIExists(String dni) {
+		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+		boolean o = false;
+		try {
+			o = data.exists(Dictionary.fromArray(AdministradorDao.Fields.dni.name, dni));
+			res.die(o, o ? 200 : 404, "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, 500, "");
+		}
+		return res;
+	}
+	
+	public LogicResponse<Administrador> CUILExists(String cuil) {
+		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+		boolean o = false;
+		try {
+			o = data.exists(Dictionary.fromArray(AdministradorDao.Fields.cuil.name, cuil));
+			res.die(o, o ? 200 : 404, "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, 500, "");
+		}
 		return res;
 	}
 

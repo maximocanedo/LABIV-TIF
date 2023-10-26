@@ -13,38 +13,29 @@ import max.data.LogicResponse;
 import servlets.Utils;
 
 /**
- * Servlet implementation class Administrador__ExisteUsuario
+ * Servlet implementation class Administrador__ExisteDNI
  */
-@WebServlet("/api/quick/admin/u/*")
-public class Administrador__ExisteUsuario extends HttpServlet {
+@WebServlet("/api/quick/admin/dni/*")
+public class Administrador__ExisteDNI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public Administrador__ExisteUsuario() {
+    public Administrador__ExisteDNI() {
         super();
         // TODO Auto-generated constructor stub
     }
     private AdministradorLogic AL = new AdministradorLogic();
 
-    
-    public String getUsername(HttpServletRequest request) {
-    	String requestURI = request.getRequestURI();
-        String[] segments = requestURI.split("/");
-        String username = segments[segments.length - 1];
-    	return username;
-    }
-    
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	String username = getUsername(request);
-    	LogicResponse<Administrador> result = AL.exists(username);
+    	String dni = Utils.getPathParameter(request);
+    	LogicResponse<Administrador> result = AL.DNIExists(dni);
     	Utils.status(response, result.http);
-    	//Utils.write(response, result.toFinalJSON());
     	return; 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getAdmin(request, response);
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utils.status(response, 405);

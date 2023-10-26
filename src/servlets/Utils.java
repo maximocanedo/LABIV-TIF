@@ -17,6 +17,13 @@ import max.data.LogicResponse;
 
 public class Utils {
 	
+	public static String getPathParameter(HttpServletRequest request) {
+    	String requestURI = request.getRequestURI();
+        String[] segments = requestURI.split("/");
+        String param = segments[segments.length - 1];
+    	return param;
+    }
+	
 	public static String getBody(HttpServletRequest req) throws IOException {
 		// Obtener el cuerpo de la solicitud como texto
 		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
