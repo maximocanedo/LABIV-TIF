@@ -48,16 +48,9 @@ public class MySQLSchemaModel implements IModel {
 
 	@Override
 	public TransactionResponse<?> modify(Dictionary newValues, Dictionary where) throws SQLException, SchemaValidationException {
-		boolean svr = validate(newValues);
-		TransactionResponse<?> res = TransactionResponse.create();
-		if(svr) {
-			QueryAndParameters q = modify__generateQuery(newValues, where);
-			res = new Connector(this.databaseName).transact(q.query, q.params);
-			
-		} else {
-			res.status = false;
-		}
-		return res;
+		Dictionary preparedValues = prepareForEditing(newValues);
+		QueryAndParameters q = modify__generateQuery(preparedValues, where);
+		return new Connector(this.databaseName).transact(q.query, q.params);
 	}
 
 	@Override
@@ -166,6 +159,77 @@ public class MySQLSchemaModel implements IModel {
 	    return schema.validate(data);
 	}
 	
+	public boolean validateLimited(Dictionary data) throws SchemaValidationException {
+		for(String key : data.keySet()) {
+			Object object = data.$(key);
+			if(schema.containsKey(key)) {
+				SchemaProperty prop = schema.get(key);
+				if(object != null && prop.ref != null) {
+					// Validar si hay referencias
+					boolean sameSchema = prop.ref.getDbName() == this.databaseName && prop.ref.getTableName() == this.tableName;
+					boolean vref = validateReference(prop.ref, object, sameSchema);
+					if(!vref) {
+						throw new SchemaValidationException(key, "Value does not existe in the referenced table. ");
+					}
+				}
+				if(object != null && prop.unique) {
+					boolean exists = exists(Dictionary.fromArray(prop.name, object));
+					if(exists) {
+						throw new SchemaValidationException(key, "Duplicate entry. ");
+					}
+				}
+				return prop.validate(object, key);
+			} else {
+				throw new SchemaValidationException(key, "Could not found a Schema that matches that key. ");
+			}
+		}
+		return true;
+	}
+	
+	public Dictionary cleanNullValues(Dictionary data) {
+		Dictionary newValues = new Dictionary();
+		for(String key : data.keySet()) {
+			if(data.$(key) != null) {
+				newValues.put(key, data.$(key));
+			}
+		}
+		return newValues;
+	}
+	
+	public Dictionary prepareForEditing(Dictionary rawData) throws SchemaValidationException {
+		Dictionary newValues = new Dictionary();
+		Dictionary data = cleanNullValues(rawData);
+		for(String key : data.keySet()) {
+			Object object = data.$(key);
+			if(schema.containsKey(key)) {
+				SchemaProperty prop = schema.get(key);
+				if(prop.modifiable) {
+					newValues.put(key, object);
+				} else continue;
+				if(object != null && prop.ref != null) {
+					// Validar si hay referencias
+					boolean sameSchema = prop.ref.getDbName() == this.databaseName && prop.ref.getTableName() == this.tableName;
+					boolean vref = validateReference(prop.ref, object, sameSchema);
+					if(!vref) {
+						throw new SchemaValidationException(key, "Value does not existe in the referenced table. ");
+					} 
+				}
+				if(object != null && prop.unique) {
+					boolean exists = exists(Dictionary.fromArray(prop.name, object));
+					if(exists) {
+						throw new SchemaValidationException(key, "Duplicate entry. ");
+					}
+				}
+				prop.validate(object, key);
+			} else {
+				continue;
+				//throw new SchemaValidationException(key, "Could not found a Schema that matches that key. ");
+			}
+		}
+		System.out.println("newValues MSSM: " + newValues.toString());
+		return newValues;
+	}
+	
 	public void compile() {
 		compile(false);
 	}
@@ -251,7 +315,7 @@ public class MySQLSchemaModel implements IModel {
 		_query.setLength(_query.length() - 2);
 		
 		
-		_query.append(" WHERE ");
+		_query.append(" WHERE  ");
 		for(Map.Entry<String, Object> prop : where.entrySet()) {
 			String key = prop.getKey();
 			if(schema.containsKey(key) && where.$(key) != null) {
