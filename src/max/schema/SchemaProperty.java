@@ -188,7 +188,7 @@ public class SchemaProperty {
 
     public E sqlTypeNameFor(Object obj) {
         // Verificar si el tipo de dato está mapeado en el HashMap
-        E tipoDeDato = tipoDeDatoMap.get(obj.getClass());
+        E tipoDeDato = obj == null ? new E("NULL", "NULL", Types.NULL) : tipoDeDatoMap.get(obj.getClass());
 
         if (tipoDeDato != null) {
             return tipoDeDato;
