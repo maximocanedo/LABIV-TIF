@@ -17,11 +17,16 @@ import com.google.gson.reflect.TypeToken;
 
 import entity.*;
 import logic.AdministradorLogic;
+import logic.AuthManager;
 import max.data.Dictionary;
 import max.data.LogicResponse;
 
 /**
- * Servlet implementation class Administrador__CrearCuenta
+ * Servlet
+ * Función: Crear cuenta de administrador
+ * Restricciones: Parámetros, autenticación legítima de cuenta de administrador.
+ * @author Máximo
+ *
  */
 @WebServlet("/api/admin/signup")
 public class Administrador__CrearCuenta extends HttpServlet {
@@ -84,8 +89,7 @@ public class Administrador__CrearCuenta extends HttpServlet {
 		res.getWriter().append(r.toFinalJSON());
 	}
 	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void onAuthenticated(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
 		if(parameters == null) {
 			status(response, 400);
@@ -96,6 +100,14 @@ public class Administrador__CrearCuenta extends HttpServlet {
 		// TODO: Cuando se implemente bien inicio de sesión, ingresar acá sólo con autenticación de administrador.
 		status(response, finalRes.status ? 201 : 400);
         response.getWriter().append(finalRes.toFinalJSON());
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		if(admin != null) {
+			onAuthenticated(request, response);
+			return;
+		} else return;
 	}
 
 }
