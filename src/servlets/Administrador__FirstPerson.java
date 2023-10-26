@@ -23,12 +23,12 @@ import servlets.Utils;
  *
  */
 @WebServlet("/api/admin")
-public class Administrador_Main extends HttpServlet {
+public class Administrador__FirstPerson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     private AdministradorLogic AL = new AdministradorLogic();
     
-    public Administrador_Main() { super(); }
+    public Administrador__FirstPerson() { super(); }
     
     /**
      * Crear cuenta de administrador. Sólo ejecutar tras haber autenticado.

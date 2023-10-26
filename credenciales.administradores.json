@@ -1,0 +1,76 @@
+[
+	{
+		"alias": "Joseph Derrick Dime",
+		"login_data": {
+			"usuario_admin": "joseph_dime",
+			"password_admin": "Y0$3PH.D3RR1CK.d1m3.ok"
+		},
+		"create_data": {
+			"dni_admin": "35000102",
+			"nacionalidad_admin": "AU",
+			"estado_admin": true,
+			"apellido_admin": "Dime",
+			"cuil_admin": "24350001025",
+			"localidad_admin": 6805,
+			"nombre_admin": "Joseph Derrick",
+			"usuario_admin": "joseph_dime",
+			"correo_admin": "joseph.dime@empleados.bank.org",
+			"password_admin": "Y0$3PH.D3RR1CK.d1m3.ok",
+			"direccion_admin": "Av. Larralde 1670",
+			"sexo_admin": "M",
+			"provincia_admin": 6,
+			"fechaNacimiento_admin": "1980-11-11"
+		}
+	},
+	{
+		"alias": "Héctor Da Silva",
+		"login_data": {
+			"usuario_admin": "hector",
+			"password_admin": "H3kt0R_d4_$1lv4.ok"
+		},
+		"create_data": {
+			"dni_admin": "35000100",
+			"nacionalidad_admin": "AR",
+			"estado_admin": true,
+			"apellido_admin": "Da Silva",
+			"cuil_admin": "20350001005",
+			"localidad_admin": 6805,
+			"nombre_admin": "Héctor",
+			"usuario_admin": "hector",
+			"correo_admin": "hector.silva@empleados.bank.org",
+			"password_admin": "H3kt0R_d4_$1lv4.ok",
+			"direccion_admin": "Av. Dardo Rocha 1350",
+			"sexo_admin": "M",
+			"provincia_admin": 6,
+			"fechaNacimiento_admin": "1984-06-20"
+		}
+	},
+	{
+		"alias": "Margarita Sánchez",
+		"login_data": {
+			"usuario_admin": "Margo_Sanchez_60",
+			"password_admin": "M4r6O.54NcH32.60"
+		},
+		"create_data": {
+			"dni_admin": "35000115",
+			"nacionalidad_admin": "AR",
+			"estado_admin": true,
+			"apellido_admin": "Sánchez",
+			"cuil_admin": "21350001155",
+			"localidad_admin": 6252,
+			"nombre_admin": "Margarita Antonella",
+			"usuario_admin": "Margo_Sanchez_60",
+			"correo_admin": "margo.sanchez@empleados.bank.org",
+			"password_admin": "M4r6O.54NcH32.60",
+			"direccion_admin": "Martín Añejo 1252 PB A",
+			"sexo_admin": "F",
+			"provincia_admin": 6,
+			"fechaNacimiento_admin": "1960-04-12"
+		}
+	},
+	{
+		"alias": "Diego Fernández",
+		"login_data": {},
+		"create_data": {}
+	}
+]
