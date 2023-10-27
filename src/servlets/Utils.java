@@ -17,6 +17,11 @@ import max.data.LogicResponse;
 
 public class Utils {
 	
+ /*
+  * Devuelve el último valor de la ruta dada.
+  * Útil para rutas dinámicas.
+  *
+  */
 	public static String getPathParameter(HttpServletRequest request) {
     	String requestURI = request.getRequestURI();
         String[] segments = requestURI.split("/");
@@ -24,6 +29,10 @@ public class Utils {
     	return param;
     }
 	
+/*
+ * Devuelve el cuerpo de una petición.
+ *
+ */
 	public static String getBody(HttpServletRequest req) throws IOException {
 		// Obtener el cuerpo de la solicitud como texto
 		BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
@@ -38,11 +47,20 @@ public class Utils {
         String requestBody = body.toString();
         return requestBody;
 	}
+
+ /*
+  * Escribe (Preferentemente un JSON) en el cuerpo de la respuesta de un servlet.
+  *
+  */
 	public static void write(HttpServletResponse res, String text) throws IOException {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
 		res.getWriter().append(text);
 	}
+
+ /*
+  * Obtiene todos los parámetros que se enviaron por el cuerpo de la petición, en formato Dictionary.
+  */
 	public static Dictionary getParameters(HttpServletRequest req) throws IOException {
 		Dictionary parameters = new Dictionary();
 		String body = getBody(req);
@@ -60,6 +78,9 @@ public class Utils {
 	public static void status(HttpServletResponse res, int code) {
 		res.setStatus(code);
 	}
+
+ /* 
+  * Envía un mensaje al usuario. Recibe un estado, y un mensaje. */
 	public static void sendMessage(HttpServletResponse res, boolean status, String content) throws IOException {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
