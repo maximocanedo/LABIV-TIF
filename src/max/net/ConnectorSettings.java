@@ -22,6 +22,13 @@ public class ConnectorSettings {
 		characterEncoding = "UTF-8";
 		useSSL = false;
 	}};
+	public static ConnectorSettings SERVIDOR_DE_MAXIMO = new ConnectorSettings() {{
+		host = "jdbc:mysql://186.23.64.37:3306/";
+		user = SQLAccount.GRUPO3__SERVER_MAXIMO;
+		useUnicode = true;
+		characterEncoding = "UTF-8";
+		useSSL = false;
+	}};
 	
 	/**
 	 * Construye el URI para conectar a la base de datos.

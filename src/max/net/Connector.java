@@ -28,7 +28,7 @@ public class Connector implements IConnector {
 	public String database;
 	
 	private static String defaultDatabase = DB.bdPersonas;
-	private static ConnectorSettings defaultSettings = ConnectorSettings.DEFAULT;
+	private static ConnectorSettings defaultSettings = ConnectorSettings.SERVIDOR_DE_MAXIMO;
 	
 	public static void setDefaultDatabase(String database) {
 		defaultDatabase = database;
