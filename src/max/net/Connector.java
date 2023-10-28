@@ -22,12 +22,13 @@ public class Connector implements IConnector {
 	public static class DB {
 		public static final String bdregistro = "bdregistro";
 		public static final String bdPersonas = "bdPersonas";
+		public static final String tif = "tif";
 	}
 	
 	public ConnectorSettings settings;
 	public String database;
 	
-	private static String defaultDatabase = DB.bdPersonas;
+	private static String defaultDatabase = DB.tif;
 	private static ConnectorSettings defaultSettings = ConnectorSettings.SERVIDOR_DE_MAXIMO;
 	
 	public static void setDefaultDatabase(String database) {

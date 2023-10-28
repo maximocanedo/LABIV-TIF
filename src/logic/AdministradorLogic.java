@@ -211,6 +211,28 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	}
 	
 	/**
+	 * Comprueba si un usuario está activo en la base de datos a partir de su nombre de usuario.
+	 * @param arg0 Nombre de usuario.
+	 * @return Resultado de la operación.
+	 */
+	public LogicResponse<Administrador> isActive(String arg0) {
+		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+		try {
+			boolean res = data.exists(Dictionary.fromArray(
+						AdministradorDao.Fields.usuario.name, arg0,
+						AdministradorDao.Fields.estado.name, true
+					));
+			result.status = res;
+			result.http = res ? 200 : 404;
+			result.message = res ? "El usuario está activo. " : "El usuario fue deshabilitado o no existe. ";
+		} catch(SQLException e) {
+			result.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	/**
 	 * Examina si existe un usuario en la base de datos a partir de su número de documento.
 	 * @param dni Número de documento a buscar.
 	 * @return Resultado de la operación.
@@ -412,16 +434,20 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 				TransactionResponse<Administrador> res2 = data.getFullById(user);
 				if(res2.nonEmptyResult()) {
 					Administrador adm = res2.rowsReturned.get(0);
-					LogicResponse<Administrador> resI = validatePassword(adm, pass);
-					if(resI.status) {
-						// Inicio de sesión válido.
-						String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
-						LogicResponse<Administrador> resT = new LogicResponse<Administrador>();
-						resT.die(true, "");
-						resT.eField = token;
-						return resT;
+					if(adm.isEstado()) {
+						LogicResponse<Administrador> resI = validatePassword(adm, pass);
+						if(resI.status) {
+							// Inicio de sesión válido.
+							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
+							LogicResponse<Administrador> resT = new LogicResponse<Administrador>();
+							resT.die(true, "");
+							resT.eField = token;
+							return resT;
+						}
+						return resI;
+					} else {
+						res.die(false, 403, "User was disabled and cannot log in. ");
 					}
-					return resI;
 					
 				}
 			} catch (SQLException e) {
