@@ -171,6 +171,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return x;
 	}
 
+	public boolean isRoot(Administrador a) {
+		return a.getUsuario().equals("root")
+			|| a.getDNI().equals("10000001")
+			|| a.getCUIL().equals("10100000010");
+	}
+	
 	/**
 	 * Deshabilita una cuenta de administrador.
 	 * @param arg0 Objeto Administrador con los datos del usuario a deshabilitar.
@@ -180,6 +186,10 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	public LogicResponse<Administrador> delete(Administrador arg0) {
 		TransactionResponse<?> res;
 		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+		if(isRoot(arg0)) {
+			result.die(false, 406, "Root user cannot be disabled or deleted. ");
+			return result;
+		}
 		try {
 			res = data.delete(arg0);
 			result = convertWildcard(res);
@@ -189,7 +199,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
 			e.printStackTrace();
 		}
-		return result;		
+		return result;
 	}
 	
 	/**
