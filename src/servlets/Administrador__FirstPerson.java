@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +20,7 @@ import max.data.LogicResponse;
  *
  */
 @WebServlet("/api/admin")
-public class Administrador__FirstPerson extends HttpServlet {
+public class Administrador__FirstPerson extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	
     private AdministradorLogic AL = new AdministradorLogic();
@@ -37,18 +36,17 @@ public class Administrador__FirstPerson extends HttpServlet {
      */
     protected void onAuthenticated__CreateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener parámetros
-    	Dictionary parameters = Utils.getParameters(request);
+    	Dictionary parameters = getParameters(request);
     	// Si no hay parámetros o están mal organizados, enviar un HTTP 400.
 		if(parameters == null) {
-			Utils.status(response, 400);
-			Utils.sendMessage(response, false, "Bad request");
+			die(response, false, 400, "Bad request");
 			return;
 		}
 		// Si todo está bien, intentar crear cuenta de administrador con los datos recibidos.
 		LogicResponse<Administrador> finalRes = AL.createAccount(parameters);
 		// Enviamos el código recibido y la respuesta recibida.
-		Utils.status(response, finalRes.status ? 201 : 400);
-        Utils.write(response, finalRes.toFinalJSON());
+		response.setStatus(finalRes.status ? 201 : 400);
+        write(response, finalRes.toFinalJSON());
 	}
     
     /**
@@ -59,7 +57,7 @@ public class Administrador__FirstPerson extends HttpServlet {
      * @throws IOException
      */
     protected void onAuthenticated__ShowPersonalData(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	Utils.write(response, actualUser.toJSON());
+    	write(response, actualUser.toJSON());
     }
     
     /**
@@ -71,8 +69,8 @@ public class Administrador__FirstPerson extends HttpServlet {
      */
     protected void onAuthenticated__DeleteAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
     	LogicResponse<Administrador> result = AL.delete(actualUser);
-    	Utils.status(response, result.http);
-    	Utils.write(response, result.toFinalJSON());
+    	response.setStatus(result.http);
+    	write(response, result.toFinalJSON());
     }
     
     /**
@@ -84,16 +82,16 @@ public class Administrador__FirstPerson extends HttpServlet {
      */
     protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
     	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
-    	Dictionary params = Utils.getParameters(request);
+    	Dictionary params = getParameters(request);
     	if(params != null) {
     		result = AL.updatePassword(actualUser, params);
-    		Utils.status(response, result.http);
-    		Utils.write(response, result.toFinalJSON());
+    		response.setStatus(result.http);
+    		write(response, result.toFinalJSON());
     		return;
     	}
     	result.message = "There are no parameters. ";
-    	Utils.status(response, 400);
-    	Utils.write(response, result.toFinalJSON());
+    	response.setStatus(400);
+    	write(response, result.toFinalJSON());
     	return;
     }
     
@@ -105,23 +103,28 @@ public class Administrador__FirstPerson extends HttpServlet {
      * @throws IOException
      */
     protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	Dictionary params = Utils.getParameters(request);
+    	Dictionary params = getParameters(request);
     	if(params != null) {
         	LogicResponse<Administrador> res = AL.modify(params, actualUser);
-        	Utils.write(response, res.toFinalJSON());
+        	write(response, res.toFinalJSON());
     	} else {
-    		Utils.status(response, 400);
+    		response.setStatus(400);
     	}
     }
     
-    /**
-     * MÉTODOS FUNCIONANDO: GET, POST, DELETE, PATCH
-     * MÉTODOS POR IMPLEMENTAR: PUT (Complicado porque implica traer todos los datos.)
-     * Idea: Obtener Dictionary completo y sobreescribir valores.
-     */
-    
+
+    /// MÉTODOS
+
     /**
      * Método GET. Obtener información sobre la cuenta actual.
+     * 
+     * Códigos de respuesta posibles:
+     * 200: Muestra información sobre la cuenta actual.
+	 * 401: No inició sesión.
+	 * 403: El usuario no tiene los permisos suficientes para crear una cuenta de administrador.
+	 * 404: El usuario fue deshabilitado o no existe.
+	 * 500: Error en la base de datos.
+     * 
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
@@ -133,6 +136,14 @@ public class Administrador__FirstPerson extends HttpServlet {
 
 	/**
 	 * Método POST. Crear cuenta de administrador.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 201: Se creó con éxito la cuenta.
+	 * 400: Error de validación, o falta de parámetros requeridos.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 500: Error en la base de datos.
+	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
@@ -144,6 +155,14 @@ public class Administrador__FirstPerson extends HttpServlet {
 	
 	/**
 	 * Método PUT. Modificar datos de la cuenta actual.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 200: Se modificó todo correctamente.
+	 * 400: Error de validación, o en los parámetros enviados.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 500: Error en la base de datos.
+	 * 
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
@@ -155,6 +174,14 @@ public class Administrador__FirstPerson extends HttpServlet {
 	
 	/**
 	 * Método DELETE. Dar de baja la cuenta actual.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 200: Se deshabilitó la cuenta correctamente.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 406: Intento fallido de eliminar al usuario root.
+	 * 500: Error en la base de datos.
+	 * 
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
@@ -166,6 +193,14 @@ public class Administrador__FirstPerson extends HttpServlet {
 	
 	/**
 	 * Método PATCH. Actualizar contraseña del usuario actual.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 200: Se actualizó la contraseña correctamente.
+	 * 400: Error de validación, o el parámetro requerido no fue enviado.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 500: Error en la base de datos.
+	 * 
 	 */
 	protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
@@ -174,18 +209,22 @@ public class Administrador__FirstPerson extends HttpServlet {
 		}
 		return;
 	}
-
+	
 	/**
-	 * Sobreescribe el método service para que sea compatible con los métodos HTTP PATCH.
+	 * Método OPTIONS. Informar sobre métodos disponibles.
 	 */
 	@Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String method = req.getMethod();
-        if (!method.equals("PATCH")) {
-            super.service(req, resp);
-            return;
-        }
-        this.doPatch(req, resp);
-    }
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Allow", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+	}
 	
+
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS" };
+	}
+
 }

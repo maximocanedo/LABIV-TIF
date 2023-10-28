@@ -74,7 +74,7 @@ public class AuthManager {
     	public static LogicResponse<Administrador> sqlError = 
     			new LogicResponse<Administrador>(false, 500, "An error occured while trying to fetch some data. ");
     	public static LogicResponse<Administrador> actualUserDoesNotExistAnymore = 
-    			new LogicResponse<Administrador>(false, 404, "Your user may have been deleted or blocked from the database. ");
+    			new LogicResponse<Administrador>(false, 403, "Your user may have been deleted or blocked from the database. ");
     
     }
     

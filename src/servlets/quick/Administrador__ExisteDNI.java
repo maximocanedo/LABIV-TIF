@@ -3,20 +3,18 @@ package servlets.quick;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import logic.AdministradorLogic;
 import max.data.LogicResponse;
-import servlets.Utils;
 
 /**
  * Servlet implementation class Administrador__ExisteDNI
  */
 @WebServlet("/api/quick/admin/dni/*")
-public class Administrador__ExisteDNI extends HttpServlet {
+public class Administrador__ExisteDNI extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;
        
     public Administrador__ExisteDNI() {
@@ -26,9 +24,9 @@ public class Administrador__ExisteDNI extends HttpServlet {
     private AdministradorLogic AL = new AdministradorLogic();
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	String dni = Utils.getPathParameter(request);
+    	String dni = getPathParameter(request);
     	LogicResponse<Administrador> result = AL.DNIExists(dni);
-    	Utils.status(response, result.http);
+    	response.setStatus(result.http);
     	return; 
     }
 
@@ -37,8 +35,9 @@ public class Administrador__ExisteDNI extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utils.status(response, 405);
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET" };
 	}
 
 }

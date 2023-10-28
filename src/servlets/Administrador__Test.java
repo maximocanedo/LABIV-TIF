@@ -14,7 +14,7 @@ import logic.AuthManager;
  * Servlet implementation class Administrador__Test
  */
 @WebServlet("/api/admin/test")
-public class Administrador__Test extends HttpServlet {
+public class Administrador__Test extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -29,9 +29,7 @@ public class Administrador__Test extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Utils.status(response, 200);
-		Utils.write(response, "Conexión exitosa. ");
+		die(response, true, 200, "Conexión exitosa. ");
 	}
 
 	/**
@@ -40,6 +38,11 @@ public class Administrador__Test extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
 		response.getWriter().append(admin != null ? admin.toJSON() : "");
+	}
+
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET", "POST" };
 	}
 
 }
