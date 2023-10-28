@@ -27,6 +27,7 @@ public class Administrador__ExisteDNI extends servlets.BaseServlet {
     	String dni = getPathParameter(request);
     	LogicResponse<Administrador> result = AL.DNIExists(dni);
     	response.setStatus(result.http);
+    	sendEmptyResponse(response, result.http);
     	return; 
     }
 

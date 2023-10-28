@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.Expose;
 
 public class LogicResponse<T> {
@@ -23,8 +24,10 @@ public class LogicResponse<T> {
 
 	@Expose(serialize = true)
 	public T objectReturned = null;
+	
 	@Expose(serialize = true)
 	public T[] arrayReturned = null;
+	
 	@Expose(serialize = true)
 	public List<T> listReturned = null;
 	
@@ -33,11 +36,20 @@ public class LogicResponse<T> {
 	
 	
 	public String toFinalJSON() {
-		Gson gson = new GsonBuilder()
-		        .setPrettyPrinting()
-		        .excludeFieldsWithoutExposeAnnotation()
-		        .create();
-		return gson.toJson(this);
+	    GsonBuilder gsonBuilder = new GsonBuilder()
+	            .setPrettyPrinting()
+	            .excludeFieldsWithoutExposeAnnotation();
+
+	    Gson gson = gsonBuilder.create();
+
+	    JsonElement jsonTree = gson.toJsonTree(this);
+
+	    // Convierte objectReturned en JSON si no es nulo
+	    if (objectReturned != null) {
+	        jsonTree.getAsJsonObject().add("objectReturned", gson.toJsonTree(objectReturned));
+	    }
+
+	    return gson.toJson(jsonTree);
 	}
 	
 	public LogicResponse() {}

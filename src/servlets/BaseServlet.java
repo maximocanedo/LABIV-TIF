@@ -23,10 +23,20 @@ public abstract class BaseServlet extends HttpServlet {
 
 	protected abstract String[] getAllowedMethods();
 
-	public BaseServlet() {}
+	public BaseServlet() {
+		super();
+	}
 	
 	protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Implementación por defecto de PATCH
+    }
+	
+	protected void sendEmptyResponse(HttpServletResponse response, int statusCode) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+        response.setStatus(statusCode);
+        response.getWriter().write("");
+        response.getWriter().close();
     }
 	
 	public String getPathParameter(HttpServletRequest request, int index) {

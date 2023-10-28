@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import data.AdministradorDao;
+import data.ClienteDao;
 import entity.Administrador;
+import entity.Cliente;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -123,6 +125,34 @@ public class AuthManager {
 				TransactionResponse<Administrador> findResult = admindao.getById(td.username);
 				if(findResult.nonEmptyResult()) {
 					Administrador adm = findResult.rowsReturned.get(0);
+					if(!adm.isEstado()) {
+						send(res, Error.actualUserDoesNotExistAnymore);
+						return null;
+					}
+					return adm;
+				} else {
+					send(res, Error.actualUserDoesNotExistAnymore);
+					return null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				send(res, Error.sqlError);
+				return null;
+			}
+    	} else return null;
+    }
+    
+    public static Cliente getActualClient(HttpServletRequest req, HttpServletResponse res) {
+    	boolean auth = authenticate(req, res, CLIENT);
+    	if(auth) {
+    		String authHeader = req.getHeader("Authorization");
+    		String token = authHeader.substring(7);
+    		TokenData td = readJWT(token);
+    		ClienteDao admindao = new ClienteDao();
+    		try {
+				TransactionResponse<Cliente> findResult = admindao.getById(td.username);
+				if(findResult.nonEmptyResult()) {
+					Cliente adm = findResult.rowsReturned.get(0);
 					if(!adm.isEstado()) {
 						send(res, Error.actualUserDoesNotExistAnymore);
 						return null;

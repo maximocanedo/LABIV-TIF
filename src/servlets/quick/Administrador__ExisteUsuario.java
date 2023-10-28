@@ -35,8 +35,7 @@ public class Administrador__ExisteUsuario extends servlets.BaseServlet {
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String username = getUsername(request);
     	LogicResponse<Administrador> result = AL.exists(username);
-    	response.setStatus(result.http);
-    	//Utils.write(response, result.toFinalJSON());
+    	sendEmptyResponse(response, result.http);
     	return; 
     }
 

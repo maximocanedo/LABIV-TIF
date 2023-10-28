@@ -28,7 +28,7 @@ public class Administrador__ExisteCUIL extends servlets.BaseServlet {
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String dni = getPathParameter(request);
     	LogicResponse<Administrador> result = AL.CUILExists(dni);
-    	response.setStatus(result.http);
+    	sendEmptyResponse(response, result.http);
     	return; 
     }
 
