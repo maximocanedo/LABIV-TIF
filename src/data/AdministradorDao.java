@@ -71,6 +71,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 			type = Types.VARCHAR;
 			maxlength = 3;
 			minlength = 1;
+			matches = "^[MF]$";
 			trim = true;
 		}};
 		public static SchemaProperty nacionalidad = new SchemaProperty("nacionalidad_admin") {{
