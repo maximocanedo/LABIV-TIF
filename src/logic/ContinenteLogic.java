@@ -13,12 +13,11 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	
 	private static ContinenteDao data = new ContinenteDao();
 	
-	
-	public ContinenteLogic() {
-		// TODO Auto-generated constructor stub 
-		
-	}
+	public ContinenteLogic() {}
 
+	/**
+	 * Convierte un objeto Dictionary a un objeto de tipo Continente.
+	 */
 	@Override
 	public Continente convert(Dictionary data) {
 		Continente p = new Continente();
@@ -30,6 +29,9 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		return p;
 	}
 
+	/**
+	 * Convierte una lista de Dictionary a una lista de Continente.
+	 */
 	@Override
 	public List<Continente> convert(List<Dictionary> list) {
 		List<Continente> arrP = new ArrayList<Continente>();
@@ -39,17 +41,29 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		return arrP;
 	}
 
+	/**
+	 * Elimina un registro.
+	 */
 	@Override
-	public LogicResponse<Continente> delete(Continente arg0) throws SQLException {
+	public LogicResponse<Continente> delete(Continente arg0){
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
-		TransactionResponse<?> tn = data.delete(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se eliminó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar eliminar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.delete(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, 200, "El registro se eliminó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 		
 	}
 
+	/**
+	 * Determina si un registro existe.
+	 */
 	@Override
 	public LogicResponse<Continente> exists(String arg0) {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
@@ -66,6 +80,9 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		return res;
 	}
 
+	/**
+	 * Obtiene todos los registros de la base de datos.
+	 */
 	@Override
 	public LogicResponse<Continente> getAll() {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
@@ -82,6 +99,9 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		return res;
 	}
 
+	/**
+	 * Busca un registro por su ID.
+	 */
 	@Override
 	public LogicResponse<Continente> getById(String arg0) {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
@@ -99,23 +119,41 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 		return res;
 	}
 
+	/**
+	 * Inserta un registro en la base de datos.
+	 */
 	@Override
-	public LogicResponse<Continente> insert(Continente arg0) throws SQLException {
+	public LogicResponse<Continente> insert(Continente arg0){
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
-		TransactionResponse<?> tn = data.insert(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se insertó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar insertar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.insert(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, 201, "El registro se insertó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 	}
 
+	/**
+	 * Modifica un registro en la base de datos.
+	 */
 	@Override
-	public LogicResponse<Continente> modify(Continente arg0) throws SQLException {
+	public LogicResponse<Continente> modify(Continente arg0) {
 		LogicResponse<Continente> res = new LogicResponse<Continente>();
-		TransactionResponse<?> tn = data.modify(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se modificó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar modificar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.modify(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, 200, "El registro se modificó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 	}
 

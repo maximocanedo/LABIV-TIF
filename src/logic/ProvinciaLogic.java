@@ -16,11 +16,11 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	
 	private static ProvinciaDao data = new ProvinciaDao();
 	
-	public ProvinciaLogic() {
-		// TODO Auto-generated constructor stub 
-		
-	}
+	public ProvinciaLogic() { }
 
+	/**
+	 * Convierte un Dictionary en un objeto Provincia.
+	 */
 	@Override
 	public Provincia convert(Dictionary data) {
 		Provincia p = new Provincia();
@@ -32,6 +32,9 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return p;
 	}
 
+	/**
+	 * Convierte una lista de Dictionary en una lista de provincias.
+	 */
 	@Override
 	public List<Provincia> convert(List<Dictionary> list) {
 		List<Provincia> arrP = new ArrayList<Provincia>();
@@ -41,17 +44,29 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return arrP;
 	}
 
+	/**
+	 * Elimina un registro.
+	 */
 	@Override
-	public LogicResponse<Provincia> delete(Provincia arg0) throws SQLException {
+	public LogicResponse<Provincia> delete(Provincia arg0) {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
-		TransactionResponse<?> tn = data.delete(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se eliminó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar eliminar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.delete(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, 200, "El registro se eliminó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 		
 	}
 
+	/**
+	 * Determina si existe un registro. 
+	 */
 	@Override
 	public LogicResponse<Provincia> exists(Integer arg0) {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
@@ -59,16 +74,19 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		try {
 			tn = data.exists(arg0);
 			if(tn) {
-				res.die(true, "El registro existe. ");
-			} else res.die(false, "No existe un registro con esas características. ");
+				res.die(true, 200, "El registro existe. ");
+			} else res.die(false, 404, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
 		}
 		return res;
 	}
 
+	/**
+	 * Obtiene todos los registros en la base de datos.
+	 */
 	@Override
 	public LogicResponse<Provincia> getAll() {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
@@ -77,15 +95,18 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 			tn = data.getAll();
 			if(tn.nonEmptyResult()) {
 				res.fill(tn.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			} else res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
 		}
 		return res;
 	}
 
+	/**
+	 * Busca un registro por su ID.
+	 */
 	@Override
 	public LogicResponse<Provincia> getById(Integer arg0) {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
@@ -94,32 +115,50 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 			tn = data.getById(arg0);
 			if(tn.nonEmptyResult()) {
 				res.fill(tn.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			} else res.die(false, 404, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
 		}
 		return res;
 	}
 
+	/**
+	 * Inserta un registro.
+	 */
 	@Override
-	public LogicResponse<Provincia> insert(Provincia arg0) throws SQLException {
+	public LogicResponse<Provincia> insert(Provincia arg0) {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
-		TransactionResponse<?> tn = data.insert(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se insertó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar insertar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.insert(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, 201, "El registro se insertó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 	}
-
+	
+	/**
+	 * Modifica un registro.
+	 */
 	@Override
-	public LogicResponse<Provincia> modify(Provincia arg0) throws SQLException {
+	public LogicResponse<Provincia> modify(Provincia arg0) {
 		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
-		TransactionResponse<?> tn = data.modify(arg0);
-		if(tn.rowsAffected > 0) {
-			res.die(true, "El registro se modificó con éxito. ");
-		} else res.die(false, "Hubo un error al intentar modificar el registro. ");
+		TransactionResponse<?> tn;
+		try {
+			tn = data.modify(arg0);
+			if(tn.rowsAffected > 0) {
+				res.die(true, "El registro se modificó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
+			e.printStackTrace();
+		}
 		return res;
 	}
 
@@ -142,7 +181,5 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		}
 		return res;
 	}
-	
-	
 
 }

@@ -1,20 +1,18 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.AdministradorDao;
 import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
 import max.data.LogicResponse;
-import max.schema.Schema;
-import servlets.Utils;
 
 /**
  * Endpoints para realizar acciones sobre objetos de tipo Administrador
@@ -72,7 +70,7 @@ public class Administrador__FirstPerson extends HttpServlet {
      * @throws IOException 
      */
     protected void onAuthenticated__DeleteAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = AL.deleteOne(actualUser);
+    	LogicResponse<Administrador> result = AL.delete(actualUser);
     	Utils.status(response, result.http);
     	Utils.write(response, result.toFinalJSON());
     }

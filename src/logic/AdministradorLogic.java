@@ -177,29 +177,21 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	 * @returns Resultado de la operación.
 	 */
 	@Override
-	public LogicResponse<Administrador> delete(Administrador arg0) throws SQLException {
-		TransactionResponse<?> res = data.delete(arg0);
-		return convertWildcard(res);		
-	}
-	
-	/**
-	 * Deshabilita una cuenta de administrador, pero no arroja excepcioens.
-	 * @param arg0 Objeto Administrador con los datos del usaurio a deshabilitar.
-	 * @return Resultado de la operación.
-	 */
-	public LogicResponse<Administrador> deleteOne(Administrador arg0) {
-		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
+	public LogicResponse<Administrador> delete(Administrador arg0) {
+		TransactionResponse<?> res;
+		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
 		try {
-			res = delete(arg0);
-			res.message = res.status ? "El registro se eliminó correctamente. " : "No se eliminó el registro. ";
-			res.http = res.status ? 201 : 500;
+			res = data.delete(arg0);
+			result = convertWildcard(res);
+			result.message = result.status ? "El registro se eliminó correctamente. " : "No se eliminó el registro. ";
+			result.http = result.status ? 200 : 500;
 		} catch (SQLException e) {
-			res.die(false, 500, "Hubo un problema al intentar eliminar el registro. ");
+			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
 			e.printStackTrace();
 		}
-		return res;
+		return result;		
 	}
-
+	
 	/**
 	 * Examina si existe un usuario en la base de datos a partir de su nombre de usuario.
 	 * @param arg0 Nombre de usuario.
@@ -217,6 +209,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		}
 		return res;
 	}
+	
+	/**
+	 * Examina si existe un usuario en la base de datos a partir de su número de documento.
+	 * @param dni Número de documento a buscar.
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> DNIExists(String dni) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		boolean o = false;
@@ -230,6 +228,11 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 		return res;
 	}
 	
+	/**
+	 * Examina si existe un usuario en la base de datos a partir de su número de CUIL.
+	 * @param cuil Número de CUIL a buscar.
+	 * @return Resultado de la operación. 
+	 */
 	public LogicResponse<Administrador> CUILExists(String cuil) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		boolean o = false;
@@ -282,8 +285,17 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	 * @param arg0 Objeto Administrador con los datos a insertar.
 	 */
 	@Override
-	public LogicResponse<Administrador> insert(Administrador arg0) throws SQLException {
-		return convertWildcard(data.insert(arg0));
+	public LogicResponse<Administrador> insert(Administrador arg0) {
+		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+		try {
+			result = convertWildcard(data.insert(arg0));
+			result.message = result.status ? "El registro se insertó correctamente. " : "No se insertó ningún registro. ";
+			result.http = result.status ? 201 : 500;
+		} catch (SQLException e) {
+			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	/**
@@ -329,13 +341,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
         finalData.put("salt_admin", salt);
         // Convertimos el Dictionary en objeto entidad para trabajar con métodos DAO.
         Administrador obj = convertFull(finalData, true);
-        try {
-        	// Insertamos el objeto en la base de datos.
-			res = insert(obj);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        res = insert(obj);
         // Devolvemos el resultado de la operación.
         return res;		
 	}
@@ -486,10 +492,26 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 	 * Modifica datos en un objeto Administrador.
 	 */
 	@Override
-	public LogicResponse<Administrador> modify(Administrador arg0) throws SQLException {
-		System.out.println(arg0.toJSON());
-		return convertWildcard(data.modify(arg0));
+	public LogicResponse<Administrador> modify(Administrador arg0) {
+		LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+		try {
+			result = convertWildcard(data.modify(arg0));
+			result.message = result.status ? "El registro se modificó correctamente. " : "No se modificó ningún registro. ";
+			result.http = result.status ? 200 : 500;
+		} catch (SQLException e) {
+			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			e.printStackTrace();
+		}
+		return result;
 	}
+	
+	/**
+	 * Modifica datos en un objeto Administrador.
+	 * Recibe los parámetros directo del servlet, y los valida antes de enviarlo a la sobrecarga de único parámetro de esta función.
+	 * @param arg0 Parámetros enviados por el servlet en cuestión.
+	 * @param user Usuario a ser modificado
+	 * @return Resultado de la operación.
+	 */
 	public LogicResponse<Administrador> modify(Dictionary arg0, Administrador user) {
 		LogicResponse<Administrador> res = new LogicResponse<Administrador>();
 		Administrador obj = new Administrador();
@@ -502,9 +524,6 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 			return modify(obj);
 		} catch (SchemaValidationException e) {
 			res.die(false, 400, e.getMessage());
-			e.printStackTrace();
-		} catch (SQLException e) {
-			res.die(false, 500, e.getMessage());
 			e.printStackTrace();
 		}
 		return res;

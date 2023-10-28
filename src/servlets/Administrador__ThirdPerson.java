@@ -65,7 +65,7 @@ public class Administrador__ThirdPerson extends HttpServlet {
      * @throws IOException 
      */
     protected void onAuthenticated__DeleteAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = AL.deleteOne(actualUser);
+    	LogicResponse<Administrador> result = AL.delete(actualUser);
     	Utils.status(response, result.http);
     	Utils.write(response, result.toFinalJSON());
     }
