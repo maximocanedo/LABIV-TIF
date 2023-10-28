@@ -123,6 +123,10 @@ public class AuthManager {
 				TransactionResponse<Administrador> findResult = admindao.getById(td.username);
 				if(findResult.nonEmptyResult()) {
 					Administrador adm = findResult.rowsReturned.get(0);
+					if(!adm.isEstado()) {
+						send(res, Error.actualUserDoesNotExistAnymore);
+						return null;
+					}
 					return adm;
 				} else {
 					send(res, Error.actualUserDoesNotExistAnymore);
