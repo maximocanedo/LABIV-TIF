@@ -15,27 +15,23 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/jars/jjwt-api-0.12.3.jar">
+	<classpathentry kind="lib" path="jjwt-api-0.12.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/TPINT_GRUPO_3_LAB/jjwt-api-0.12.3-javadoc.jar!/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/jars/jjwt-impl-0.12.3.jar">
+	<classpathentry kind="lib" path="jjwt-gson-0.12.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/TPINT_GRUPO_3_LAB/jjwt-impl-0.12.3-javadoc.jar!/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/jars/jjwt-gson-0.12.3.jar">
+	<classpathentry kind="lib" path="jjwt-impl-0.12.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/TPINT_GRUPO_3_LAB/jjwt-gson-0.12.3-javadoc.jar!/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/jars/jjwt-orgjson-0.12.3.jar">
+	<classpathentry kind="lib" path="jjwt-orgjson-0.12.3.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/TPINT_GRUPO_3_LAB/jjwt-orgjson-0.12.3-javadoc.jar!/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
