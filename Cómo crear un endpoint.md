@@ -164,6 +164,7 @@ if(parameters == null) {
 Si tenés un servlet ```/api/registro/*```, y recibís una petición con un ID ```/api/registro/38``` y querés acceder a ese ID enviado en la URL:
 ```java
 String id = getPathParameter(request);
+print(id); // Imprime "38"
 ```
 
 
