@@ -6,6 +6,9 @@ import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Cuenta implements IEntity{
+	
+	public Cuenta() {}
+	
 	@Expose(serialize = true)
 	private String Num_Cuenta_CxC;
 	@Expose(serialize = true)
