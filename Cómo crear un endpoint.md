@@ -55,7 +55,7 @@ Por ejemplo, si vas a usar el método `GET`, tu método tendría que verse así:
 Si vas a hacer, en cambio, un método `POST`, por ejemplo, sólo tendrías que cambiar el nombre del método anterior, `doGet`, por `doPost`.
 ```java
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    /* Código que se ejecutará ante una Petición GET a la URL del servlet. */
+    /* Código que se ejecutará ante una Petición POST a la URL del servlet. */
   }
 ```
 
