@@ -30,7 +30,6 @@ public class TipoCuentaDao implements IRecord<TipoCuenta, String>{
 			}},
 			new SchemaProperty("Descripcion_TPCT") {{
 				required= true;
-				primary= true;
 				type= Types.VARCHAR;
 				maxlength= 100;
 			}}
