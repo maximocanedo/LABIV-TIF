@@ -204,7 +204,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			// Bug #41. Descomentar cuando se haya resuelto.
-			res = _model.modify(Dictionary.fromArray(Fields.estado, false), a.toIdentifiableDictionary());
+			res = _model.modify(Dictionary.fromArray(Fields.estado.name, false), a.toIdentifiableDictionary());
 			/*res = new Connector(_model.getDatabaseName())
 					.transact(
 						"UPDATE " + printTDB() + " SET " + Fields.estado.name + " = @estado WHERE " + Fields.usuario.name + " = @usuario",
