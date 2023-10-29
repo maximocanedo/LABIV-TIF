@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Administrador;
 import entity.Cliente;
 import logic.AuthManager;
 import logic.ClienteLogic;
@@ -47,6 +48,23 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
     	response.setStatus(result.http);
     	write(response, result.toFinalJSON());
     }
+    
+    /**
+     * Actualiza los datos editables del usuario en sesión. Sólo ejecutar tras haber autenticado.
+     * @param request
+     * @param response
+     * @param actualUser
+     * @throws IOException
+     */
+    protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
+    	Dictionary params = getParameters(request);
+    	if(params != null) {
+        	LogicResponse<Cliente> res = CL.modify(params, actualUser);
+        	write(response, res.toFinalJSON());
+    	} else {
+    		response.setStatus(400);
+    	}
+    }
 
 	/**
 	 * Método POST: Crear cuenta de usuario
@@ -84,6 +102,24 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
 		}
 		return;
 	}
+	/**
+	 * Método PUT. Modificar datos de la cuenta actual.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 200: Se modificó todo correctamente.
+	 * 400: Error de validación, o en los parámetros enviados.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 500: Error en la base de datos.
+	 * 
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cliente cliente = AuthManager.getActualClient(request, response);
+		if(cliente != null) {
+			onAuthenticated__ModifyAccount(request, response, cliente);
+		}
+		return;
+	}
 	
 	/**
 	 * Método DELETE: Eliminar usuario en sesión.
@@ -98,7 +134,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "GET", "POST", "DELETE" };
+		return new String[] { "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS" };
 	}
 
 }

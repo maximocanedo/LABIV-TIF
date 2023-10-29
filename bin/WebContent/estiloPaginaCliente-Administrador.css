@@ -4,8 +4,6 @@ html {
 }
 
 body {
-  margin: 0;
-  margin-bottom: 40px;
     margin: 0;
     padding: 0;
     display: flex;
@@ -19,11 +17,7 @@ body {
 }
 
 #footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  color: white;
-    padding: 1px;
+	padding: 1px;
     text-align: center;
 }
     
