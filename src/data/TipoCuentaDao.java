@@ -2,13 +2,13 @@ package data;
 
 import java.sql.SQLException;
 import java.sql.Types;
-
 import entity.TipoCuenta;
 import logic.TipoCuentaLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
 import max.net.Connector;
+import max.oops.SchemaValidationException;
 import max.schema.Schema;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
@@ -44,20 +44,35 @@ public class TipoCuentaDao implements IRecord<TipoCuenta, String>{
 	
 	@Override
 	public TransactionResponse<?> insert(TipoCuenta data) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		TransactionResponse<?> res = TransactionResponse.create();
+		try {
+			res = _model.create(data.toDictionary());
+		} catch(SchemaValidationException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public TransactionResponse<?> delete(TipoCuenta data) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		TransactionResponse<?> res = null;
+		try {
+			res = _model.delete(data.toIdentifiableDictionary());
+		} catch (SchemaValidationException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public TransactionResponse<?> modify(TipoCuenta data) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		TransactionResponse<?> res = TransactionResponse.create();
+		try {
+			res = _model.modify(data.toDictionary(), data.toIdentifiableDictionary());
+		} catch(SchemaValidationException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override

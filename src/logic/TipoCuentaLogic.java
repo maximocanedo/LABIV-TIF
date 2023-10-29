@@ -1,56 +1,128 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import data.TipoCuentaDao;
 import entity.TipoCuenta;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.LogicResponse;
+import max.data.TransactionResponse;
+import max.oops.SchemaValidationException;
 
 public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 
 	public TipoCuentaLogic() {}
-
+	TipoCuentaDao tpDao= new TipoCuentaDao();
 	@Override
 	public LogicResponse<TipoCuenta> validate(TipoCuenta data, boolean validatePKDuplicates) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		try {
+			res.status = validatePKDuplicates 
+					? TipoCuentaDao._model.validate(data.toDictionary()) 
+					: TipoCuentaDao.tablaTP.validate(data.toDictionary());
+		} catch (SchemaValidationException e) {
+			e.printStackTrace();
+			res.die(false, e.getMessage());
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> insert(TipoCuenta data) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		TransactionResponse<?> tpr;
+		try {
+			tpr = tpDao.insert(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 201, "El registro se insertó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar insertar el registro. ");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> modify(TipoCuenta data) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		TransactionResponse<?> tpr;
+		try {
+			tpr = tpDao.modify(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 200, "El registro se modificó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar modificar el registro. ");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> delete(TipoCuenta data) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		TransactionResponse<?> tpr;
+		try {
+			tpr = tpDao.delete(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 200, "El registro se eliminó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar eliminar el registro. ");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		TransactionResponse<TipoCuenta> tpr = new TransactionResponse<TipoCuenta>();
+		try {
+			tpr = tpDao.getAll();
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		TransactionResponse<TipoCuenta> tpr = new TransactionResponse<TipoCuenta>();
+		try {
+			tpr = tpDao.getById(id);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
 	}
 
 	@Override
 	public LogicResponse<TipoCuenta> exists(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+		boolean existe = false;
+		try {
+			existe = tpDao.exists(id);
+			if(existe) {
+				res.die(true, "El registro existe. ");
+			} else res.die(false, "No existe un registro con esas características. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
 	}
 
 	@Override
