@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import data.AdministradorDao;
 import data.ClienteDao;
@@ -83,7 +82,7 @@ public class AuthManager {
     public static void send(HttpServletResponse res, LogicResponse<Administrador> mes) {
     	res.setStatus(mes.http);
     	try {
-    		String jsn = new Gson().toJson(mes);
+    		String jsn = mes.toFinalJSON();
 			res.getWriter().append(jsn);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -112,6 +111,16 @@ public class AuthManager {
     		send(res, Error.emptyAuthHeader); 
     		return false;
     	}
+    }
+    
+    public static TokenData readToken(HttpServletRequest request) {
+    	String authHeader = request.getHeader("Authorization");
+    	if(authHeader != null && authHeader.startsWith("Bearer ")) {
+    		String token = authHeader.substring(7);
+    		TokenData td = readJWT(token);
+    		return td;
+    	}
+    	return null;
     }
     
     public static Administrador getActualAdmin(HttpServletRequest req, HttpServletResponse res) {

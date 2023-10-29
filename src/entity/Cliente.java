@@ -198,19 +198,19 @@ public class Cliente implements IEntity {
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-			"usuario_admin", usuario,
-			"dni_admin", DNI,
-			"cuil_admin", CUIL,
-			"nombre_admin", nombre,
-			"apellido_admin", apellido,
-			"sexo_admin", sexo,
-			"nacionalidad_admin", nacionalidad != null ? nacionalidad.getCodigo() : null,
-			"fechaNacimiento_admin", fechaNacimiento,
-			"direccion_admin", direccion,
-			"localidad_admin", localidad != null ? localidad.getId() : null,
-			"provincia_admin", provincia != null ? provincia.getId() : null,
-			"correo_admin", correo,
-			"estado_admin", estado
+			"usuario", usuario,
+			"dni", DNI,
+			"cuil", CUIL,
+			"nombre", nombre,
+			"apellido", apellido,
+			"sexo", sexo,
+			"nacionalidad", nacionalidad != null ? nacionalidad.getCodigo() : null,
+			"fechaNacimiento", fechaNacimiento,
+			"direccion", direccion,
+			"localidad", localidad != null ? localidad.getId() : null,
+			"provincia", provincia != null ? provincia.getId() : null,
+			"correo", correo,
+			"estado", estado
 		);
 	}
 	
@@ -257,6 +257,15 @@ public class Cliente implements IEntity {
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray(
 				"usuario", usuario
+			);
+	}
+	
+	public Dictionary toMinimumDictionary() {
+		return Dictionary.fromArray(
+				"usuario", usuario,
+				"cuil", CUIL,
+				"nombre", nombre,
+				"apellido", apellido
 			);
 	}
 }

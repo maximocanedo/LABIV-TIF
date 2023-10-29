@@ -596,7 +596,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 */
 	public static void test(String[] args) {
 		ClienteLogic logic = new ClienteLogic();
-		Dictionary data = Dictionary.fromArray(
+		Dictionary.fromArray(
 			ClienteDao.Fields.nombre.name, "Máximo",
 			ClienteDao.Fields.apellido.name, "Canedo",
 			ClienteDao.Fields.dni.name, "45006002",
