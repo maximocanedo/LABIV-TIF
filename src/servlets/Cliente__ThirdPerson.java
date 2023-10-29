@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
+import logic.AdministradorLogic;
 import logic.AuthManager;
 import logic.AuthManager.TokenData;
 import logic.ClienteLogic;
+import max.data.Dictionary;
 import max.data.LogicResponse;
 
 /**
@@ -30,6 +32,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
     }
     
     private ClienteLogic CL = new ClienteLogic();
+    private AdministradorLogic AL = new AdministradorLogic();
 
     /**
      * Obtiene el cliente a partir del usuario pasado por parámetro en la URL.
@@ -97,6 +100,23 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
     	write(response, result.toFinalJSON());
     }
     
+    /**
+     * Actualiza los datos editables del usuario en sesión. Sólo ejecutar tras haber autenticado.
+     * @param request
+     * @param response
+     * @param actualUser
+     * @throws IOException
+     */
+    protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
+    	Dictionary params = getParameters(request);
+    	if(params != null) {
+        	LogicResponse<Cliente> res = CL.modify(params, actualUser);
+        	write(response, res.toFinalJSON());
+    	} else {
+    		response.setStatus(400);
+    	}
+    }
+    
     // MÉTODOS
     
     /**
@@ -133,6 +153,26 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
 		}
 		return;
 	}
+	
+	/**
+	 * Método PUT. Modificar datos de la cuenta actual.
+	 * 
+	 * Códigos de respuesta posibles:
+	 * 200: Se modificó todo correctamente.
+	 * 400: Error de validación, o en los parámetros enviados.
+	 * 401: No inició sesión.
+	 * 403: El usuario fue deshabilitado, no existe, o no tiene el rol requerido para realizar esta acción.
+	 * 500: Error en la base de datos.
+	 * 
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		Cliente cliente = getClient(request, response);
+		if(admin != null) {
+			onAuthenticated__ModifyAccount(request, response, cliente);
+		}
+		return;
+	}
 
 	/**
 	 * Método DELETE: Deshabilita el cliente en cuestión.
@@ -157,7 +197,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "GET", "DELETE" };
+		return new String[] { "GET", "DELETE", "PUT" };
 	}
 
 }
