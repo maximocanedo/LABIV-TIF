@@ -37,4 +37,3 @@ public class TipoCuenta implements IEntity{
 	}
 
 }
-//
