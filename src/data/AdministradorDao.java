@@ -286,8 +286,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Administrador> select(String arg0) throws SQLException {
+	private TransactionResponse<Administrador> select(String arg0) throws SQLException {
 		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0);
 		if(rd.nonEmptyResult()) {
@@ -296,18 +295,7 @@ public class AdministradorDao implements IRecord<Administrador, String> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Administrador> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
-		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
-		if(rd.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(rd.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Administrador> select(String arg0, Object[] arg1) throws SQLException {
+	private TransactionResponse<Administrador> select(String arg0, Dictionary arg1) throws SQLException {
 		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
 		if(rd.nonEmptyResult()) {

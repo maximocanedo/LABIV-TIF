@@ -117,18 +117,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Localidad> select(String arg0) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0);
-		TransactionResponse<Localidad> res = new TransactionResponse<Localidad>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Localidad> select(String arg0, Dictionary arg1) throws SQLException {
+	private TransactionResponse<Localidad> select(String arg0, Dictionary arg1) throws SQLException {
 		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
 		TransactionResponse<Localidad> res = new TransactionResponse<Localidad>();
 		if(r.nonEmptyResult()) {
@@ -137,16 +126,6 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Localidad> select(String arg0, Object[] arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Localidad> res = new TransactionResponse<Localidad>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-	
 	public TransactionResponse<Localidad> filterByProvince(Provincia p) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE provincia_loc = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
 	}

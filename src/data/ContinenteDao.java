@@ -107,34 +107,4 @@ public class ContinenteDao implements IRecord<Continente, String> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Continente> select(String arg0) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0);
-		TransactionResponse<Continente> res = new TransactionResponse<Continente>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Continente> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Continente> res = new TransactionResponse<Continente>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Continente> select(String arg0, Object[] arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Continente> res = new TransactionResponse<Continente>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
 }

@@ -294,8 +294,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Cliente> select(String arg0) throws SQLException {
+	private TransactionResponse<Cliente> select(String arg0) throws SQLException {
 		TransactionResponse<Cliente> res = new TransactionResponse<Cliente>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0);
 		if(rd.nonEmptyResult()) {
@@ -304,18 +303,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Cliente> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Cliente> res = new TransactionResponse<Cliente>();
-		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
-		if(rd.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(rd.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Cliente> select(String arg0, Object[] arg1) throws SQLException {
+	private TransactionResponse<Cliente> select(String arg0, Dictionary arg1) throws SQLException {
 		TransactionResponse<Cliente> res = new TransactionResponse<Cliente>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
 		if(rd.nonEmptyResult()) {

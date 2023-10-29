@@ -133,36 +133,6 @@ public class PaisDao implements IRecord<Pais, String> {
 		}
 		return res;
 	}
-
-	@Override
-	public TransactionResponse<Pais> select(String arg0) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0);
-		TransactionResponse<Pais> res = new TransactionResponse<Pais>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Pais> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Pais> res = new TransactionResponse<Pais>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Pais> select(String arg0, Object[] arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Pais> res = new TransactionResponse<Pais>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
 	
 
 

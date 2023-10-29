@@ -107,34 +107,4 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		return res;
 	}
 
-	@Override
-	public TransactionResponse<Provincia> select(String arg0) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0);
-		TransactionResponse<Provincia> res = new TransactionResponse<Provincia>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Provincia> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Provincia> res = new TransactionResponse<Provincia>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
-	@Override
-	public TransactionResponse<Provincia> select(String arg0, Object[] arg1) throws SQLException {
-		TransactionResponse<Dictionary> r = db.fetch(arg0, arg1);
-		TransactionResponse<Provincia> res = new TransactionResponse<Provincia>();
-		if(r.nonEmptyResult()) {
-			res.rowsReturned = logic.convert(r.rowsReturned);
-		}
-		return res;
-	}
-
 }
