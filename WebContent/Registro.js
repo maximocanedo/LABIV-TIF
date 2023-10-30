@@ -23,4 +23,18 @@ async function cargarProvincias() {
 	   });
 }
  
+
+(async () => {
+	const data = await fetch("/TPINT_GRUPO_3_LAB/api/provinces/list", {
+		method: "GET"
+	})
+	.then(raw => raw.json())
+	.then(json => {
+		console.log(json);
+		return json;
+	})
+	.catch(err => {
+		console.error(err);
+	});
+})();
   
