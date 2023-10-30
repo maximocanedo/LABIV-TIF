@@ -11,6 +11,8 @@ const login = async (user, password, isAdmin = false) => {
 				body: JSON.stringify({
 					usuario: user,
 					password: password,
+					usuario_admin: user,
+					password_admin: password,
 				}),
 			}
 		);
@@ -29,6 +31,10 @@ const login = async (user, password, isAdmin = false) => {
 		};
 	} catch (error) {
 		console.error(error);
+		return {
+			status: 500,
+			message: "Error interno del servidor. ",
+		};
 	}
 };
 
@@ -47,10 +53,6 @@ const testAccess = async (isAdmin = false) => {
 				method: "GET",
 			}
 		);
-		if (response.status == 200) {
-			console.log("Autenticó con éxito. ");
-		} else console.error("No se autenticó. ");
-		console.log(await response.json());
 	} catch (err) {
 		console.error(err);
 	}
