@@ -38,18 +38,19 @@ const login = async (user, password, isAdmin = false) => {
 	}
 };
 
+const AUTH_HEADER = (() => {
+	let _headers = new Headers();
+	_headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+	return _headers;
+})();
+
 const testAccess = async (isAdmin = false) => {
-	var myHeaders = new Headers();
-	myHeaders.append(
-		"Authorization",
-		`Bearer ${localStorage.getItem("token")}`
-	);
 	try {
 		const response = await fetch(
 			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/" +
 				(isAdmin ? "admin" : "client"),
 			{
-				headers: myHeaders,
+				headers: AUTH_HEADER,
 				method: "GET",
 			}
 		);
@@ -58,4 +59,22 @@ const testAccess = async (isAdmin = false) => {
 	}
 };
 
-export { login, testAccess };
+const getActualClient = async (isAdmin = false) => {
+	try {
+		const response = await fetch(
+			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/" +
+				(isAdmin ? "admin" : "client"),
+			{
+				headers: AUTH_HEADER,
+				method: "GET",
+			}
+		);
+		const status = response.status;
+		const data = await response.json();
+		return { status, data };
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export { login, testAccess, AUTH_HEADER, getActualClient };
