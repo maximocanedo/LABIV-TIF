@@ -14,53 +14,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
+            <script src="Registro.js"></script>
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-      <script src="Registro.js"></script>
+      
       <link href="Registro.css" rel="stylesheet">	
    </head>
-   <body>
+   
+   <body >
+    <script>
+     cargarProvincias();
+     </script>
       <div class="container">
          <h2 style="color:#1E90FF;font-family:Arial;font-size:30px;" class="center-align">Registro</h2>
          <div class="register-container">
             <div class="row">
                <div class="col s12 m6 offset-m3">
-                  <form >
+               
+                  <form id="formAgregar" method="post">
+                  
                      <!-- Correo Electrónico -->
                      <div class="input-field">
-                        <input class="validate" type="email" id="e-mail" required>
+                        <input class="validate" type="email" id="e-mail" name= "email" required>
                         <label for="e-mail">E-Mail</label>
                      </div>
                      <!-- Contraseña -->
                      <div class="input-field">
-                        <input class="validate" type="password" id="password" required>
+                        <input class="validate" type="password" id="password" name="password" required>
                         <label for="password">Clave</label>
                      </div>
                      <div class="input-field">
-                        <input class="validate" type="password" id="Confirm_password" required>
+                        <input class="validate" type="password" id="Confirm_password" name="confirmPassword" required>
                         <label for="Confirm_password">Confirmar Clave</label>
                      </div>
                      <!-- Direccion -->
                      <div class="input-field">
-                        <input class="validate" type="text" id="direccion" required>
+                        <input class="validate" type="text" id="direccion" name="direccion" required>
                         <label for="direccion">Direccion</label>
                      </div>
                      <div class="input-field">
-                        <input type="text" class="datepicker" id="fechaNacimiento" required>
+                        <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" required>
                         <label for="fechaNacimiento">Fecha de Nacimiento</label>
                      </div>
                      <!-- Provincia -->
                      <div class="input-field">
-                        <select id="provincia" required>
-                           <option value="" disabled selected>Elija una provincia</option>
-                           <option value="provincia1">Provincia 1</option>
-                           <option value="provincia2">Provincia 2</option>
+                        <select id="provincia" name="provincia" required>
+                          
                         </select>
                         <label for="provincia">Provincia</label>
                      </div>
                      <!-- Localidad -->
                      <div class="input-field">
-                        <select id="localidad" required>
+                        <select id="localidad" name="Localidad" required>
                            <option value="" disabled selected>Elija una localidad</option>
                            <option value="localidad1">Localidad 1</option>
                            <option value="localidad2">Localidad 2</option>
@@ -70,7 +74,7 @@
                      </div>
                      <!-- Sexo  -->
                      <div class="input-field">
-                        <select id="sexo" required>
+                        <select id="sexo" name="sexo" required>
                            <option value="" disabled selected>Elija su sexo</option>
                            <option value="masculino">Masculino</option>
                            <option value="femenino">Femenino</option>
@@ -80,22 +84,22 @@
                      </div>
                      <!-- Apellido -->
                      <div class="input-field">
-                        <input class="validate" type="text" id="apellido" required>
+                        <input class="validate" type="text" id="apellido" name="apellido" required>
                         <label for="apellido">Apellido</label>
                      </div>
                      <!-- Nombre -->
                      <div class="input-field">
-                        <input class="validate" type="text" id="nombre" required>
+                        <input class="validate" type="text" id="nombre" name="nombre" required>
                         <label for="nombre">Nombre</label>
                      </div>
                      <!-- DNI -->
                      <div class="input-field">
-                        <input class="validate" type="text" id="dni" required>
+                        <input class="validate" type="text" id="dni" name="dni" required>
                         <label for="dni">DNI</label>
                      </div>
                      <!-- CUIL -->
                      <div class="input-field">
-                        <input class="validate" type="text" id="cuil" required>
+                        <input class="validate" type="text" id="cuil" name="cuil" required>
                         <label for="cuil">CUIL</label>
                      </div>
                      <div class="center-align">
