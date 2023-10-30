@@ -62,7 +62,7 @@ const HOME_PAGE = "./inicio.html";
 const getURLNextValue = () => {
 	var url = window.location.href;
 	var urlObj = new URL(url);
-	var parametroValor = urlObj.searchParams.get("parametro");
+	var parametroValor = urlObj.searchParams.get("next");
 	return parametroValor == null ? HOME_PAGE : parametroValor;
 };
 
