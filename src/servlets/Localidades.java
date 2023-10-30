@@ -21,7 +21,7 @@ import logic.*;
  * Servlet implementation class Localidades
  */
 @WebServlet("/api/locality/list/*")
-public class Localidades extends HttpServlet {
+public class Localidades extends BaseServlet {
 	
 	// Serial Version
 	private static final long serialVersionUID = 1L;
@@ -110,15 +110,14 @@ public class Localidades extends HttpServlet {
 		}
 		// Enviamos la respuesta.
 		response.setStatus(statusCode);
-		response.getWriter().append(gson.toJson(res));
+		write(response, new Gson().toJson(res));
 	}
 
-	/**
-	 * Acción que se ejecutará al recibir una petición POST.
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET" };
 	}
 
 }

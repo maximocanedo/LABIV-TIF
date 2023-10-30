@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import entity.Pais;
 import logic.PaisLogic;
 import max.data.LogicResponse;
@@ -15,7 +17,7 @@ import max.data.LogicResponse;
  * Servlet implementation class Pais
  */
 @WebServlet("/api/countries/list")
-public class Paises extends HttpServlet {
+public class Paises extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -33,18 +35,17 @@ public class Paises extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LogicResponse<Pais> res = logic.getAll();
-		String json = res.toFinalJSON();
+		String json = new Gson().toJson(res);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(json);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET" };
 	}
+
+
 
 }
