@@ -59,7 +59,7 @@
       <canvas id="montosChart" width="400" height="400"></canvas>
     </div>
 </div>
-  
+
     <div id="footer"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 

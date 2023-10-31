@@ -1,4 +1,4 @@
-
+/*
 async function cargarProvincias() {
 	$.ajax({
 	      type: "GET",
@@ -37,4 +37,4 @@ async function cargarProvincias() {
 		console.error(err);
 	});
 })();
-  
+ */

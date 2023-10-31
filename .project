@@ -28,4 +28,11 @@
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>FileEnviarMail.wsdl</name>
+			<type>1</type>
+			<location>C:/Users/User/Desktop/WS_PARA_TIF/WScapacitacionwebservice/WScapacitacionwebservice/WScapacitacionwebservice/Web References/localhost/EnvioMail.wsdl</location>
+		</link>
+	</linkedResources>
 </projectDescription>

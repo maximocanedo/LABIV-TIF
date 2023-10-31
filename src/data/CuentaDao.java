@@ -45,7 +45,7 @@ public class CuentaDao implements IRecord<Cuenta, String>{
 			}},
 			new SchemaProperty("Cod_TPCT_CxC") {{
 				required= true;
-				type= Types.CHAR;
+				type= Types.VARCHAR;
 				maxlength= 4;
 				ref = TipoCuentaDao._model.ref("Cod_TPCT");
 			}},
