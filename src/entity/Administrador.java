@@ -3,7 +3,8 @@ package entity;
 import com.google.gson.Gson;
 
 import logic.PasswordUtils;
-import max.data.*;
+import max.data.Dictionary;
+import max.data.IEntity;
 
 public class Administrador implements IEntity {
 
@@ -32,7 +33,7 @@ public class Administrador implements IEntity {
 		return gson.toJson(this);
 	}
 
-	public String getUsuario() {
+	public String getUsuario() {		
 		return usuario;
 	}
 
