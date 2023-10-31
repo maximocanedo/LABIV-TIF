@@ -1,5 +1,6 @@
 package entity;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
@@ -45,6 +46,11 @@ public class Concepto implements IEntity {
 	@Override
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray("cod_Con",cod_Con);
+	}
+	
+	public String toJSON() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 
 }

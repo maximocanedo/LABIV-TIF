@@ -1,5 +1,6 @@
 package entity;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import max.data.Dictionary;
 import max.data.IEntity;
@@ -45,6 +46,11 @@ public class TipoMovimiento implements IEntity {
 	@Override
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray("cod_TPMV",cod_TPMV);
-	}	
+	}
+	
+	public String toJSON() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 
 }
