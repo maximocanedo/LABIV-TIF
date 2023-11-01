@@ -38,7 +38,7 @@ public class CuentaDao implements IRecord<Cuenta, String>{
 				type= Types.DATE;
 				modifiable = false;
 			}},
-			new SchemaProperty("SaldoCuenta_CxC") {{
+			new SchemaProperty("saldoCuenta_CxC") {{
 				required= true;
 				type= Types.DECIMAL;
 				maxlength= 10;
