@@ -1,11 +1,14 @@
 package logic;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import data.CuentaDao;
+import entity.Cliente;
 import entity.Cuenta;
+import entity.TipoCuenta;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.LogicResponse;
@@ -15,7 +18,9 @@ import max.oops.SchemaValidationException;
 public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 
 	public CuentaLogic() {}
-	CuentaDao clDao= new CuentaDao();
+	
+	private static CuentaDao clDao= new CuentaDao();
+	
 	@Override
 	public LogicResponse<Cuenta> validate(Cuenta data, boolean validatePKDuplicates) {
 		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
@@ -132,9 +137,16 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 		if(row.$("Num_Cuenta_CxC") != null) cuenta.setNum_Cuenta_CxC(row.$("Num_Cuenta_CxC"));
 		if(row.$("CBU_CxC") != null) cuenta.setCBU_CxC(row.$("CBU_CxC"));
 		if(row.$("FechaCreacion_CxC") != null) cuenta.setFechaCreacion_CxC(row.$("FechaCreacion_CxC"));
-		if(row.$("Cod_TPCT_CxC") != null) cuenta.setCod_TPCT_CxC(row.$("Cod_TPCT_CxC"));
-		if(row.$("Dni_Cl_CxC") != null) cuenta.setDni_Cl_CxC(row.$("Dni_Cl_CxC"));
+		if(row.$("Cod_TPCT_CxC") != null) { cuenta.setCod_TPCT_CxC(new TipoCuenta(){{
+			this.setCod_TPCT(row.$("Cod_TPCT_CxC"));
+		}});}else System.out.println("es nulo el Cod_TPCT_CxC");
+		if(row.$("Dni_Cl_CxC") != null) cuenta.setDni_Cl_CxC(new Cliente() {{
+			this.setDNI(row.$("Dni_Cl_CxC"));}});
 		if(row.$("Activo_CxC") != null) cuenta.setActivo_CxC(row.$("Activo_CxC"));
+		if(row.$("saldoCuenta_CxC") != null) {
+			BigDecimal saldo = row.$("saldoCuenta_CxC");
+			cuenta.setSaldoCuenta_CxC(saldo.doubleValue());			
+		}
 		return cuenta;
 	}
 
@@ -146,7 +158,5 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 		}
 		return list;
 	}
-
-
 
 }

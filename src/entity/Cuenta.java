@@ -17,9 +17,9 @@ public class Cuenta implements IEntity{
 	@Expose(serialize = true)
 	private TipoCuenta Cod_TPCT_CxC;
 	@Expose(serialize = true)
-	private String Dni_Cl_CxC;
+	private Cliente Dni_Cl_CxC;
 	@Expose(serialize = true)
-	private String Activo_CxC;
+	private boolean Activo_CxC;
 	
 	@Override
 	public Dictionary toDictionary() {
@@ -28,7 +28,8 @@ public class Cuenta implements IEntity{
 				"CBU_CxC", CBU_CxC,
 				"FechaCreacion_CxC", FechaCreacion_CxC,
 				"Cod_TPCT_CxC", Cod_TPCT_CxC.getCod_TPCT(),
-				"Dni_Cl_CxC", Dni_Cl_CxC,
+				"Dni_Cl_CxC", Dni_Cl_CxC.getDNI(),
+				"saldoCuenta_CxC",saldoCuenta_CxC,
 				"Activo_CxC", Activo_CxC
 			);
 	}
@@ -73,19 +74,19 @@ public class Cuenta implements IEntity{
 		Cod_TPCT_CxC = cod_TPCT_CxC;
 	}
 
-	public String getDni_Cl_CxC() {
+	public Cliente getDni_Cl_CxC() {
 		return Dni_Cl_CxC;
 	}
 
-	public void setDni_Cl_CxC(String dni_Cl_CxC) {
+	public void setDni_Cl_CxC(Cliente dni_Cl_CxC) {
 		Dni_Cl_CxC = dni_Cl_CxC;
 	}
 
-	public String getActivo_CxC() {
+	public boolean getActivo_CxC() {
 		return Activo_CxC;
 	}
 
-	public void setActivo_CxC(String activo_CxC) {
+	public void setActivo_CxC(boolean activo_CxC) {
 		Activo_CxC = activo_CxC;
 	}
 
