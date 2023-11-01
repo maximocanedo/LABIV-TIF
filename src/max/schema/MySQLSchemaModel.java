@@ -50,8 +50,8 @@ public class MySQLSchemaModel implements IModel {
 	public TransactionResponse<?> modify(Dictionary newValues, Dictionary where) throws SQLException, SchemaValidationException {
 		Dictionary preparedValues = prepareForEditing(newValues);
 		QueryAndParameters q = modify__generateQuery(preparedValues, where);
-		//System.out.println(q.query);
-		//System.out.println(q.params);
+		System.out.println(q.query);
+		System.out.println(q.params);
 		return new Connector(this.databaseName).transact(q.query, q.params);
 	}
 

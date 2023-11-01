@@ -12,16 +12,23 @@ import max.data.IEntity;
 public class RequestC01 implements IEntity {
 	
 	// Datos del cliente:
-	public Integer id;
-	private Cliente issuer; // Acá incluir CUIL/DNI/Usuario de la cuenta a recuperar
+	private Integer id;
+	private Cliente issuer; // Acá incluir DNI de la cuenta a recuperar
 	private boolean status;
-	private java.sql.Date issuedOn;
-	private java.sql.Date closedOn;
+	private java.sql.Timestamp issuedOn;
+	private java.sql.Timestamp closedOn;
 	private String message;
 	private Cliente data; // Acá incluir, si se aprueba, la contraseña nueva y el usuario.
 
 	public RequestC01() { }
 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public Cliente getIssuer() {
 		return issuer;
 	}
@@ -38,19 +45,19 @@ public class RequestC01 implements IEntity {
 		this.status = status;
 	}
 
-	public java.sql.Date getIssuedOn() {
+	public java.sql.Timestamp getIssuedOn() {
 		return issuedOn;
 	}
 
-	public void setIssuedOn(java.sql.Date issuedOn) {
+	public void setIssuedOn(java.sql.Timestamp issuedOn) {
 		this.issuedOn = issuedOn;
 	}
 
-	public java.sql.Date getClosedOn() {
+	public java.sql.Timestamp getClosedOn() {
 		return closedOn;
 	}
 
-	public void setClosedOn(java.sql.Date closedOn) {
+	public void setClosedOn(java.sql.Timestamp closedOn) {
 		this.closedOn = closedOn;
 	}
 
@@ -78,22 +85,24 @@ public class RequestC01 implements IEntity {
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-			"id", id,
-			"issuer", issuer,
-			"status", status,
-			"issuedOn", issuedOn,
-			"closedOn", closedOn,
-			"message", message,
-			"data", data
+			"id_rc01", id,
+			"client_rc01", issuer != null ? issuer.getDNI() : null,
+			"status_rc01", status,
+			"issuedOn_rc01", issuedOn,
+			"closedOn_rc01", closedOn,
+			"message_rc01", message,
+			"nuevaClave_rc01", data != null ? data.getContraseña() : null
 		);
 	}
 
 	@Override
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray(
-			"id", id
+			"id_rc01", id
 		);
 	}
+	
+	
 	
 	
 

@@ -310,6 +310,18 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		return res;
 	}
 	
+	public LogicResponse<Cliente> getByDNI(String dni) {
+		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+		try {
+			res = convert(data.getByDNI(dni));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+	}
+	
 	public String getTwoRandomChars(String input) {
 	    if (input == null || input.length() < 2) {
 	        return "xx";

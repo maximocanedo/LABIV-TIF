@@ -246,6 +246,9 @@ public class ClienteDao implements IRecord<Cliente, String> {
 	public TransactionResponse<Cliente> getById(String arg0) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE usuario = @user", Dictionary.fromArray("user", arg0));
 	}
+	public TransactionResponse<Cliente> getByDNI(String dni) throws SQLException {
+		return select("SELECT * FROM " + printTDB() + " WHERE " + Fields.dni.name + " = @dni", Dictionary.fromArray(Fields.dni.name, dni));
+	}
 
 	@Override
 	public TransactionResponse<?> insert(Cliente arg0) throws SQLException {
