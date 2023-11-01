@@ -26,11 +26,32 @@ const loadSelect = (element) => {
 	return new mdc.select.MDCSelect(element);
 };
 
+const loadDrawer = (element) => {
+	const mdc = mdce.default.mdc;
+	const drawer = new mdc.drawer.MDCDrawer(element);
+	document
+		.querySelector(".btn--open-drawer")
+		.addEventListener("click", (e) => (drawer.open = true));
+	document
+		.querySelectorAll(".mdc-drawer .mdc-deprecated-list")
+		.forEach((listEl) => {
+			listEl.addEventListener("click", (event) => {
+				drawer.open = false;
+			});
+		});
+	return drawer;
+};
+
 const loadElements = () => {
 	const mdc = mdce.default.mdc;
 	console.log(mdc);
 	window.temp2 = mdc;
-	//console.log(mdc);
+	console.log(mdc);
+	// Instanciar todos los MDCDrawer
+	document
+		.querySelectorAll(".mdc-drawer")
+		.forEach((element) => loadDrawer(element));
+
 	// Instanciar todos los TextField
 	document.querySelectorAll(".mdc-text-field").forEach((element) => {
 		var textfield_mdc = new mdc.textField.MDCTextField(element);
@@ -38,6 +59,10 @@ const loadElements = () => {
 	document.querySelectorAll(".mdc-select").forEach((element) => {
 		var select_mdc = loadSelect(element);
 		console.log({ select_mdc });
+	});
+	document.querySelectorAll(".mdc-top-app-bar").forEach((element) => {
+		var topAppBar = new mdc.topAppBar.MDCTopAppBar(element);
+		console.log({ topAppBar });
 	});
 	document
 		.querySelectorAll(".mdc-button")
