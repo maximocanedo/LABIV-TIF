@@ -161,18 +161,18 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	@Override
 	public SolicitudPrestamo convert(Dictionary d) {
 		SolicitudPrestamo s = new SolicitudPrestamo();
-		s.setCod_Sol(d.$("codigo_solicitud"));
-		if(d.$("usuario_prestamo") != null) {
-				s.setUsuario_cl_Sol(new Cliente() {{setUsuario(d.$("usuario_prestamo"));}});
+		s.setCodigo(d.$("cod_Sol"));
+		if(d.$("usuario_cl_Sol") != null) {
+				s.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_Sol"));}});
 		}
-		s.setFechaPedido_Sol(d.$("fecha"));
-		s.setMontoPedido_Sol(d.$("importe_solicitado"));
-		s.setMontoAPagar_Sol(d.$("importe_a_pagar"));
-		s.setInteres_Sol(d.$("interes"));
-		s.setPlazoPago_Sol(d.$("plazo_pago"));
-		s.setCantCuotas_Sol(d.$("cantidad_cuotas"));
-		s.setMontoPorCuota_Sol(d.$("importe_mes"));
-		s.setEstado_Sol(d.$("estado_solicitud"));
+		s.setFechaPedido(d.$("fechaPedido_Sol"));
+		s.setMontoPedido(d.$("montoPedido_Sol"));
+		s.setMontoAPagar(d.$("montoAPagar_Sol"));
+		s.setInteres(d.$("interes_Sol"));
+		s.setPlazoPago(d.$("plazoPago_Sol"));
+		s.setCantCuotas(d.$("cantCuotas_Sol"));
+		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
+		s.setEstado(d.$("estado_Sol"));
 		
 		return s;
 	}
@@ -188,3 +188,4 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 }
+

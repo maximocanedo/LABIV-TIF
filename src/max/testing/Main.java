@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import data.PrestamosClienteDao;
 import data.SolicitudPrestamoDao;
 import entity.Cliente;
 import entity.SolicitudPrestamo;
@@ -14,8 +15,9 @@ import logic.SolicitudPrestamoLogic;
 
 public class Main {
 	public static void main(String[] args) {
-			//crearTabla();
-		test();
+			//crearTablaSolicitud();
+			//testSolicitud();
+			crearTablaPrestamos();
     }
 	
 /*
@@ -64,15 +66,15 @@ public class Main {
     }
 */
 		
-	public static void test() {
+	/*public static void testSolicitud() {
 		
 		SolicitudPrestamoLogic logic = new SolicitudPrestamoLogic();
 		SolicitudPrestamo sp = new SolicitudPrestamo();
 		Cliente cl = new Cliente();
 		
-		sp.setCod_Sol("SL0001");
+		sp.setCodigo("SL0001");
 		cl.setUsuario("Maria_12144165");
-		sp.setUsuario_cl_Sol(cl);
+		sp.setCliente(cl);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsedDate = new java.util.Date();
@@ -84,25 +86,28 @@ public class Main {
 		}
         
         java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
-		sp.setFechaPedido_Sol(edate);
+		sp.setFechaPedido(edate);
 		
-		sp.setMontoPedido_Sol(5600000);
-		sp.setMontoAPagar_Sol(7500000);
-		sp.setPlazoPago_Sol(3);
-		sp.setCantCuotas_Sol(12);
-		sp.setMontoPorCuota_Sol(8000000);
-		sp.setInteres_Sol(8.6);
-		sp.setEstado_Sol(true);
+		sp.setMontoPedido(5600000);
+		sp.setMontoAPagar(7500000);
+		sp.setPlazoPago(3);
+		sp.setCantCuotas(12);
+		sp.setMontoPorCuota(8000000);
+		sp.setInteres(8.6);
+		sp.setEstado(true);
 		
 		logic.insert(sp);
 		
 	}
 	
-	public static void crearTabla()
+	public static void crearTablaSolicitud()
 	{
 		SolicitudPrestamoDao a = new SolicitudPrestamoDao();
+		a._model.compile();	
+	}*/
+	
+	public static void crearTablaPrestamos() {
+		PrestamosClienteDao a = new PrestamosClienteDao();
 		a._model.compile();
-		
-		
 	}
 }
