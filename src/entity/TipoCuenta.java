@@ -1,5 +1,6 @@
 package entity;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
@@ -14,7 +15,10 @@ public class TipoCuenta implements IEntity{
 	@Expose(serialize = true)
 	private String Descripcion_TPCT;
 	
-	
+	public String toJSON() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 	public String getCod_TPCT() {
 		return Cod_TPCT;
 	}

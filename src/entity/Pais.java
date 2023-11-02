@@ -1,19 +1,27 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Pais implements IEntity {
+	@Expose(serialize = true)
 	private String codigo;
+	@Expose(serialize = true)
 	private String nombre;
+	@Expose(serialize = true)
 	private String nombre_completo;
+	@Expose(serialize = true)
 	private String iso3;
+	@Expose(serialize = true)
 	private String numero;
+	@Expose(serialize = true)
 	private Continente continente;
+	@Expose(serialize = true)
 	private String gentilicio;
-	
+
 	public String getGentilicio() {
 		return gentilicio;
 	}

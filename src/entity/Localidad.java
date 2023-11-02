@@ -1,14 +1,17 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Localidad implements IEntity {
-	
+	@Expose(serialize = true)
 	private int id;
+	@Expose(serialize = true)
 	private String nombre;
+	@Expose(serialize = true)
 	private Provincia provincia;
 	
 	

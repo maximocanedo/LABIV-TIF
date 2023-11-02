@@ -1,21 +1,31 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class PrestamosCliente implements IEntity {
-
+	@Expose(serialize = true)
 	private int id;
+	@Expose(serialize = true)
 	private Cliente cliente;
+	@Expose(serialize = true)
 	private SolicitudPrestamo solicitud;
+	@Expose(serialize = true)
 	private java.sql.Date fechaOtorgado;
+	@Expose(serialize = true)
 	private double montoAPagar;
+	@Expose(serialize = true)
 	private int plazoPago;
+	@Expose(serialize = true)
 	private int cantCuotas;
+	@Expose(serialize = true)
 	private double montoPorCuota;
+	@Expose(serialize = true)
 	private int cuotasPagadas;
+	@Expose(serialize = true)
 	private int cuotasRestantes;
 	
 	public PrestamosCliente() {}

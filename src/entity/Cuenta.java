@@ -1,4 +1,5 @@
 package entity;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import max.data.Dictionary;
 import max.data.IEntity;
@@ -21,6 +22,10 @@ public class Cuenta implements IEntity{
 	@Expose(serialize = true)
 	private boolean Activo_CxC;
 	
+	public String toJSON() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(

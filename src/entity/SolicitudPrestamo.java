@@ -1,21 +1,31 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class SolicitudPrestamo implements IEntity{
-
+	@Expose(serialize = true)
 	private String codigo;
+	@Expose(serialize = true)
 	private Cliente cliente;
+	@Expose(serialize = true)
 	private java.sql.Date fechaPedido;
+	@Expose(serialize = true)
 	private double montoPedido;
+	@Expose(serialize = true)
 	private double montoAPagar;
+	@Expose(serialize = true)
 	private int plazoPago;
+	@Expose(serialize = true)
 	private int cantCuotas;
+	@Expose(serialize = true)
 	private double montoPorCuota;
+	@Expose(serialize = true)
 	private double interes;
+	@Expose(serialize = true)
 	private boolean estado;
 	
 	
@@ -128,13 +138,6 @@ public class SolicitudPrestamo implements IEntity{
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-
-	
-
-	
-	
-	
-	
 
 	
 }
