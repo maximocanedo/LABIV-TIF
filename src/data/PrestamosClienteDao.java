@@ -2,9 +2,14 @@ package data;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 
+
+import entity.Cliente;
 import entity.PrestamosCliente;
+import entity.SolicitudPrestamo;
 import logic.PrestamosClienteLogic;
+import logic.SolicitudPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -15,8 +20,98 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
+
+
+	
+
+
 public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 
+	
+	public static void main(String[] args)  {
+		//PrestamosClienteDao a = new PrestamosClienteDao();
+		//a._model.compile();
+		
+		//SolicitudPrestamoDao b = new SolicitudPrestamoDao();
+		//b._model.compile();
+		
+		/*SolicitudPrestamoLogic logic1 = new SolicitudPrestamoLogic();
+		SolicitudPrestamo a = new SolicitudPrestamo();
+		Cliente c = new Cliente();
+		c.setUsuario("Maria_12144165");
+		
+		a.setCodigo("SL0001");
+		a.setCliente(c);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date parsedDate = new java.util.Date();
+		try {
+			parsedDate = dateFormat.parse("2023-8-24");
+		}
+		catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
+
+		a.setFechaPedido(edate);
+		a.setMontoPedido(14000.0);
+		a.setMontoAPagar(20000.0);
+		a.setInteres(5.3);
+		a.setMontoPorCuota(1000.0);
+		a.setCantCuotas(12);
+		a.setPlazoPago(1);
+		a.setEstado(true);
+		
+		logic1.insert(a);*/
+		
+		/*PrestamosClienteLogic logic = new PrestamosClienteLogic();
+		
+		PrestamosCliente a = new PrestamosCliente();
+		SolicitudPrestamo s = new SolicitudPrestamo();
+		Cliente c = new Cliente();
+		c.setUsuario("Maria_12144165");
+		s.setCodigo("SL0001");
+		
+		a.setCliente(c);
+		a.setSolicitud(s);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date parsedDate = new java.util.Date();
+		try {
+			parsedDate = dateFormat.parse("2023-8-24");
+		}
+		catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
+		a.setFechaOtorgado(edate);
+		a.setMontoAPagar(200.000);
+		a.setPlazoPago(2);
+		a.setCantCuotas(24);
+		a.setMontoPorCuota(20.000);
+		a.setCuotasPagadas(6);
+		a.setCuotasRestantes(18);
+		
+		//logic.insert(a);
+		
+		//PrestamosCliente del = new PrestamosCliente();
+		//del.setId(1);
+		//logic.delete(del);
+		
+		
+		PrestamosCliente mod = new PrestamosCliente();
+		mod.setId(1);
+		mod.setCliente(c);
+		mod.setSolicitud(s);
+		mod.setCuotasPagadas(7);
+		mod.setCuotasRestantes(17);
+		logic.modify(mod);*/
+		
+	}
+	
 	public PrestamosClienteDao() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
@@ -36,13 +131,14 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 			matches = "^[a-zA-Z0-9_]{4,20}$";
 			maxlength = 20;
 			minlength = 4;
-			trim=true;
+			trim = true;
 			modifiable = false;
 			ref = ClienteDao._model.ref("usuario");
 		}};
 		public static SchemaProperty codigoPrestamo = new SchemaProperty("cod_Sol_PxC") {{
 			required = true;
-			type = Types.CHAR;
+			unique= true;
+			type = Types.VARCHAR;//era char, se cambio a varchar
 			maxlength = 6;
 			modifiable = false;
 			ref = SolicitudPrestamoDao._model.ref("codigo");
@@ -99,7 +195,8 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 			Fields.cuotasRestantes
 			);
 	public static final Schema _editable = new Schema(
-			Fields.cuotasPagadas
+			Fields.cuotasPagadas,
+			Fields.cuotasRestantes
 			);
 	
 	public static final IModel _model = new MySQLSchemaModel("prestamosClientes","tif",_schema) {{
