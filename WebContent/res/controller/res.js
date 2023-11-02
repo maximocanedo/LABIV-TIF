@@ -4,4 +4,6 @@ import * as auth from "./../data/auth.js";
 
 (() => {
 	material.loadElements();
+	auth.letClientIn();
+	//auth.letAdminIn();
 })();

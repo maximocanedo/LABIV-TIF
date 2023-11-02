@@ -67,7 +67,7 @@ const getURLNextValue = () => {
 };
 
 const loginSuccessfulShowData = async (isAdmin = false) => {
-	const userData = await auth.getActualClient(isAdmin);
+	const userData = await auth.getActualUser(isAdmin);
 	const user = userData.data;
 	// console.log(userData);
 	document.querySelector(

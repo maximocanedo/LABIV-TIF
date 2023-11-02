@@ -59,7 +59,7 @@ const testAccess = async (isAdmin = false) => {
 	}
 };
 
-const getActualClient = async (isAdmin = false) => {
+const getActualUser = async (isAdmin = false) => {
 	try {
 		const response = await fetch(
 			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/" +
@@ -77,4 +77,4 @@ const getActualClient = async (isAdmin = false) => {
 	}
 };
 
-export { login, testAccess, AUTH_HEADER, getActualClient };
+export { login, testAccess, AUTH_HEADER, getActualUser };

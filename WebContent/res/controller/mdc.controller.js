@@ -1,6 +1,8 @@
 "use strict";
 import * as mdce from "./material/material-components-web.js";
 
+const mdc = mdce.default.mdc;
+
 const mdSelectMenuItemSingleLine = (value, text) => {
 	const li = document.createElement("li");
 	li.classList.add("mdc-deprecated-list-item");
@@ -40,6 +42,49 @@ const loadDrawer = (element) => {
 			});
 		});
 	return drawer;
+};
+
+const loadDialog = () => {
+	const dialogElement = document.querySelector(".mdc-dialog");
+	return new mdc.dialog.MDCDialog(dialogElement);
+};
+
+const loadSnackbar = () => {
+	const snackbarElement = document.querySelector(".mdc-snackbar");
+	return new mdc.snackbar.MDCSnackbar(snackbarElement);
+};
+
+const showSnackbar = (text) => {
+	const snackbar = loadSnackbar();
+	snackbar.labelText = text;
+	snackbar.open();
+};
+
+const showDialog = async (question) => {
+	const dialog = loadDialog();
+	console.log(dialog);
+	let status = false;
+	dialog.root.querySelector("#dialog--question").innerText = question;
+	const buttonPromise = new Promise((resolve) => {
+		const oA = (e) => {
+			status = true;
+			resolve(status);
+		};
+		const oC = (e) => {
+			status = false;
+			resolve(status);
+		};
+
+		dialog.buttons[1].addEventListener("click", oA); // Quita el paréntesis aquí
+		dialog.buttons[0].addEventListener("click", oC); // Quita el paréntesis aquí
+	});
+
+	dialog.buttons[0].innerText = "Cancelar";
+	dialog.buttons[1].innerText = "Aceptar";
+
+	dialog.open();
+
+	return await buttonPromise;
 };
 
 const loadElements = () => {
@@ -95,4 +140,8 @@ export {
 	loadTxt,
 	mdSelectMenuItemSingleLine,
 	loadSelect,
+	loadDialog,
+	showDialog,
+	loadSnackbar,
+	showSnackbar,
 };
