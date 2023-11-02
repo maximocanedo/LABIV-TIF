@@ -1,6 +1,7 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
@@ -12,12 +13,19 @@ import max.data.IEntity;
 public class RequestC01 implements IEntity {
 	
 	// Datos del cliente:
+	@Expose(serialize = true)
 	private Integer id;
+	@Expose(serialize = true)
 	private Cliente issuer; // Acá incluir DNI de la cuenta a recuperar
+	@Expose(serialize = true)
 	private boolean status;
+	@Expose(serialize = true)
 	private java.sql.Timestamp issuedOn;
+	@Expose(serialize = true)
 	private java.sql.Timestamp closedOn;
+	@Expose(serialize = true)
 	private String message;
+	@Expose(serialize = true)
 	private Cliente data; // Acá incluir, si se aprueba, la contraseña nueva y el usuario.
 
 	public RequestC01() { }

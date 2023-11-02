@@ -1,6 +1,7 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
@@ -9,7 +10,9 @@ import max.data.IEntity;
 public class Provincia implements IEntity  {
 	
 	// Propiedades
+	@Expose(serialize = true)
 	private int id;
+	@Expose(serialize = true)
 	private String nombre;
 	
 	public Provincia() {

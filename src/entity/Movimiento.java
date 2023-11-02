@@ -3,21 +3,29 @@ package entity;
 import java.sql.Date;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Movimiento implements IEntity{
-	
+	@Expose(serialize = true)
 	private int id_Mv;
+	@Expose(serialize = true)
 	private Cuenta num_cuenta_CxC_Mv;
+	@Expose(serialize = true)
 	private Concepto cod_Con_Mv;
+	@Expose(serialize = true)
 	private double saldo_anterior_Mv;
+	@Expose(serialize = true)
 	private double importe_Mv;
+	@Expose(serialize = true)
 	private double saldo_posterior_Mv;
+	@Expose(serialize = true)
 	private Date fechaMov_Mv;
+	@Expose(serialize = true)
 	private TipoMovimiento cod_TPMV_Mv;
-	
+
 	
 	public Movimiento(int id_Mv, Cuenta num_cuenta_CxC_Mv, Concepto cod_Con_Mv, double saldo_anterior_Mv,
 			double importe_Mv, double saldo_posterior_Mv, Date fechaMov_Mv, TipoMovimiento cod_TPMV_Mv) {
@@ -120,8 +128,4 @@ public class Movimiento implements IEntity{
 		Gson gson = new Gson();
 		return gson.toJson(this);
 	}
-	
-	
-	
-
 }

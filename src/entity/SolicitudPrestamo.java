@@ -1,22 +1,32 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class SolicitudPrestamo implements IEntity{
-
-	private String cod_Sol;
-	private Cliente usuario_cl_Sol;
-	private java.sql.Date fechaPedido_Sol;
-	private double montoPedido_Sol;
-	private double montoAPagar_Sol;
-	private int plazoPago_Sol;
-	private int cantCuotas_Sol;
-	private double montoPorCuota_Sol;
-	private double interes_Sol;
-	private boolean estado_Sol;
+	@Expose(serialize = true)
+	private String codigo;
+	@Expose(serialize = true)
+	private Cliente cliente;
+	@Expose(serialize = true)
+	private java.sql.Date fechaPedido;
+	@Expose(serialize = true)
+	private double montoPedido;
+	@Expose(serialize = true)
+	private double montoAPagar;
+	@Expose(serialize = true)
+	private int plazoPago;
+	@Expose(serialize = true)
+	private int cantCuotas;
+	@Expose(serialize = true)
+	private double montoPorCuota;
+	@Expose(serialize = true)
+	private double interes;
+	@Expose(serialize = true)
+	private boolean estado;
 	
 	
 	public SolicitudPrestamo() {}
@@ -30,109 +40,104 @@ public class SolicitudPrestamo implements IEntity{
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-				"cod_Sol", cod_Sol,
-				"usuario_cl_Sol", usuario_cl_Sol.getUsuario(),
-				"fechaPedido_Sol",fechaPedido_Sol,
-				"montoPedido_Sol",montoPedido_Sol,
-				"montoAPagar_Sol", montoAPagar_Sol,
-				"plazoPago_Sol", plazoPago_Sol,
-				"cantCuotas_Sol", cantCuotas_Sol,
-				"montoPorCuota_Sol", montoPorCuota_Sol,
-				"interes_Sol", interes_Sol,
-				"estado_Sol", estado_Sol
+				"cod_Sol", codigo,
+				"usuario_cl_Sol", cliente.getUsuario(),
+				"fechaPedido_Sol",fechaPedido,
+				"montoPedido_Sol",montoPedido,
+				"montoAPagar_Sol", montoAPagar,
+				"plazoPago_Sol", plazoPago,
+				"cantCuotas_Sol", cantCuotas,
+				"montoPorCuota_Sol", montoPorCuota,
+				"interes_Sol", interes,
+				"estado_Sol", estado
 				);
 	}
 	@Override
 	public Dictionary toIdentifiableDictionary() {
 		return Dictionary.fromArray(
-				"codigo_solicitud",cod_Sol
+				"cod_Sol",codigo
 				);
 	}
 
-	public String getCod_Sol() {
-		return cod_Sol;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCod_Sol(String cod_Sol) {
-		this.cod_Sol = cod_Sol;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
-	public Cliente getUsuario_cl_Sol() {
-		return usuario_cl_Sol;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setUsuario_cl_Sol(Cliente usuario_cl_Sol) {
-		this.usuario_cl_Sol = usuario_cl_Sol;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	public java.sql.Date getFechaPedido_Sol() {
-		return fechaPedido_Sol;
+	public java.sql.Date getFechaPedido() {
+		return fechaPedido;
 	}
 
-	public void setFechaPedido_Sol(java.sql.Date fechaPedido_Sol) {
-		this.fechaPedido_Sol = fechaPedido_Sol;
+	public void setFechaPedido(java.sql.Date fechaPedido) {
+		this.fechaPedido = fechaPedido;
 	}
 
-	public double getMontoPedido_Sol() {
-		return montoPedido_Sol;
+	public double getMontoPedido() {
+		return montoPedido;
 	}
 
-	public void setMontoPedido_Sol(double montoPedido_Sol) {
-		this.montoPedido_Sol = montoPedido_Sol;
+	public void setMontoPedido(double montoPedido) {
+		this.montoPedido = montoPedido;
 	}
 
-	public double getMontoAPagar_Sol() {
-		return montoAPagar_Sol;
+	public double getMontoAPagar() {
+		return montoAPagar;
 	}
 
-	public void setMontoAPagar_Sol(double montoAPagar_Sol) {
-		this.montoAPagar_Sol = montoAPagar_Sol;
+	public void setMontoAPagar(double montoAPagar) {
+		this.montoAPagar = montoAPagar;
 	}
 
-	public int getPlazoPago_Sol() {
-		return plazoPago_Sol;
+	public int getPlazoPago() {
+		return plazoPago;
 	}
 
-	public void setPlazoPago_Sol(int plazoPago_Sol) {
-		this.plazoPago_Sol = plazoPago_Sol;
+	public void setPlazoPago(int plazoPago) {
+		this.plazoPago = plazoPago;
 	}
 
-	public int getCantCuotas_Sol() {
-		return cantCuotas_Sol;
+	public int getCantCuotas() {
+		return cantCuotas;
 	}
 
-	public void setCantCuotas_Sol(int cantCuotas_Sol) {
-		this.cantCuotas_Sol = cantCuotas_Sol;
+	public void setCantCuotas(int cantCuotas) {
+		this.cantCuotas = cantCuotas;
 	}
 
-	public double getMontoPorCuota_Sol() {
-		return montoPorCuota_Sol;
+	public double getMontoPorCuota() {
+		return montoPorCuota;
 	}
 
-	public void setMontoPorCuota_Sol(double montoPorCuota_Sol) {
-		this.montoPorCuota_Sol = montoPorCuota_Sol;
+	public void setMontoPorCuota(double montoPorCuota) {
+		this.montoPorCuota = montoPorCuota;
 	}
 
-	public double getInteres_Sol() {
-		return interes_Sol;
+	public double getInteres() {
+		return interes;
 	}
 
-	public void setInteres_Sol(double interes_Sol) {
-		this.interes_Sol = interes_Sol;
+	public void setInteres(double interes) {
+		this.interes = interes;
 	}
 
-	public boolean isEstado_Sol() {
-		return estado_Sol;
+	public boolean isEstado() {
+		return estado;
 	}
 
-	public void setEstado_Sol(boolean estado_Sol) {
-		this.estado_Sol = estado_Sol;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
-
-	
-	
-	
-	
 
 	
 }
