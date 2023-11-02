@@ -6,14 +6,6 @@
  */
 
 package com.microsoft.webservices;
-import org.apache.axis.client.Call;
-import org.apache.axis.client.Service;
-import org.apache.axis.transport.http.HTTPConstants;
-import org.apache.axis.encoding.XMLType;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ParameterMode;
-
-import java.net.URL;
 
 public class EnvioMailSoapImpl implements EnvioMailSoap {
     @Override
@@ -29,35 +21,6 @@ public class EnvioMailSoapImpl implements EnvioMailSoap {
         } catch (Exception e) {
             e.printStackTrace();
             return "Error: Exception";
-        }/*
-        try {
-            // Crear un objeto Service
-            Service service = new Service();
-            Call call = (Call) service.createCall();
-
-            // Establecer la URL del servicio web
-            String endpointURL = "https://localhost:44339/EnvioMail.asmx";
-            call.setTargetEndpointAddress(new URL(endpointURL));
-            // Configurar el método a invocar
-            call.setOperationName(new QName("http://microsoft.com/webservices/", "enviarMail"));
-            call.addParameter(new QName("http://microsoft.com/webservices/", "Email"), XMLType.XSD_STRING, ParameterMode.IN);
-            call.addParameter(new QName("http://microsoft.com/webservices/", "Asunto"), XMLType.XSD_STRING, ParameterMode.IN);
-            call.addParameter(new QName("http://microsoft.com/webservices/", "Mail"), XMLType.XSD_STRING, ParameterMode.IN);
-            call.setReturnType(XMLType.XSD_STRING);
-
-            // Establecer propiedades de la llamada
-            call.setProperty(HTTPConstants.MC_ACCEPT_GZIP, false);
-
-            // Realizar la llamada al servicio web
-            Object[] params = {email, asunto, mail};
-            String response = (String) call.invoke(params);
-
-            // Devolver la respuesta del servicio web
-            return response;
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Manejar excepciones en caso de error
-            return "Error al llamar al servicio web: " + e.getMessage();
-        }*/
+        }
     }
 }

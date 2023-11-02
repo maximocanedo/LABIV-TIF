@@ -26,7 +26,7 @@ public class Mail {
 	        transport.close();
 	    }
 	    catch (Exception e) {
-	        return "ERRROR: Exception---> "+ e.getMessage();
+	        return "ERRROR: Exception "+ e.getMessage();
 	    }
 	    return "OK";
 	  }
