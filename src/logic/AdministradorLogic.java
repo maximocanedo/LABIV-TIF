@@ -450,7 +450,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String> {
 							// Inicio de sesión válido.
 							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
 							LogicResponse<Administrador> resT = new LogicResponse<Administrador>();
-							resT.die(true, "");
+							resT.die(true, null);
 							resT.eField = token;
 							return resT;
 						}
