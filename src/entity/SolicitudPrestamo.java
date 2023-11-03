@@ -28,7 +28,6 @@ public class SolicitudPrestamo implements IEntity{
 	@Expose(serialize = true)
 	private boolean estado;
 	
-	
 	public SolicitudPrestamo() {}
 	
 	public String toJSON(){
@@ -137,7 +136,5 @@ public class SolicitudPrestamo implements IEntity{
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
-	}
-
-	
+	}	
 }

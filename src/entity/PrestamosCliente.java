@@ -28,6 +28,7 @@ public class PrestamosCliente implements IEntity {
 	@Expose(serialize = true)
 	private int cuotasRestantes;
 	
+	
 	public PrestamosCliente() {}
 	
 	public String toJson() {
@@ -137,10 +138,5 @@ public class PrestamosCliente implements IEntity {
 
 	public void setCuotasRestantes(int cuotasRestantes) {
 		this.cuotasRestantes = cuotasRestantes;
-	}
-
-	
-
-	
-	
+	}	
 }

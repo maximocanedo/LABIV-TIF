@@ -2,14 +2,10 @@ package data;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 
 
-import entity.Cliente;
 import entity.PrestamosCliente;
-import entity.SolicitudPrestamo;
 import logic.PrestamosClienteLogic;
-import logic.SolicitudPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -19,98 +15,11 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
-
-
-
 	
 
 
-public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
+public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 
-	
-	public static void main(String[] args)  {
-		//PrestamosClienteDao a = new PrestamosClienteDao();
-		//a._model.compile();
-		
-		//SolicitudPrestamoDao b = new SolicitudPrestamoDao();
-		//b._model.compile();
-		
-		/*SolicitudPrestamoLogic logic1 = new SolicitudPrestamoLogic();
-		SolicitudPrestamo a = new SolicitudPrestamo();
-		Cliente c = new Cliente();
-		c.setUsuario("Maria_12144165");
-		
-		a.setCodigo("SL0001");
-		a.setCliente(c);
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date parsedDate = new java.util.Date();
-		try {
-			parsedDate = dateFormat.parse("2023-8-24");
-		}
-		catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
-
-		a.setFechaPedido(edate);
-		a.setMontoPedido(14000.0);
-		a.setMontoAPagar(20000.0);
-		a.setInteres(5.3);
-		a.setMontoPorCuota(1000.0);
-		a.setCantCuotas(12);
-		a.setPlazoPago(1);
-		a.setEstado(true);
-		
-		logic1.insert(a);*/
-		
-		/*PrestamosClienteLogic logic = new PrestamosClienteLogic();
-		
-		PrestamosCliente a = new PrestamosCliente();
-		SolicitudPrestamo s = new SolicitudPrestamo();
-		Cliente c = new Cliente();
-		c.setUsuario("Maria_12144165");
-		s.setCodigo("SL0001");
-		
-		a.setCliente(c);
-		a.setSolicitud(s);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date parsedDate = new java.util.Date();
-		try {
-			parsedDate = dateFormat.parse("2023-8-24");
-		}
-		catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
-		a.setFechaOtorgado(edate);
-		a.setMontoAPagar(200.000);
-		a.setPlazoPago(2);
-		a.setCantCuotas(24);
-		a.setMontoPorCuota(20.000);
-		a.setCuotasPagadas(6);
-		a.setCuotasRestantes(18);
-		
-		//logic.insert(a);
-		
-		//PrestamosCliente del = new PrestamosCliente();
-		//del.setId(1);
-		//logic.delete(del);
-		
-		
-		PrestamosCliente mod = new PrestamosCliente();
-		mod.setId(1);
-		mod.setCliente(c);
-		mod.setSolicitud(s);
-		mod.setCuotasPagadas(7);
-		mod.setCuotasRestantes(17);
-		logic.modify(mod);*/
-		
-	}
 	
 	public PrestamosClienteDao() {}
 	
@@ -120,9 +29,7 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 	private static class Fields{
 		public static SchemaProperty id = new SchemaProperty("id_PxC") {{
 			primary = true;
-			unique = true;
 			type = Types.INTEGER;
-			modifiable = false;
 			autoIncrement = true;
 		}};
 		public static SchemaProperty usuario = new SchemaProperty("usuario_cl_PxC") {{
@@ -132,43 +39,35 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 			maxlength = 20;
 			minlength = 4;
 			trim = true;
-			modifiable = false;
 			ref = ClienteDao._model.ref("usuario");
 		}};
 		public static SchemaProperty codigoPrestamo = new SchemaProperty("cod_Sol_PxC") {{
 			required = true;
-			unique= true;
 			type = Types.VARCHAR;//era char, se cambio a varchar
 			maxlength = 6;
-			modifiable = false;
-			ref = SolicitudPrestamoDao._model.ref("codigo");
+			ref = SolicitudPrestamoDao._model.ref("cod_Sol");
 		}};
 		public static SchemaProperty fechaOtorgado = new SchemaProperty("fechaOtorgado_PxC") {{
 			required = true;
 			type = Types.DATE;
-			modifiable = false;
 		}};
 		public static SchemaProperty montoAPagar = new SchemaProperty("montoAPagar_PxC") {{
 			required = true;
 			type = Types.DOUBLE;
-			modifiable = false;
 		}};
 		public static SchemaProperty plazoPago = new SchemaProperty("plazoPago_PxC") {{
 			required = true;
 			type = Types.INTEGER;
 			min=0;
-			modifiable = false;
 		}};
 		public static SchemaProperty cantCuotas = new SchemaProperty("cantCuotas_PxC") {{
 			required = true;
 			type = Types.INTEGER;
 			min=0;
-			modifiable = false;
 		}};
 		public static SchemaProperty montoPorCuota = new SchemaProperty("montoPorCuota_PxC") {{
 			required = true;
 			type = Types.DOUBLE;
-			modifiable = false;
 		}};
 		public static SchemaProperty cuotasPagadas = new SchemaProperty("cuotasPagadas_PxC") {{
 			required = true;
@@ -244,16 +143,6 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 	public TransactionResponse<PrestamosCliente> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
 	}
-
-	@Override
-	public TransactionResponse<PrestamosCliente> getById(String id) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
-	}
-
-	@Override
-	public boolean exists(String id) throws SQLException {
-		return _model.exists(Dictionary.fromArray("id", id));
-	}
 	
 	private TransactionResponse<PrestamosCliente> select(String arg0) throws SQLException {
 		TransactionResponse<PrestamosCliente> res = new TransactionResponse<PrestamosCliente>();
@@ -262,7 +151,8 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
 		return res;
-	}
+	}	
+
 	private TransactionResponse<PrestamosCliente> select(String arg0, Dictionary arg1) throws SQLException {
 		TransactionResponse<PrestamosCliente> res = new TransactionResponse<PrestamosCliente>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
@@ -270,6 +160,16 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, String> {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
 		return res;
+	}	
+	
+	@Override
+	public TransactionResponse<PrestamosCliente> getById(Integer id) throws SQLException {
+		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
+	}
+
+	@Override
+	public boolean exists(Integer id) throws SQLException {	
+		return _model.exists(Dictionary.fromArray("id", id));
 	}
 
 }

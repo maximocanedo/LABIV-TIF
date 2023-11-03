@@ -30,7 +30,6 @@ public class Connector implements IConnector {
 	
 	private static String defaultDatabase = DB.tif;
 	private static ConnectorSettings defaultSettings = ConnectorSettings.SERVIDOR_DE_MAXIMO;
-	
 	public static void setDefaultDatabase(String database) {
 		defaultDatabase = database;
 	}

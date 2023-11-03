@@ -22,62 +22,51 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 	private Connector db = new Connector(_model.getDatabaseName());
 	private SolicitudPrestamoLogic logic = new SolicitudPrestamoLogic();
 	
-	// Campos
+	//Campos
 	public static class Fields{
 		public static SchemaProperty codigo = new SchemaProperty("cod_Sol") {{
 			primary = true;
-			unique = true;
 			type = Types.VARCHAR;//Era CHAR, luego de crear la tabla se cambio a VARCHAR
 			maxlength = 6;
-			modifiable = false;
 		}};
 		public static SchemaProperty usuario = new SchemaProperty("usuario_cl_Sol") {{
 			required = true;
-			unique = true;
 			type = Types.VARCHAR;
 			matches = "^[a-zA-Z0-9_]{4,20}$";
 			maxlength = 20;
 			minlength = 4;
-			trim = true;
-			modifiable = false;
+			trim = true;			
 			ref = ClienteDao._model.ref("usuario");
 		}};
 		public static SchemaProperty fecha = new SchemaProperty("fechaPedido_Sol") {{
 			required = true;
-			type = Types.DATE;
-			modifiable = false;
+			type = Types.DATE;			
 		}};
 		public static SchemaProperty montoPedido = new SchemaProperty("montoPedido_Sol") {{
 			required = true;
-			type = Types.DOUBLE; //decimal 8.2
-			modifiable = false;
+			type = Types.DOUBLE; //decimal 8.2			
 		}};
 		public static SchemaProperty montoAPagar = new SchemaProperty("montoAPagar_Sol") {{
 			required = true;
-			type = Types.DOUBLE; //decimal 8.2
-			modifiable = false;
+			type = Types.DOUBLE; //decimal 8.2			
 		}};
 		public static SchemaProperty plazo = new SchemaProperty("plazoPago_Sol") {{
 			required = true;
 			type = Types.INTEGER;
-			min = 0;
-			modifiable = false;
+			min = 0;			
 		}};
 		public static SchemaProperty cuotas = new SchemaProperty("cantCuotas_Sol") {{
 			required = true;
 			type = Types.INTEGER;
-			min = 0;
-			modifiable = false;
+			min = 0;			
 		}};
 		public static SchemaProperty montoCuota = new SchemaProperty("montoPorCuota_Sol") {{
 			required = true;
-			type = Types.DOUBLE;
-			modifiable = false;
+			type = Types.DOUBLE;			
 		}};
 		public static SchemaProperty interes = new SchemaProperty("interes_Sol") {{
 			required = true;
-			type = Types.FLOAT; 
-			modifiable = false;
+			type = Types.DOUBLE; 			
 		}};
 		public static SchemaProperty estado = new SchemaProperty("estado_Sol") {{
 			required = true;
@@ -99,6 +88,7 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 			Fields.interes,
 			Fields.estado
 			);
+	
 	public static final Schema _editable = new Schema(
 			Fields.estado
 			);
@@ -162,8 +152,6 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 		return _model.exists(Dictionary.fromArray("codigo_solicitud", codigo));	
 	}
 
-	
-	
 	
 	private TransactionResponse<SolicitudPrestamo> select(String arg0) throws SQLException {
 		TransactionResponse<SolicitudPrestamo> res = new TransactionResponse<SolicitudPrestamo>();

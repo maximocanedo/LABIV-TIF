@@ -7,13 +7,14 @@ import java.util.List;
 import data.PrestamosClienteDao;
 import entity.Cliente;
 import entity.PrestamosCliente;
+import entity.SolicitudPrestamo;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.LogicResponse;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, String> {
+public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Integer> {
 
 	public PrestamosClienteLogic() {}
 	
@@ -105,7 +106,37 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Str
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> getById(String id) {
+	public PrestamosCliente convert(Dictionary d) {
+		PrestamosCliente p = new PrestamosCliente();
+		
+		if(d.$("id_PxC") != null) p.setId(d.$("id_PxC"));
+		if(d.$("usuario_cl_PxC") != null) {
+				p.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_PxC"));}});
+		}
+		if(d.$("fechaOtorgado_PxC") != null) p.setFechaOtorgado(d.$("fechaOtorgado_PxC"));
+		if(d.$("montoAPagar_PxC") != null) p.setMontoAPagar(d.$("montoAPagar_PxC"));
+		if(d.$("plazoPago_PxC") != null) p.setPlazoPago(d.$("plazoPago_PxC"));
+		if(d.$("cantCuotas_PxC") != null) p.setCantCuotas(d.$("cantCuotas_PxC"));
+		if(d.$("montoPorCuota_PxC") != null) p.setMontoPorCuota(d.$("montoPorCuota_PxC"));
+		if(d.$("cuotasPagadas_PxC") != null) p.setCuotasPagadas(d.$("cuotasPagadas_PxC"));
+		if(d.$("cuotasRestantes_PxC") != null) p.setCuotasRestantes(d.$("cuotasRestantes_PxC"));
+		if(d.$("cod_Sol_PxC") != null)p.setSolicitud(new SolicitudPrestamo() {{
+			this.setCodigo(d.$("cod_Sol_PxC"));
+		}});
+		return p;
+	}
+
+	@Override
+	public List<PrestamosCliente> convert(List<Dictionary> rows) {
+		List<PrestamosCliente> list = new ArrayList<PrestamosCliente>();
+		for(Dictionary data : rows) {
+			list.add(convert(data));
+		}
+		return list;
+	}
+
+	@Override
+	public LogicResponse<PrestamosCliente> getById(Integer id) {
 		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
 		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
 		try {
@@ -121,7 +152,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Str
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> exists(String id) {
+	public LogicResponse<PrestamosCliente> exists(Integer id) {
+		
 		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
 		boolean existe = false;
 		try {
@@ -134,33 +166,6 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Str
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
 		}
 		return res;
-	}
-
-	@Override
-	public PrestamosCliente convert(Dictionary d) {
-		PrestamosCliente p = new PrestamosCliente();
-		p.setId(d.$("id_PxC"));
-		if(d.$("usuario_cl_PxC") != null) {
-				p.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_PxC"));}});
-		}
-		p.setFechaOtorgado(d.$("fechaOtorgado"));
-		p.setMontoAPagar(d.$("montoAPagar_PxC"));
-		p.setPlazoPago(d.$("plazoPago_PxC"));
-		p.setCantCuotas(d.$("cantCuotas_PxC"));
-		p.setMontoPorCuota(d.$("montoPorCuota_PxC"));
-		p.setCuotasPagadas(d.$("cuotasPagadas_PxC"));
-		p.setCuotasRestantes(d.$("cuotasRestantes_PxC"));
-
-		return p;
-	}
-
-	@Override
-	public List<PrestamosCliente> convert(List<Dictionary> rows) {
-		List<PrestamosCliente> list = new ArrayList<PrestamosCliente>();
-		for(Dictionary data : rows) {
-			list.add(convert(data));
-		}
-		return list;
 	}
 
 }
