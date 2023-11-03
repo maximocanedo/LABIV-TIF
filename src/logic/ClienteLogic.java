@@ -25,9 +25,7 @@ import max.schema.Schema;
 
 public class ClienteLogic implements IRecordLogic<Cliente, String> {
 
-	public ClienteLogic() {
-		// TODO Auto-generated constructor stub
-	}
+	public ClienteLogic() { }
 
 	
 	/**
@@ -556,7 +554,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 							// Inicio de sesión válido.
 							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.CLIENT);
 							LogicResponse<Cliente> resT = new LogicResponse<Cliente>();
-							resT.die(true, null); // TODO Eliminar tras pruebas
+							resT.die(true, null); 
 							resT.eField = token;
 							return resT;
 						}

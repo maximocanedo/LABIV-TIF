@@ -38,6 +38,7 @@ public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
 			}
 		}
 		response.setStatus(finalRes.http);
+		finalRes.clean(true);
         write(response, finalRes.toFinalJSON());
 	}
 

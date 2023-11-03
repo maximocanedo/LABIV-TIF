@@ -57,6 +57,7 @@ private AdministradorLogic AL = new AdministradorLogic();
 			}
 		}
 		status(response, finalRes.http);
+		finalRes.clean(true);
         response.getWriter().append(finalRes.toFinalJSON());
 	}
 	@Override

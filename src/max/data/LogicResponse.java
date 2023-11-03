@@ -3,53 +3,40 @@ package max.data;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.annotations.Expose;
 
 public class LogicResponse<T> {
-	@Expose(serialize = true)
-	public String message = "";
-	@Expose(serialize = true)
+	public String message = null;
 	public boolean status;
 	
-	@Expose(serialize = false)
 	public String eField = null;
 	
-	@Expose(serialize = false)
-	public String errorMessage = "";
+	public String errorMessage = null;
 	
-	@Expose(serialize = false)
 	public Exception exception = null;
 
-	@Expose(serialize = true)
 	public T objectReturned = null;
 	
-	@Expose(serialize = true)
 	public T[] arrayReturned = null;
 	
-	@Expose(serialize = true)
 	public List<T> listReturned = null;
 	
-	@Expose(serialize = false)
-	public int http = 200;
+	public Integer http = 200;
+	
+	public void clean(boolean clearMessages) {
+		this.http = null;
+		this.exception = null;
+		this.errorMessage = null;
+		this.eField = null;
+		if(clearMessages) message = null;
+	}
+	public void clean() {
+		clean(false);
+	}
 	
 	
 	public String toFinalJSON() {
-	    GsonBuilder gsonBuilder = new GsonBuilder()
-	            .setPrettyPrinting()
-	            .excludeFieldsWithoutExposeAnnotation();
-
-	    Gson gson = gsonBuilder.create();
-
-	    JsonElement jsonTree = gson.toJsonTree(this);
-
-	    // Convierte objectReturned en JSON si no es nulo
-	    if (objectReturned != null) {
-	        jsonTree.getAsJsonObject().add("objectReturned", gson.toJsonTree(objectReturned));
-	    }
-
-	    return gson.toJson(jsonTree);
+		clean();
+	    return new Gson().toJson(this);
 	}
 	
 	public LogicResponse() {}
