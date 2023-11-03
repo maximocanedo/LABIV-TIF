@@ -40,7 +40,7 @@ public class PrestamosCliente implements IEntity {
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-				"id_PxC;", id,
+				"id_PxC", id,
 				"usuario_cl_PxC", cliente.getUsuario(),
 				"cod_Sol_PxC", solicitud.getCodigo(),
 				"fechaOtorgado_PxC", fechaOtorgado,
