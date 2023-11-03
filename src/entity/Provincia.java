@@ -1,6 +1,8 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
@@ -15,6 +17,7 @@ public class Provincia implements IEntity  {
 	@Expose(serialize = true)
 	private String nombre;
 	
+
 	public Provincia() {
 		
 	}
@@ -43,9 +46,18 @@ public class Provincia implements IEntity  {
 	/**
 	 * Devuelve un JSON con los datos del objeto.
 	 */
+	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id", id);
+		obj.addProperty("nombre", nombre);
+		return obj;
+	}
+	
 	@Override
 	public String toJSON() {
-		return new Gson().toJson(this);		
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		return gson.toJson(this);
 	}
 	
 	/**

@@ -80,7 +80,7 @@ public class AuthManager {
     }
     
     public static void send(HttpServletResponse res, LogicResponse<Administrador> mes) {
-    	res.setStatus(mes.http);
+    	res.setStatus(mes.http == null ? 200 : mes.http);
     	try {
     		String jsn = mes.toFinalJSON();
 			res.getWriter().append(jsn);

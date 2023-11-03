@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import data.ClienteDao;
 import entity.Cliente;
@@ -26,6 +28,11 @@ import max.schema.Schema;
 public class ClienteLogic implements IRecordLogic<Cliente, String> {
 
 	public ClienteLogic() { }
+	
+	public static class Filter {
+		// Buscar por nombre, apellido, DNI, CUIL, Dirección
+		public String q;
+	}
 
 	
 	/**
@@ -273,6 +280,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		}
 		return res;
 	}
+	
+
 
 	/**
 	 * Devuelve todos los registros de la base de datos.
@@ -289,6 +298,19 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		}
 		return res;
 		
+	}
+	public static void main(String[] args) {
+		ClienteLogic CL = new ClienteLogic();
+		String res = "";
+		Gson gson = new Gson();
+		LogicResponse<Cliente> g = CL.getAll();
+		if(g.listReturned != null) {
+			for(Cliente c : g.listReturned) {
+				res += c.toJson() + ", ";
+			}
+			res = res.substring(0, res.length() - 2);
+		}
+		System.out.println(res);
 	}
 
 	/**

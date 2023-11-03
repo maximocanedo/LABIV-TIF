@@ -1,6 +1,8 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
@@ -21,6 +23,8 @@ public class Pais implements IEntity {
 	private Continente continente;
 	@Expose(serialize = true)
 	private String gentilicio;
+	
+
 
 	public String getGentilicio() {
 		return gentilicio;
@@ -30,10 +34,20 @@ public class Pais implements IEntity {
 	}
 	
 	public Pais() {}
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("codigo", codigo);
+		obj.addProperty("nombre", nombre);
+		obj.addProperty("nombre_completo", nombre_completo);
+		obj.addProperty("iso3", iso3);
+		obj.addProperty("numero", numero);
+		obj.add("continente", continente == null ? null : continente.toJsonObject());
+		obj.addProperty("gentilicio", gentilicio);
+		return obj;
+	}
 	@Override
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 	public String getCodigo() {
 		return codigo;

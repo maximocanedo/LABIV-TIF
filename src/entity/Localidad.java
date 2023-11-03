@@ -1,6 +1,8 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 import max.data.Dictionary;
@@ -14,15 +16,26 @@ public class Localidad implements IEntity {
 	@Expose(serialize = true)
 	private Provincia provincia;
 	
-	
+
 	public Localidad() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String toString() {
+		return "Localidad { id = " + id + "; nombre = " + nombre + "; provincia = " + provincia.toString() + " }";
+	}
+	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id", id);
+		obj.addProperty("nombre", nombre);
+		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
+		return obj;
+	}
+	
 	@Override
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 
 	public Dictionary toDictionary() {

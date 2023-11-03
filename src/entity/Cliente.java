@@ -1,6 +1,8 @@
 package entity;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 import logic.PasswordUtils;
@@ -8,63 +10,85 @@ import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Cliente implements IEntity {
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String usuario;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String DNI;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String CUIL;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String nombre;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String apellido;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String sexo;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private Pais nacionalidad;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private java.sql.Date fechaNacimiento;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String direccion;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private Localidad localidad;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private Provincia provincia;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String correo;
 	
-	@Expose(serialize = false)
+	//@Expose(serialize = false)
 	private byte[] hash;
 	
-	@Expose(serialize = false)
+	//@Expose(serialize = false)
 	private byte[] salt;
 	
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private boolean estado;
 	
 	// Se serializa porque el cliente no elige la clave, 
 	// Por lo que el sistema por medio de esta propiedad le muestra la clave asignada.
-	@Expose(serialize = true)
+	//@Expose(serialize = true)
 	private String contraseña;
 	
 	
 	public Cliente() {}
 	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("usuario", usuario);
+		obj.addProperty("DNI", DNI);
+		obj.addProperty("CUIL", CUIL);
+		obj.addProperty("nombre", nombre);
+		obj.addProperty("apellido", apellido);
+		obj.addProperty("sexo", sexo);
+		obj.add("nacionalidad", nacionalidad == null ? null : nacionalidad.toJsonObject());
+		obj.addProperty("fechaNacimiento", fechaNacimiento.toString());
+		obj.addProperty("direccion", direccion);
+		obj.add("localidad", localidad == null ? null : localidad.toJsonObject());
+		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
+		obj.addProperty("correo", correo);
+		obj.addProperty("estado", estado);
+		
+		return obj;
+	}
+	
 	@Override
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
+	}
+	
+	public String toJson() {
+		return toJSON();
 	}
 
 	public String getUsuario() {
@@ -197,6 +221,7 @@ public class Cliente implements IEntity {
 
 	@Override
 	public Dictionary toDictionary() {
+		System.out.println("clietne: " + toFullDictionary());
 		return Dictionary.fromArray(
 			"usuario", usuario,
 			"dni", DNI,
@@ -233,6 +258,8 @@ public class Cliente implements IEntity {
 			"estado", estado
 		);
 	}
+	
+	
 	
 	public Dictionary toSecret() {
 		return Dictionary.fromArray(
