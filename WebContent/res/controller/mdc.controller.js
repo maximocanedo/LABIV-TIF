@@ -89,9 +89,6 @@ const showDialog = async (question) => {
 
 const loadElements = () => {
 	const mdc = mdce.default.mdc;
-	console.log(mdc);
-	window.temp2 = mdc;
-	console.log(mdc);
 	// Instanciar todos los MDCDrawer
 	document
 		.querySelectorAll(".mdc-drawer")
@@ -134,6 +131,7 @@ const loadTxt = (element) => {
 };
 
 export {
+	mdc,
 	loadElements,
 	rippleIt,
 	loadLinearProgressBar,
