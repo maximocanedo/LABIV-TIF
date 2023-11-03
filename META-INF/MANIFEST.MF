@@ -18,4 +18,5 @@ Export-Package: .,
   max.tools,
   servlets,
   servlets.quick
+Web-ContextPath: /TPINT_GRUPO_3_LAB
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
