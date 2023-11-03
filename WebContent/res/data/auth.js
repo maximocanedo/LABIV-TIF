@@ -1,5 +1,24 @@
 "use strict";
 
+const AUTH_HEADER = (() => {
+	let _headers = new Headers();
+	_headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+	return _headers;
+})();
+
+const whoIam = async () => {
+	var requestOptions = {
+		method: "GET",
+		headers: AUTH_HEADER,
+		redirect: "follow",
+	};
+
+	fetch("http://localhost:8080/TPINT_GRUPO_3_LAB/api/whoami", requestOptions)
+		.then((response) => response.text())
+		.then((result) => console.log(result))
+		.catch((error) => console.log("error", error));
+};
+
 const login = async (user, password, isAdmin = false) => {
 	try {
 		const response = await fetch(
@@ -38,12 +57,6 @@ const login = async (user, password, isAdmin = false) => {
 	}
 };
 
-const AUTH_HEADER = (() => {
-	let _headers = new Headers();
-	_headers.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-	return _headers;
-})();
-
 const testAccess = async (isAdmin = false) => {
 	try {
 		const response = await fetch(
@@ -77,4 +90,4 @@ const getActualUser = async (isAdmin = false) => {
 	}
 };
 
-export { login, testAccess, AUTH_HEADER, getActualUser };
+export { login, testAccess, AUTH_HEADER, getActualUser, whoIam };

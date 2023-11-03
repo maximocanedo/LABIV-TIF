@@ -2,8 +2,10 @@
 import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
 
-(() => {
+(async () => {
 	material.loadElements();
-	auth.letClientIn();
+	const e = await auth.whoIam();
+	console.log(auth);
+	console.log(e);
 	//auth.letAdminIn();
 })();
