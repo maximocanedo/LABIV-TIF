@@ -6,17 +6,51 @@ const AUTH_HEADER = (() => {
 	return _headers;
 })();
 
-const whoIam = async () => {
-	var requestOptions = {
-		method: "GET",
-		headers: AUTH_HEADER,
-		redirect: "follow",
-	};
+const LOGIN_PATH = "/TPINT_GRUPO_3_LAB/clientes/login.html";
 
-	fetch("http://localhost:8080/TPINT_GRUPO_3_LAB/api/whoami", requestOptions)
-		.then((response) => response.text())
-		.then((result) => console.log(result))
-		.catch((error) => console.log("error", error));
+const whoIam = async () => {
+	try {
+		const response = await fetch(
+			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/whoami",
+			{
+				headers: AUTH_HEADER,
+				method: "GET",
+			}
+		);
+		if (response.status != 200) return null;
+		return {
+			status: response.status,
+			data: await response.json(),
+		};
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+const allowClient = async () => {
+	const data = await whoIam();
+	if (data == null) {
+		window.location = LOGIN_PATH;
+	} else {
+		if (data.data.message != "CLIENT") {
+			window.location = LOGIN_PATH;
+		} else {
+			return data.data.objectReturned;
+		}
+	}
+};
+
+const allowAdmin = async () => {
+	const data = await whoIam();
+	if (data == null) {
+		window.location = LOGIN_PATH;
+	} else {
+		if (data.data.message != "ADMIN") {
+			window.location = LOGIN_PATH;
+		} else {
+			return data.data.objectReturned;
+		}
+	}
 };
 
 const login = async (user, password, isAdmin = false) => {
@@ -90,4 +124,12 @@ const getActualUser = async (isAdmin = false) => {
 	}
 };
 
-export { login, testAccess, AUTH_HEADER, getActualUser, whoIam };
+export {
+	login,
+	testAccess,
+	AUTH_HEADER,
+	getActualUser,
+	whoIam,
+	allowAdmin,
+	allowClient,
+};

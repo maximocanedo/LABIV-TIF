@@ -4,8 +4,6 @@ import * as auth from "./../data/auth.js";
 
 (async () => {
 	material.loadElements();
-	const e = await auth.whoIam();
-	console.log(auth);
-	console.log(e);
-	//auth.letAdminIn();
+	const actualUser = await auth.allowAdmin();
+	console.log({ actualUser });
 })();
