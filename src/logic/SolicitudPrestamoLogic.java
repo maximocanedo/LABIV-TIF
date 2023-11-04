@@ -9,7 +9,7 @@ import entity.Cliente;
 import entity.SolicitudPrestamo;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -21,8 +21,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	private static SolicitudPrestamoDao spDao = new SolicitudPrestamoDao();
 	
 	@Override
-	public LogicResponse<SolicitudPrestamo> validate(SolicitudPrestamo data, boolean validateConstraints) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> validate(SolicitudPrestamo data, boolean validateConstraints) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		try {
 			res.status = validateConstraints
 					? SolicitudPrestamoDao._model.validate(data.toDictionary()) 
@@ -42,8 +42,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	 * @param data Objeto a convertir.
 	 * @return Objeto convertido.
 	 */
-	public LogicResponse<SolicitudPrestamo> convertWildcard(TransactionResponse<?> data) {
-		LogicResponse<SolicitudPrestamo> x = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> convertWildcard(TransactionResponse<?> data) {
+		Response<SolicitudPrestamo> x = new Response<SolicitudPrestamo>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -53,8 +53,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	
 	
 	@Override
-	public LogicResponse<SolicitudPrestamo> insert(SolicitudPrestamo arg0) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> insert(SolicitudPrestamo arg0) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		/*TransactionResponse<?>spr;
 		try {
 			spr = spDao.insert(arg0);
@@ -79,8 +79,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 
 	
 	@Override
-	public LogicResponse<SolicitudPrestamo> modify(SolicitudPrestamo data) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> modify(SolicitudPrestamo data) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = spDao.modify(data);
@@ -95,8 +95,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 	@Override
-	public LogicResponse<SolicitudPrestamo> delete(SolicitudPrestamo data) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> delete(SolicitudPrestamo data) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<?> spr;
 		try {
 			spr = spDao.delete(data);
@@ -111,8 +111,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 	@Override
-	public LogicResponse<SolicitudPrestamo> getAll() {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> getAll() {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
 		try {
 			tpr = spDao.getAll();
@@ -127,8 +127,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 	@Override
-	public LogicResponse<SolicitudPrestamo> getById(String id) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> getById(String id) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
 		try {
 			tpr = spDao.getById(id);
@@ -143,8 +143,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 	@Override
-	public LogicResponse<SolicitudPrestamo> exists(String id) {
-		LogicResponse<SolicitudPrestamo> res = new LogicResponse<SolicitudPrestamo>();
+	public Response<SolicitudPrestamo> exists(String id) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		boolean existe = false;
 		try {
 			existe = spDao.exists(id);

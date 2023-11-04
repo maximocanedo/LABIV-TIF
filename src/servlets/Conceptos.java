@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 import entity.Concepto;
 import logic.ConceptoLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 @WebServlet("/api/conceptos/list")
 public class Conceptos extends HttpServlet {
@@ -26,7 +26,7 @@ public class Conceptos extends HttpServlet {
 	private static ConceptoLogic lgcon = new ConceptoLogic();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		LogicResponse<Concepto> lg = new LogicResponse<>();
+		Response<Concepto> lg = new Response<>();
 		Gson gson = new Gson();
 		
 		lg = lgcon.getAll();

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import logic.AdministradorLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Administrador__ExisteCUIL
@@ -27,7 +27,7 @@ public class Administrador__ExisteCUIL extends servlets.BaseServlet {
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String dni = getPathParameter(request);
-    	LogicResponse<Administrador> result = AL.CUILExists(dni);
+    	Response<Administrador> result = AL.CUILExists(dni);
     	sendEmptyResponse(response, result.http);
     	return; 
     }

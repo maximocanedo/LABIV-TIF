@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 import entity.Movimiento;
 import logic.MovimientoLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 @WebServlet("/api/movimientos/list")
 public class Movimientos extends HttpServlet {
@@ -26,7 +26,7 @@ public class Movimientos extends HttpServlet {
 	private static MovimientoLogic lgm = new MovimientoLogic();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		LogicResponse<Movimiento> lg = lgm.getAll();
+		Response<Movimiento> lg = lgm.getAll();
 		Gson gson = new Gson();
 		
 		String finalJSON = gson.toJson(lg);

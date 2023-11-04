@@ -15,7 +15,7 @@ import entity.RequestC01;
 import logic.AuthManager;
 import logic.AuthManager.TokenData;
 import logic.RequestC01Logic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class SingularRequestC01
@@ -46,7 +46,7 @@ public class SingularRequestC01 extends servlets.BaseServlet {
 			response.setStatus(400);
 			return;
 		}
-		LogicResponse<RequestC01> resRCF = logic.getById(id);
+		Response<RequestC01> resRCF = logic.getById(id);
 		//write(response, new Gson().toJson(resRCF));
 		if(resRCF.listReturned.isEmpty()) {
 			response.setStatus(404);
@@ -92,7 +92,7 @@ public class SingularRequestC01 extends servlets.BaseServlet {
 			response.setStatus(400);
 			return;
 		}
-		LogicResponse<RequestC01> resRCF = logic.getById(id);
+		Response<RequestC01> resRCF = logic.getById(id);
 		//write(response, new Gson().toJson(resRCF));
 		if(resRCF.listReturned.isEmpty()) {
 			response.setStatus(404);

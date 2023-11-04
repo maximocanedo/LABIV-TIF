@@ -11,7 +11,7 @@ import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Endpoints para realizar acciones sobre objetos de tipo Administrador
@@ -43,7 +43,7 @@ public class Administrador__FirstPerson extends BaseServlet {
 			return;
 		}
 		// Si todo está bien, intentar crear cuenta de administrador con los datos recibidos.
-		LogicResponse<Administrador> finalRes = AL.createAccount(parameters);
+		Response<Administrador> finalRes = AL.createAccount(parameters);
 		// Enviamos el código recibido y la respuesta recibida.
 		response.setStatus(finalRes.status ? 201 : 400);
         write(response, finalRes.toFinalJSON());
@@ -68,7 +68,7 @@ public class Administrador__FirstPerson extends BaseServlet {
      * @throws IOException 
      */
     protected void onAuthenticated__DeleteAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = AL.delete(actualUser);
+    	Response<Administrador> result = AL.delete(actualUser);
     	response.setStatus(result.http);
     	write(response, result.toFinalJSON());
     }
@@ -81,7 +81,7 @@ public class Administrador__FirstPerson extends BaseServlet {
      * @throws IOException
      */
     protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+    	Response<Administrador> result = new Response<Administrador>();
     	Dictionary params = getParameters(request);
     	if(params != null) {
     		result = AL.updatePassword(actualUser, params);
@@ -105,7 +105,7 @@ public class Administrador__FirstPerson extends BaseServlet {
     protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
     	Dictionary params = getParameters(request);
     	if(params != null) {
-        	LogicResponse<Administrador> res = AL.modify(params, actualUser);
+        	Response<Administrador> res = AL.modify(params, actualUser);
         	write(response, res.toFinalJSON());
     	} else {
     		response.setStatus(400);

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 import entity.*;
@@ -85,7 +85,7 @@ public class Localidades extends BaseServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Creamos el objeto que vamos a enviar como respuesta, y el código HTTP.
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+		Response<Localidad> res = new Response<Localidad>();
 		int statusCode = 200;
 		// Configuramos la salida como JSON y en UTF-8
 		configureResponse(response);

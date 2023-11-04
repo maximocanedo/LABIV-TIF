@@ -11,7 +11,7 @@ import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -23,9 +23,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	
 	
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> validate(DetalleCuotaPrestamo obj, boolean validar) {
+	public Response<DetalleCuotaPrestamo> validate(DetalleCuotaPrestamo obj, boolean validar) {
 		
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				lg.status = validar
@@ -40,9 +40,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> insert(DetalleCuotaPrestamo obj) {
+	public Response<DetalleCuotaPrestamo> insert(DetalleCuotaPrestamo obj) {
 		
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.insert(obj);
@@ -60,9 +60,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> modify(DetalleCuotaPrestamo obj) {
+	public Response<DetalleCuotaPrestamo> modify(DetalleCuotaPrestamo obj) {
 
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.modify(obj);
@@ -80,9 +80,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> delete(DetalleCuotaPrestamo obj) {
+	public Response<DetalleCuotaPrestamo> delete(DetalleCuotaPrestamo obj) {
 
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.delete(obj);
@@ -100,9 +100,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> getAll() {
+	public Response<DetalleCuotaPrestamo> getAll() {
 
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getAll();
@@ -120,9 +120,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> getById(Integer id) {
+	public Response<DetalleCuotaPrestamo> getById(Integer id) {
 
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getById(id);
@@ -139,9 +139,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 	
-	public LogicResponse<DetalleCuotaPrestamo> filterByUserName(Cliente c){
+	public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
 		
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
 		try {
 				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.filterByUserName(c);
@@ -160,9 +160,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 	}
 
 	@Override
-	public LogicResponse<DetalleCuotaPrestamo> exists(Integer id) {
+	public Response<DetalleCuotaPrestamo> exists(Integer id) {
 		
-		LogicResponse<DetalleCuotaPrestamo> lg = new LogicResponse<>();
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		boolean estado = false;
 		
 		try {

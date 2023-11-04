@@ -10,7 +10,7 @@ import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Endpoints para realizar acciones sobre cuentas de administrador AJENAS a la cuenta en sesión.
@@ -31,7 +31,7 @@ public class Administrador__ThirdPerson extends BaseServlet {
     
     public Administrador getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String username = getPathParameter(request);
-    	LogicResponse<Administrador> result = AL.getById(username);
+    	Response<Administrador> result = AL.getById(username);
     	if(result.listReturned != null && result.listReturned.size() > 0) {
     		return result.listReturned.get(0);
     	}
@@ -60,7 +60,7 @@ public class Administrador__ThirdPerson extends BaseServlet {
      * @throws IOException 
      */
     protected void onAuthenticated__DeleteAccount(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = AL.delete(actualUser);
+    	Response<Administrador> result = AL.delete(actualUser);
     	response.setStatus(result.http);
     	write(response, result.toFinalJSON());
     }
@@ -73,7 +73,7 @@ public class Administrador__ThirdPerson extends BaseServlet {
      * @throws IOException
      */
     protected void onAuthenticated__UpdatePassword(HttpServletRequest request, HttpServletResponse response, Administrador actualUser) throws IOException {
-    	LogicResponse<Administrador> result = new LogicResponse<Administrador>();
+    	Response<Administrador> result = new Response<Administrador>();
     	Dictionary params = getParameters(request);
     	if(params != null) {
     		result = AL.updatePassword(actualUser, params);

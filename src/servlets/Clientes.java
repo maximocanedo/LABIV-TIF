@@ -11,7 +11,7 @@ import entity.Administrador;
 import entity.Cliente;
 //import logic.AuthManager;
 import logic.ClienteLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Clientes
@@ -29,7 +29,7 @@ public class Clientes extends BaseServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = new Administrador(); // AuthManager.getActualAdmin(request, response);
 		if(admin != null) {
-			LogicResponse<Cliente> gac = CL.getAll();
+			Response<Cliente> gac = CL.getAll();
 			response.setStatus(gac.http);
 			write(response, gac.toFinalJSON());
 		}

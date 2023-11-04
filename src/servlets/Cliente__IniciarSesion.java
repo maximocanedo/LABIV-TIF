@@ -12,7 +12,7 @@ import entity.Cliente;
 import logic.AuthManager;
 import logic.ClienteLogic;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Cliente__IniciarSesion
@@ -30,7 +30,7 @@ public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
-		LogicResponse<Cliente> finalRes = CL.login(parameters);
+		Response<Cliente> finalRes = CL.login(parameters);
 		if(finalRes.status) {
 			String tk = finalRes.eField;
 			if(tk != null) {

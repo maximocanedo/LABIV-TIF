@@ -8,7 +8,7 @@ import data.ProvinciaDao;
 import entity.Provincia;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -48,8 +48,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public LogicResponse<Provincia> delete(Provincia arg0) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> delete(Provincia arg0) {
+		Response<Provincia> res = new Response<Provincia>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -68,8 +68,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Determina si existe un registro. 
 	 */
 	@Override
-	public LogicResponse<Provincia> exists(Integer arg0) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> exists(Integer arg0) {
+		Response<Provincia> res = new Response<Provincia>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
@@ -88,8 +88,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Obtiene todos los registros en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Provincia> getAll() {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> getAll() {
+		Response<Provincia> res = new Response<Provincia>();
 		TransactionResponse<Provincia> tn = new TransactionResponse<Provincia>();
 		try {
 			tn = data.getAll();
@@ -108,8 +108,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Busca un registro por su ID.
 	 */
 	@Override
-	public LogicResponse<Provincia> getById(Integer arg0) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> getById(Integer arg0) {
+		Response<Provincia> res = new Response<Provincia>();
 		TransactionResponse<Provincia> tn = new TransactionResponse<Provincia>();
 		try {
 			tn = data.getById(arg0);
@@ -128,8 +128,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Inserta un registro.
 	 */
 	@Override
-	public LogicResponse<Provincia> insert(Provincia arg0) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> insert(Provincia arg0) {
+		Response<Provincia> res = new Response<Provincia>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -147,8 +147,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Modifica un registro.
 	 */
 	@Override
-	public LogicResponse<Provincia> modify(Provincia arg0) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> modify(Provincia arg0) {
+		Response<Provincia> res = new Response<Provincia>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -168,8 +168,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Provincia> validate(Provincia arg0, boolean validateConstraints) {
-		LogicResponse<Provincia> res = new LogicResponse<Provincia>();
+	public Response<Provincia> validate(Provincia arg0, boolean validateConstraints) {
+		Response<Provincia> res = new Response<Provincia>();
 		try {
 			res.status = validateConstraints 
 					? ProvinciaDao._model.validate(arg0.toDictionary()) 

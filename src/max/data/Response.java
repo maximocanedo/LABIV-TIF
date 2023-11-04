@@ -2,40 +2,60 @@ package max.data;
 
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-
-public class Response extends LogicResponse<IEntity> {
+public class Response<T> {
 	public String message = null;
 	public boolean status;
+	
 	public String eField = null;
-	public IEntity objectReturned = null;
-	public List<IEntity> listReturned = null;
+	
+	public String errorMessage = null;
+	
+	public Exception exception = null;
+
+	public T objectReturned = null;
+	
+	public T[] arrayReturned = null;
+	
+	public List<T> listReturned = null;
+	
 	public Integer http = 200;
 	
-	public JsonObject toJsonObject() {
+	public void clean(boolean clearMessages) {
+		this.http = null;
+		this.exception = null;
+		this.errorMessage = null;
+		this.eField = null;
+		if(clearMessages) message = null;
+	}
+	public void clean() {
+		clean(false);
+	}
+	
+	
+	public JsonObject toFinalJSONObj() {
 		JsonObject obj = new JsonObject();
 		if(message != null || message != "")
 			obj.addProperty("message", message);
 		obj.addProperty("status", status);
 		if(objectReturned != null)
-			obj.add("objectReturned", objectReturned.toJsonObject());
+			obj.add("objectReturned", ((IEntity) objectReturned).toJsonObject());
 		if(listReturned != null) {
 			JsonArray arr = new JsonArray();
-			for(IEntity e : listReturned) {
-				JsonObject entityObj = e.toJsonObject();
+			for(T e : listReturned) {
+				JsonObject entityObj = ((IEntity)e).toJsonObject();
 				arr.add(entityObj);
 			}
 			obj.add("listReturned", arr);
 		}
 		return obj;
 	}
-	
 	public String toFinalJSON() {
-		return toJsonObject().toString();
+		return toFinalJSONObj().toString();
 	}
-	
 	public Response() {}
 	public Response(boolean status, String message) {
 		die(status, message);
@@ -47,13 +67,13 @@ public class Response extends LogicResponse<IEntity> {
 	public Response(Exception err) {
 		err(err);
 	}
-	public Response(IEntity obj) {
+	public Response(T obj) {
 		fill(obj);
 	}
-	public Response(IEntity[] arr) {
+	public Response(T[] arr) {
 		fill(arr);
 	}
-	public Response(List<IEntity> list) {
+	public Response(List<T> list) {
 		fill(list);
 	}
 	public void die(boolean status, String message) {
@@ -70,19 +90,19 @@ public class Response extends LogicResponse<IEntity> {
 		this.errorMessage = err.getMessage();
 		
 	}
-	public void fill(IEntity object) {
+	public void fill(T object) {
 		if(object != null) {
 			this.objectReturned = object;
 			this.status = true;
 		}
 	}
-	public void fill(IEntity[] arr) {
+	public void fill(T[] arr) {
 		if(arr != null) {
 			this.arrayReturned = arr;
 			this.status = arr.length >= 0;
 		}
 	}
-	public void fill(List<IEntity> list) {
+	public void fill(List<T> list) {
 		if(list != null) {
 			this.listReturned = list;
 			this.status = list.size() >= 0;
@@ -112,22 +132,22 @@ public class Response extends LogicResponse<IEntity> {
 	public void setException(Exception exception) {
 		this.exception = exception;
 	}
-	public IEntity getObjectReturned() {
+	public T getObjectReturned() {
 		return objectReturned;
 	}
-	public void setObjectReturned(IEntity objectReturned) {
+	public void setObjectReturned(T objectReturned) {
 		this.objectReturned = objectReturned;
 	}
-	public IEntity[] getArrayReturned() {
+	public T[] getArrayReturned() {
 		return arrayReturned;
 	}
-	public void setArrayReturned(IEntity[] arrayReturned) {
+	public void setArrayReturned(T[] arrayReturned) {
 		this.arrayReturned = arrayReturned;
 	}
-	public List<IEntity> getListReturned() {
+	public List<T> getListReturned() {
 		return listReturned;
 	}
-	public void setListReturned(List<IEntity> listReturned) {
+	public void setListReturned(List<T> listReturned) {
 		this.listReturned = listReturned;
 	}
 }

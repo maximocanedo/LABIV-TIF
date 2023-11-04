@@ -10,7 +10,7 @@ import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -21,8 +21,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	private static PrestamosClienteDao pcDao = new PrestamosClienteDao();
 	
 	@Override
-	public LogicResponse<PrestamosCliente> validate(PrestamosCliente data, boolean validatePKDuplicates) {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> validate(PrestamosCliente data, boolean validatePKDuplicates) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		try {
 			res.status = validatePKDuplicates
 					? PrestamosClienteDao._model.validate(data.toDictionary()) 
@@ -34,8 +34,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 	
-	public LogicResponse<PrestamosCliente> convertWildcard(TransactionResponse<?> data) {
-		LogicResponse<PrestamosCliente> x = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> convertWildcard(TransactionResponse<?> data) {
+		Response<PrestamosCliente> x = new Response<PrestamosCliente>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -43,8 +43,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> insert(PrestamosCliente data) {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> insert(PrestamosCliente data) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		try {
 			res = convertWildcard(pcDao.insert(data));
 			res.objectReturned = data;
@@ -58,8 +58,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> modify(PrestamosCliente data) {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> modify(PrestamosCliente data) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = pcDao.modify(data);
@@ -74,8 +74,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> delete(PrestamosCliente data) {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> delete(PrestamosCliente data) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		TransactionResponse<?> spr;
 		try {
 			spr = pcDao.delete(data);
@@ -90,8 +90,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> getAll() {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> getAll() {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
 		try {
 			tpr = pcDao.getAll();
@@ -136,8 +136,8 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> getById(Integer id) {
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+	public Response<PrestamosCliente> getById(Integer id) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
 		try {
 			tpr = pcDao.getById(id);
@@ -152,9 +152,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 	}
 
 	@Override
-	public LogicResponse<PrestamosCliente> exists(Integer id) {
+	public Response<PrestamosCliente> exists(Integer id) {
 		
-		LogicResponse<PrestamosCliente> res = new LogicResponse<PrestamosCliente>();
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		boolean existe = false;
 		try {
 			existe = pcDao.exists(id);

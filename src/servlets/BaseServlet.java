@@ -15,7 +15,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 public abstract class BaseServlet extends HttpServlet {
 	
@@ -89,7 +89,7 @@ public abstract class BaseServlet extends HttpServlet {
 	public void die(HttpServletResponse res, boolean status, int code, String content) throws IOException {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
-		LogicResponse<Object> r = new LogicResponse<Object>();
+		Response<Object> r = new Response<Object>();
 		r.status = status;
 		r.http = code;
 		r.message = content;
