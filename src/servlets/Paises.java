@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 
 import entity.Pais;
 import logic.PaisLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Pais
@@ -34,7 +34,7 @@ public class Paises extends BaseServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogicResponse<Pais> res = logic.getAll();
+		Response<Pais> res = logic.getAll();
 		String json = new Gson().toJson(res);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

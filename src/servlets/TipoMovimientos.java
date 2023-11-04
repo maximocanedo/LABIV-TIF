@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 
 import entity.TipoMovimiento;
 import logic.TipoMovimientoLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 
 @WebServlet("/api/tipomovimientos/list")
@@ -26,7 +26,7 @@ private static final long serialVersionUID = 1L;
 	private static TipoMovimientoLogic lgtpm = new TipoMovimientoLogic();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		LogicResponse<TipoMovimiento> lg = lgtpm.getAll();
+		Response<TipoMovimiento> lg = lgtpm.getAll();
 		Gson gson = new Gson();
 		
 		String finalJSON = gson.toJson(lg);

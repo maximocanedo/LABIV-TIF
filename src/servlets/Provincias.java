@@ -23,7 +23,7 @@ public class Provincias extends BaseServlet {
     private static ProvinciaLogic logic = new ProvinciaLogic();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogicResponse<Provincia> res = logic.getAll();
+		Response<Provincia> res = logic.getAll();
 		String finalJSON = new Gson().toJson(res);
 		write(response, finalJSON);
 	}

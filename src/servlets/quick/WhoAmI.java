@@ -14,7 +14,7 @@ import entity.Cliente;
 import logic.AuthManager;
 import logic.AuthManager.TokenData;
 import logic.ClienteLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import servlets.BaseServlet;
 
 /**
@@ -31,8 +31,8 @@ public class WhoAmI extends BaseServlet {
     protected ClienteLogic CL = new ClienteLogic();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogicResponse<Cliente> lc = new LogicResponse<Cliente>();
-		LogicResponse<Administrador> la = new LogicResponse<Administrador>();
+		Response<Cliente> lc = new Response<Cliente>();
+		Response<Administrador> la = new Response<Administrador>();
 		/* Verificar si es cliente o admin */
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {

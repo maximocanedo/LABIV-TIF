@@ -12,7 +12,7 @@ import entity.Cliente;
 import logic.AuthManager;
 import logic.ClienteLogic;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Cliente__FirstPerson
@@ -44,7 +44,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
      * @throws IOException
      */
     protected void onAuthenticated__DisableAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
-    	LogicResponse<Cliente> result = CL.delete(actualUser);
+    	Response<Cliente> result = CL.delete(actualUser);
     	response.setStatus(result.http);
     	write(response, result.toFinalJSON());
     }
@@ -59,7 +59,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
     protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
     	Dictionary params = getParameters(request);
     	if(params != null) {
-        	LogicResponse<Cliente> res = CL.modify(params, actualUser);
+        	Response<Cliente> res = CL.modify(params, actualUser);
         	write(response, res.toFinalJSON());
     	} else {
     		response.setStatus(400);
@@ -86,7 +86,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
 			return;
 		}
 		// Si todo está bien, intentar crear cuenta de administrador con los datos recibidos.
-		LogicResponse<Cliente> finalRes = CL.createAccount(parameters);
+		Response<Cliente> finalRes = CL.createAccount(parameters);
 		// Enviamos el código recibido y la respuesta recibida.
 		response.setStatus(finalRes.status ? 201 : 500);
         write(response, finalRes.toFinalJSON());

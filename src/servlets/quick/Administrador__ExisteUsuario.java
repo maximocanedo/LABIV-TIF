@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import logic.AdministradorLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Administrador__ExisteUsuario
@@ -34,7 +34,7 @@ public class Administrador__ExisteUsuario extends servlets.BaseServlet {
     
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String username = getUsername(request);
-    	LogicResponse<Administrador> result = AL.exists(username);
+    	Response<Administrador> result = AL.exists(username);
     	sendEmptyResponse(response, result.http);
     	return; 
     }

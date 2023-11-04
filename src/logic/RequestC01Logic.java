@@ -10,7 +10,7 @@ import entity.Cliente;
 import entity.RequestC01;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -19,8 +19,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	private RequestC01Dao dao = new RequestC01Dao();
 	
 	@Override
-	public LogicResponse<RequestC01> validate(RequestC01 arg0, boolean validateConstraints) {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> validate(RequestC01 arg0, boolean validateConstraints) {
+		Response<RequestC01> res = new Response<RequestC01>();
 		try {
 			res.status = validateConstraints 
 					? RequestC01Dao._model.validate(arg0.toDictionary()) 
@@ -33,8 +33,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> insert(RequestC01 arg0) {
-		LogicResponse<RequestC01> result = new LogicResponse<RequestC01>();
+	public Response<RequestC01> insert(RequestC01 arg0) {
+		Response<RequestC01> result = new Response<RequestC01>();
 		try {
 			result = convertWildcard(dao.insert(arg0));
 			result.objectReturned = arg0;
@@ -48,8 +48,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> modify(RequestC01 arg0) {
-		LogicResponse<RequestC01> result = new LogicResponse<RequestC01>();
+	public Response<RequestC01> modify(RequestC01 arg0) {
+		Response<RequestC01> result = new Response<RequestC01>();
 		try {
 			result = convertWildcard(dao.modify(arg0));
 			result.message = result.status ? "El registro se modificó correctamente. " : "No se modificó ningún registro. ";
@@ -62,9 +62,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> delete(RequestC01 data) {
+	public Response<RequestC01> delete(RequestC01 data) {
 		TransactionResponse<?> res;
-		LogicResponse<RequestC01> result = new LogicResponse<RequestC01>();
+		Response<RequestC01> result = new Response<RequestC01>();
 		try {
 			res = dao.delete(data);
 			result = convertWildcard(res);
@@ -78,8 +78,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> getAll() {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> getAll() {
+		Response<RequestC01> res = new Response<RequestC01>();
 		try {
 			res = convert(dao.getAll());
 		} catch (SQLException e) {
@@ -91,8 +91,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> getById(Integer id) {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> getById(Integer id) {
+		Response<RequestC01> res = new Response<RequestC01>();
 		try {
 			res = convert(dao.getById(id));
 		} catch (SQLException e) {
@@ -104,8 +104,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	@Override
-	public LogicResponse<RequestC01> exists(Integer id) {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> exists(Integer id) {
+		Response<RequestC01> res = new Response<RequestC01>();
 		boolean o = false;
 		try {
 			o = dao.exists(id);
@@ -123,8 +123,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	 * @param data Objeto a convertir.
 	 * @return Objeto convertido.
 	 */
-	public LogicResponse<RequestC01> convert(TransactionResponse<RequestC01> data) {
-		LogicResponse<RequestC01> x = new LogicResponse<RequestC01>();
+	public Response<RequestC01> convert(TransactionResponse<RequestC01> data) {
+		Response<RequestC01> x = new Response<RequestC01>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.listReturned = data.rowsReturned;
@@ -137,8 +137,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	 * @param data Objeto a convertir.
 	 * @return Objeto convertido.
 	 */
-	public LogicResponse<RequestC01> convertWildcard(TransactionResponse<?> data) {
-		LogicResponse<RequestC01> x = new LogicResponse<RequestC01>();
+	public Response<RequestC01> convertWildcard(TransactionResponse<?> data) {
+		Response<RequestC01> x = new Response<RequestC01>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -185,8 +185,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return list;
 	}
 
-	public LogicResponse<RequestC01> issue(Cliente client) {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> issue(Cliente client) {
+		Response<RequestC01> res = new Response<RequestC01>();
 		RequestC01 req = new RequestC01();
 		req.setIssuer(client);
 		req.setIssuedOn(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -203,10 +203,10 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return res;
 	}
 	
-	public LogicResponse<RequestC01> close(Integer id) {
-		LogicResponse<RequestC01> res = new LogicResponse<RequestC01>();
+	public Response<RequestC01> close(Integer id) {
+		Response<RequestC01> res = new Response<RequestC01>();
 		// Verificar que exista el ID y que esté abierto.
-		LogicResponse<RequestC01> buscarId = getById(id);
+		Response<RequestC01> buscarId = getById(id);
 		if(buscarId != null && !buscarId.listReturned.isEmpty()) {
 			if(buscarId.listReturned.get(0).isStatus()) {
 				res.die(false, 403, "Esta solicitud ya fue aprobada. ");
@@ -223,7 +223,7 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		String dni = req.getIssuer().getDNI();
 		// Generar clave nueva
 		ClienteLogic clogic = new ClienteLogic();
-		LogicResponse<Cliente> buscarCliente = clogic.getByDNI(dni);
+		Response<Cliente> buscarCliente = clogic.getByDNI(dni);
 		if(buscarCliente == null) {
 			res.die(false, 500, "Error desconocido");
 			return res;
@@ -235,7 +235,7 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		String newlyGeneratedPassword = clogic.generatePassword(cliente);
 		// Modificar cliente con clave nueva
 		cliente.setContraseña(newlyGeneratedPassword);
-		LogicResponse<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDao.Fields.contraseña.name, cliente.getContraseña()));
+		Response<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDao.Fields.contraseña.name, cliente.getContraseña()));
 		if(cambiarClaveCliente == null || !cambiarClaveCliente.status) {
 			res.die(false, 500, "Hubo un error actualizando la contraseña del cliente. ");
 			return res;

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import logic.AdministradorLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Administrador__ExisteDNI
@@ -25,7 +25,7 @@ public class Administrador__ExisteDNI extends servlets.BaseServlet {
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String dni = getPathParameter(request);
-    	LogicResponse<Administrador> result = AL.DNIExists(dni);
+    	Response<Administrador> result = AL.DNIExists(dni);
     	response.setStatus(result.http);
     	sendEmptyResponse(response, result.http);
     	return; 

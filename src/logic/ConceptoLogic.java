@@ -16,9 +16,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	public ConceptoLogic() {}
 
 	@Override
-	public LogicResponse<Concepto> validate(Concepto obj, boolean validar) {
+	public Response<Concepto> validate(Concepto obj, boolean validar) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				lc.status = validar
@@ -33,9 +33,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> insert(Concepto obj) {
+	public Response<Concepto> insert(Concepto obj) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCon.insert(obj);
@@ -54,9 +54,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> modify(Concepto obj) {
+	public Response<Concepto> modify(Concepto obj) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCon.modify(obj);
@@ -75,9 +75,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> delete(Concepto obj) {
+	public Response<Concepto> delete(Concepto obj) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCon.delete(obj);
@@ -96,9 +96,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> getAll() {
+	public Response<Concepto> getAll() {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				TransactionResponse<Concepto> tr = daoCon.getAll();
@@ -116,9 +116,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> getById(String cod_Con) {
+	public Response<Concepto> getById(String cod_Con) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		
 		try {
 				TransactionResponse<Concepto> tr = daoCon.getById(cod_Con);
@@ -136,9 +136,9 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 	}
 
 	@Override
-	public LogicResponse<Concepto> exists(String cod_Con) {
+	public Response<Concepto> exists(String cod_Con) {
 		
-		LogicResponse<Concepto> lc = new LogicResponse<>();
+		Response<Concepto> lc = new Response<>();
 		boolean estado = false;
 		
 		try {

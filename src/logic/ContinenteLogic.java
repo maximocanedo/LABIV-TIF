@@ -45,8 +45,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public LogicResponse<Continente> delete(Continente arg0){
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> delete(Continente arg0){
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -65,8 +65,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Determina si un registro existe.
 	 */
 	@Override
-	public LogicResponse<Continente> exists(String arg0) {
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> exists(String arg0) {
+		Response<Continente> res = new Response<Continente>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
@@ -84,8 +84,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Obtiene todos los registros de la base de datos.
 	 */
 	@Override
-	public LogicResponse<Continente> getAll() {
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> getAll() {
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {
 			tn = data.getAll();
@@ -103,8 +103,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Busca un registro por su ID.
 	 */
 	@Override
-	public LogicResponse<Continente> getById(String arg0) {
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> getById(String arg0) {
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {
 			tn = data.getById(arg0);
@@ -123,8 +123,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Inserta un registro en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Continente> insert(Continente arg0){
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> insert(Continente arg0){
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -142,8 +142,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Modifica un registro en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Continente> modify(Continente arg0) {
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> modify(Continente arg0) {
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -163,8 +163,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Continente> validate(Continente arg0, boolean validateConstraints) {
-		LogicResponse<Continente> res = new LogicResponse<Continente>();
+	public Response<Continente> validate(Continente arg0, boolean validateConstraints) {
+		Response<Continente> res = new Response<Continente>();
 		try {
 			res.status = validateConstraints 
 					? ContinenteDao._model.validate(arg0.toDictionary()) 

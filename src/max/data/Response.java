@@ -3,8 +3,10 @@ package max.data;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
-public class LogicResponse<T> {
+public class Response<T> {
 	public String message = null;
 	public boolean status;
 	
@@ -34,29 +36,44 @@ public class LogicResponse<T> {
 	}
 	
 	
-	public String toFinalJSON() {
-		clean();
-	    return new Gson().toJson(this);
+	public JsonObject toFinalJSONObj() {
+		JsonObject obj = new JsonObject();
+		if(message != null || message != "")
+			obj.addProperty("message", message);
+		obj.addProperty("status", status);
+		if(objectReturned != null)
+			obj.add("objectReturned", ((IEntity) objectReturned).toJsonObject());
+		if(listReturned != null) {
+			JsonArray arr = new JsonArray();
+			for(T e : listReturned) {
+				JsonObject entityObj = ((IEntity)e).toJsonObject();
+				arr.add(entityObj);
+			}
+			obj.add("listReturned", arr);
+		}
+		return obj;
 	}
-	
-	public LogicResponse() {}
-	public LogicResponse(boolean status, String message) {
+	public String toFinalJSON() {
+		return toFinalJSONObj().toString();
+	}
+	public Response() {}
+	public Response(boolean status, String message) {
 		die(status, message);
 	}
-	public LogicResponse(boolean status, int code, String message) {
+	public Response(boolean status, int code, String message) {
 		http = code;
 		die(status, message);
 	}
-	public LogicResponse(Exception err) {
+	public Response(Exception err) {
 		err(err);
 	}
-	public LogicResponse(T obj) {
+	public Response(T obj) {
 		fill(obj);
 	}
-	public LogicResponse(T[] arr) {
+	public Response(T[] arr) {
 		fill(arr);
 	}
-	public LogicResponse(List<T> list) {
+	public Response(List<T> list) {
 		fill(list);
 	}
 	public void die(boolean status, String message) {

@@ -13,7 +13,7 @@ import entity.Administrador;
 import entity.Cliente;
 import logic.AuthManager;
 import logic.RequestC01Logic;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class RequestC01
@@ -37,7 +37,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
 		if(admin != null) {
-			LogicResponse<entity.RequestC01> fet = logic.getAll();
+			Response<entity.RequestC01> fet = logic.getAll();
 			write(response, new Gson().toJson(fet));
 			response.setStatus(fet.http);
 		}
@@ -50,7 +50,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cliente client = AuthManager.getActualClient(request, response);
 		if(client != null) {
-			LogicResponse<entity.RequestC01> fet = logic.issue(client);
+			Response<entity.RequestC01> fet = logic.issue(client);
 			write(response, new Gson().toJson(fet));
 			response.setStatus(fet.http);
 		}

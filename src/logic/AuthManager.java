@@ -17,7 +17,7 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 
 public class AuthManager {
@@ -66,20 +66,20 @@ public class AuthManager {
     }
     
     protected static class Error {
-    	public static LogicResponse<Administrador> InvalidOrCorruptToken = 
-    			new LogicResponse<Administrador>(false, 401, "Token is corrupt or invalid. ");
-    	public static LogicResponse<Administrador> RejectedRole = 
-    			new LogicResponse<Administrador>(false, 403, "You don't have access right to this resource. ");
-    	public static LogicResponse<Administrador> emptyAuthHeader = 
-    			new LogicResponse<Administrador>(false, 401, "You must log in to access to this resource. ");
-    	public static LogicResponse<Administrador> sqlError = 
-    			new LogicResponse<Administrador>(false, 500, "An error occured while trying to fetch some data. ");
-    	public static LogicResponse<Administrador> actualUserDoesNotExistAnymore = 
-    			new LogicResponse<Administrador>(false, 403, "Your user may have been deleted or blocked from the database. ");
+    	public static Response<Administrador> InvalidOrCorruptToken = 
+    			new Response<Administrador>(false, 401, "Token is corrupt or invalid. ");
+    	public static Response<Administrador> RejectedRole = 
+    			new Response<Administrador>(false, 403, "You don't have access right to this resource. ");
+    	public static Response<Administrador> emptyAuthHeader = 
+    			new Response<Administrador>(false, 401, "You must log in to access to this resource. ");
+    	public static Response<Administrador> sqlError = 
+    			new Response<Administrador>(false, 500, "An error occured while trying to fetch some data. ");
+    	public static Response<Administrador> actualUserDoesNotExistAnymore = 
+    			new Response<Administrador>(false, 403, "Your user may have been deleted or blocked from the database. ");
     
     }
     
-    public static void send(HttpServletResponse res, LogicResponse<Administrador> mes) {
+    public static void send(HttpServletResponse res, Response<Administrador> mes) {
     	res.setStatus(mes.http == null ? 200 : mes.http);
     	try {
     		String jsn = mes.toFinalJSON();

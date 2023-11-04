@@ -7,7 +7,7 @@ import data.TipoCuentaDao;
 import entity.TipoCuenta;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -16,8 +16,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	public TipoCuentaLogic() {}
 	TipoCuentaDao tpDao= new TipoCuentaDao();
 	@Override
-	public LogicResponse<TipoCuenta> validate(TipoCuenta data, boolean validatePKDuplicates) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> validate(TipoCuenta data, boolean validatePKDuplicates) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		try {
 			res.status = validatePKDuplicates 
 					? TipoCuentaDao._model.validate(data.toDictionary()) 
@@ -30,8 +30,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> insert(TipoCuenta data) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> insert(TipoCuenta data) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.insert(data);
@@ -46,8 +46,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> modify(TipoCuenta data) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> modify(TipoCuenta data) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.modify(data);
@@ -62,8 +62,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> delete(TipoCuenta data) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> delete(TipoCuenta data) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.delete(data);
@@ -78,8 +78,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> getAll() {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> getAll() {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		TransactionResponse<TipoCuenta> tpr = new TransactionResponse<TipoCuenta>();
 		try {
 			tpr = tpDao.getAll();
@@ -94,8 +94,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> getById(String id) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> getById(String id) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		TransactionResponse<TipoCuenta> tpr = new TransactionResponse<TipoCuenta>();
 		try {
 			tpr = tpDao.getById(id);
@@ -110,8 +110,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<TipoCuenta> exists(String id) {
-		LogicResponse<TipoCuenta> res = new LogicResponse<TipoCuenta>();
+	public Response<TipoCuenta> exists(String id) {
+		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		boolean existe = false;
 		try {
 			existe = tpDao.exists(id);

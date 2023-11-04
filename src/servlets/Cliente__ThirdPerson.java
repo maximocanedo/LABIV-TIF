@@ -14,7 +14,7 @@ import logic.AuthManager;
 import logic.AuthManager.TokenData;
 import logic.ClienteLogic;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Cliente__ThirdPerson
@@ -39,7 +39,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
      */
     public Cliente getClient(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String username = getPathParameter(request);
-    	LogicResponse<Cliente> result = CL.getById(username);
+    	Response<Cliente> result = CL.getById(username);
     	if(result.listReturned != null && result.listReturned.size() > 0) {
     		return result.listReturned.get(0);
     	}
@@ -95,7 +95,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
      * @throws IOException
      */
     protected void onAuthenticated__DisableAccount(HttpServletRequest request, HttpServletResponse response, Cliente cliente) throws ServletException, IOException {
-    	LogicResponse<Cliente> result = CL.delete(cliente);
+    	Response<Cliente> result = CL.delete(cliente);
     	response.setStatus(result.http);
     	write(response, result.toFinalJSON());
     }
@@ -110,7 +110,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
     protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
     	Dictionary params = getParameters(request);
     	if(params != null) {
-        	LogicResponse<Cliente> res = CL.modify(params, actualUser);
+        	Response<Cliente> res = CL.modify(params, actualUser);
         	write(response, res.toFinalJSON());
     	} else {
     		response.setStatus(400);

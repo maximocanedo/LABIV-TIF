@@ -12,7 +12,7 @@ import entity.Administrador;
 import logic.AdministradorLogic;
 import logic.AuthManager;
 import max.data.Dictionary;
-import max.data.LogicResponse;
+import max.data.Response;
 
 /**
  * Servlet implementation class Administrador__IniciarSesion
@@ -27,7 +27,7 @@ private AdministradorLogic AL = new AdministradorLogic();
 		res.setStatus(code);
 	}
 	protected void sendMessage(HttpServletResponse res, boolean status, String content) throws IOException {
-		LogicResponse<Object> r = new LogicResponse<Object>();
+		Response<Object> r = new Response<Object>();
 		r.status = status;
 		r.message = content;
 		res.getWriter().append(r.toFinalJSON());
@@ -49,7 +49,7 @@ private AdministradorLogic AL = new AdministradorLogic();
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
-		LogicResponse<Administrador> finalRes = AL.login(parameters);
+		Response<Administrador> finalRes = AL.login(parameters);
 		if(finalRes.status) {
 			String tk = finalRes.eField;
 			if(tk != null) {

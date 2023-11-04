@@ -8,7 +8,7 @@ import data.TipoMovimientoDao;
 import entity.TipoMovimiento;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -19,8 +19,8 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	public TipoMovimientoLogic() {}
 
 	@Override
-	public LogicResponse<TipoMovimiento> validate(TipoMovimiento obj, boolean validar) {
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+	public Response<TipoMovimiento> validate(TipoMovimiento obj, boolean validar) {
+		Response<TipoMovimiento> ltpm = new Response<>();
 		
 		try {
 				ltpm.status = validar
@@ -35,9 +35,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> insert(TipoMovimiento obj) {
+	public Response<TipoMovimiento> insert(TipoMovimiento obj) {
 		
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+		Response<TipoMovimiento> ltpm = new Response<>();
 				
 		try {
 				TransactionResponse<?> t = daoTPM.insert(obj);
@@ -56,9 +56,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> modify(TipoMovimiento obj) {
+	public Response<TipoMovimiento> modify(TipoMovimiento obj) {
 		
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+		Response<TipoMovimiento> ltpm = new Response<>();
 		
 		try {
 			TransactionResponse<?> t = daoTPM.modify(obj);
@@ -76,9 +76,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> delete(TipoMovimiento obj) {
+	public Response<TipoMovimiento> delete(TipoMovimiento obj) {
 		
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+		Response<TipoMovimiento> ltpm = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoTPM.delete(obj);
@@ -96,8 +96,8 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> getAll() {
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+	public Response<TipoMovimiento> getAll() {
+		Response<TipoMovimiento> ltpm = new Response<>();
 		
 		try {
 				TransactionResponse<TipoMovimiento> t = daoTPM.getAll();
@@ -115,9 +115,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> getById(String cod_TPMV) {
+	public Response<TipoMovimiento> getById(String cod_TPMV) {
 		
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+		Response<TipoMovimiento> ltpm = new Response<>();
 		
 		try {
 				TransactionResponse<TipoMovimiento> t = daoTPM.getById(cod_TPMV);
@@ -135,9 +135,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 	}
 
 	@Override
-	public LogicResponse<TipoMovimiento> exists(String cod_TPMV) {
+	public Response<TipoMovimiento> exists(String cod_TPMV) {
 		
-		LogicResponse<TipoMovimiento> ltpm = new LogicResponse<>();
+		Response<TipoMovimiento> ltpm = new Response<>();
 		boolean estado = false;
 		
 		try {

@@ -49,8 +49,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public LogicResponse<Localidad> delete(Localidad arg0) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> delete(Localidad arg0) {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -69,8 +69,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Determina si un registro existe.
 	 */
 	@Override
-	public LogicResponse<Localidad> exists(Integer arg0) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> exists(Integer arg0) {
+		Response<Localidad> res = new Response<Localidad>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
@@ -88,8 +88,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Obtiene todos los registros de la base de datos.
 	 */
 	@Override
-	public LogicResponse<Localidad> getAll() {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> getAll() {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.getAll();
@@ -109,8 +109,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * @param p Objeto Provincia con el ID de la provincia a filtrar.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Localidad> filterByProvince(Provincia p) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> filterByProvince(Provincia p) {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.filterByProvince(p);
@@ -130,8 +130,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Busca una localidad por su ID.
 	 */
 	@Override
-	public LogicResponse<Localidad> getById(Integer arg0) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> getById(Integer arg0) {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
 		try {
 			tn = data.getById(arg0);
@@ -150,8 +150,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Inserta un registro.
 	 */
 	@Override
-	public LogicResponse<Localidad> insert(Localidad arg0) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> insert(Localidad arg0) {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -169,8 +169,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Modifica un registro.
 	 */
 	@Override
-	public LogicResponse<Localidad> modify(Localidad arg0) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> modify(Localidad arg0) {
+		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -190,8 +190,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Localidad> validate(Localidad arg0, boolean validateConstraints) {
-		LogicResponse<Localidad> res = new LogicResponse<Localidad>();
+	public Response<Localidad> validate(Localidad arg0, boolean validateConstraints) {
+		Response<Localidad> res = new Response<Localidad>();
 		try {
 			res.status = validateConstraints 
 					? LocalidadDao._model.validate(arg0.toDictionary()) 

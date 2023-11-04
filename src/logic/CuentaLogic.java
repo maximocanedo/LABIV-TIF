@@ -11,7 +11,7 @@ import entity.Cuenta;
 import entity.TipoCuenta;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -22,8 +22,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	private static CuentaDao clDao= new CuentaDao();
 	
 	@Override
-	public LogicResponse<Cuenta> validate(Cuenta data, boolean validatePKDuplicates) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> validate(Cuenta data, boolean validatePKDuplicates) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		try {
 			res.status = validatePKDuplicates 
 					? CuentaDao._model.validate(data.toDictionary()) 
@@ -36,8 +36,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> insert(Cuenta data) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> insert(Cuenta data) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = clDao.insert(data);
@@ -52,8 +52,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> modify(Cuenta data) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> modify(Cuenta data) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = clDao.modify(data);
@@ -68,8 +68,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> delete(Cuenta data) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> delete(Cuenta data) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = clDao.delete(data);
@@ -84,8 +84,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> getAll() {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> getAll() {
+		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getAll();
@@ -100,8 +100,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> getById(String id) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> getById(String id) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getById(id);
@@ -116,8 +116,8 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 	}
 
 	@Override
-	public LogicResponse<Cuenta> exists(String id) {
-		LogicResponse<Cuenta> res = new LogicResponse<Cuenta>();
+	public Response<Cuenta> exists(String id) {
+		Response<Cuenta> res = new Response<Cuenta>();
 		boolean existe = false;
 		try {
 			existe = clDao.exists(id);

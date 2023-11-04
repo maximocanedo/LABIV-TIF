@@ -20,9 +20,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	public MovimientoLogic() {}
 	
 	@Override
-	public LogicResponse<Movimiento> validate(Movimiento obj, boolean validar) {
+	public Response<Movimiento> validate(Movimiento obj, boolean validar) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				lg.status = validar
@@ -37,9 +37,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> insert(Movimiento obj) {
+	public Response<Movimiento> insert(Movimiento obj) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoMov.insert(obj);
@@ -57,9 +57,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> modify(Movimiento obj) {
+	public Response<Movimiento> modify(Movimiento obj) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoMov.modify(obj);
@@ -77,9 +77,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> delete(Movimiento obj) {
+	public Response<Movimiento> delete(Movimiento obj) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoMov.delete(obj);
@@ -97,9 +97,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> getAll() {
+	public Response<Movimiento> getAll() {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<Movimiento> t = daoMov.getAll();
@@ -117,9 +117,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> getById(Integer id) {
+	public Response<Movimiento> getById(Integer id) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<Movimiento> t = daoMov.getById(id);
@@ -136,9 +136,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 	
-	public LogicResponse<Movimiento> filterByAccountNumber(Cuenta c){
+	public Response<Movimiento> filterByAccountNumber(Cuenta c){
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		
 		try {
 				TransactionResponse<Movimiento> t = daoMov.filterByAccountNumber(c);
@@ -157,9 +157,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 	}
 
 	@Override
-	public LogicResponse<Movimiento> exists(Integer id) {
+	public Response<Movimiento> exists(Integer id) {
 		
-		LogicResponse<Movimiento> lg = new LogicResponse<>();
+		Response<Movimiento> lg = new Response<>();
 		boolean estado = false;
 		
 		try {

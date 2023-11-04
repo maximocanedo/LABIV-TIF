@@ -18,7 +18,7 @@ import entity.Pais;
 import entity.Provincia;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
@@ -161,8 +161,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param data Objeto a convertir.
 	 * @return Objeto convertido.
 	 */
-	public LogicResponse<Cliente> convert(TransactionResponse<Cliente> data) {
-		LogicResponse<Cliente> x = new LogicResponse<Cliente>();
+	public Response<Cliente> convert(TransactionResponse<Cliente> data) {
+		Response<Cliente> x = new Response<Cliente>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.listReturned = data.rowsReturned;
@@ -175,8 +175,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param data Objeto a convertir.
 	 * @return Objeto convertido.
 	 */
-	public LogicResponse<Cliente> convertWildcard(TransactionResponse<?> data) {
-		LogicResponse<Cliente> x = new LogicResponse<Cliente>();
+	public Response<Cliente> convertWildcard(TransactionResponse<?> data) {
+		Response<Cliente> x = new Response<Cliente>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -190,9 +190,9 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @returns Resultado de la operación.
 	 */
 	@Override
-	public LogicResponse<Cliente> delete(Cliente arg0) {
+	public Response<Cliente> delete(Cliente arg0) {
 		TransactionResponse<?> res;
-		LogicResponse<Cliente> result = new LogicResponse<Cliente>();
+		Response<Cliente> result = new Response<Cliente>();
 		try {
 			res = data.delete(arg0);
 			result = convertWildcard(res);
@@ -210,8 +210,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param arg0 Nombre de usuario.
 	 */
 	@Override
-	public LogicResponse<Cliente> exists(String arg0) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> exists(String arg0) {
+		Response<Cliente> res = new Response<Cliente>();
 		boolean o = false;
 		try {
 			o = data.exists(arg0);
@@ -228,8 +228,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param arg0 Nombre de usuario.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> isActive(String arg0) {
-		LogicResponse<Cliente> result = new LogicResponse<Cliente>();
+	public Response<Cliente> isActive(String arg0) {
+		Response<Cliente> result = new Response<Cliente>();
 		try {
 			boolean res = data.exists(Dictionary.fromArray(
 						ClienteDao.Fields.usuario.name, arg0,
@@ -250,8 +250,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param dni Número de documento a buscar.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> DNIExists(String dni) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> DNIExists(String dni) {
+		Response<Cliente> res = new Response<Cliente>();
 		boolean o = false;
 		try {
 			o = data.exists(Dictionary.fromArray(ClienteDao.Fields.dni.name, dni));
@@ -268,8 +268,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param cuil Número de CUIL a buscar.
 	 * @return Resultado de la operación. 
 	 */
-	public LogicResponse<Cliente> CUILExists(String cuil) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> CUILExists(String cuil) {
+		Response<Cliente> res = new Response<Cliente>();
 		boolean o = false;
 		try {
 			o = data.exists(Dictionary.fromArray(ClienteDao.Fields.cuil.name, cuil));
@@ -287,8 +287,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * Devuelve todos los registros de la base de datos.
 	 */
 	@Override
-	public LogicResponse<Cliente> getAll() {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> getAll() {
+		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res = convert(data.getAll());
 		} catch (SQLException e) {
@@ -301,16 +301,9 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	}
 	public static void main(String[] args) {
 		ClienteLogic CL = new ClienteLogic();
-		String res = "";
-		Gson gson = new Gson();
-		LogicResponse<Cliente> g = CL.getAll();
-		if(g.listReturned != null) {
-			for(Cliente c : g.listReturned) {
-				res += c.toJson() + ", ";
-			}
-			res = res.substring(0, res.length() - 2);
-		}
-		System.out.println(res);
+		Response<Cliente> g = CL.getAll();
+		
+		System.out.println(g.toFinalJSON());
 	}
 
 	/**
@@ -318,8 +311,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param arg0 Nombre de usuario.
 	 */
 	@Override
-	public LogicResponse<Cliente> getById(String arg0) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> getById(String arg0) {
+		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res = convert(data.getById(arg0));
 		} catch (SQLException e) {
@@ -330,8 +323,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		return res;
 	}
 	
-	public LogicResponse<Cliente> getByDNI(String dni) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> getByDNI(String dni) {
+		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res = convert(data.getByDNI(dni));
 		} catch (SQLException e) {
@@ -430,8 +423,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param arg0 Objeto Cliente con los datos a insertar.
 	 */
 	@Override
-	public LogicResponse<Cliente> insert(Cliente arg0) {
-		LogicResponse<Cliente> result = new LogicResponse<Cliente>();
+	public Response<Cliente> insert(Cliente arg0) {
+		Response<Cliente> result = new Response<Cliente>();
 		try {
 			result = convertWildcard(data.insert(arg0));
 			result.objectReturned = arg0;
@@ -461,8 +454,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param d Datos del nuevo usuario.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> createAccount(Dictionary d) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> createAccount(Dictionary d) {
+		Response<Cliente> res = new Response<Cliente>();
 		// Validar datos
 		boolean initialSchemaValidated = false;
 		try {
@@ -510,8 +503,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param params La nueva contraseña.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> updatePassword(Cliente admin, Dictionary params) {
-		LogicResponse<Cliente> result = new LogicResponse<Cliente>();
+	public Response<Cliente> updatePassword(Cliente admin, Dictionary params) {
+		Response<Cliente> result = new Response<Cliente>();
 		Schema updatePasswordSchema = new Schema(ClienteDao.Fields.contraseña);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
@@ -541,8 +534,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param pass Contraseña en texto plano a validar.
 	 * @return Resultado de la operación. 
 	 */
-	public LogicResponse<Cliente> validatePassword(Cliente admin, String pass) {
-		LogicResponse<Cliente> response = new LogicResponse<Cliente>();
+	public Response<Cliente> validatePassword(Cliente admin, String pass) {
+		Response<Cliente> response = new Response<Cliente>();
 		byte[] originalHash = admin.getHash();
 		byte[] originalSalt = admin.getSalt();
 		byte[] newHash = PasswordUtils.createHash(pass, originalSalt);
@@ -561,21 +554,21 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param pass Contraseña, en texto plano
 	 * @return
 	 */
-	public LogicResponse<Cliente> login(String user, String pass) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> login(String user, String pass) {
+		Response<Cliente> res = new Response<Cliente>();
 		// Validar que el usuario exista:
-		LogicResponse<Cliente> userExists =  exists(user);
+		Response<Cliente> userExists =  exists(user);
 		if(userExists.status) {
 			try {
 				TransactionResponse<Cliente> res2 = data.getFullById(user);
 				if(res2.nonEmptyResult()) {
 					Cliente adm = res2.rowsReturned.get(0);
 					if(adm.isEstado()) {
-						LogicResponse<Cliente> resI = validatePassword(adm, pass);
+						Response<Cliente> resI = validatePassword(adm, pass);
 						if(resI.status) {
 							// Inicio de sesión válido.
 							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.CLIENT);
-							LogicResponse<Cliente> resT = new LogicResponse<Cliente>();
+							Response<Cliente> resT = new Response<Cliente>();
 							resT.die(true, null); 
 							resT.eField = token;
 							return resT;
@@ -602,8 +595,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param servlet_parameters Parámetros recibidos del servlet.
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> login(Dictionary servlet_parameters) {
-		LogicResponse<Cliente> response = new LogicResponse<Cliente>();
+	public Response<Cliente> login(Dictionary servlet_parameters) {
+		Response<Cliente> response = new Response<Cliente>();
 		Schema schema = new Schema(ClienteDao.Fields.usuario, ClienteDao.Fields.contraseña);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
@@ -641,7 +634,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 			ClienteDao.Fields.direccion.name, "Av. Lacaze 1887",
 			ClienteDao.Fields.correo.name, "maximo.canedo@alumnos.frgp.utn.edu.ar"
 		);
-		LogicResponse<Cliente> response = logic.login("Maximo_45006002", "Ca$60#607+04%Maxim");// logic.createAccount(data);
+		Response<Cliente> response = logic.login("Maximo_45006002", "Ca$60#607+04%Maxim");// logic.createAccount(data);
 		
 		
 		System.out.println(response.toFinalJSON());
@@ -652,8 +645,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * Modifica datos en un objeto Cliente.
 	 */
 	@Override
-	public LogicResponse<Cliente> modify(Cliente arg0) {
-		LogicResponse<Cliente> result = new LogicResponse<Cliente>();
+	public Response<Cliente> modify(Cliente arg0) {
+		Response<Cliente> result = new Response<Cliente>();
 		try {
 			result = convertWildcard(data.modify(arg0));
 			result.message = result.status ? "El registro se modificó correctamente. " : "No se modificó ningún registro. ";
@@ -672,8 +665,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param user Usuario a ser modificado
 	 * @return Resultado de la operación.
 	 */
-	public LogicResponse<Cliente> modify(Dictionary arg0, Cliente user) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> modify(Dictionary arg0, Cliente user) {
+		Response<Cliente> res = new Response<Cliente>();
 		Cliente obj = new Cliente();
 		try {
 			MySQLSchemaModel model = new MySQLSchemaModel("Clientes", "tif", ClienteDao._editable);
@@ -695,8 +688,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	 * @param validateConstraints Especifica si se deben validar las claves foráneas o únicas, como el usuario o el DNI.
 	 */
 	@Override
-	public LogicResponse<Cliente> validate(Cliente arg0, boolean validateConstraints) {
-		LogicResponse<Cliente> res = new LogicResponse<Cliente>();
+	public Response<Cliente> validate(Cliente arg0, boolean validateConstraints) {
+		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res.status = validateConstraints 
 					? ClienteDao._model.validate(arg0.toDictionary()) 

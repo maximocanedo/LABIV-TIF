@@ -8,7 +8,7 @@ import data.PaisDao;
 import entity.Pais;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -48,8 +48,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public LogicResponse<Pais> delete(Pais arg0) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> delete(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -68,8 +68,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Determina si existe un registro.
 	 */
 	@Override
-	public LogicResponse<Pais> exists(String arg0) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> exists(String arg0) {
+		Response<Pais> res = new Response<Pais>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
@@ -88,8 +88,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Obtiene todos los registros de la base de datos.
 	 */
 	@Override
-	public LogicResponse<Pais> getAll() {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> getAll() {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getAll();
@@ -108,8 +108,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Busca un registro por su ID.
 	 */
 	@Override
-	public LogicResponse<Pais> getById(String arg0) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> getById(String arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getById(arg0);
@@ -128,8 +128,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Inserta un registro.
 	 */
 	@Override
-	public LogicResponse<Pais> insert(Pais arg0) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> insert(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -147,8 +147,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Modifica un registro. 
 	 */
 	@Override
-	public LogicResponse<Pais> modify(Pais arg0) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> modify(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -168,8 +168,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public LogicResponse<Pais> validate(Pais arg0, boolean validateConstraints) {
-		LogicResponse<Pais> res = new LogicResponse<Pais>();
+	public Response<Pais> validate(Pais arg0, boolean validateConstraints) {
+		Response<Pais> res = new Response<Pais>();
 		try {
 			res.status = validateConstraints 
 					? PaisDao._model.validate(arg0.toDictionary()) 
