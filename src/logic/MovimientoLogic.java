@@ -188,7 +188,7 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 			this.setNum_Cuenta_CxC(row.$("num_cuenta_CxC_Mv"));
 		}});				
 		if(row.$("cod_Con_Mv") != null) obj.setCod_Con_Mv(new Concepto() {{
-			this.setCod_Con(row.$("cod_Con_Mv"));		
+			this.setCodigo(row.$("cod_Con_Mv"));		
 		}});				
 		if(row.$("saldo_anterior_Mv") != null) {
 			num = row.$("saldo_anterior_Mv");
