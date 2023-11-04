@@ -1,51 +1,51 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.JsonObject;
 
 import logic.PasswordUtils;
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Administrador implements IEntity {
-	@Expose(serialize = true)
 	private String usuario;
-	@Expose(serialize = true)
 	private String DNI;
-	@Expose(serialize = true)
 	private String CUIL;
-	@Expose(serialize = true)
 	private String nombre;
-	@Expose(serialize = true)
 	private String apellido;
-	@Expose(serialize = true)
 	private String sexo;
-	@Expose(serialize = true)
 	private Pais nacionalidad;
-	@Expose(serialize = true)
 	private java.sql.Date fechaNacimiento;
-	@Expose(serialize = true)
 	private String direccion;
-	@Expose(serialize = true)
 	private Localidad localidad;
-	@Expose(serialize = true)
 	private Provincia provincia;
-	@Expose(serialize = true)
 	private String correo;
-	@Expose(serialize = true)
 	private byte[] hash;
-	@Expose(serialize = true)
 	private byte[] salt;
-	@Expose(serialize = true)
 	private boolean estado;
 
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("usuario", usuario);
+		obj.addProperty("DNI", DNI);
+		obj.addProperty("CUIL", CUIL);
+		obj.addProperty("nombre", nombre);
+		obj.addProperty("apellido", apellido);
+		obj.addProperty("sexo", sexo);
+		obj.add("nacionalidad", nacionalidad == null ? null : nacionalidad.toJsonObject());
+		obj.addProperty("fechaNacimiento", fechaNacimiento.toString());
+		obj.addProperty("direccion", direccion);
+		obj.add("localidad", localidad == null ? null : localidad.toJsonObject());
+		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
+		obj.addProperty("correo", correo);
+		obj.addProperty("estado", estado);
+		return obj;
+	}
 	
 	public Administrador() {}
 	
 	@Override
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 
 	public String getUsuario() {		

@@ -1,7 +1,6 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.JsonObject;
 
 import max.data.Dictionary;
 import max.data.IEntity;
@@ -12,22 +11,26 @@ import max.data.IEntity;
  */
 public class RequestC01 implements IEntity {
 	
-	// Datos del cliente:
-	@Expose(serialize = true)
 	private Integer id;
-	@Expose(serialize = true)
 	private Cliente issuer; // Acá incluir DNI de la cuenta a recuperar
-	@Expose(serialize = true)
 	private boolean status;
-	@Expose(serialize = true)
 	private java.sql.Timestamp issuedOn;
-	@Expose(serialize = true)
 	private java.sql.Timestamp closedOn;
-	@Expose(serialize = true)
 	private String message;
-	@Expose(serialize = true)
 	private Cliente data; // Acá incluir, si se aprueba, la contraseña nueva y el usuario.
 
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id", id);
+		obj.add("issuer", issuer.toJsonObject());
+		obj.addProperty("status", status);
+		obj.addProperty("issuedOn", issuedOn.toString());
+		obj.addProperty("closedOn", closedOn.toString());
+		obj.addProperty("message", message);
+		obj.add("data", data.toJsonObject());
+		return obj;
+	}
+	
 	public RequestC01() { }
 
 	public Integer getId() {
@@ -87,7 +90,7 @@ public class RequestC01 implements IEntity {
 
 	
 	public String toJSON() {
-		return new Gson().toJson(this);
+		return toJsonObject().toString();
 	}
 	
 	@Override

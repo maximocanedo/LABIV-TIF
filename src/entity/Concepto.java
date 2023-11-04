@@ -1,56 +1,60 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.JsonObject;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class Concepto implements IEntity {
 	
-	@Expose(serialize = true)
-	private String cod_Con;
-	@Expose(serialize = true)
-	private String descripcion_Con;
+	private String codigo;
+	private String descripcion;
 	
 	public Concepto() {}
 	
 	public Concepto(String cod_Con, String descripcion_Con) {
-		this.cod_Con=cod_Con;
-		this.descripcion_Con=descripcion_Con;
+		this.codigo=cod_Con;
+		this.descripcion=descripcion_Con;
 	}
 	
-	public String getCod_Con() {
-		return cod_Con;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCod_Con(String cod_Con) {
-		this.cod_Con = cod_Con;
+	public void setCodigo(String cod_Con) {
+		this.codigo = cod_Con;
 	}
 
 	public String getDescripcion_Con() {
-		return descripcion_Con;
+		return descripcion;
 	}
 
 	public void setDescripcion_Con(String descripcion_Con) {
-		this.descripcion_Con = descripcion_Con;
+		this.descripcion = descripcion_Con;
 	}
 
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-				"cod_Con",cod_Con,
-				"descripcion_Con",descripcion_Con);
+			"cod_Con",codigo,
+			"descripcion_Con",descripcion
+		);
 	}
 
 	@Override
 	public Dictionary toIdentifiableDictionary() {
-		return Dictionary.fromArray("cod_Con",cod_Con);
+		return Dictionary.fromArray("cod_Con",codigo);
+	}
+	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("codigo", codigo);
+		obj.addProperty("descripcion", descripcion);
+		return obj;
 	}
 	
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 
 }

@@ -1,56 +1,60 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.JsonObject;
+
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class TipoMovimiento implements IEntity {
 	
-	@Expose(serialize = true)
-	private String cod_TPMV;
-	@Expose(serialize = true)
-	private String descripcion_TPMV;
+	private String codigo;
+	private String descripcion;
+	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("codigo", codigo);
+		obj.addProperty("descripcion", descripcion);
+		return obj;
+	}
 	
 	public TipoMovimiento() {}
 	
 	public TipoMovimiento(String cod_TPMV, String descripcion_TPMV) {
-		this.cod_TPMV=cod_TPMV;
-		this.descripcion_TPMV=descripcion_TPMV;
+		this.codigo=cod_TPMV;
+		this.descripcion=descripcion_TPMV;
 	}
 	
 	public String getCod_TPMV() {
-		return cod_TPMV;
+		return codigo;
 	}
 
 	public void setCod_TPMV(String cod_TPMV) {
-		this.cod_TPMV = cod_TPMV;
+		this.codigo = cod_TPMV;
 	}
 
 	public String getDescripcion_TPMV() {
-		return descripcion_TPMV;
+		return descripcion;
 	}
 
 	public void setDescripcion_TPMV(String descripcion_TPMV) {
-		this.descripcion_TPMV = descripcion_TPMV;
+		this.descripcion = descripcion_TPMV;
 	}
 
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
-				"cod_TPMV",cod_TPMV,
-				"descripcion_TPMV",descripcion_TPMV				
+				"cod_TPMV",codigo,
+				"descripcion_TPMV",descripcion				
 				);
 	}
 
 	@Override
 	public Dictionary toIdentifiableDictionary() {
-		return Dictionary.fromArray("cod_TPMV",cod_TPMV);
+		return Dictionary.fromArray("cod_TPMV",codigo);
 	}
 	
 	public String toJSON() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 
 }

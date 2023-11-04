@@ -162,7 +162,7 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String> {
 		Concepto obj = new Concepto();
 		
 		if(row.$("cod_Con") != null) {
-			obj.setCod_Con(row.$("cod_Con"));
+			obj.setCodigo(row.$("cod_Con"));
 		}
 		
 		if(row.$("descripcion_Con") != null) {
