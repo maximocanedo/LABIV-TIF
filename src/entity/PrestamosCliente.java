@@ -1,39 +1,43 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+
+import com.google.gson.JsonObject;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class PrestamosCliente implements IEntity {
-	@Expose(serialize = true)
+
 	private int id;
-	@Expose(serialize = true)
 	private Cliente cliente;
-	@Expose(serialize = true)
 	private SolicitudPrestamo solicitud;
-	@Expose(serialize = true)
 	private java.sql.Date fechaOtorgado;
-	@Expose(serialize = true)
 	private double montoAPagar;
-	@Expose(serialize = true)
 	private int plazoPago;
-	@Expose(serialize = true)
 	private int cantCuotas;
-	@Expose(serialize = true)
 	private double montoPorCuota;
-	@Expose(serialize = true)
 	private int cuotasPagadas;
-	@Expose(serialize = true)
 	private int cuotasRestantes;
-	
 	
 	public PrestamosCliente() {}
 	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id", id);
+		obj.add("cliente", cliente.toJsonObject());
+		obj.add("solicitud", solicitud.toJsonObject());
+		obj.addProperty("fechaOtorgado", fechaOtorgado.toString());
+		obj.addProperty("montoAPagar", montoAPagar);
+		obj.addProperty("plazoPago", plazoPago);
+		obj.addProperty("cantCuotas", cantCuotas);
+		obj.addProperty("montoPorCuota", montoPorCuota);
+		obj.addProperty("cuotasPagadas", cuotasPagadas);
+		obj.addProperty("cuotasRestantes", cuotasRestantes);
+		return obj;
+	}
+	
 	public String toJson() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 	
 		

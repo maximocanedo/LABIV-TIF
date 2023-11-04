@@ -1,38 +1,43 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+
+import com.google.gson.JsonObject;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class SolicitudPrestamo implements IEntity{
-	@Expose(serialize = true)
+
 	private String codigo;
-	@Expose(serialize = true)
 	private Cliente cliente;
-	@Expose(serialize = true)
 	private java.sql.Date fechaPedido;
-	@Expose(serialize = true)
 	private double montoPedido;
-	@Expose(serialize = true)
 	private double montoAPagar;
-	@Expose(serialize = true)
 	private int plazoPago;
-	@Expose(serialize = true)
 	private int cantCuotas;
-	@Expose(serialize = true)
 	private double montoPorCuota;
-	@Expose(serialize = true)
 	private double interes;
-	@Expose(serialize = true)
 	private boolean estado;
 	
 	public SolicitudPrestamo() {}
 	
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("codigo", codigo);
+		obj.add("cliente", cliente.toJsonObject());
+		obj.addProperty("fechaPedido", fechaPedido.toString());
+		obj.addProperty("montoPedido", montoPedido);
+		obj.addProperty("montoAPagar", montoAPagar);
+		obj.addProperty("plazoPago", plazoPago);
+		obj.addProperty("cantCuotas", cantCuotas);
+		obj.addProperty("montoPorCuota", montoPorCuota);
+		obj.addProperty("interes", interes);
+		obj.addProperty("estado", estado);
+		return obj;
+	}
+	
 	public String toJSON(){
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 	
 	
