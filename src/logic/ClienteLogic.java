@@ -301,16 +301,9 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 	}
 	public static void main(String[] args) {
 		ClienteLogic CL = new ClienteLogic();
-		String res = "";
-		Gson gson = new Gson();
 		LogicResponse<Cliente> g = CL.getAll();
-		if(g.listReturned != null) {
-			for(Cliente c : g.listReturned) {
-				res += c.toJson() + ", ";
-			}
-			res = res.substring(0, res.length() - 2);
-		}
-		System.out.println(res);
+		
+		System.out.println(g.toFinalJSON());
 	}
 
 	/**
