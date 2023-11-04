@@ -10,7 +10,7 @@ import entity.DetalleCuota;
 import entity.SolicitudPrestamo;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
-import max.data.LogicResponse;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
@@ -22,8 +22,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	private static DetalleCuotaDao dcDao = new DetalleCuotaDao();
 	
 	@Override
-	public LogicResponse<DetalleCuota> validate(DetalleCuota data, boolean validatePKDuplicates) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> validate(DetalleCuota data, boolean validatePKDuplicates) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		try {
 			res.status = validatePKDuplicates
 					? DetalleCuotaDao._model.validate(data.toDictionary()) 
@@ -35,8 +35,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 		return res;
 	}
 
-	public LogicResponse<DetalleCuota> convertWildcard(TransactionResponse<?> data) {
-		LogicResponse<DetalleCuota> x = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> convertWildcard(TransactionResponse<?> data) {
+		Response<DetalleCuota> x = new Response<DetalleCuota>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -44,8 +44,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 	
 	@Override
-	public LogicResponse<DetalleCuota> insert(DetalleCuota data) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> insert(DetalleCuota data) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		try {
 			res = convertWildcard(dcDao.insert(data));
 			res.objectReturned = data;
@@ -59,8 +59,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 
 	@Override
-	public LogicResponse<DetalleCuota> modify(DetalleCuota data) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> modify(DetalleCuota data) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = dcDao.modify(data);
@@ -75,8 +75,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 
 	@Override
-	public LogicResponse<DetalleCuota> delete(DetalleCuota data) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> delete(DetalleCuota data) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		TransactionResponse<?> spr;
 		try {
 			spr = dcDao.delete(data);
@@ -91,8 +91,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 
 	@Override
-	public LogicResponse<DetalleCuota> getAll() {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> getAll() {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		TransactionResponse<DetalleCuota> tpr = new TransactionResponse<DetalleCuota>();
 		try {
 			tpr = dcDao.getAll();
@@ -107,8 +107,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 
 	@Override
-	public LogicResponse<DetalleCuota> getById(Integer id) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> getById(Integer id) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		TransactionResponse<DetalleCuota> tpr = new TransactionResponse<DetalleCuota>();
 		try {
 			tpr = dcDao.getById(id);
@@ -123,8 +123,8 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
 	}
 
 	@Override
-	public LogicResponse<DetalleCuota> exists(Integer id) {
-		LogicResponse<DetalleCuota> res = new LogicResponse<DetalleCuota>();
+	public Response<DetalleCuota> exists(Integer id) {
+		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		boolean existe = false;
 		try {
 			existe = dcDao.exists(id);

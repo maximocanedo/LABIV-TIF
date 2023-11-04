@@ -1,36 +1,40 @@
 package entity;
 
-import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
+import com.google.gson.JsonObject;
 
 import max.data.Dictionary;
 import max.data.IEntity;
 
 public class DetalleCuota implements IEntity {
 	
-	@Expose(serialize = true)
 	private int id;
-	@Expose(serialize = true)
-	private SolicitudPrestamo cod_Solicitud;
-	@Expose(serialize = true)
+	private SolicitudPrestamo solicitud;
 	private Cliente cliente;
-	@Expose(serialize = true)
 	private java.sql.Date fechaPago;
-	@Expose(serialize = true)
 	private int numCuotaPagada;
 	
 	public DetalleCuota() {}
 	
+	@Override
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id", id);
+		obj.add("solicitud", solicitud.toJsonObject());
+		obj.add("cliente", cliente.toJsonObject());
+		obj.addProperty("fechaPago", fechaPago.toString());
+		obj.addProperty("numCuotaPagada", numCuotaPagada);
+		return obj;
+	}
+	
 	public String toJson() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return toJsonObject().toString();
 	}
 	
 	@Override
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
 				"id_DTPT", id,
-				"cod_Sol_DTPT", cod_Solicitud.getCodigo(),
+				"cod_Sol_DTPT", solicitud.getCodigo(),
 				"usuario_cl_DTPT", cliente.getUsuario(),
 				"fechaPago_DTPT", fechaPago,
 				"numCuotaPagada_DTPT", numCuotaPagada
@@ -55,11 +59,11 @@ public class DetalleCuota implements IEntity {
 
 
 	public SolicitudPrestamo getCod_Solicitud() {
-		return cod_Solicitud;
+		return solicitud;
 	}
 
 	public void setCod_Solicitud(SolicitudPrestamo cod_Solicitud) {
-		this.cod_Solicitud = cod_Solicitud;
+		this.solicitud = cod_Solicitud;
 	}
 
 	public Cliente getCliente() {
@@ -85,6 +89,8 @@ public class DetalleCuota implements IEntity {
 	public void setNumCuotaPagada(int numCuotaPagada) {
 		this.numCuotaPagada = numCuotaPagada;
 	}
+
+	
 
 	
 	
