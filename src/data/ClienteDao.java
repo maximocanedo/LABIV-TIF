@@ -4,14 +4,17 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.Cliente;
+import filter.ClienteFilter;
 import logic.ClienteLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
+import max.data.Response;
 import max.data.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
+import max.schema.MySQLSchemaModel.QueryAndParameters;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
@@ -240,6 +243,90 @@ public class ClienteDao implements IRecord<Cliente, String> {
 	@Override
 	public TransactionResponse<Cliente> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
+	}
+	public TransactionResponse<Cliente> search(ClienteFilter clf) throws SQLException {
+		QueryAndParameters qap = generateWhereFromFilter(clf);
+		return select(qap.query, qap.params);
+	}
+	
+	public QueryAndParameters generateWhereFromFilter(ClienteFilter f) {
+		StringBuilder q = new StringBuilder("");
+		Dictionary param = new Dictionary();
+		q.append("SELECT * FROM " + printTDB() + " ");
+		boolean qNotEmpty = f.q != null && f.q.length() > 0;
+		boolean pidNotEmpty = f.provinceId != null;
+		boolean lidNotEmpty = f.localtyId != null;
+		boolean sNotEmpty = f.sex != null;
+		boolean stNotEmpty = f.status != null && !f.status;
+		boolean cNotEmpty = f.countryId != null;
+		if(qNotEmpty || pidNotEmpty || lidNotEmpty || sNotEmpty || stNotEmpty || cNotEmpty) {
+			q.append("WHERE ");
+		} else q.append("     ");
+		if(qNotEmpty) {
+			String[] searchableFields = {
+					Fields.nombre.name,
+					Fields.apellido.name,
+					Fields.dni.name,
+					Fields.cuil.name,
+					Fields.direccion.name,
+					Fields.correo.name
+			};
+			q.append("( ");
+			for(String field : searchableFields) {
+				q.append(field + " LIKE @" + field + "_p OR ");
+				param.put(field + "_p", "%" + f.q + "%");
+			}
+			q.setLength(q.length() - 3);
+			q.append(" ) AND");
+		}
+		if(pidNotEmpty) {
+			q.append(" " + Fields.provincia.name + " = @provinciaId AND " );
+			param.put("provinciaId", f.provinceId);
+		}
+		if(lidNotEmpty) {
+			q.append(" " +  Fields.localidad.name + " = @localidadId AND");
+			param.put("localidadId", f.localtyId);
+		}
+		if(sNotEmpty) {
+			q.append(" " + Fields.sexo.name + " = @sexo_p AND");
+			param.put("sexo_p", f.sex);
+		}
+		if(stNotEmpty) {
+			q.append(" " + Fields.estado.name + " = @status AND");
+			param.put("status", f.status);
+		}
+		if(cNotEmpty) {
+			q.append(" " + Fields.nacionalidad.name + " = @nac AND");
+			param.put("nac", f.countryId);
+		}
+		q.setLength(q.length() - 4);
+		QueryAndParameters qap = new QueryAndParameters() {{
+			query = q.toString();
+			params = param;
+		}};
+		return qap;
+	}
+	
+	public static void main(String[] args) {
+		ClienteFilter filtros = new ClienteFilter() {{
+			q = "lal";
+			//provinceId = "6";
+			//localtyId = "660";
+			//sex = "M";
+			//status = true;
+			//countryId = "AR";
+		}};
+		ClienteDao dao = new ClienteDao();
+		try {
+			TransactionResponse<Cliente> qp = dao.search(filtros);
+			Response res = new Response();
+			res.listReturned = qp.rowsReturned;
+			System.out.println(res.toFinalJSON());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override

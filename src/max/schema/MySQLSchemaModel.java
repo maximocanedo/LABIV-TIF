@@ -269,7 +269,7 @@ public class MySQLSchemaModel implements IModel {
 	}
 	
 	// CLASES PRIVADAS AUXILIARES PARA GENERAR QUERIES
-	private class QueryAndParameters {
+	public static class QueryAndParameters {
 		public String query;
 		public Dictionary params;
 	}

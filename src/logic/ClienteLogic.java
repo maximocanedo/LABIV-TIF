@@ -27,11 +27,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 
 	public ClienteLogic() { }
 	
-	public static class Filter {
-		// Buscar por nombre, apellido, DNI, CUIL, Dirección
-		public String q;
-	}
-
+	
 	
 	/**
 	 * Clase de datos.
