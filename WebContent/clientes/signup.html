@@ -371,42 +371,24 @@
 
                     </div>
                 </div>
-                <!-- Sección Validar correo -->
-                <div id="tab-MailValidation" class="__signup-card--tab">
+                
+                <!-- Sección Listo -->
+                <div id="tab-done" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">Verificá tu correo</span>
+                        <span class="mdc-typography--headline5">¡Listo! Iniciá sesión</span>
                     </div>
                     <div class="_body">
-                        <span class="mdc-typography--body1">Te enviamos un correo con un código que deberás ingresar para continuar. </span>
-                        <!-- Correo electrónico -->
-                        <label id="mdtxtMailValidation" class="mdc-text-field mdc-text-field--outlined">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="lblMailValidation">Código</span>
-                                </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input type="text" id="txtMailValidation" class="mdc-text-field__input" required
-                                aria-labelledby="lblMailValidation">
-                        </label>
                     </div>
                     <!-- Botón siguiente -->
                     <div class="_footer">
                         <div class="mdc-touch-target-wrapper">
-                            <button id="btnMailValidationOK" class="mdc-button mdc-button--touch mdc-button--raised"
+                            <button id="btnIniciarSesion" onclick="() => {
+                                window.location = '/clientes/login.html';
+                            }" class="mdc-button mdc-button--touch mdc-button--raised"
                                 type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>
-                                <span class="mdc-button__label">Siguiente</span>
-                            </button>
-                        </div>
-                        <div class="mdc-touch-target-wrapper">
-                            <button id="btnMailValidationBack" class="mdc-button mdc-button--touch"
-                                type="button">
-                                <span class="mdc-button__ripple"></span>
-                                <span class="mdc-button__touch"></span>
-                                <span class="mdc-button__label">Anterior</span>
+                                <span class="mdc-button__label">Iniciar sesión</span>
                             </button>
                         </div>
 
