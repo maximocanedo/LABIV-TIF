@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
-import logic.AdministradorLogic;
 import logic.AuthManager;
 import logic.AuthManager.TokenData;
 import logic.ClienteLogic;
@@ -32,7 +31,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
     }
     
     private ClienteLogic CL = new ClienteLogic();
-    private AdministradorLogic AL = new AdministradorLogic();
+   // private AdministradorLogic AL = new AdministradorLogic();
 
     /**
      * Obtiene el cliente a partir del usuario pasado por parámetro en la URL.

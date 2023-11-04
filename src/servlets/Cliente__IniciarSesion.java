@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Administrador;
 import entity.Cliente;
 import logic.AuthManager;
 import logic.ClienteLogic;
@@ -38,7 +37,6 @@ public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
 			}
 		}
 		response.setStatus(finalRes.http);
-		finalRes.clean(true);
         write(response, finalRes.toFinalJSON());
 	}
 

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import entity.Concepto;
 import logic.ConceptoLogic;
@@ -27,10 +26,8 @@ public class Conceptos extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<Concepto> lg = new Response<>();
-		Gson gson = new Gson();
-		
 		lg = lgcon.getAll();
-		String finalJSON = gson.toJson(lg);
+		String finalJSON = lg.toFinalJSON();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);

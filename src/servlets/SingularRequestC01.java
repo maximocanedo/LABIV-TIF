@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import entity.Administrador;
 import entity.Cliente;
@@ -58,12 +57,12 @@ public class SingularRequestC01 extends servlets.BaseServlet {
 		if(td != null) {
 			switch(td.role) {
 			case AuthManager.ADMIN:
-				write(response, new Gson().toJson(resRCF));
+				write(response, resRCF.toFinalJSON());
 				return;
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(requestC01.getIssuer().getDNI().equals(cliente.getDNI())) {
-					write(response, new Gson().toJson(resRCF));
+					write(response, resRCF.toFinalJSON());
 					response.setStatus(200);
 					return;
 				} else {
@@ -98,10 +97,10 @@ public class SingularRequestC01 extends servlets.BaseServlet {
 			response.setStatus(404);
 			return;
 		}
-		RequestC01 requestC01 = resRCF.listReturned.get(0);
+		//RequestC01 requestC01 = resRCF.listReturned.get(0);
 		Administrador admin = AuthManager.getActualAdmin(request, response);
 		if(admin != null) {
-			String ress = new Gson().toJson(logic.close(id));
+			String ress = logic.close(id).toFinalJSON();
 			write(response, ress);
 			return;
 		}

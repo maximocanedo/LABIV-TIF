@@ -1,18 +1,11 @@
 package max.testing;
 
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
 import max.data.Dictionary;
-import max.data.IEntity;
 import max.data.TransactionResponse;
 import max.net.Connector;
-import max.oops.SchemaValidationException;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class Main {
 	public static void main(String[] args) {

@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import data.ClienteDao;
 import entity.Cliente;

@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import entity.TipoMovimiento;
 import logic.TipoMovimientoLogic;
 import max.data.Response;
@@ -27,9 +25,7 @@ private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<TipoMovimiento> lg = lgtpm.getAll();
-		Gson gson = new Gson();
-		
-		String finalJSON = gson.toJson(lg);
+		String finalJSON = lg.toFinalJSON();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);

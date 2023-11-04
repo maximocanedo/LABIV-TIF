@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import entity.Movimiento;
 import logic.MovimientoLogic;
 import max.data.Response;
@@ -27,9 +25,8 @@ public class Movimientos extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<Movimiento> lg = lgm.getAll();
-		Gson gson = new Gson();
 		
-		String finalJSON = gson.toJson(lg);
+		String finalJSON = lg.toFinalJSON();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);

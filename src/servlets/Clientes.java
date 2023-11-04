@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
-//import logic.AuthManager;
 import logic.ClienteLogic;
 import max.data.Response;
 

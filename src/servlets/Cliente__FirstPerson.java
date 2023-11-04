@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Administrador;
 import entity.Cliente;
 import logic.AuthManager;
 import logic.ClienteLogic;

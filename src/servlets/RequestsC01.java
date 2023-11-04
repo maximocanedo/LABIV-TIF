@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import entity.Administrador;
 import entity.Cliente;
@@ -38,7 +37,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
 		if(admin != null) {
 			Response<entity.RequestC01> fet = logic.getAll();
-			write(response, new Gson().toJson(fet));
+			write(response, fet.toFinalJSON());
 			response.setStatus(fet.http);
 		}
 		return;
@@ -51,7 +50,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 		Cliente client = AuthManager.getActualClient(request, response);
 		if(client != null) {
 			Response<entity.RequestC01> fet = logic.issue(client);
-			write(response, new Gson().toJson(fet));
+			write(response, fet.toFinalJSON());
 			response.setStatus(fet.http);
 		}
 		return;

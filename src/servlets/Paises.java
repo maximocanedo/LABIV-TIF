@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import entity.Pais;
 import logic.PaisLogic;
@@ -35,7 +34,7 @@ public class Paises extends BaseServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Response<Pais> res = logic.getAll();
-		String json = new Gson().toJson(res);
+		String json = res.toFinalJSON();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(json);

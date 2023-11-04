@@ -1,13 +1,11 @@
 package servlets.quick;
 
 import java.io.IOException;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 
 import entity.Administrador;
 import entity.Cliente;
@@ -42,14 +40,14 @@ public class WhoAmI extends BaseServlet {
 				if(admin == null) return;
 				la.fill(admin);
 				la.message = AuthManager.ADMIN;
-				write(response, new Gson().toJson(la));
+				write(response, la.toFinalJSON());
 				break;
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(cliente == null) return;
 				lc.fill(cliente);
 				lc.message = AuthManager.CLIENT;
-				write(response, new Gson().toJson(lc));
+				write(response, lc.toFinalJSON());
 				break;
 			default:
 				response.setStatus(403);
