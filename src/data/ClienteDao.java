@@ -123,6 +123,11 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			minlength = 5;
 			maxlength = 255;
 		}};
+		public static SchemaProperty correoVerificado = new SchemaProperty("correoVerificado") {{
+			required = true;
+			type = Types.BIT;
+			defaultValue = false;
+		}};
 		public static SchemaProperty hash = new SchemaProperty("hash") {{
 			required = true;
 			select = false;
@@ -161,6 +166,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			Fields.localidad,
 			Fields.provincia,
 			Fields.correo,
+			Fields.correoVerificado,
 			Fields.hash,
 			Fields.salt,
 			Fields.estado
