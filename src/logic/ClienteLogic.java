@@ -14,6 +14,7 @@ import entity.Cliente;
 import entity.Localidad;
 import entity.Pais;
 import entity.Provincia;
+import filter.ClienteFilter;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
@@ -293,7 +294,18 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		return res;
 		
 	}
-	public static void main(String[] args) {
+	public Response<Cliente> search(ClienteFilter filter) {
+		Response<Cliente> res = new Response<Cliente>();
+		try {
+			res = convert(data.search(filter));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+		
+	}
+	public static void testing(String[] args) {
 		ClienteLogic CL = new ClienteLogic();
 		Response<Cliente> g = CL.getAll();
 		

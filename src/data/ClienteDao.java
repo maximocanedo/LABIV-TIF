@@ -299,7 +299,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		}
 		if(stNotEmpty) {
 			q.append(" " + Fields.estado.name + " = @status AND");
-			param.put("status", f.status);
+			param.put("status", true);
 		}
 		if(cNotEmpty) {
 			q.append(" " + Fields.nacionalidad.name + " = @nac AND");
@@ -313,9 +313,9 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		return qap;
 	}
 	
-	public static void main(String[] args) {
+	public static void test(String[] args) {
 		ClienteFilter filtros = new ClienteFilter() {{
-			q = "lal";
+			q = "don";
 			//provinceId = "6";
 			//localtyId = "660";
 			//sex = "M";
@@ -325,7 +325,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		ClienteDao dao = new ClienteDao();
 		try {
 			TransactionResponse<Cliente> qp = dao.search(filtros);
-			Response res = new Response();
+			Response<Cliente> res = new Response<Cliente>();
 			res.listReturned = qp.rowsReturned;
 			System.out.println(res.toFinalJSON());
 		} catch (SQLException e) {
