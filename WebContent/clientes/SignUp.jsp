@@ -511,6 +511,6 @@
             <div class="mdc-snackbar__label" aria-atomic="false"></div>
         </div>
     </aside>
-    <script type="module" src="/res/controller/clientes.signup.js"></script>
+    <script type="module" src="./../res/controller/clientes.signup.js"></script>
 </body>
 </html>
