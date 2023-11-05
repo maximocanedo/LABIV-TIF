@@ -2,6 +2,10 @@ package data;
 
 import java.sql.SQLException;
 import java.sql.Types;
+
+import com.mysql.jdbc.Field;
+
+import data.AdministradorDao.Fields;
 import entity.Cuenta;
 import logic.CuentaLogic;
 import max.data.Dictionary;
@@ -63,13 +67,27 @@ public class CuentaDao implements IRecord<Cuenta, String>{
 			}}
 
 	);
-	public static final IModel _model= new MySQLSchemaModel("Cuentas","tif",tablaCL);
+	public static final IModel _model= new MySQLSchemaModel("Cuentas","tif",tablaCL) {{
+		compile();
+	}};
 	private Connector db = new Connector(_model.getDatabaseName());
 	
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
+	public int countUserAccounts(String user) throws SQLException {
+		TransactionResponse<Dictionary> res = new Connector().fetch(
+			"SELECT COUNT(*) as counted FROM " + printTDB() + " WHERE " + Fields.usuario.name + " = @usuario",
+			Dictionary.fromArray("usuario", user)
+		);
+		if(res.nonEmptyResult()) {
+			Dictionary row = res.rowsReturned.get(0);
+			long counted = row.$("counted");
+			return Integer.parseInt(""  + counted);
+		}
+		return -1;
+	}
 	
 	@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
