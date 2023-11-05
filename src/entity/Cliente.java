@@ -43,6 +43,7 @@ public class Cliente implements IEntity {
 		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
 		obj.addProperty("correo", correo);
 		obj.addProperty("correoVerificado", correoVerificado);
+		obj.addProperty("contraseña", contraseña);
 		obj.addProperty("estado", estado);
 		
 		return obj;

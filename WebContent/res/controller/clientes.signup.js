@@ -359,8 +359,12 @@ const saveAll = async () => {
 	design.setProgress(false);
 	if (result.status == 201) {
 		design.switchTab("tab-done");
-		mdtxtUser.input.value = res.objectReturned.usuario;
-		mdtxtClave.input.value = res.objectReturned.contraseña;
+		console.log({
+			user: res.objectReturned.usuario,
+			key: res.objectReturned.contraseña,
+		});
+		controls.mdtxtUser.foundation.setValue(res.objectReturned.usuario);
+		controls.mdtxtClave.foundation.setValue(res.objectReturned.contraseña);
 	} else {
 		design.switchTab("tab-error");
 		errorDetails.innerText =
