@@ -114,8 +114,8 @@ public class Email extends BaseServlet {
  	 * (**) Puede ocurrir que el usuario haya solicitado un código, el servidor lo haya enviado, pero antes de que el usuario ingrese el código se haya borrado el código de SESSION.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*try {
-			String codigo;
+		try {
+			String codigo, cod;
 			// Obtener parametros
 	    	Dictionary parameters = getParameters(request);
 	    	//HTTP 404 Not Found: Si no hay ningún código a validar.
@@ -124,26 +124,28 @@ public class Email extends BaseServlet {
 				return;
 			}else {
 				codigo= (String) parameters.get("code");
+				HttpSession session = request.getSession();
+				cod = (String) session.getAttribute("codigoAleatorio");
 			}
 			//valido que este bien escrito el codigo
-			if(codigo.lenght < 6 || codigo.length > 6 || !esNumero(codigo)) {
+			if(codigo.length() < 6 || codigo.length() > 6 || !esNumero(codigo)) {
 				die(response, false, 400, "Bad request");
 				return;
 			}
 			//Obtengo la variable session
-			String cod = (String) session.getAttribute("codigoAleatorio");
+			//HttpSession session = Session.getAttribute("codigoAleatorio");
 			//HTTP 200 OK: Si el código enviado por el usuario coincide con el código enviado a su correo.
-			if(cod==code) {
+			if(cod==codigo) {
 				die(response, true, 200, "Mail enviado!");
 			}else {
 				//HTTP 400 Bad Request: Si el usuario envió un código inválido, no envió el parámetro necesario o hay un problema de validación.
 				die(response, false, 400, "El codigo no coincide con el enviado a tu mail");
 			}
-		}catch(exception e){
+		}catch(Exception e){
 			//HTTP 500 Internal Server Error: Si hubo un problema al comparar los códigos o una excepción no controlada.
 			die(response, false, 500, e.getMessage());
 			response.setStatus(500);
-		}*/
+		}
 	}
 	
 	/**
