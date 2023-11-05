@@ -114,7 +114,7 @@ public class Email extends BaseServlet {
  	 * (**) Puede ocurrir que el usuario haya solicitado un código, el servidor lo haya enviado, pero antes de que el usuario ingrese el código se haya borrado el código de SESSION.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
+		/*try {
 			String codigo;
 			// Obtener parametros
 	    	Dictionary parameters = getParameters(request);
@@ -126,7 +126,7 @@ public class Email extends BaseServlet {
 				codigo= (String) parameters.get("code");
 			}
 			//valido que este bien escrito el codigo
-			if(codigo.lenght < 6 || codigo.lenght > 6 || !esNumero(codigo)) {
+			if(codigo.lenght < 6 || codigo.length > 6 || !esNumero(codigo)) {
 				die(response, false, 400, "Bad request");
 				return;
 			}
@@ -143,7 +143,7 @@ public class Email extends BaseServlet {
 			//HTTP 500 Internal Server Error: Si hubo un problema al comparar los códigos o una excepción no controlada.
 			die(response, false, 500, e.getMessage());
 			response.setStatus(500);
-		}
+		}*/
 	}
 	
 	/**

@@ -13,7 +13,7 @@ import max.data.Response;
 /**
  * Servlet implementation class Cliente__ExisteUsuario
  */
-@WebServlet("/api/quick/admin/u/*")
+@WebServlet("/api/quick/client/u/*")
 public class Cliente__ExisteUsuario extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;
        
