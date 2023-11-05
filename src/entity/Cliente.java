@@ -22,6 +22,7 @@ public class Cliente implements IEntity {
 	private byte[] hash;
 	private byte[] salt;
 	private boolean estado;
+	private boolean correoVerificado = false;
 	private String contraseña;
 	
 	
@@ -36,11 +37,12 @@ public class Cliente implements IEntity {
 		obj.addProperty("apellido", apellido);
 		obj.addProperty("sexo", sexo);
 		obj.add("nacionalidad", nacionalidad == null ? null : nacionalidad.toJsonObject());
-		obj.addProperty("fechaNacimiento", fechaNacimiento.toString());
+		obj.addProperty("fechaNacimiento", fechaNacimiento == null ? null : fechaNacimiento.toString());
 		obj.addProperty("direccion", direccion);
 		obj.add("localidad", localidad == null ? null : localidad.toJsonObject());
 		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
 		obj.addProperty("correo", correo);
+		obj.addProperty("correoVerificado", correoVerificado);
 		obj.addProperty("estado", estado);
 		
 		return obj;
@@ -199,6 +201,7 @@ public class Cliente implements IEntity {
 			"localidad", localidad != null ? localidad.getId() : null,
 			"provincia", provincia != null ? provincia.getId() : null,
 			"correo", correo,
+			"correoVerificado", correoVerificado,
 			"estado", estado
 		);
 	}
@@ -219,7 +222,8 @@ public class Cliente implements IEntity {
 			"hash", hash,
 			"salt", salt,
 			"correo", correo,
-			"estado", estado
+			"estado", estado,
+			"correoVerificado", correoVerificado
 		);
 	}
 	

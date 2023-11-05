@@ -2,6 +2,10 @@
 * {
     box-sizing: border-box;
 }
+.grid-center {
+    display: grid;
+    place-items: center;
+}
 @keyframes tab-appear {
     0% {
         opacity: 0;

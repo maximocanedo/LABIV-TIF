@@ -79,6 +79,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener parámetros
     	Dictionary parameters = getParameters(request);
+    	System.out.println(parameters);
     	// Si no hay parámetros o están mal organizados, enviar un HTTP 400.
 		if(parameters == null) {
 			die(response, false, 400, "Bad request");
