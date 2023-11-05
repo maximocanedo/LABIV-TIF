@@ -70,6 +70,7 @@ public class CuentaDao implements IRecord<Cuenta, String>{
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
+	
 	@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();

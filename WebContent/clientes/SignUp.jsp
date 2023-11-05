@@ -31,10 +31,10 @@
                         <span class="mdc-linear-progress__bar-inner"></span>
                     </div>
                 </div>
-                <!-- Sección Nombre y Apellido -->
+                <!-- SecciÃ³n Nombre y Apellido -->
                 <div id="tab-nombres" class="__signup-card--tab _visible">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¿Cómo te llamás?</span>
+                        <span class="mdc-typography--headline5">Â¿CÃ³mo te llamÃ¡s?</span>
                     </div>
                     <div class="_body">
                         <!-- Nombre -->
@@ -46,7 +46,7 @@
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="4"
+                            <input type="text" pattern="^[a-zA-ZÃ¡Ã Ã©Ã¨Ã­Ã¬Ã¯Ã¤Ã«Ã¶Ã¼Ã¿Ã²Ã³Ã¹ÃºÃ§Ã‡ÃÃ‰ÃÃ“ÃšÃ€ÃˆÃŒÃ’Ã™Ã„Ã‹ÃÃ–Ãœ]{1,48}$" minlength="4"
                                 maxlength="20" id="txtNombre" class="mdc-text-field__input" required
                                 aria-labelledby="lblNombre">
                         </label>
@@ -59,7 +59,7 @@
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="4"
+                            <input type="text" pattern="^[a-zA-ZÃ¡Ã Ã©Ã¨Ã­Ã¬Ã¯Ã¤Ã«Ã¶Ã¼Ã¿Ã²Ã³Ã¹ÃºÃ§Ã‡ÃÃ‰ÃÃ“ÃšÃ€ÃˆÃŒÃ’Ã™Ã„Ã‹ÃÃ–Ãœ]{1,48}$" minlength="4"
                                 maxlength="20" required id="txtApellido" class="mdc-text-field__input"
                                 aria-labelledby="lblApellido">
                         </label>
@@ -77,15 +77,15 @@
                             <button id="btnNombreApellidoBack" class="mdc-button mdc-button--touch" type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>
-                                <span class="mdc-button__label">Iniciar sesión</span>
+                                <span class="mdc-button__label">Iniciar sesiÃ³n</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <!-- Sección DNI y CUIL -->
+                <!-- SecciÃ³n DNI y CUIL -->
                 <div id="tab-documentos" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">Ingresá tu DNI y CUIL</span>
+                        <span class="mdc-typography--headline5">IngresÃ¡ tu DNI y CUIL</span>
                     </div>
                     <div class="_body">
                         <div class="grid-center">
@@ -94,7 +94,7 @@
                                 <span class="mdc-notched-outline">
                                     <span class="mdc-notched-outline__leading"></span>
                                     <span class="mdc-notched-outline__notch">
-                                        <span class="mdc-floating-label" id="lblDNI">Número de documento</span>
+                                        <span class="mdc-floating-label" id="lblDNI">NÃºmero de documento</span>
                                     </span>
                                     <span class="mdc-notched-outline__trailing"></span>
                                 </span>
@@ -113,7 +113,7 @@
                                 <span class="mdc-notched-outline">
                                     <span class="mdc-notched-outline__leading"></span>
                                     <span class="mdc-notched-outline__notch">
-                                        <span class="mdc-floating-label" id="lblCUIL">Número de C.U.I.L.</span>
+                                        <span class="mdc-floating-label" id="lblCUIL">NÃºmero de C.U.I.L.</span>
                                     </span>
                                     <span class="mdc-notched-outline__trailing"></span>
                                 </span>
@@ -144,10 +144,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sección Sexo -->
+                <!-- SecciÃ³n Sexo -->
                 <div id="tab-sexo" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">Ingresá tu género</span>
+                        <span class="mdc-typography--headline5">IngresÃ¡ tu gÃ©nero</span>
                     </div>
                     <div class="_body">
                         <!-- Sexo -->
@@ -193,10 +193,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sección Fecha de nacimiento -->
+                <!-- SecciÃ³n Fecha de nacimiento -->
                 <div id="tab-fecha-nacimiento" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¿Cuándo naciste?</span>
+                        <span class="mdc-typography--headline5">Â¿CuÃ¡ndo naciste?</span>
                     </div>
                     <div class="_body">
                         <!-- Fecha de nacimiento -->
@@ -231,18 +231,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sección Dirección -->
+                <!-- SecciÃ³n DirecciÃ³n -->
                 <div id="tab-direccion" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¿Dónde vivís?</span>
+                        <span class="mdc-typography--headline5">Â¿DÃ³nde vivÃ­s?</span>
                     </div>
                     <div class="_body">
-                        <!-- Dirección -->
+                        <!-- DirecciÃ³n -->
                         <label id="mdtxtDireccion" class="mdc-text-field mdc-text-field--outlined">
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
                                 <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="lblDireccion">Dirección</span>
+                                    <span class="mdc-floating-label" id="lblDireccion">DirecciÃ³n</span>
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
@@ -311,7 +311,7 @@
                         </div>
                     </div>
                     <div class="_footer">
-                        <!-- Botón siguiente -->
+                        <!-- BotÃ³n siguiente -->
                         <div class="mdc-touch-target-wrapper">
                             <button id="btnAddressOK" class="mdc-button mdc-button--touch mdc-button--raised"
                                 type="button">
@@ -330,10 +330,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sección Nacionalidad -->
+                <!-- SecciÃ³n Nacionalidad -->
                 <div id="tab-nationality" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¿De dónde sos?</span>
+                        <span class="mdc-typography--headline5">Â¿De dÃ³nde sos?</span>
                     </div>
                     <div class="_body">
                         <!-- Nacionalidad -->
@@ -369,7 +369,7 @@
                     </div>
 
                     <div class="_footer">
-                        <!-- Botón siguiente -->
+                        <!-- BotÃ³n siguiente -->
                         <div class="mdc-touch-target-wrapper">
                             <button id="btnNacionalityOK" class="mdc-button mdc-button--touch mdc-button--raised"
                                 type="button">
@@ -388,18 +388,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sección Correo -->
+                <!-- SecciÃ³n Correo -->
                 <div id="tab-mail" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¿Cuál es tu correo?</span>
+                        <span class="mdc-typography--headline5">Â¿CuÃ¡l es tu correo?</span>
                     </div>
                     <div class="_body">
-                        <!-- Correo electrónico -->
+                        <!-- Correo electrÃ³nico -->
                         <label id="mdtxtMail" class="mdc-text-field mdc-text-field--outlined">
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
                                 <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="lblMail">Correo electrónico</span>
+                                    <span class="mdc-floating-label" id="lblMail">Correo electrÃ³nico</span>
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
@@ -407,7 +407,7 @@
                                 aria-labelledby="lblMail">
                         </label>
                     </div>
-                    <!-- Botón siguiente -->
+                    <!-- BotÃ³n siguiente -->
                     <div class="_footer">
                         <div class="mdc-touch-target-wrapper">
                             <button id="btnMailOK" class="mdc-button mdc-button--touch mdc-button--raised"
@@ -427,25 +427,25 @@
 
                     </div>
                 </div>
-                <!-- Sección Procesando -->
+                <!-- SecciÃ³n Procesando -->
                 <div id="tab-processing" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">Procesando información</span>
+                        <span class="mdc-typography--headline5">Procesando informaciÃ³n</span>
                     </div>
                     <div class="_body">
                     </div>
-                    <!-- Botón siguiente -->
+                    <!-- BotÃ³n siguiente -->
                     <div class="_footer">
                         </div>
 
                 </div>
-                <!-- Sección Listo -->
+                <!-- SecciÃ³n Listo -->
                 <div id="tab-done" class="__signup-card--tab">
                     <div class="_header">
-                        <span class="mdc-typography--headline5">¡Listo!</span>
+                        <span class="mdc-typography--headline5">Â¡Listo!</span>
                     </div>
                     <div class="_body">
-                        <span class="mdc-typography--body2">Usá estas credenciales para iniciar sesión. </span>
+                        <span class="mdc-typography--body2">UsÃ¡ estas credenciales para iniciar sesiÃ³n. </span>
                         <!-- Nombre -->
                         <label id="mdtxtUser" class="mdc-text-field mdc-text-field--outlined">
                             <span class="mdc-notched-outline">
@@ -463,7 +463,7 @@
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
                                 <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="lblClave">Contraseña</span>
+                                    <span class="mdc-floating-label" id="lblClave">ContraseÃ±a</span>
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
@@ -477,12 +477,12 @@
                                 type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>
-                                <span class="mdc-button__label">Iniciar sesión</span>
+                                <span class="mdc-button__label">Iniciar sesiÃ³n</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <!-- Sección Error -->
+                <!-- SecciÃ³n Error -->
                 <div id="tab-error" class="__signup-card--tab">
                     <div class="_header">
                         <span class="mdc-typography--headline5">Error</span>
@@ -497,7 +497,7 @@
                                 type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>
-                                <span class="mdc-button__label">Iniciar sesión</span>
+                                <span class="mdc-button__label">Iniciar sesiÃ³n</span>
                             </button>
                         </div>
                     </div>
