@@ -55,7 +55,7 @@
     <div class="circle c1"></div>
 </div>
   <main class="login__main">
-    <form action="/api/client/validateMail" name="verificationCode" method="GET">
+    <form action="/TPINT_GRUPO_3_LAB/api/client/validateMail" name="verificationCode" method="GET">
       <div class="mdc-card __login-card">
         <div role="progressbar" id="progressbar" class="mdc-linear-progress mdc-linear-progress--closed"
             aria-label="Example Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">

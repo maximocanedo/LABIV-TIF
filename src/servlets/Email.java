@@ -32,8 +32,8 @@ public class Email extends BaseServlet {
 	 * 
 	 * */
 	
-	private void codigoAleatorio(HttpSession session) {
-	    session.setAttribute("codigoAleatorio", String.format("%06d", new Random().nextInt(1000000)));
+	private String codigoAleatorio() {
+	    return String.format("%06d", new Random().nextInt(1000000));
 	}
 	
 	/** Funcion que gvalida que string sea numero entero
@@ -81,14 +81,12 @@ public class Email extends BaseServlet {
 				destinatario= email;
 			}
 			
-			//variable httpSession
-			HttpSession session = request.getSession();
+			//variable Session
+			request.getSession().setAttribute("codigoAleatorio", codigoAleatorio());;
 			
-			//La inicializo con el codigo generado
-			codigoAleatorio(session);
 			
 			// Guardo el codigo en String asi lo paso al mail
-			String cod = (String) session.getAttribute("codigoAleatorio");
+			String cod = request.getSession().getAttribute("codigoAleatorio").toString();
 	
 			// Envio el mail
 			EnvioMailSoapImpl WS = new EnvioMailSoapImpl();
@@ -134,15 +132,14 @@ public class Email extends BaseServlet {
 		try {
 			String codigo, cod;
 			// Obtener parametros
-	    	Dictionary parameters = getParameters(request);
+			
 	    	//HTTP 404 Not Found: Si no hay ningún código a validar.
-			if(parameters.get("code") == null) {
+			if(request.getParameter("code") == null) {
 				die(response, false, 404, "Bad request");
 				return;
 			}else {
-				codigo= (String) parameters.get("code");
-				HttpSession session = request.getSession();
-				cod = (String) session.getAttribute("codigoAleatorio");
+				codigo= request.getParameter("code");
+				cod =  request.getSession().getAttribute("codigoAleatorio").toString();
 			}
 			//valido que este bien escrito el codigo
 			if(codigo.length() < 6 || codigo.length() > 6 || !esNumero(codigo)) {
@@ -152,7 +149,7 @@ public class Email extends BaseServlet {
 			//Obtengo la variable session
 			//HttpSession session = Session.getAttribute("codigoAleatorio");
 			//HTTP 200 OK: Si el código enviado por el usuario coincide con el código enviado a su correo.
-			if(cod==codigo) {
+			if(cod.equals(codigo)) {
 				die(response, true, 200, "Codigo correcto");
 			}else {
 				//HTTP 400 Bad Request: Si el usuario envió un código inválido, no envió el parámetro necesario o hay un problema de validación.
