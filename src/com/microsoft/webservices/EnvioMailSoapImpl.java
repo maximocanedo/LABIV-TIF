@@ -10,17 +10,16 @@ package com.microsoft.webservices;
 public class EnvioMailSoapImpl implements EnvioMailSoap {
     @Override
     public String enviarMail(String email, String asunto, String mail) {
+    	String resultado;
     	try {
             EnvioMailLocator locator = new EnvioMailLocator();
             EnvioMailSoap envioMailSoap = locator.getEnvioMailSoap();
         	System.setProperty("axis.socketSecureFactory", "org.apache.axis.components.net.SunFakeTrustSocketFactory");
 
-            String resultado = envioMailSoap.enviarMail(email, asunto, mail);
-
+            resultado = envioMailSoap.enviarMail(email, asunto, mail);            
             return resultado;
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Error: Exception";
+        	return e.getMessage();
         }
     }
 }

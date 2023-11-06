@@ -3,14 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Verificacion | Codigo</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>       
-<link rel="stylesheet" type="text/css" href="estiloPaginaCliente-Administrador.css">
-<link rel="stylesheet" type="text/css" href="estiloDatosCliente.css">
-
+<link rel="stylesheet" type="text/css" href="./../res/styles/estiloPaginaCliente-Administrador.css">
+<link rel="stylesheet" type="text/css" href="./../res/styles/estiloDatosCliente.css">
+<link rel="stylesheet" href="./../res/controller/material/material-components-web.css" />
+<link rel="stylesheet" href="./../res/styles/background.css">
+<link rel="stylesheet" href="./../res/styles/login.css">
+<link rel="stylesheet" type="text/css" href="./../res/styles/estiloPaginaCliente-Administrador.css">
 </head>
 <body>
 <nav class="indigo darken-2">
@@ -84,7 +88,7 @@
             </label>
             
             <div class="mdc-touch-target-wrapper">
-              <button id="btnEntrar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">
+              <button name="btnEntrar" id="btnEntrar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">
                 <span class="mdc-button__ripple"></span>
                 <span class="mdc-button__touch"></span>
                 <span class="mdc-button__label">Validar</span>
@@ -114,21 +118,6 @@
     </div>
   </aside>
   <script type="module" src="./../res/controller/IngresarCodigo.js"></script>
-<footer class="page-footer indigo darken-2">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Pie de página Banco</h5>
-                <p class="grey-text text-lighten-4">Información relativa al banco</p>
-              </div>              
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2023 Copyright - Todos los derechos reservados para el Grupo Nº 3
-			</div>
-          </div>
-</footer>
 
 <script>
 $(document).ready(function(){

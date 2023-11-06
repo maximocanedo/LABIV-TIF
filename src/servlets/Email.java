@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.microsoft.webservices.EnvioMailSoapImpl;
 
+import email.Mail;
 import max.data.Dictionary;
 
 
@@ -66,34 +68,49 @@ public class Email extends BaseServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String destinatario;
 		// Obtener parametros
-    	Dictionary parameters = getParameters(request);
-    	
+    	String email = request.getParameter("email"); 
+    	String asunto= "TEST Emprolijar con html el cuerpo del mail";
     	/* HTTP 400 Bad Request: Si el usuario envió un correo inválido, no envió el 
     	  parámetro necesario o hay un problema de validación.*/
-		if(parameters.get("email") == null) {
-			die(response, false, 400, "Bad request");
-			return;
-		}else {
-			destinatario= (String) parameters.get("email");
+		try {
+	    	
+	    	if(email == "") {
+				die(response, false, 400, "Bad request");
+				return;
+			}else {
+				destinatario= email;
+			}
+			
+			//variable httpSession
+			HttpSession session = request.getSession();
+			
+			//La inicializo con el codigo generado
+			codigoAleatorio(session);
+			
+			// Guardo el codigo en String asi lo paso al mail
+			String cod = (String) session.getAttribute("codigoAleatorio");
+	
+			// Envio el mail
+			EnvioMailSoapImpl WS = new EnvioMailSoapImpl();
+			String ok = WS.enviarMail(destinatario, asunto, cod);
+			if(ok=="OK") {
+				die(response, true, 200, "Mail enviado!");
+				request.setAttribute("codigo", cod);
+				//RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_3_LAB/clientes/IngresarCodigo.jsp");   
+			    //rd.forward(request, response);
+			    
+			}else {
+				ok= Mail.enviar(destinatario, asunto, cod);
+				die(response, true, 200, "Mail enviado!");
+				request.setAttribute("codigo", cod);
+				//RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_3_LAB/clientes/IngresarCodigo.jsp");   
+			    //rd.forward(request, response);
+			}
 		}
-		
-		//variable httpSession
-		HttpSession session = request.getSession();
-		
-		//La inicializo con el codigo generado
-		codigoAleatorio(session);
-		
-		// Guardo el codigo en String asi lo paso al mail
-		String cod = (String) session.getAttribute("codigoAleatorio");
-
-		// Envio el mail
-		EnvioMailSoapImpl WS = new EnvioMailSoapImpl();
-		String ok = WS.enviarMail(destinatario, "TEST Emprolijar con html el cuerpo del mail", cod);
-		if(ok=="OK") {
-			die(response, true, 200, "Mail enviado!");
-		}else {
-			die(response, false, 500, "El mail no se pudo enviar");
-			response.setStatus(500);
+		catch(Exception e ) {
+			die(response, false, 500, e.getMessage());
+			//RequestDispatcher rd = request.getRequestDispatcher("");   
+		    //rd.forward(request, response);
 		}
 	}
 
@@ -136,16 +153,18 @@ public class Email extends BaseServlet {
 			//HttpSession session = Session.getAttribute("codigoAleatorio");
 			//HTTP 200 OK: Si el código enviado por el usuario coincide con el código enviado a su correo.
 			if(cod==codigo) {
-				die(response, true, 200, "Mail enviado!");
+				die(response, true, 200, "Codigo correcto");
 			}else {
 				//HTTP 400 Bad Request: Si el usuario envió un código inválido, no envió el parámetro necesario o hay un problema de validación.
-				die(response, false, 400, "El codigo no coincide con el enviado a tu mail");
+				die(response, false, 404, "El codigo no coincide con el enviado a tu mail");
 			}
 		}catch(Exception e){
 			//HTTP 500 Internal Server Error: Si hubo un problema al comparar los códigos o una excepción no controlada.
 			die(response, false, 500, e.getMessage());
 			response.setStatus(500);
+			
 		}
+		
 	}
 	
 	/**
