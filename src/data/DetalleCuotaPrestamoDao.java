@@ -48,50 +48,8 @@ public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Int
 				minlength=1;
 				ref=PrestamosClienteDao._model.ref("cod_Sol_PxC");
 			}}			
-			);
+			);	
 	
-	/*public static class Fields{
-		public static SchemaProperty id = new SchemaProperty("id_DTPT") {{
-			primary = true;
-			//unique = true;
-			type = Types.INTEGER;
-			autoIncrement=true;
-			//modifiable = false;
-		}};
-		public static SchemaProperty usuario = new SchemaProperty("usuario_cl_DTPT") {{
-			required = true;
-			//unique = true;
-			type = Types.VARCHAR;
-			matches = "^[a-zA-Z0-9_]{4,20}$";
-			maxlength = 20;
-			minlength = 4;
-			trim = true;			
-			ref = ClienteDao._model.ref("usuario");
-		}};
-		public static SchemaProperty fechaPago = new SchemaProperty("fechaPago_DTPT") {{
-			required = true;
-			type = Types.DATE;			
-		}};
-		public static SchemaProperty numCuotaPagada = new SchemaProperty("numCuotaPagada_DTPT") {{
-			required = true;
-			type = Types.INTEGER; 			
-		}};
-		public static SchemaProperty codigoSolicitud = new SchemaProperty("cod_Sol_DTPT") {{
-			required=true;
-			type=Types.VARCHAR;
-			maxlength=6;
-			minlength=1;
-			ref=PrestamosClienteDao._model.ref("cod_Sol_PxC");			
-		}};
-	}
-	
-	public static final Schema _schema = new Schema(
-			Fields.id,
-			Fields.usuario,
-			Fields.fechaPago,
-			Fields.numCuotaPagada,
-			Fields.codigoSolicitud
-			);*/
 	
 	public final static IModel _model = new MySQLSchemaModel("detalle_cuotasprestamo","tif",_schema) {{
 		compile();
