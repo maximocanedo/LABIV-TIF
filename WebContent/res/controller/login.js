@@ -58,12 +58,17 @@ const design = {
 };
 
 const HOME_PAGE = "./inicio.html";
+const buildHomePage = (isAdmin) => {
+	return isAdmin
+		? "/TPINT_GRUPO_3_LAB/administradores/Index.jsp"
+		: "/TPINT_GRUPO_3_LAB/clientes/Index.jsp";
+};
 
-const getURLNextValue = () => {
+const getURLNextValue = (isAdmin = false) => {
 	var url = window.location.href;
 	var urlObj = new URL(url);
 	var parametroValor = urlObj.searchParams.get("next");
-	return parametroValor == null ? HOME_PAGE : parametroValor;
+	return parametroValor == null ? buildHomePage(isAdmin) : parametroValor;
 };
 
 const getMessageValue = () => {
@@ -88,7 +93,7 @@ const loginSuccessfulShowData = async (isAdmin = false) => {
 		"#successfulLoginSpanText"
 	).innerText = `¡Hola, ${user.nombre}!`;
 	setTimeout(() => {
-		window.location = getURLNextValue();
+		window.location = getURLNextValue(isAdmin);
 	}, 1000);
 };
 
