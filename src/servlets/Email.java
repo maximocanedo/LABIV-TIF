@@ -146,10 +146,13 @@ public class Email extends BaseServlet {
 				die(response, false, 400, "Bad request");
 				return;
 			}
+			
 			//Obtengo la variable session
 			//HttpSession session = Session.getAttribute("codigoAleatorio");
 			//HTTP 200 OK: Si el código enviado por el usuario coincide con el código enviado a su correo.
 			if(cod.equals(codigo)) {
+				
+				
 				die(response, true, 200, "Codigo correcto");
 			}else {
 				//HTTP 400 Bad Request: Si el usuario envió un código inválido, no envió el parámetro necesario o hay un problema de validación.
