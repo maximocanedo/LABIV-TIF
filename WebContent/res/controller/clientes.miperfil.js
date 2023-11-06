@@ -95,4 +95,28 @@ import * as auth from "./../data/auth.js";
 			);
 		}
 	});
+
+	document.me.btnDisable.addEventListener("click", async () => {
+		const dialog = await material.showDialog(
+			"¿Seguro de eliminar tu cuenta?"
+		);
+		if (!dialog) return;
+		const res = await fetch(
+			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client",
+			{
+				method: "DELETE",
+				headers: auth.AUTH_HEADER,
+			}
+		);
+		const status = res.status;
+		const json = await res.json();
+		if (status == 200) {
+			material.showSnackbar("Eliminaste tu cuenta exitosamente. ");
+			localStorage.clear();
+		} else {
+			material.showSnackbar(
+				"No se pudo eliminar tu cuenta. Detalles: " + json.message
+			);
+		}
+	});
 })();

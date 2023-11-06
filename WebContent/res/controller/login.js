@@ -126,6 +126,11 @@ const loginSuccessfulShowData = async (isAdmin = false) => {
 				design.removeLoadingStatus("tab-login");
 				window.showSnackbar("Los datos ingresados son incorrectos. ");
 				break;
+			case 403:
+				design.removeLoadingStatus("tab-login");
+				window.showSnackbar(
+					"Tu cuenta fue deshabilitada. No podés iniciar sesión. "
+				);
 			case 500:
 				design.removeLoadingStatus("tab-login");
 				window.showSnackbar(

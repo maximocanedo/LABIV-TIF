@@ -53,6 +53,11 @@
 		<br>
 
 		<button type="button" name="btnEnviar">Modificar datos</button>
+		<br />
+		<br />
+		<br />
+		
+		<button type="button" name="btnDisable" style="background: rgb(150,0,0);color: white;">Deshabilitar mi cuenta</button>
 	</form>
 
     </main>
