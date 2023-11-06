@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +12,7 @@ import max.data.Response;
 
 
 @WebServlet("/api/tipomovimientos/list")
-public class TipoMovimientos extends HttpServlet {
+public class TipoMovimientos extends BaseServlet {
 	
 private static final long serialVersionUID = 1L;
 	
@@ -21,7 +20,7 @@ private static final long serialVersionUID = 1L;
 		super();
 	}
 	
-	private static TipoMovimientoLogic lgtpm = new TipoMovimientoLogic();
+	private TipoMovimientoLogic lgtpm = new TipoMovimientoLogic();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<TipoMovimiento> lg = lgtpm.getAll();
@@ -29,10 +28,11 @@ private static final long serialVersionUID = 1L;
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(finalJSON);
-	}
-	
-	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		doGet(request,response);
+	}	
+
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] {"GET"};
 	}
 
 }

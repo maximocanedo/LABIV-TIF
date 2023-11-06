@@ -66,7 +66,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 48;
 			minlength = 1;
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty apellido = new SchemaProperty("apellido") {{
 			required = true;
@@ -74,7 +74,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 48;
 			minlength = 1;
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty sexo = new SchemaProperty("sexo") {{
 			required = true;
@@ -83,7 +83,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			minlength = 1;
 			matches = "^[MF]$";
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty nacionalidad = new SchemaProperty("nacionalidad") {{
 			required = true;
@@ -91,12 +91,12 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 2;
 			ref = PaisDao._model.ref("code");
 			minlength = 2;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty fechaNacimiento = new SchemaProperty("fechaNacimiento") {{
 			required = true;
 			type = Types.DATE;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty direccion = new SchemaProperty("direccion") {{
 			required = true;
@@ -245,10 +245,14 @@ public class ClienteDao implements IRecord<Cliente, String> {
 	public boolean exists(Dictionary d) throws SQLException {
 		return _model.exists(d);
 	}
+	
+	public String getSelectTemplate() {
+		return "SELECT *, localidades.*, provincias.*, countries.name as nombre_pais FROM " + printTDB() + " INNER JOIN localidades ON localidad = localidades.id_loc INNER JOIN provincias ON provincia = provincias.id_provincia INNER JOIN countries ON nacionalidad = countries.code";
+	}
 
 	@Override
 	public TransactionResponse<Cliente> getAll() throws SQLException {
-		return select("SELECT * FROM " + printTDB());
+		return select(getSelectTemplate());
 	}
 	public TransactionResponse<Cliente> search(ClienteFilter clf) throws SQLException {
 		QueryAndParameters qap = generateWhereFromFilter(clf);
@@ -337,10 +341,10 @@ public class ClienteDao implements IRecord<Cliente, String> {
 
 	@Override
 	public TransactionResponse<Cliente> getById(String arg0) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE usuario = @user", Dictionary.fromArray("user", arg0));
+		return select(getSelectTemplate() + " WHERE usuario = @user", Dictionary.fromArray("user", arg0));
 	}
 	public TransactionResponse<Cliente> getByDNI(String dni) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE " + Fields.dni.name + " = @dni", Dictionary.fromArray(Fields.dni.name, dni));
+		return select(getSelectTemplate() + " WHERE " + Fields.dni.name + " = @dni", Dictionary.fromArray(Fields.dni.name, dni));
 	}
 
 	@Override
@@ -385,7 +389,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 	
 	public TransactionResponse<Cliente> getFullById(String arg0) throws SQLException {
 		TransactionResponse<Cliente> res = new TransactionResponse<Cliente>();
-		TransactionResponse<Dictionary> rd = db.fetch("SELECT * FROM " + printTDB() + " WHERE usuario = @user", Dictionary.fromArray( "user", arg0 ));
+		TransactionResponse<Dictionary> rd = db.fetch(getSelectTemplate() + " WHERE usuario = @user", Dictionary.fromArray( "user", arg0 ));
 		if(rd.nonEmptyResult()) res.rowsReturned = logic.convert(rd.rowsReturned, true);
 		return res;
 	}

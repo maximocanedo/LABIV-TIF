@@ -57,6 +57,7 @@ public class Cliente__FirstPerson extends BaseServlet implements Servlet {
      */
     protected void onAuthenticated__ModifyAccount(HttpServletRequest request, HttpServletResponse response, Cliente actualUser) throws IOException {
     	Dictionary params = getParameters(request);
+    	System.out.println("PARAMS PUT : " + params.toString());
     	if(params != null) {
         	Response<Cliente> res = CL.modify(params, actualUser);
         	write(response, res.toFinalJSON());

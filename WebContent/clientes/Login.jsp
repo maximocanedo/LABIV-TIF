@@ -1,13 +1,15 @@
-<html lang="en">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
   <link rel="stylesheet" href="./../res/controller/material/material-components-web.css" />
   <link rel="stylesheet" href="./../res/styles/background.css">
   <link rel="stylesheet" href="./../res/styles/login.css">
 </head>
+<body>
 
 <body>
   <div class="_root_background">
@@ -74,7 +76,7 @@
               <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                  <span class="mdc-floating-label" id="lblClave">Contraseña</span>
+                  <span class="mdc-floating-label" id="lblClave">ContraseÃ±a</span>
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
@@ -99,10 +101,10 @@
         <div id="tab-ok" class="__login-card--tab">
           
           <div class="_header">
-            <span class="mdc-typography--headline5" id="successfulLoginSpanText">¡Hola!</span>
+            <span class="mdc-typography--headline5" id="successfulLoginSpanText">Â¡Hola!</span>
           </div>
           <div class="_body">
-            <span class="mdc-typography--body1">En un momento serás redirigido a la página de inicio. </span>
+            <span class="mdc-typography--body1">En un momento serÃ¡s redirigido a la pÃ¡gina de inicio. </span>
             <div class="mdc-touch-target-wrapper">
               
             </div>
@@ -119,5 +121,4 @@
   </aside>
   <script type="module" src="./../res/controller/login.js"></script>
 </body>
-
 </html>

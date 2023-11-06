@@ -6,7 +6,30 @@ const AUTH_HEADER = (() => {
 	return _headers;
 })();
 
-const LOGIN_PATH = "/clientes/login.html";
+const LOGIN_PATH = "/TPINT_GRUPO_3_LAB/clientes/Login.jsp";
+
+const buildLoginUrl = (
+	{ message, role, next } = {
+		message: "Iniciá sesión para continuar. ",
+		role: "client",
+		next: window.location.href,
+	}
+) => {
+	let url = LOGIN_PATH;
+	const data = {
+		message,
+		role,
+		next,
+	};
+	url += "?";
+	if (data != null) {
+		const filteredData = Object.fromEntries(
+			Object.entries(data).filter(([key, value]) => value !== null)
+		);
+		url += new URLSearchParams(filteredData).toString();
+	}
+	return url;
+};
 
 const whoIam = async () => {
 	try {
@@ -27,26 +50,52 @@ const whoIam = async () => {
 	}
 };
 
-const allowClient = async () => {
+const allowClient = async (
+	{ message } = { message: "Iniciá sesión como cliente para continuar. " }
+) => {
 	const data = await whoIam();
 	if (data == null) {
-		window.location = LOGIN_PATH;
+		const actualURL = window.location.href;
+		window.location = buildLoginUrl({
+			message,
+			role: "client",
+			next: actualURL,
+		});
 	} else {
 		if (data.data.message != "CLIENT") {
-			window.location = LOGIN_PATH;
+			const actualURL = window.location.href;
+			window.location = buildLoginUrl({
+				message,
+				role: "admin",
+				next: actualURL,
+			});
 		} else {
 			return data.data.objectReturned;
 		}
 	}
 };
 
-const allowAdmin = async () => {
+const allowAdmin = async (
+	{ message } = {
+		message: "Iniciá sesión como administrador para continuar. ",
+	}
+) => {
 	const data = await whoIam();
 	if (data == null) {
-		window.location = LOGIN_PATH;
+		const actualURL = window.location.href;
+		window.location = buildLoginUrl({
+			message,
+			role: "admin",
+			next: actualURL,
+		});
 	} else {
 		if (data.data.message != "ADMIN") {
-			window.location = LOGIN_PATH;
+			const actualURL = window.location.href;
+			window.location = buildLoginUrl({
+				message,
+				role: "admin",
+				next: actualURL,
+			});
 		} else {
 			return data.data.objectReturned;
 		}

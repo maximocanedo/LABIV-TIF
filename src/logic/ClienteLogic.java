@@ -75,7 +75,10 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		a.setApellido(d.$("apellido"));
 		a.setSexo(d.$("sexo"));
 		if(d.$("nacionalidad") != null) {
-			a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad")); }});
+			String fname = "";
+			if(d.$("nombre_pais") != null) fname = d.$("nombre_pais");
+			String name = fname;
+			a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad")); setNombre(name); }});
 		}
 		if(d.$("fechaNacimiento") != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,7 +104,10 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 				e.printStackTrace();
 			}
 			int locId = locc;
-			a.setLocalidad(new Localidad() {{ setId(locId); }});
+			String name = "";
+			if(d.$("nombre_loc") != null) name = d.$("nombre_loc");
+			String fname  = name;
+			a.setLocalidad(new Localidad() {{ setId(locId); setNombre(fname); }});
 		}
 		if(d.$("provincia") != null) {
 			Number prov = d.$("provincia");
@@ -113,7 +119,10 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 				e.printStackTrace();
 			}
 			int provId = provv;
-			a.setProvincia(new Provincia() {{ setId(provId); }});
+			String fname = "";
+			if(d.$("nombre_provincia") != null) fname = d.$("nombre_provincia");
+			String name = fname;
+			a.setProvincia(new Provincia() {{ setId(provId); setNombre(name); }});
 		}
 		
 		if(privateData) {
@@ -677,9 +686,11 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		try {
 			MySQLSchemaModel model = new MySQLSchemaModel("Clientes", "tif", ClienteDao._editable);
 			Dictionary v = model.prepareForEditing(arg0);
-			v.put(ClienteDao.Fields.usuario.name, user.getUsuario());
 			
+			v.put(ClienteDao.Fields.usuario.name, user.getUsuario());
+			System.out.println("LOGIC 682: " + v.toString());
 			obj = convert(v);
+			System.out.println("LOGIC 683: " + obj.toJSON());
 			return modify(obj);
 		} catch (SchemaValidationException e) {
 			res.die(false, 400, e.getMessage());

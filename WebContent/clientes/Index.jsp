@@ -13,9 +13,7 @@
 	<main class="mdc-top-app-bar--fixed-adjust">
 		<br />
 		<br />
-		<a href="/Cuentas">Mis cuentas</a>
-		<a href="/MiPerfil">Mi Perfil</a>
-		<a href="/MisMovimientos">Historial de movimientos</a>
+		<a href="./MiPerfil.jsp">Mi Perfil</a>
 		<br />
 		<br />
 
