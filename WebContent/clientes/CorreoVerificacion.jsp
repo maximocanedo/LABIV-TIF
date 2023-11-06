@@ -3,14 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Verificacion</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>       
-<link rel="stylesheet" type="text/css" href="estiloPaginaCliente-Administrador.css">
-<link rel="stylesheet" type="text/css" href="estiloDatosCliente.css">
 
+<link rel="stylesheet" type="text/css" href="./../res/styles/estiloDatosCliente.css">
+<link rel="stylesheet" href="./../res/controller/material/material-components-web.css" />
+<link rel="stylesheet" href="./../res/styles/background.css">
+<link rel="stylesheet" href="./../res/styles/login.css">
+<link rel="stylesheet" type="text/css" href="./../res/styles/estiloPaginaCliente-Administrador.css">
 </head>
 <body>
 <nav class="indigo darken-2">
@@ -51,7 +55,8 @@
     <div class="circle c1"></div>
 </div>
   <main class="login__main">
-    <form action="/api/client/validateMail" name="verification" method="POST">
+  
+    <form action="http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/validateMail" name="verification" method="POST">
       <div class="mdc-card __login-card">
         <div role="progressbar" id="progressbar" class="mdc-linear-progress mdc-linear-progress--closed"
             aria-label="Example Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
@@ -76,15 +81,15 @@
               <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                  <span class="mdc-floating-label" id="lblUsername">Correo electronico</span>
+                  <span class="mdc-floating-label" id="lbl_email">Correo electronico</span>
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-              <input type="email" id="email" name="email" class="mdc-text-field__input" required aria-labelledby="lblUsername">
+              <input type="email" id="email" name="email" class="mdc-text-field__input" required aria-labelledby="lbl_email">
             </label>
             
             <div class="mdc-touch-target-wrapper">
-              <button id="btnEntrar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">
+              <button name="btnEnviar" id="btnEnviar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">
                 <span class="mdc-button__ripple"></span>
                 <span class="mdc-button__touch"></span>
                 <span class="mdc-button__label">Enviar codigo</span>
@@ -114,21 +119,6 @@
     </div>
   </aside>
   <script type="module" src="./../res/controller/Verification.js"></script>
-<footer class="page-footer indigo darken-2">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Pie de página Banco</h5>
-                <p class="grey-text text-lighten-4">Información relativa al banco</p>
-              </div>              
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2023 Copyright - Todos los derechos reservados para el Grupo Nº 3
-			</div>
-          </div>
-</footer>
 
 <script>
 $(document).ready(function(){

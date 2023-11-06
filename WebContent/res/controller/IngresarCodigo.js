@@ -1,6 +1,5 @@
 "use strict";
-import * as material from "./../controller/mdc.controller.js";
-import * as auth from "./../data/auth.js";
+import * as material from "./mdc.controller.js";
 
 const controls = {
 	code: (() => {
@@ -11,13 +10,10 @@ const controls = {
 
 const getFormData = () => {
 	const code = document.querySelector("#code");
-	const rol = document.login.role;
-
 	const tU = material.loadTxt(document.querySelector("#tU"));
 
 	return {
 		code: code.value,
-		role: rol.value,
 	};
 };
 
@@ -60,57 +56,19 @@ const getURLNextValue = () => {
 	return parametroValor == null ? HOME_PAGE : parametroValor;
 };
 
-const loginSuccessfulShowData = async (isAdmin = false) => {
-	const userData = await auth.getActualUser(isAdmin);
-	const user = userData.data;
-	// console.log(userData);
-	document.querySelector(
-		"#successfulLoginSpanText"
-	).innerText = `¡Hola, ${user.nombre}!`;
-	setTimeout(() => {
-		window.location = getURLNextValue();
-	}, 1000);
-};
-
-(async () => {
-	//const loginResult = auth.login("Maria_12144165", "Ma#16%822$15*Gri");
-	//const testResult = auth.testAccess(false);
-	material.loadElements();
-	getFormData();
-	const form = document.login;
-	form.addEventListener("submit", async (e) => {
-		e.preventDefault();
-		design.setProgress(true);
-		design.setLoadingStatus("tab-login");
-		const data = getFormData();
-		const loginResult = await auth.login(
-			data.usuario,
-			data.password,
-			data.role == "admin"
-		);
-		design.setProgress(false);
-		switch (loginResult.status) {
-			case 200:
-				await loginSuccessfulShowData(data.role == "admin");
-				design.switchTab("tab-ok");
-				design.setProgress(true);
-				design.setLoadingStatus("tab-ok");
-				break;
-			case 400:
-				design.removeLoadingStatus("tab-login");
-				window.showSnackbar("Los datos ingresados son inválidos. ");
-				break;
-			case 401:
-				design.removeLoadingStatus("tab-login");
-				window.showSnackbar("Los datos ingresados son incorrectos. ");
-				break;
-			case 500:
-				design.removeLoadingStatus("tab-login");
-				window.showSnackbar(
-					"Hubo un error al intentar cargar la pagina. "
-				);
-				break;
+const BtnEnviar = document.querySelector("#btnEntrar");
+BtnEnviar.addEventListener("click", async (e) => {
+	const result= await fetch(
+		"http://localhost:8080/api/client/validateMail?code=" +
+		+code.value+
+		"btnEntrar=",
+		{
+			method: "GET",
 		}
-		//setProgress(false);
-	});
-})();
+		
+	);
+    if(result.status==200){
+        window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/Index.jsp";
+
+    }
+});

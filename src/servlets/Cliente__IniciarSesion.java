@@ -25,8 +25,6 @@ public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
         super();
     }
 
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dictionary parameters = getParameters(request);
 		Response<Cliente> finalRes = CL.login(parameters);
