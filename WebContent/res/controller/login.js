@@ -104,6 +104,14 @@ const loginSuccessfulShowData = async (isAdmin = false) => {
 	const role = getRolePreferred();
 	if (role != null) document.login.role.value = role;
 	getFormData();
+	const btnCrearCuenta = document.querySelector("#btnCrearCuenta");
+	const crearCuenta = (e) => {
+		const data = getFormData();
+		if (data.role == "admin")
+			window.location = "/TPINT_GRUPO_3_LAB/administradores/SignUp.jsp";
+		else window.location = "/TPINT_GRUPO_3_LAB/clientes/SignUp.jsp";
+	};
+	btnCrearCuenta.addEventListener("click", crearCuenta);
 	const form = document.login;
 	form.addEventListener("submit", async (e) => {
 		e.preventDefault();

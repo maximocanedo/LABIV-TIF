@@ -22,7 +22,7 @@
         --login-card-width: 400px;
         overflow-x: hidden;
         overflow-y: hidden;
-        min-height: 450px;
+        min-height: 460px;
         width: var(--login-card-width); /* Próximamente adaptar a otras pantallas. */
 
         #progressbar {

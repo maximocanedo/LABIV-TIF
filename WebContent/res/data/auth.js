@@ -6,7 +6,7 @@ const AUTH_HEADER = (() => {
 	return _headers;
 })();
 
-const LOGIN_PATH = "/TPINT_GRUPO_3_LAB/clientes/login.html";
+const LOGIN_PATH = "/TPINT_GRUPO_3_LAB/clientes/Login.jsp";
 
 const buildLoginUrl = (
 	{ message, role, next } = {
