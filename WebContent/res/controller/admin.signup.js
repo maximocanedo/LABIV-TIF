@@ -386,6 +386,10 @@ let controls = {
 };
 (async () => {
 	material.loadElements();
+	await auth.allowAdmin({
+		message:
+			"Iniciá sesión como administrador para registrar un nuevo administrador. ",
+	});
 })();
 
 const saveAll = async () => {

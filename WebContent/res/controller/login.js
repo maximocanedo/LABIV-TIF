@@ -66,6 +66,20 @@ const getURLNextValue = () => {
 	return parametroValor == null ? HOME_PAGE : parametroValor;
 };
 
+const getMessageValue = () => {
+	const url = window.location.href;
+	const urlObj = new URL(url);
+	const param = urlObj.searchParams.get("message");
+	return param;
+};
+
+const getRolePreferred = () => {
+	const url = window.location.href;
+	const urlObj = new URL(url);
+	const param = urlObj.searchParams.get("role");
+	return param;
+};
+
 const loginSuccessfulShowData = async (isAdmin = false) => {
 	const userData = await auth.getActualUser(isAdmin);
 	const user = userData.data;
@@ -79,9 +93,11 @@ const loginSuccessfulShowData = async (isAdmin = false) => {
 };
 
 (async () => {
-	//const loginResult = auth.login("Maria_12144165", "Ma#16%822$15*Gri");
-	//const testResult = auth.testAccess(false);
 	material.loadElements();
+	const message = getMessageValue();
+	if (message != null) material.showSnackbar(message);
+	const role = getRolePreferred();
+	if (role != null) document.login.role.value = role;
 	getFormData();
 	const form = document.login;
 	form.addEventListener("submit", async (e) => {
