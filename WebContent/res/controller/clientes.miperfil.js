@@ -6,6 +6,7 @@ import * as countries from "./../data/countries.js";
 import * as auth from "./../data/auth.js";
 
 (async () => {
+	material.loadElements();
 	// Cargar controles:
 	const provincias = await provinces.getProvinces();
 	console.log({ provincias });
@@ -60,6 +61,10 @@ import * as auth from "./../data/auth.js";
 	document.me.usuario.value = client.usuario;
 
 	document.me.btnEnviar.addEventListener("click", async () => {
+		const dialog = await material.showDialog(
+			"Se actualizarán tus datos personales. "
+		);
+		if (!dialog) return;
 		const data = {
 			nombre: document.me.nombre.value,
 			apellido: document.me.apellido.value,
@@ -81,9 +86,13 @@ import * as auth from "./../data/auth.js";
 		const status = result.status;
 		const json = await result.json();
 		if (status == 200) {
-			console.log("Los datos fueron modificados exitosamente. ");
+			material.showSnackbar(
+				"Los datos fueron modificados exitosamente. "
+			);
 		} else {
-			console.warn("Error al intentar modificar: " + json.message);
+			material.showSnackbar(
+				"Error al intentar modificar: " + json.message
+			);
 		}
 	});
 })();
