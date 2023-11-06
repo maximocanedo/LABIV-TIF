@@ -677,9 +677,11 @@ public class ClienteLogic implements IRecordLogic<Cliente, String> {
 		try {
 			MySQLSchemaModel model = new MySQLSchemaModel("Clientes", "tif", ClienteDao._editable);
 			Dictionary v = model.prepareForEditing(arg0);
-			v.put(ClienteDao.Fields.usuario.name, user.getUsuario());
 			
+			v.put(ClienteDao.Fields.usuario.name, user.getUsuario());
+			System.out.println("LOGIC 682: " + v.toString());
 			obj = convert(v);
+			System.out.println("LOGIC 683: " + obj.toJSON());
 			return modify(obj);
 		} catch (SchemaValidationException e) {
 			res.die(false, 400, e.getMessage());

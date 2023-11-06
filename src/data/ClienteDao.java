@@ -66,7 +66,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 48;
 			minlength = 1;
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty apellido = new SchemaProperty("apellido") {{
 			required = true;
@@ -74,7 +74,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 48;
 			minlength = 1;
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty sexo = new SchemaProperty("sexo") {{
 			required = true;
@@ -83,7 +83,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			minlength = 1;
 			matches = "^[MF]$";
 			trim = true;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty nacionalidad = new SchemaProperty("nacionalidad") {{
 			required = true;
@@ -91,12 +91,12 @@ public class ClienteDao implements IRecord<Cliente, String> {
 			maxlength = 2;
 			ref = PaisDao._model.ref("code");
 			minlength = 2;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty fechaNacimiento = new SchemaProperty("fechaNacimiento") {{
 			required = true;
 			type = Types.DATE;
-			modifiable = false;
+			modifiable = true;
 		}};
 		public static SchemaProperty direccion = new SchemaProperty("direccion") {{
 			required = true;
