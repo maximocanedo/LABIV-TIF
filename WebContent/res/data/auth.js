@@ -58,7 +58,7 @@ const allowClient = async (
 		const actualURL = window.location.href;
 		window.location = buildLoginUrl({
 			message,
-			role: "admin",
+			role: "client",
 			next: actualURL,
 		});
 	} else {
