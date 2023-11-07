@@ -13,7 +13,7 @@ import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 
-public class TipoMovimientoDao implements IRecord<TipoMovimiento,String>, ITipoMovimientoDao {
+public class TipoMovimientoDaoImpl implements IRecord<TipoMovimiento,String>, ITipoMovimientoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("cod_TPMV"){{

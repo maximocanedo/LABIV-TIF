@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.DetalleCuotaPrestamoDao;
+import dataImpl.DetalleCuotaPrestamoDaoImpl;
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
 import entity.PrestamosCliente;
@@ -18,7 +18,7 @@ import max.oops.SchemaValidationException;
 
 public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
 
-	private static DetalleCuotaPrestamoDao daoCtPrest = new DetalleCuotaPrestamoDao();
+	private static DetalleCuotaPrestamoDaoImpl daoCtPrest = new DetalleCuotaPrestamoDaoImpl();
 	
 	public DetalleCuotaPrestamoLogic() {}
 	
@@ -33,8 +33,8 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		
 		try {
 				lg.status = validar
-						? DetalleCuotaPrestamoDao._model.validate(obj.toDictionary())
-						: DetalleCuotaPrestamoDao._schema.validate(obj.toDictionary());
+						? DetalleCuotaPrestamoDaoImpl._model.validate(obj.toDictionary())
+						: DetalleCuotaPrestamoDaoImpl._schema.validate(obj.toDictionary());
 		}catch(SchemaValidationException e) {
 			e.printStackTrace();
 			lg.die(false,e.getMessage());

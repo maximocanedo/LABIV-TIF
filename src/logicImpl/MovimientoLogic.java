@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.MovimientoDao;
+import dataImpl.MovimientoDaoImpl;
 import entity.Concepto;
 import entity.Cuenta;
 import entity.Movimiento;
@@ -16,7 +16,7 @@ import max.oops.SchemaValidationException;
 
 public class MovimientoLogic implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
 	
-	private static MovimientoDao daoMov = new MovimientoDao();
+	private static MovimientoDaoImpl daoMov = new MovimientoDaoImpl();
 	
 	public MovimientoLogic() {}
 	
@@ -30,8 +30,8 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer>, IMovim
 		
 		try {
 				lg.status = validar
-						? MovimientoDao._model.validate(obj.toDictionary())
-						: MovimientoDao._schema.validate(obj.toDictionary());
+						? MovimientoDaoImpl._model.validate(obj.toDictionary())
+						: MovimientoDaoImpl._schema.validate(obj.toDictionary());
 		}catch(SchemaValidationException e) {
 			e.printStackTrace();
 			lg.die(false,e.getMessage());

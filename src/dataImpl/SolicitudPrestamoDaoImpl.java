@@ -16,9 +16,9 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String>, ISolicitudPrestamoDao {
+public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, String>, ISolicitudPrestamoDao {
 
-	public SolicitudPrestamoDao() {}
+	public SolicitudPrestamoDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private SolicitudPrestamoLogic logic = new SolicitudPrestamoLogic();
@@ -37,7 +37,7 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String>,
 			maxlength = 20;
 			minlength = 4;
 			trim = true;			
-			ref = ClienteDao._model.ref("usuario");
+			ref = ClienteDaoImpl._model.ref("usuario");
 		}};
 		public static SchemaProperty fecha = new SchemaProperty("fechaPedido_Sol") {{
 			required = true;

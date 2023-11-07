@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import dataImpl.ClienteDao;
+import dataImpl.ClienteDaoImpl;
 import entity.Cliente;
 import entity.Localidad;
 import entity.Pais;
@@ -33,14 +33,14 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	/**
 	 * Clase de datos.
 	 */
-	private static ClienteDao data = new ClienteDao();
+	private static ClienteDaoImpl data = new ClienteDaoImpl();
 	
 	/**
 	 * Obtener la estructura de datos de la entidad.
 	 * @return
 	 */
 	public Schema getSchema() {
-		return ClienteDao._schema;
+		return ClienteDaoImpl._schema;
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	 * @return
 	 */
 	public Schema getInitialSchema() {
-		return ClienteDao._initial;
+		return ClienteDaoImpl._initial;
 	}
 	
 	/**
@@ -236,8 +236,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		Response<Cliente> result = new Response<Cliente>();
 		try {
 			boolean res = data.exists(Dictionary.fromArray(
-						ClienteDao.Fields.usuario.name, arg0,
-						ClienteDao.Fields.estado.name, true
+						ClienteDaoImpl.Fields.usuario.name, arg0,
+						ClienteDaoImpl.Fields.estado.name, true
 					));
 			result.status = res;
 			result.http = res ? 200 : 404;
@@ -258,7 +258,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		Response<Cliente> res = new Response<Cliente>();
 		boolean o = false;
 		try {
-			o = data.exists(Dictionary.fromArray(ClienteDao.Fields.dni.name, dni));
+			o = data.exists(Dictionary.fromArray(ClienteDaoImpl.Fields.dni.name, dni));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -276,7 +276,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		Response<Cliente> res = new Response<Cliente>();
 		boolean o = false;
 		try {
-			o = data.exists(Dictionary.fromArray(ClienteDao.Fields.cuil.name, cuil));
+			o = data.exists(Dictionary.fromArray(ClienteDaoImpl.Fields.cuil.name, cuil));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -460,7 +460,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	 * @throws SchemaValidationException Si uno de los campos no cumple alguna de las validaciones requeridas.
 	 */
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-		IModel _eModel = new MySQLSchemaModel("Clientes", "tif", ClienteDao._initial);
+		IModel _eModel = new MySQLSchemaModel("Clientes", "tif", ClienteDaoImpl._initial);
 		return _eModel.validate(d);
 	}
 	
@@ -520,12 +520,12 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	 */
 	public Response<Cliente> updatePassword(Cliente admin, Dictionary params) {
 		Response<Cliente> result = new Response<Cliente>();
-		Schema updatePasswordSchema = new Schema(ClienteDao.Fields.contraseña);
+		Schema updatePasswordSchema = new Schema(ClienteDaoImpl.Fields.contraseña);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
 			if(validationStatus) {
 				byte[] salt = PasswordUtils.createSalt();
-				byte[] hash = PasswordUtils.createHash(params.$(ClienteDao.Fields.contraseña.name), salt);
+				byte[] hash = PasswordUtils.createHash(params.$(ClienteDaoImpl.Fields.contraseña.name), salt);
 				try {
 					result = convertWildcard(data.updatePassword(admin.getUsuario(), hash, salt));
 					result.http = result.status ? 200 : 500;
@@ -612,13 +612,13 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	 */
 	public Response<Cliente> login(Dictionary servlet_parameters) {
 		Response<Cliente> response = new Response<Cliente>();
-		Schema schema = new Schema(ClienteDao.Fields.usuario, ClienteDao.Fields.contraseña);
+		Schema schema = new Schema(ClienteDaoImpl.Fields.usuario, ClienteDaoImpl.Fields.contraseña);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
 			if(validationResult) {
 				return login(
-						servlet_parameters.$(ClienteDao.Fields.usuario.name),
-						servlet_parameters.$(ClienteDao.Fields.contraseña.name)
+						servlet_parameters.$(ClienteDaoImpl.Fields.usuario.name),
+						servlet_parameters.$(ClienteDaoImpl.Fields.contraseña.name)
 					);
 			}
 		} catch (SchemaValidationException e) {
@@ -637,17 +637,17 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	public static void test(String[] args) {
 		ClienteLogic logic = new ClienteLogic();
 		Dictionary.fromArray(
-			ClienteDao.Fields.nombre.name, "Máximo",
-			ClienteDao.Fields.apellido.name, "Canedo",
-			ClienteDao.Fields.dni.name, "45006002",
-			ClienteDao.Fields.cuil.name, "20450060025",
-			ClienteDao.Fields.sexo.name, "M",
-			ClienteDao.Fields.nacionalidad.name, "AR",
-			ClienteDao.Fields.provincia.name, 78,
-			ClienteDao.Fields.localidad.name, 78007,
-			ClienteDao.Fields.fechaNacimiento.name, "1990-01-05",
-			ClienteDao.Fields.direccion.name, "Av. Lacaze 1887",
-			ClienteDao.Fields.correo.name, "maximo.canedo@alumnos.frgp.utn.edu.ar"
+			ClienteDaoImpl.Fields.nombre.name, "Máximo",
+			ClienteDaoImpl.Fields.apellido.name, "Canedo",
+			ClienteDaoImpl.Fields.dni.name, "45006002",
+			ClienteDaoImpl.Fields.cuil.name, "20450060025",
+			ClienteDaoImpl.Fields.sexo.name, "M",
+			ClienteDaoImpl.Fields.nacionalidad.name, "AR",
+			ClienteDaoImpl.Fields.provincia.name, 78,
+			ClienteDaoImpl.Fields.localidad.name, 78007,
+			ClienteDaoImpl.Fields.fechaNacimiento.name, "1990-01-05",
+			ClienteDaoImpl.Fields.direccion.name, "Av. Lacaze 1887",
+			ClienteDaoImpl.Fields.correo.name, "maximo.canedo@alumnos.frgp.utn.edu.ar"
 		);
 		Response<Cliente> response = logic.login("Maximo_45006002", "Ca$60#607+04%Maxim");// logic.createAccount(data);
 		
@@ -684,10 +684,10 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		Response<Cliente> res = new Response<Cliente>();
 		Cliente obj = new Cliente();
 		try {
-			MySQLSchemaModel model = new MySQLSchemaModel("Clientes", "tif", ClienteDao._editable);
+			MySQLSchemaModel model = new MySQLSchemaModel("Clientes", "tif", ClienteDaoImpl._editable);
 			Dictionary v = model.prepareForEditing(arg0);
 			
-			v.put(ClienteDao.Fields.usuario.name, user.getUsuario());
+			v.put(ClienteDaoImpl.Fields.usuario.name, user.getUsuario());
 			System.out.println("LOGIC 682: " + v.toString());
 			obj = convert(v);
 			System.out.println("LOGIC 683: " + obj.toJSON());
@@ -709,8 +709,8 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res.status = validateConstraints 
-					? ClienteDao._model.validate(arg0.toDictionary()) 
-					: ClienteDao._schema.validate(arg0.toDictionary());
+					? ClienteDaoImpl._model.validate(arg0.toDictionary()) 
+					: ClienteDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.ConceptoDao;
+import dataImpl.ConceptoDaoImpl;
 import entity.Concepto;
 import logic.IConceptoLogic;
 import max.data.*;
@@ -12,7 +12,7 @@ import max.oops.SchemaValidationException;
 
 public class ConceptoLogic implements IRecordLogic<Concepto,String>, IConceptoLogic {
 	
-	private static ConceptoDao daoCon = new ConceptoDao();
+	private static ConceptoDaoImpl daoCon = new ConceptoDaoImpl();
 	
 	public ConceptoLogic() {}
 
@@ -23,8 +23,8 @@ public class ConceptoLogic implements IRecordLogic<Concepto,String>, IConceptoLo
 		
 		try {
 				lc.status = validar
-						? ConceptoDao._model.validate(obj.toDictionary())
-						: ConceptoDao._schema.validate(obj.toDictionary());			
+						? ConceptoDaoImpl._model.validate(obj.toDictionary())
+						: ConceptoDaoImpl._schema.validate(obj.toDictionary());			
 		}catch(SchemaValidationException e) {
 			e.printStackTrace();
 			lc.die(false,e.getMessage());

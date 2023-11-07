@@ -8,8 +8,8 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataImpl.AdministradorDao;
-import dataImpl.ClienteDao;
+import dataImpl.AdministradorDaoImpl;
+import dataImpl.ClienteDaoImpl;
 import entity.Administrador;
 import entity.Cliente;
 import io.jsonwebtoken.Jwt;
@@ -128,7 +128,7 @@ public class AuthManager {
     		String authHeader = req.getHeader("Authorization");
     		String token = authHeader.substring(7);
     		TokenData td = readJWT(token);
-    		AdministradorDao admindao = new AdministradorDao();
+    		AdministradorDaoImpl admindao = new AdministradorDaoImpl();
     		try {
 				TransactionResponse<Administrador> findResult = admindao.getById(td.username);
 				if(findResult.nonEmptyResult()) {
@@ -156,7 +156,7 @@ public class AuthManager {
     		String authHeader = req.getHeader("Authorization");
     		String token = authHeader.substring(7);
     		TokenData td = readJWT(token);
-    		ClienteDao admindao = new ClienteDao();
+    		ClienteDaoImpl admindao = new ClienteDaoImpl();
     		try {
 				TransactionResponse<Cliente> findResult = admindao.getById(td.username);
 				if(findResult.nonEmptyResult()) {

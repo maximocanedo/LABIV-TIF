@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import dataImpl.AdministradorDao;
+import dataImpl.AdministradorDaoImpl;
 import entity.Administrador;
 import entity.Localidad;
 import entity.Pais;
@@ -27,14 +27,14 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	/**
 	 * Clase de datos.
 	 */
-	private static AdministradorDao data = new AdministradorDao();
+	private static AdministradorDaoImpl data = new AdministradorDaoImpl();
 	
 	/**
 	 * Obtener la estructura de datos de la entidad.
 	 * @return
 	 */
 	public Schema getSchema() {
-		return AdministradorDao._schema;
+		return AdministradorDaoImpl._schema;
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	 * @return
 	 */
 	public Schema getInitialSchema() {
-		return AdministradorDao._initial;
+		return AdministradorDaoImpl._initial;
 	}
 	
 	/**
@@ -230,8 +230,8 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 		Response<Administrador> result = new Response<Administrador>();
 		try {
 			boolean res = data.exists(Dictionary.fromArray(
-						AdministradorDao.Fields.usuario.name, arg0,
-						AdministradorDao.Fields.estado.name, true
+						AdministradorDaoImpl.Fields.usuario.name, arg0,
+						AdministradorDaoImpl.Fields.estado.name, true
 					));
 			result.status = res;
 			result.http = res ? 200 : 404;
@@ -252,7 +252,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 		Response<Administrador> res = new Response<Administrador>();
 		boolean o = false;
 		try {
-			o = data.exists(Dictionary.fromArray(AdministradorDao.Fields.dni.name, dni));
+			o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.dni.name, dni));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -270,7 +270,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 		Response<Administrador> res = new Response<Administrador>();
 		boolean o = false;
 		try {
-			o = data.exists(Dictionary.fromArray(AdministradorDao.Fields.cuil.name, cuil));
+			o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.cuil.name, cuil));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -339,7 +339,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	 * @throws SchemaValidationException Si uno de los campos no cumple alguna de las validaciones requeridas.
 	 */
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-		IModel _eModel = new MySQLSchemaModel("administradores", "tif", AdministradorDao._initial);
+		IModel _eModel = new MySQLSchemaModel("administradores", "tif", AdministradorDaoImpl._initial);
 		return _eModel.validate(d);
 	}
 	
@@ -387,12 +387,12 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	 */
 	public Response<Administrador> updatePassword(Administrador admin, Dictionary params) {
 		Response<Administrador> result = new Response<Administrador>();
-		Schema updatePasswordSchema = new Schema(AdministradorDao.Fields.contraseña);
+		Schema updatePasswordSchema = new Schema(AdministradorDaoImpl.Fields.contraseña);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
 			if(validationStatus) {
 				byte[] salt = PasswordUtils.createSalt();
-				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDao.Fields.contraseña.name), salt);
+				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDaoImpl.Fields.contraseña.name), salt);
 				try {
 					result = convertWildcard(data.updatePassword(admin.getUsuario(), hash, salt));
 					result.http = result.status ? 200 : 500;
@@ -479,13 +479,13 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	 */
 	public Response<Administrador> login(Dictionary servlet_parameters) {
 		Response<Administrador> response = new Response<Administrador>();
-		Schema schema = new Schema(AdministradorDao.Fields.usuario, AdministradorDao.Fields.contraseña);
+		Schema schema = new Schema(AdministradorDaoImpl.Fields.usuario, AdministradorDaoImpl.Fields.contraseña);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
 			if(validationResult) {
 				return login(
-						servlet_parameters.$(AdministradorDao.Fields.usuario.name),
-						servlet_parameters.$(AdministradorDao.Fields.contraseña.name)
+						servlet_parameters.$(AdministradorDaoImpl.Fields.usuario.name),
+						servlet_parameters.$(AdministradorDaoImpl.Fields.contraseña.name)
 					);
 			}
 		} catch (SchemaValidationException e) {
@@ -553,9 +553,9 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 		Response<Administrador> res = new Response<Administrador>();
 		Administrador obj = new Administrador();
 		try {
-			MySQLSchemaModel model = new MySQLSchemaModel("administradores", "tif", AdministradorDao._editable);
+			MySQLSchemaModel model = new MySQLSchemaModel("administradores", "tif", AdministradorDaoImpl._editable);
 			Dictionary v = model.prepareForEditing(arg0);
-			v.put(AdministradorDao.Fields.usuario.name, user.getUsuario());
+			v.put(AdministradorDaoImpl.Fields.usuario.name, user.getUsuario());
 			
 			obj = convert(v);
 			return modify(obj);
@@ -576,8 +576,8 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 		Response<Administrador> res = new Response<Administrador>();
 		try {
 			res.status = validateConstraints 
-					? AdministradorDao._model.validate(arg0.toDictionary()) 
-					: AdministradorDao._schema.validate(arg0.toDictionary());
+					? AdministradorDaoImpl._model.validate(arg0.toDictionary()) 
+					: AdministradorDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

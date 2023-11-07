@@ -16,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>, IDetalleCuotaDao {
+public class DetalleCuotaDaoImpl implements IRecord<DetalleCuota, Integer>, IDetalleCuotaDao {
 
 	/*public static void main(String[] args) {
 			//DetalleCuotaDao test = new DetalleCuotaDao();
@@ -47,7 +47,7 @@ public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>, IDetalle
 		logic.insert(dc);
 	}*/
 	
-	public DetalleCuotaDao() {}
+	public DetalleCuotaDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private DetalleCuotaLogic logic = new DetalleCuotaLogic();
@@ -62,7 +62,7 @@ public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>, IDetalle
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 6;
-			ref = PrestamosClienteDao._model.ref("cod_Sol_PxC");
+			ref = PrestamosClienteDaoImpl._model.ref("cod_Sol_PxC");
 		}};
 		public static SchemaProperty cliente = new SchemaProperty("usuario_cl_DTPT") {{
 			required = true;
@@ -71,7 +71,7 @@ public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>, IDetalle
 			maxlength = 20;
 			minlength = 4;
 			trim = true;
-			ref = PrestamosClienteDao._model.ref("usuario_cl_PxC");
+			ref = PrestamosClienteDaoImpl._model.ref("usuario_cl_PxC");
 		}};
 		public static SchemaProperty fechaPago = new SchemaProperty("fechaPago_DTPT") {{
 			required = true;

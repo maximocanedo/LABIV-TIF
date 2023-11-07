@@ -16,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class AdministradorDao implements IRecord<Administrador, String>, IAdministradorDao {
+public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAdministradorDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private AdministradorLogic logic = new AdministradorLogic();
@@ -79,7 +79,7 @@ public class AdministradorDao implements IRecord<Administrador, String>, IAdmini
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 2;
-			ref = PaisDao._model.ref("code");
+			ref = PaisDaoImpl._model.ref("code");
 			minlength = 2;
 		}};
 		public static SchemaProperty fechaNacimiento = new SchemaProperty("fechaNacimiento_admin") {{
@@ -96,13 +96,13 @@ public class AdministradorDao implements IRecord<Administrador, String>, IAdmini
 			required = true;
 			type = Types.INTEGER;
 			min = 0;
-			ref = LocalidadDao._model.ref("id_loc");
+			ref = LocalidadDaoImpl._model.ref("id_loc");
 		}};
 		public static SchemaProperty provincia = new SchemaProperty("provincia_admin") {{
 			required = true;
 			type = Types.INTEGER;
 			min = 0;
-			ref = ProvinciaDao._model.ref("id_provincia");
+			ref = ProvinciaDaoImpl._model.ref("id_provincia");
 		}};
 		public static SchemaProperty correo = new SchemaProperty("correo_admin") {{
 			required = true;

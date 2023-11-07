@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.LocalidadDao;
+import dataImpl.LocalidadDaoImpl;
 import entity.*;
 import logic.ILocalidadLogic;
 import max.data.*;
@@ -12,7 +12,7 @@ import max.oops.SchemaValidationException;
 
 public class LocalidadLogic implements IRecordLogic<Localidad, Integer>, ILocalidadLogic {
 	
-	private static LocalidadDao data = new LocalidadDao();
+	private static LocalidadDaoImpl data = new LocalidadDaoImpl();
 	
 	public LocalidadLogic() { }
 
@@ -192,8 +192,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer>, ILocali
 		Response<Localidad> res = new Response<Localidad>();
 		try {
 			res.status = validateConstraints 
-					? LocalidadDao._model.validate(arg0.toDictionary()) 
-					: LocalidadDao._schema.validate(arg0.toDictionary());
+					? LocalidadDaoImpl._model.validate(arg0.toDictionary()) 
+					: LocalidadDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

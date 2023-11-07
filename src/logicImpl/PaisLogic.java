@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.PaisDao;
+import dataImpl.PaisDaoImpl;
 import entity.Pais;
 import logic.IPaisLogic;
 import max.data.Dictionary;
@@ -15,7 +15,7 @@ import max.oops.SchemaValidationException;
 
 public class PaisLogic implements IRecordLogic<Pais, String>, IPaisLogic {
 	
-	private static PaisDao data = new PaisDao();
+	private static PaisDaoImpl data = new PaisDaoImpl();
 
 	public PaisLogic() { }
 
@@ -171,8 +171,8 @@ public class PaisLogic implements IRecordLogic<Pais, String>, IPaisLogic {
 		Response<Pais> res = new Response<Pais>();
 		try {
 			res.status = validateConstraints 
-					? PaisDao._model.validate(arg0.toDictionary()) 
-					: PaisDao._schema.validate(arg0.toDictionary());
+					? PaisDaoImpl._model.validate(arg0.toDictionary()) 
+					: PaisDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

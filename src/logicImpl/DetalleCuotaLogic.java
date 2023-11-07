@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.DetalleCuotaDao;
+import dataImpl.DetalleCuotaDaoImpl;
 import entity.Cliente;
 import entity.DetalleCuota;
 import entity.SolicitudPrestamo;
@@ -20,15 +20,15 @@ public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>, I
 	
 	public DetalleCuotaLogic() {}
 	
-	private static DetalleCuotaDao dcDao = new DetalleCuotaDao();
+	private static DetalleCuotaDaoImpl dcDao = new DetalleCuotaDaoImpl();
 	
 	@Override
 	public Response<DetalleCuota> validate(DetalleCuota data, boolean validatePKDuplicates) {
 		Response<DetalleCuota> res = new Response<DetalleCuota>();
 		try {
 			res.status = validatePKDuplicates
-					? DetalleCuotaDao._model.validate(data.toDictionary()) 
-					: DetalleCuotaDao._schema.validate(data.toDictionary());
+					? DetalleCuotaDaoImpl._model.validate(data.toDictionary()) 
+					: DetalleCuotaDaoImpl._schema.validate(data.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.TipoMovimientoDao;
+import dataImpl.TipoMovimientoDaoImpl;
 import entity.TipoMovimiento;
 import logic.ITipoMovimientoLogic;
 import max.data.Dictionary;
@@ -15,7 +15,7 @@ import max.oops.SchemaValidationException;
 
 public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String>, ITipoMovimientoLogic {
 	
-	private static TipoMovimientoDao daoTPM = new TipoMovimientoDao();
+	private static TipoMovimientoDaoImpl daoTPM = new TipoMovimientoDaoImpl();
 	
 	public TipoMovimientoLogic() {}
 
@@ -28,8 +28,8 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String>,
 		
 		try {
 				ltpm.status = validar
-						? TipoMovimientoDao._model.validate(obj.toDictionary())
-						: TipoMovimientoDao._schema.validate(obj.toDictionary());
+						? TipoMovimientoDaoImpl._model.validate(obj.toDictionary())
+						: TipoMovimientoDaoImpl._schema.validate(obj.toDictionary());
 		}catch(SchemaValidationException e) {
 			e.printStackTrace();
 			ltpm.die(false,e.getMessage());

@@ -19,9 +19,9 @@ import max.schema.MySQLSchemaModel.QueryAndParameters;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ClienteDao implements IRecord<Cliente, String>, IClienteDao {
+public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 
-	public ClienteDao() {
+	public ClienteDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -90,7 +90,7 @@ public class ClienteDao implements IRecord<Cliente, String>, IClienteDao {
 			required = true;
 			type = Types.VARCHAR;
 			maxlength = 2;
-			ref = PaisDao._model.ref("code");
+			ref = PaisDaoImpl._model.ref("code");
 			minlength = 2;
 			modifiable = true;
 		}};
@@ -109,13 +109,13 @@ public class ClienteDao implements IRecord<Cliente, String>, IClienteDao {
 			required = true;
 			type = Types.INTEGER;
 			min = 0;
-			ref = LocalidadDao._model.ref("id_loc");
+			ref = LocalidadDaoImpl._model.ref("id_loc");
 		}};
 		public static SchemaProperty provincia = new SchemaProperty("provincia") {{
 			required = true;
 			type = Types.INTEGER;
 			min = 0;
-			ref = ProvinciaDao._model.ref("id_provincia");
+			ref = ProvinciaDaoImpl._model.ref("id_provincia");
 		}};
 		public static SchemaProperty correo = new SchemaProperty("correo") {{
 			required = true;
@@ -327,7 +327,7 @@ public class ClienteDao implements IRecord<Cliente, String>, IClienteDao {
 			//status = true;
 			//countryId = "AR";
 		}};
-		ClienteDao dao = new ClienteDao();
+		ClienteDaoImpl dao = new ClienteDaoImpl();
 		try {
 			TransactionResponse<Cliente> qp = dao.search(filtros);
 			Response<Cliente> res = new Response<Cliente>();

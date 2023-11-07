@@ -16,9 +16,9 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.SchemaProperty;
 
-public class TipoCuentaDao implements IRecord<TipoCuenta, String>, ITipoCuentaDao{
+public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuentaDao{
 
-	public TipoCuentaDao(){}
+	public TipoCuentaDaoImpl(){}
 	private TipoCuentaLogic tpLogic= new TipoCuentaLogic();
 	
 	public static final Schema tablaTP = new Schema(

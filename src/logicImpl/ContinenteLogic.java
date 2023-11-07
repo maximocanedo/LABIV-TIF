@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.ContinenteDao;
+import dataImpl.ContinenteDaoImpl;
 import entity.*;
 import logic.IContinenteLogic;
 import max.data.*;
@@ -12,7 +12,7 @@ import max.oops.SchemaValidationException;
 
 public class ContinenteLogic implements IRecordLogic<Continente, String>, IContinenteLogic {
 	
-	private static ContinenteDao data = new ContinenteDao();
+	private static ContinenteDaoImpl data = new ContinenteDaoImpl();
 	
 	public ContinenteLogic() {}
 
@@ -168,8 +168,8 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		Response<Continente> res = new Response<Continente>();
 		try {
 			res.status = validateConstraints 
-					? ContinenteDao._model.validate(arg0.toDictionary()) 
-					: ContinenteDao._schema.validate(arg0.toDictionary());
+					? ContinenteDaoImpl._model.validate(arg0.toDictionary()) 
+					: ContinenteDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

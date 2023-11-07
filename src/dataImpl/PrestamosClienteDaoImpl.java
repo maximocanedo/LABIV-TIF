@@ -18,10 +18,10 @@ import max.schema.SchemaProperty;
 	
 
 
-public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer>, IPrestamoClienteDao {
+public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Integer>, IPrestamoClienteDao {
 
 	
-	public PrestamosClienteDao() {}
+	public PrestamosClienteDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private PrestamosClienteLogic logic = new PrestamosClienteLogic();
@@ -39,13 +39,13 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer>, 
 			maxlength = 20;
 			minlength = 4;
 			trim = true;
-			ref = ClienteDao._model.ref("usuario");
+			ref = ClienteDaoImpl._model.ref("usuario");
 		}};
 		public static SchemaProperty codigoPrestamo = new SchemaProperty("cod_Sol_PxC") {{
 			required = true;
 			type = Types.VARCHAR;//era char, se cambio a varchar
 			maxlength = 6;
-			ref = SolicitudPrestamoDao._model.ref("cod_Sol");
+			ref = SolicitudPrestamoDaoImpl._model.ref("cod_Sol");
 		}};
 		public static SchemaProperty fechaOtorgado = new SchemaProperty("fechaOtorgado_PxC") {{
 			required = true;

@@ -5,7 +5,7 @@ import java.sql.Types;
 
 
 import data.ICuentaDao;
-import dataImpl.AdministradorDao.Fields;
+import dataImpl.AdministradorDaoImpl.Fields;
 import entity.Cliente;
 import entity.Cuenta;
 import logicImpl.CuentaLogic;
@@ -19,9 +19,9 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class CuentaDao implements IRecord<Cuenta, String>, ICuentaDao {
+public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 
-	public CuentaDao(){}
+	public CuentaDaoImpl(){}
 	private CuentaLogic clLogic= new CuentaLogic();
 	
 	public static final Schema tablaCL = new Schema(
@@ -52,13 +52,13 @@ public class CuentaDao implements IRecord<Cuenta, String>, ICuentaDao {
 				required= true;
 				type= Types.VARCHAR;
 				maxlength= 4;
-				ref = TipoCuentaDao._model.ref("Cod_TPCT");
+				ref = TipoCuentaDaoImpl._model.ref("Cod_TPCT");
 			}},
 			new SchemaProperty("Dni_Cl_CxC") {{
 				required= true;
 				type= Types.VARCHAR;
 				maxlength= 60;
-				ref = ClienteDao._model.ref("dni");
+				ref = ClienteDaoImpl._model.ref("dni");
 				modifiable = false;
 			}},
 			new SchemaProperty("Activo_CxC") {{

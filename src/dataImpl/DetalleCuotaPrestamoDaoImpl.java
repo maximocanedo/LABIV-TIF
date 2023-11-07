@@ -17,7 +17,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoDao {
+public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_DTPT"){{
@@ -31,7 +31,7 @@ public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Int
 				type=Types.VARCHAR;
 				maxlength=20;
 				minlength=1;
-				ref=ClienteDao._model.ref("usuario");
+				ref=ClienteDaoImpl._model.ref("usuario");
 			}},
 			new SchemaProperty("fechaPago_DTPT"){{
 				required=true;
@@ -47,7 +47,7 @@ public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Int
 				type=Types.VARCHAR;
 				maxlength=6;
 				minlength=1;
-				ref=PrestamosClienteDao._model.ref("cod_Sol_PxC");
+				ref=PrestamosClienteDaoImpl._model.ref("cod_Sol_PxC");
 			}}			
 			);	
 	

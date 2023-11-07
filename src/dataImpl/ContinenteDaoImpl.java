@@ -14,7 +14,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ContinenteDao implements IRecord<Continente, String>, IContinenteDao {
+public class ContinenteDaoImpl implements IRecord<Continente, String>, IContinenteDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
@@ -34,7 +34,7 @@ public class ContinenteDao implements IRecord<Continente, String>, IContinenteDa
 		);
 	public static final IModel _model = new MySQLSchemaModel("continents", "tif", _schema);
 	
-	public ContinenteDao() {
+	public ContinenteDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

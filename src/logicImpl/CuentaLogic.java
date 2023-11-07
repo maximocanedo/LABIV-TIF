@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.CuentaDao;
+import dataImpl.CuentaDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
 import entity.TipoCuenta;
@@ -20,15 +20,15 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>, ICuentaLogic {
 
 	public CuentaLogic() {}
 	
-	private static CuentaDao clDao= new CuentaDao();
+	private static CuentaDaoImpl clDao= new CuentaDaoImpl();
 	
 	@Override
 	public Response<Cuenta> validate(Cuenta data, boolean validatePKDuplicates) {
 		Response<Cuenta> res = new Response<Cuenta>();
 		try {
 			res.status = validatePKDuplicates 
-					? CuentaDao._model.validate(data.toDictionary()) 
-					: CuentaDao.tablaCL.validate(data.toDictionary());
+					? CuentaDaoImpl._model.validate(data.toDictionary()) 
+					: CuentaDaoImpl.tablaCL.validate(data.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());

@@ -16,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class PaisDao implements IRecord<Pais, String>, IPaisDao {
+public class PaisDaoImpl implements IRecord<Pais, String>, IPaisDao {
 	public static final Schema _schema = new Schema(
 			new SchemaProperty("code") {{
 				required = true;
@@ -53,7 +53,7 @@ public class PaisDao implements IRecord<Pais, String>, IPaisDao {
 				required = true;
 				type = Types.VARCHAR;
 				maxlength = 2;
-				ref = ContinenteDao._model.ref("code");
+				ref = ContinenteDaoImpl._model.ref("code");
 			}}
 			
 		);
@@ -61,7 +61,7 @@ public class PaisDao implements IRecord<Pais, String>, IPaisDao {
 	private Connector db = new Connector(_model.getDatabaseName());
 	private PaisLogic logic = new PaisLogic();
 	
-	public PaisDao() {
+	public PaisDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

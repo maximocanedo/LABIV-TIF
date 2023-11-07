@@ -12,7 +12,7 @@ import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 
-public class MovimientoDao implements IRecord<Movimiento,Integer>, IMovimientoDao {
+public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimientoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_Mv") {{
@@ -26,14 +26,14 @@ public class MovimientoDao implements IRecord<Movimiento,Integer>, IMovimientoDa
 				type=Types.VARCHAR;
 				maxlength=10;
 				minlength=1;
-				ref=CuentaDao._model.ref("Num_Cuenta_CxC");
+				ref=CuentaDaoImpl._model.ref("Num_Cuenta_CxC");
 			}},
 			new SchemaProperty("cod_Con_Mv") {{
 				required=true;
 				type=Types.VARCHAR;
 				maxlength=4;
 				minlength=1;
-				ref=ConceptoDao._model.ref("cod_Con");
+				ref=ConceptoDaoImpl._model.ref("cod_Con");
 			}},
 			new SchemaProperty("saldo_anterior_Mv") {{
 				required=true;
@@ -59,7 +59,7 @@ public class MovimientoDao implements IRecord<Movimiento,Integer>, IMovimientoDa
 				type=Types.VARCHAR;
 				maxlength=4;
 				minlength=1;
-				ref=TipoMovimientoDao._model.ref("cod_TPMV");
+				ref=TipoMovimientoDaoImpl._model.ref("cod_TPMV");
 			}}			
 			);
 	

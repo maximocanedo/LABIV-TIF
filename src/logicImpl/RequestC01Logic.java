@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.ClienteDao;
-import dataImpl.RequestC01Dao;
+import dataImpl.ClienteDaoImpl;
+import dataImpl.RequestC01DaoImpl;
 import entity.Cliente;
 import entity.RequestC01;
 import logic.IRequestC01Logic;
@@ -17,7 +17,7 @@ import max.oops.SchemaValidationException;
 
 public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
 
-	private RequestC01Dao dao = new RequestC01Dao();
+	private RequestC01DaoImpl dao = new RequestC01DaoImpl();
 	
 	/* (non-Javadoc)
 	 * @see logicImpl.IRequestC01Logic#validate(entity.RequestC01, boolean)
@@ -27,8 +27,8 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequ
 		Response<RequestC01> res = new Response<RequestC01>();
 		try {
 			res.status = validateConstraints 
-					? RequestC01Dao._model.validate(arg0.toDictionary()) 
-					: RequestC01Dao._schema.validate(arg0.toDictionary());
+					? RequestC01DaoImpl._model.validate(arg0.toDictionary()) 
+					: RequestC01DaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());
@@ -171,29 +171,29 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequ
 	@Override
 	public RequestC01 convert(Dictionary row) {
 		RequestC01 req = new RequestC01();
-		if(row.containsKey(RequestC01Dao.Fields.id.name)) {
-			req.setId(row.$(RequestC01Dao.Fields.id.name));
+		if(row.containsKey(RequestC01DaoImpl.Fields.id.name)) {
+			req.setId(row.$(RequestC01DaoImpl.Fields.id.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.client.name)) {
+		if(row.containsKey(RequestC01DaoImpl.Fields.client.name)) {
 			Cliente cl = new Cliente();
-			cl.setDNI(row.$(RequestC01Dao.Fields.client.name));
+			cl.setDNI(row.$(RequestC01DaoImpl.Fields.client.name));
 			req.setIssuer(cl);
 		}
-		if(row.containsKey(RequestC01Dao.Fields.status.name)) {
-			req.setStatus(row.$(RequestC01Dao.Fields.status.name));
+		if(row.containsKey(RequestC01DaoImpl.Fields.status.name)) {
+			req.setStatus(row.$(RequestC01DaoImpl.Fields.status.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.issuedOn.name)) {
-			req.setIssuedOn(row.$(RequestC01Dao.Fields.issuedOn.name));
+		if(row.containsKey(RequestC01DaoImpl.Fields.issuedOn.name)) {
+			req.setIssuedOn(row.$(RequestC01DaoImpl.Fields.issuedOn.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.closedOn.name)) {
-			req.setClosedOn(row.$(RequestC01Dao.Fields.closedOn.name));
+		if(row.containsKey(RequestC01DaoImpl.Fields.closedOn.name)) {
+			req.setClosedOn(row.$(RequestC01DaoImpl.Fields.closedOn.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.message.name)) {
-			req.setMessage(row.$(RequestC01Dao.Fields.message.name));
+		if(row.containsKey(RequestC01DaoImpl.Fields.message.name)) {
+			req.setMessage(row.$(RequestC01DaoImpl.Fields.message.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.newPassword.name)) {
+		if(row.containsKey(RequestC01DaoImpl.Fields.newPassword.name)) {
 			Cliente cl = new Cliente();
-			cl.setContraseña(row.$(RequestC01Dao.Fields.newPassword.name));
+			cl.setContraseña(row.$(RequestC01DaoImpl.Fields.newPassword.name));
 			req.setData(cl);
 		}
 		return req;
@@ -269,7 +269,7 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequ
 		String newlyGeneratedPassword = clogic.generatePassword(cliente);
 		// Modificar cliente con clave nueva
 		cliente.setContraseña(newlyGeneratedPassword);
-		Response<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDao.Fields.contraseña.name, cliente.getContraseña()));
+		Response<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDaoImpl.Fields.contraseña.name, cliente.getContraseña()));
 		if(cambiarClaveCliente == null || !cambiarClaveCliente.status) {
 			res.die(false, 500, "Hubo un error actualizando la contraseña del cliente. ");
 			return res;

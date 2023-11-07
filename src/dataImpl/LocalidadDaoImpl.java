@@ -17,7 +17,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class LocalidadDao implements IRecord<Localidad, Integer>, ILocalidadDao {
+public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidadDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_loc") {{
@@ -33,7 +33,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer>, ILocalidadDao 
 			new SchemaProperty("provincia_loc") {{
 				required = true;
 				type = Types.INTEGER;
-				ref = ProvinciaDao._model.ref("id_provincia");
+				ref = ProvinciaDaoImpl._model.ref("id_provincia");
 			}}
 		);
 	
@@ -44,7 +44,7 @@ public class LocalidadDao implements IRecord<Localidad, Integer>, ILocalidadDao 
 	private Connector db = new Connector(_model.getDatabaseName());
 	private LocalidadLogic logic = new LocalidadLogic();
 	
-	public LocalidadDao() {
+	public LocalidadDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

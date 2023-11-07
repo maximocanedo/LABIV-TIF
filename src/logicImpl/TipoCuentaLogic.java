@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.TipoCuentaDao;
+import dataImpl.TipoCuentaDaoImpl;
 import entity.TipoCuenta;
 import logic.ITipoCuentaLogic;
 import max.data.Dictionary;
@@ -16,7 +16,7 @@ import max.oops.SchemaValidationException;
 public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>, ITipoCuentaLogic{
 
 	public TipoCuentaLogic() {}
-	TipoCuentaDao tpDao= new TipoCuentaDao();
+	TipoCuentaDaoImpl tpDao= new TipoCuentaDaoImpl();
 	/* (non-Javadoc)
 	 * @see logicImpl.ITipoCuentaLogic#validate(entity.TipoCuenta, boolean)
 	 */
@@ -25,8 +25,8 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>, ITipoCu
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
 		try {
 			res.status = validatePKDuplicates 
-					? TipoCuentaDao._model.validate(data.toDictionary()) 
-					: TipoCuentaDao.tablaTP.validate(data.toDictionary());
+					? TipoCuentaDaoImpl._model.validate(data.toDictionary()) 
+					: TipoCuentaDaoImpl.tablaTP.validate(data.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());

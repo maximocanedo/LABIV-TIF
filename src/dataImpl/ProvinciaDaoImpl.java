@@ -14,7 +14,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ProvinciaDao implements IRecord<Provincia, Integer>, IProvinciaDao {
+public class ProvinciaDaoImpl implements IRecord<Provincia, Integer>, IProvinciaDao {
 	
 	public static Schema _schema = new Schema(
 			new SchemaProperty("id_provincia") {{
@@ -34,7 +34,7 @@ public class ProvinciaDao implements IRecord<Provincia, Integer>, IProvinciaDao 
 	private Connector db = new Connector(_model.getDatabaseName());
 	private ProvinciaLogic logic = new ProvinciaLogic();
 	
-	public ProvinciaDao() {
+	public ProvinciaDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

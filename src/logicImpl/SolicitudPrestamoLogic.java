@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.SolicitudPrestamoDao;
+import dataImpl.SolicitudPrestamoDaoImpl;
 import entity.Cliente;
 import entity.SolicitudPrestamo;
 import logic.ISolicitudPrestamoLogic;
@@ -19,7 +19,7 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 
 	public SolicitudPrestamoLogic() {}
 	
-	private static SolicitudPrestamoDao spDao = new SolicitudPrestamoDao();
+	private static SolicitudPrestamoDaoImpl spDao = new SolicitudPrestamoDaoImpl();
 	
 	/* (non-Javadoc)
 	 * @see logicImpl.ISolicitudPrestamoLogic#validate(entity.SolicitudPrestamo, boolean)
@@ -29,8 +29,8 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		try {
 			res.status = validateConstraints
-					? SolicitudPrestamoDao._model.validate(data.toDictionary()) 
-					: SolicitudPrestamoDao._schema.validate(data.toDictionary());
+					? SolicitudPrestamoDaoImpl._model.validate(data.toDictionary()) 
+					: SolicitudPrestamoDaoImpl._schema.validate(data.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());

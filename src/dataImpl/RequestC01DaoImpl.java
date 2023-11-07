@@ -16,7 +16,7 @@ import data.IRequestC01Dao;
 import entity.*;
 import logicImpl.RequestC01Logic;
 
-public class RequestC01Dao implements IRecord<RequestC01, Integer>, IRequestC01Dao {
+public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequestC01Dao {
 	
 	public static class Fields {
 		public static SchemaProperty id = new SchemaProperty("id_rc01") {{
@@ -30,7 +30,7 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer>, IRequestC01D
 			matches = "^[0-9]+$";
 			maxlength = 12;
 			trim = true;
-			ref = ClienteDao._model.ref(ClienteDao.Fields.dni.name);
+			ref = ClienteDaoImpl._model.ref(ClienteDaoImpl.Fields.dni.name);
 		}};
 		public static SchemaProperty status = new SchemaProperty("status_rc01") {{
 			required = true;
@@ -90,7 +90,7 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer>, IRequestC01D
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
-	public RequestC01Dao() {}
+	public RequestC01DaoImpl() {}
 
 	/* (non-Javadoc)
 	 * @see dataImpl.IRequestC01Dao#insert(entity.RequestC01)

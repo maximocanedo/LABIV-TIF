@@ -11,7 +11,7 @@ import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 
-public class ConceptoDao implements IRecord<Concepto,String>, IConceptoDao {
+public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("cod_Con") {{
