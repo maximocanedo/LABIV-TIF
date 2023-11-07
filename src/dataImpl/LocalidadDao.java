@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.ILocalidadDao;
 import entity.Localidad;
 import entity.Provincia;
 import logicImpl.LocalidadLogic;
@@ -16,7 +17,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class LocalidadDao implements IRecord<Localidad, Integer> {
+public class LocalidadDao implements IRecord<Localidad, Integer>, ILocalidadDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_loc") {{
@@ -47,12 +48,16 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
-	/**
-	 * No está previsto el uso de este método.
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#delete(entity.Localidad)
 	 */
 	@Override
 	public TransactionResponse<?> delete(Localidad obj) throws SQLException {
@@ -65,11 +70,17 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#exists(java.lang.Integer)
+	 */
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
 		return _model.exists(Dictionary.fromArray("id_loc", arg0));
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<Localidad> getAll() throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -82,6 +93,9 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#getById(java.lang.Integer)
+	 */
 	@Override
 	public TransactionResponse<Localidad> getById(Integer id) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -95,6 +109,9 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#insert(entity.Localidad)
+	 */
 	@Override
 	public TransactionResponse<?> insert(Localidad p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -106,6 +123,9 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#modify(entity.Localidad)
+	 */
 	@Override
 	public TransactionResponse<?> modify(Localidad p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -126,6 +146,10 @@ public class LocalidadDao implements IRecord<Localidad, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ILocalidadDao#filterByProvince(entity.Provincia)
+	 */
+	@Override
 	public TransactionResponse<Localidad> filterByProvince(Provincia p) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE provincia_loc = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
 	}
