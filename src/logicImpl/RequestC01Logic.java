@@ -4,21 +4,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.IRequestC01Dao;
 import dataImpl.ClienteDao;
 import dataImpl.RequestC01Dao;
 import entity.Cliente;
 import entity.RequestC01;
+import logic.IRequestC01Logic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
+public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
 
 	private RequestC01Dao dao = new RequestC01Dao();
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#validate(entity.RequestC01, boolean)
+	 */
 	@Override
 	public Response<RequestC01> validate(RequestC01 arg0, boolean validateConstraints) {
 		Response<RequestC01> res = new Response<RequestC01>();
@@ -33,6 +36,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#insert(entity.RequestC01)
+	 */
 	@Override
 	public Response<RequestC01> insert(RequestC01 arg0) {
 		Response<RequestC01> result = new Response<RequestC01>();
@@ -48,6 +54,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#modify(entity.RequestC01)
+	 */
 	@Override
 	public Response<RequestC01> modify(RequestC01 arg0) {
 		Response<RequestC01> result = new Response<RequestC01>();
@@ -62,6 +71,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#delete(entity.RequestC01)
+	 */
 	@Override
 	public Response<RequestC01> delete(RequestC01 data) {
 		TransactionResponse<?> res;
@@ -78,6 +90,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#getAll()
+	 */
 	@Override
 	public Response<RequestC01> getAll() {
 		Response<RequestC01> res = new Response<RequestC01>();
@@ -91,6 +106,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#getById(java.lang.Integer)
+	 */
 	@Override
 	public Response<RequestC01> getById(Integer id) {
 		Response<RequestC01> res = new Response<RequestC01>();
@@ -104,6 +122,9 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#exists(java.lang.Integer)
+	 */
 	@Override
 	public Response<RequestC01> exists(Integer id) {
 		Response<RequestC01> res = new Response<RequestC01>();
@@ -119,11 +140,10 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	}
 
 	
-	/**
-	 * Convierte un objeto TransactionResponse a un LogicResponse.
-	 * @param data Objeto a convertir.
-	 * @return Objeto convertido.
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#convert(max.data.TransactionResponse)
 	 */
+	@Override
 	public Response<RequestC01> convert(TransactionResponse<RequestC01> data) {
 		Response<RequestC01> x = new Response<RequestC01>();
 		x.status = data.status;
@@ -133,11 +153,10 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return x;
 	}
 	
-	/**
-	 * Convierte un objeto TransactionResponse con wildcard a un LogicResponse parametrizado.
-	 * @param data Objeto a convertir.
-	 * @return Objeto convertido.
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#convertWildcard(max.data.TransactionResponse)
 	 */
+	@Override
 	public Response<RequestC01> convertWildcard(TransactionResponse<?> data) {
 		Response<RequestC01> x = new Response<RequestC01>();
 		x.status = data.status;
@@ -146,37 +165,43 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return x;
 	}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public RequestC01 convert(Dictionary row) {
 		RequestC01 req = new RequestC01();
-		if(row.containsKey(IRequestC01Dao.data.id.name)) {
-			req.setId(row.$(IRequestC01Dao.data.id.name));
+		if(row.containsKey(RequestC01Dao.Fields.id.name)) {
+			req.setId(row.$(RequestC01Dao.Fields.id.name));
 		}
-		if(row.containsKey(IRequestC01Dao.data.client.name)) {
+		if(row.containsKey(RequestC01Dao.Fields.client.name)) {
 			Cliente cl = new Cliente();
-			cl.setDNI(row.$(IRequestC01Dao.data.client.name));
+			cl.setDNI(row.$(RequestC01Dao.Fields.client.name));
 			req.setIssuer(cl);
 		}
-		if(row.containsKey(IRequestC01Dao.data.status.name)) {
-			req.setStatus(row.$(IRequestC01Dao.data.status.name));
+		if(row.containsKey(RequestC01Dao.Fields.status.name)) {
+			req.setStatus(row.$(RequestC01Dao.Fields.status.name));
 		}
-		if(row.containsKey(IRequestC01Dao.data.issuedOn.name)) {
-			req.setIssuedOn(row.$(IRequestC01Dao.data.issuedOn.name));
+		if(row.containsKey(RequestC01Dao.Fields.issuedOn.name)) {
+			req.setIssuedOn(row.$(RequestC01Dao.Fields.issuedOn.name));
 		}
-		if(row.containsKey(IRequestC01Dao.data.closedOn.name)) {
-			req.setClosedOn(row.$(IRequestC01Dao.data.closedOn.name));
+		if(row.containsKey(RequestC01Dao.Fields.closedOn.name)) {
+			req.setClosedOn(row.$(RequestC01Dao.Fields.closedOn.name));
 		}
-		if(row.containsKey(IRequestC01Dao.data.message.name)) {
-			req.setMessage(row.$(IRequestC01Dao.data.message.name));
+		if(row.containsKey(RequestC01Dao.Fields.message.name)) {
+			req.setMessage(row.$(RequestC01Dao.Fields.message.name));
 		}
-		if(row.containsKey(IRequestC01Dao.data.newPassword.name)) {
+		if(row.containsKey(RequestC01Dao.Fields.newPassword.name)) {
 			Cliente cl = new Cliente();
-			cl.setContraseña(row.$(IRequestC01Dao.data.newPassword.name));
+			cl.setContraseña(row.$(RequestC01Dao.Fields.newPassword.name));
 			req.setData(cl);
 		}
 		return req;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#convert(java.util.List)
+	 */
 	@Override
 	public List<RequestC01> convert(List<Dictionary> rows) {
 		List<RequestC01> list = new ArrayList<RequestC01>();
@@ -186,6 +211,10 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#issue(entity.Cliente)
+	 */
+	@Override
 	public Response<RequestC01> issue(Cliente client) {
 		Response<RequestC01> res = new Response<RequestC01>();
 		RequestC01 req = new RequestC01();
@@ -204,6 +233,10 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 		return res;
 	}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IRequestC01Logic#close(java.lang.Integer)
+	 */
+	@Override
 	public Response<RequestC01> close(Integer id) {
 		Response<RequestC01> res = new Response<RequestC01>();
 		// Verificar que exista el ID y que esté abierto.
