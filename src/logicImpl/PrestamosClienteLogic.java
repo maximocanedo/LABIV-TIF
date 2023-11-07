@@ -8,18 +8,22 @@ import dataImpl.PrestamosClienteDao;
 import entity.Cliente;
 import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
+import logic.IPrestamoClienteLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Integer> {
+public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Integer>, IPrestamoClienteLogic {
 
 	public PrestamosClienteLogic() {}
 	
 	private static PrestamosClienteDao pcDao = new PrestamosClienteDao();
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#validate(entity.PrestamosCliente, boolean)
+	 */
 	@Override
 	public Response<PrestamosCliente> validate(PrestamosCliente data, boolean validatePKDuplicates) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -34,6 +38,10 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#convertWildcard(max.data.TransactionResponse)
+	 */
+	@Override
 	public Response<PrestamosCliente> convertWildcard(TransactionResponse<?> data) {
 		Response<PrestamosCliente> x = new Response<PrestamosCliente>();
 		x.status = data.status;
@@ -42,6 +50,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return x;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#insert(entity.PrestamosCliente)
+	 */
 	@Override
 	public Response<PrestamosCliente> insert(PrestamosCliente data) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -57,6 +68,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#modify(entity.PrestamosCliente)
+	 */
 	@Override
 	public Response<PrestamosCliente> modify(PrestamosCliente data) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -73,6 +87,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#delete(entity.PrestamosCliente)
+	 */
 	@Override
 	public Response<PrestamosCliente> delete(PrestamosCliente data) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -89,6 +106,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#getAll()
+	 */
 	@Override
 	public Response<PrestamosCliente> getAll() {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -105,6 +125,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public PrestamosCliente convert(Dictionary d) {
 		PrestamosCliente p = new PrestamosCliente();
@@ -126,6 +149,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return p;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<PrestamosCliente> convert(List<Dictionary> rows) {
 		List<PrestamosCliente> list = new ArrayList<PrestamosCliente>();
@@ -135,6 +161,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#getById(java.lang.Integer)
+	 */
 	@Override
 	public Response<PrestamosCliente> getById(Integer id) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
@@ -150,6 +179,10 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		}
 		return res;
 	}
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#getById(java.lang.String)
+	 */
+	@Override
 	public Response<PrestamosCliente> getById(String usuario_cl_PxC) {
 		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
 		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
@@ -165,6 +198,9 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPrestamoClienteLogic#exists(java.lang.Integer)
+	 */
 	@Override
 	public Response<PrestamosCliente> exists(Integer id) {
 		
