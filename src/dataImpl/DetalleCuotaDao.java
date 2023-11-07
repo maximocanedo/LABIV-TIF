@@ -2,12 +2,9 @@ package dataImpl;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import entity.Cliente;
+import data.IDetalleCuotaDao;
 import entity.DetalleCuota;
-import entity.SolicitudPrestamo;
 import logicImpl.DetalleCuotaLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
@@ -19,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>{
+public class DetalleCuotaDao implements IRecord<DetalleCuota, Integer>, IDetalleCuotaDao {
 
 	/*public static void main(String[] args) {
 			//DetalleCuotaDao test = new DetalleCuotaDao();
