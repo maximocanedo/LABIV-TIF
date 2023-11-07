@@ -6,6 +6,7 @@ import java.sql.Types;
 import com.mysql.jdbc.Field;
 
 import data.AdministradorDao.Fields;
+import entity.Cliente;
 import entity.Cuenta;
 import logic.CuentaLogic;
 import max.data.Dictionary;
@@ -151,6 +152,20 @@ public class CuentaDao implements IRecord<Cuenta, String>{
 	public boolean exists(String Num_Cuenta_CxC) throws SQLException {
 		
 		return _model.exists(Dictionary.fromArray("Num_Cuenta_CxC",Num_Cuenta_CxC));
+	}
+
+	public TransactionResponse<Cuenta> getAllFor(Cliente obj) throws SQLException {
+		TransactionResponse<Dictionary> res = db.fetch(
+			"SELECT * FROM " + printTDB() + " WHERE Dni_Cl_CxC = @dni ",
+			Dictionary.fromArray("dni", obj.getDNI())
+		);
+		TransactionResponse<Cuenta> fres = new TransactionResponse<Cuenta>();
+		fres.status = res.status;
+		if(res.nonEmptyResult()) {
+			fres.rowsReturned = clLogic.convert(res.rowsReturned);
+		}
+		return fres;
+		
 	}
 
 }

@@ -98,6 +98,21 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 		}
 		return res;
 	}
+	
+	public Response<Cuenta> getAllFor(Cliente obj) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
+		try {
+			tpr = clDao.getAllFor(obj);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
 
 	@Override
 	public Response<Cuenta> getById(String id) {
