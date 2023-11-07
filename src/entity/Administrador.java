@@ -2,9 +2,9 @@ package entity;
 
 import com.google.gson.JsonObject;
 
-import logic.PasswordUtils;
-import max.data.Dictionary;
-import max.data.IEntity;
+import logicImpl.PasswordUtils;
+import max.Dictionary;
+import max.IEntity;
 
 public class Administrador implements IEntity {
 	private String usuario;

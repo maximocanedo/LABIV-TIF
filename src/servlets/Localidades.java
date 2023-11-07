@@ -8,13 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import max.data.Dictionary;
-import max.data.Response;
-import max.oops.SchemaValidationException;
-import max.schema.*;
+import max.Dictionary;
+import max.IModel;
+import max.MySQLSchemaModel;
+import max.Response;
+import max.Schema;
+import max.SchemaProperty;
+import oops.SchemaValidationException;
 import entity.*;
-import logic.*;
+import logic.ILocalidadLogic;
+import logicImpl.*;
 /**
  * Servlet implementation class Localidades
  */
@@ -32,14 +35,14 @@ public class Localidades extends BaseServlet {
 	    		required = true;
 	    		type = Types.INTEGER;
 	    		min = 0;
-	    		ref = data.ProvinciaDao._model.ref("id_provincia");
+	    		ref = dataImpl.ProvinciaDaoImpl._model.ref("id_provincia");
 	    	}}
 	    );
 	
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 
     private IModel parameterModel = new MySQLSchemaModel("localidades", "tif", parameterSchema);
     // Acceso a métodos de lógica.
-    private LocalidadLogic logic = new LocalidadLogic();
+    private ILocalidadLogic logic = new LocalidadLogicImpl();
     // Acceso a métodos de manejo de JSON.
     
     // Constructor

@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
-import max.data.Dictionary;
-import max.data.IEntity;
+import max.Dictionary;
+import max.IEntity;
 
 
 public class Provincia implements IEntity  {

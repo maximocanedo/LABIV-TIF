@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logic.AdministradorLogic;
-import max.data.Response;
+import logicImpl.AdministradorLogicImpl;
+import max.Response;
 
 /**
  * Servlet implementation class Administrador__ExisteDNI
@@ -21,7 +21,7 @@ public class Administrador__ExisteDNI extends servlets.BaseServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    private AdministradorLogic AL = new AdministradorLogic();
+    private AdministradorLogicImpl AL = new AdministradorLogicImpl();
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String dni = getPathParameter(request);

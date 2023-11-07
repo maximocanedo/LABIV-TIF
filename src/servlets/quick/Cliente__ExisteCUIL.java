@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import logic.ClienteLogic;
-import max.data.Response;
+import logicImpl.ClienteLogicImpl;
+import max.Response;
 
 /**
  * Servlet implementation class Cliente__ExisteCUIL
@@ -23,7 +23,7 @@ public class Cliente__ExisteCUIL extends servlets.BaseServlet {
         // TODO Auto-generated constructor stub
     }
 
-    private ClienteLogic AL = new ClienteLogic();
+    private ClienteLogicImpl AL = new ClienteLogicImpl();
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String dni = getPathParameter(request);

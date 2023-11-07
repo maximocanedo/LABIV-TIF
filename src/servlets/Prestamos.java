@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.Types;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.PrestamosCliente;
-import logic.PrestamosClienteLogic;
-import max.data.Response;
+import logicImpl.PrestamoClienteLogicImpl;
+import max.Response;
 
 /**
  * Servlet implementation class Prestamos
@@ -28,7 +27,7 @@ public class Prestamos extends BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    PrestamosClienteLogic logic = new PrestamosClienteLogic();
+    PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

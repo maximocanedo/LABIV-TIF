@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logic.AdministradorLogic;
-import logic.AuthManager;
-import max.data.Dictionary;
-import max.data.Response;
+import logicImpl.AdministradorLogicImpl;
+import logicImpl.AuthManager;
+import max.Dictionary;
+import max.Response;
 
 /**
  * Endpoints para realizar acciones sobre objetos de tipo Administrador
@@ -23,7 +23,7 @@ import max.data.Response;
 public class Administrador__FirstPerson extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	
-    private AdministradorLogic AL = new AdministradorLogic();
+    private AdministradorLogicImpl AL = new AdministradorLogicImpl();
     
     public Administrador__FirstPerson() { super(); }
     

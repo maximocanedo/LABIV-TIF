@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
 import entity.Cuenta;
-import logic.AuthManager;
-import logic.CuentaLogic;
-import max.data.*;
+import logicImpl.AuthManager;
+import logicImpl.CuentaLogicImpl;
+import max.Response;
 
 /**
  * Servlet implementation class Cuentas
@@ -24,7 +24,7 @@ public class Cuentas extends BaseServlet implements Servlet {
         super();
     }
     
-    private CuentaLogic CL = new CuentaLogic();
+    private CuentaLogicImpl CL = new CuentaLogicImpl();
     
     /**
      * Método GET: Listar cuentas (Admin only)

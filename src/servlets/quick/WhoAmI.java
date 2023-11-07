@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
-import logic.AuthManager;
-import logic.AuthManager.TokenData;
-import logic.ClienteLogic;
-import max.data.Response;
+import logicImpl.AuthManager;
+import logicImpl.ClienteLogicImpl;
+import logicImpl.AuthManager.TokenData;
+import max.Response;
 import servlets.BaseServlet;
 
 /**
@@ -26,7 +26,7 @@ public class WhoAmI extends BaseServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    protected ClienteLogic CL = new ClienteLogic();
+    protected ClienteLogicImpl CL = new ClienteLogicImpl();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Response<Cliente> lc = new Response<Cliente>();

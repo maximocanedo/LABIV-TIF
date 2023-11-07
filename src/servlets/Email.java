@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.microsoft.webservices.EnvioMailSoapImpl;
 
 import email.Mail;
-import max.data.Dictionary;
+import max.Dictionary;
 
 
 /**

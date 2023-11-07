@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import entity.RequestC01;
-import logic.AuthManager;
-import logic.AuthManager.TokenData;
-import logic.RequestC01Logic;
-import max.data.Response;
+import logicImpl.AuthManager;
+import logicImpl.RequestC01LogicImpl;
+import logicImpl.AuthManager.TokenData;
+import max.Response;
 
 /**
  * Servlet implementation class SingularRequestC01
@@ -31,7 +31,7 @@ public class SingularRequestC01 extends servlets.BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private RequestC01Logic logic = new RequestC01Logic();
+    private RequestC01LogicImpl logic = new RequestC01LogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

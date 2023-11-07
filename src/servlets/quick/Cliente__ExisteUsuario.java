@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import logic.ClienteLogic;
-import max.data.Response;
+import logicImpl.ClienteLogicImpl;
+import max.Response;
 
 /**
  * Servlet implementation class Cliente__ExisteUsuario
@@ -22,7 +22,7 @@ public class Cliente__ExisteUsuario extends servlets.BaseServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    private ClienteLogic AL = new ClienteLogic();
+    private ClienteLogicImpl AL = new ClienteLogicImpl();
 
     
     public String getUsername(HttpServletRequest request) {

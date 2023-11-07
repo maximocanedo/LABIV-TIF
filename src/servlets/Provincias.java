@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.*;
-import logic.*;
-import max.data.*;
+import logicImpl.*;
+import max.Response;
 
 @WebServlet("/api/provinces/list")
 public class Provincias extends BaseServlet {
@@ -18,7 +18,7 @@ public class Provincias extends BaseServlet {
     public Provincias() {
         super();
     }
-    private static ProvinciaLogic logic = new ProvinciaLogic();
+    private static ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Response<Provincia> res = logic.getAll();
