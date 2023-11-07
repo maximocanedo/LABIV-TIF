@@ -1,10 +1,9 @@
 package entity;
 
 import com.google.gson.JsonObject;
-import max.data.Dictionary;
-import max.data.IEntity;
+import max.*;
 
-public class TelefonosXCliente implements IEntity{
+public class TelefonosXCliente implements IEntity {
 	
 private String DNI_Usuario;
 private String Telefono;

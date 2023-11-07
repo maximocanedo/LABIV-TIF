@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import data.TelefonoXClienteDao;
 import entity.TelefonosXCliente;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
-import max.oops.SchemaValidationException;
+import max.*;
+import oops.*;
 
 public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, String>{
 
