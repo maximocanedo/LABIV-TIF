@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IClienteDao;
 import entity.Cliente;
 import filter.ClienteFilter;
 import logicImpl.ClienteLogic;
@@ -18,7 +19,7 @@ import max.schema.MySQLSchemaModel.QueryAndParameters;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ClienteDao implements IRecord<Cliente, String> {
+public class ClienteDao implements IRecord<Cliente, String>, IClienteDao {
 
 	public ClienteDao() {
 		// TODO Auto-generated constructor stub
@@ -203,7 +204,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 	}};
 	
 	
-	public String printTDB() {
+	private String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
@@ -246,7 +247,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		return _model.exists(d);
 	}
 	
-	public String getSelectTemplate() {
+	private String getSelectTemplate() {
 		return "SELECT *, localidades.*, provincias.*, countries.name as nombre_pais FROM " + printTDB() + " INNER JOIN localidades ON localidad = localidades.id_loc INNER JOIN provincias ON provincia = provincias.id_provincia INNER JOIN countries ON nacionalidad = countries.code";
 	}
 
@@ -259,7 +260,7 @@ public class ClienteDao implements IRecord<Cliente, String> {
 		return select(qap.query, qap.params);
 	}
 	
-	public QueryAndParameters generateWhereFromFilter(ClienteFilter f) {
+	private QueryAndParameters generateWhereFromFilter(ClienteFilter f) {
 		StringBuilder q = new StringBuilder("");
 		Dictionary param = new Dictionary();
 		q.append("SELECT * FROM " + printTDB() + " ");
