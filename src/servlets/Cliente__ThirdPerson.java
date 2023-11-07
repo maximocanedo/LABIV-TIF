@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
-import logic.AuthManager;
-import logic.AuthManager.TokenData;
-import logic.ClienteLogic;
+import logicImpl.AuthManager;
+import logicImpl.ClienteLogic;
+import logicImpl.AuthManager.TokenData;
 import max.data.Dictionary;
 import max.data.Response;
 

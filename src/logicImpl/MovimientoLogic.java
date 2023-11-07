@@ -1,4 +1,4 @@
-package logic;
+package logicImpl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;

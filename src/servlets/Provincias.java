@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.*;
-import logic.*;
+import logicImpl.*;
 import max.data.*;
 
 @WebServlet("/api/provinces/list")

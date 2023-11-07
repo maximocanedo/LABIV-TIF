@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import entity.Cliente;
 import entity.DetalleCuota;
 import entity.SolicitudPrestamo;
-import logic.DetalleCuotaLogic;
+import logicImpl.DetalleCuotaLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

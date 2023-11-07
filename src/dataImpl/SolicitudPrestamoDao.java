@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.SolicitudPrestamo;
-import logic.SolicitudPrestamoLogic;
+import logicImpl.SolicitudPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

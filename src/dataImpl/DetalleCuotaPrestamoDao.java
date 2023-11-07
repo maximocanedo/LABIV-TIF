@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
-import logic.DetalleCuotaPrestamoLogic;
+import logicImpl.DetalleCuotaPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

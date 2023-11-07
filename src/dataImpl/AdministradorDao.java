@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.Administrador;
-import logic.AdministradorLogic;
+import logicImpl.AdministradorLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

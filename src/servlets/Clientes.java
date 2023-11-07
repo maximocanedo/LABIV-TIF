@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import filter.ClienteFilter;
-import logic.ClienteLogic;
+import logicImpl.ClienteLogic;
 import max.data.Response;
 
 /**

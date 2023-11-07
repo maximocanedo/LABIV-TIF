@@ -1,44 +1,43 @@
-package logic;
+package logicImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.LocalidadDao;
-import entity.*;
-import max.data.*;
+import dataImpl.PaisDao;
+import entity.Pais;
+import max.data.Dictionary;
+import max.data.IRecordLogic;
+import max.data.Response;
+import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
+public class PaisLogic implements IRecordLogic<Pais, String> {
 	
-	private static LocalidadDao data = new LocalidadDao();
-	
-	public LocalidadLogic() { }
+	private static PaisDao data = new PaisDao();
+
+	public PaisLogic() { }
 
 	/**
-	 * Convierte un Dictionary a un objeto Localidad.
+	 * Convierte un objeto Dictionary a un objeto País.
 	 */
 	@Override
-	public Localidad convert(Dictionary data) {
-		Localidad p = new Localidad();
-		if(data.$("id_loc") != null) {
-			p.setId(data.$("id_loc"));
-		} if(data.$("nombre_loc") != null) {
-			p.setNombre(data.$("nombre_loc"));
-		} if(data.$("provincia_loc") != null) {
-			p.setProvincia(new Provincia() {{
-				setId(data.$("provincia_loc"));
-			}});
+	public Pais convert(Dictionary data) {
+		Pais p = new Pais();
+		if(data.$("code") != null) {
+			p.setCodigo(data.$("code"));
+		} if(data.$("name") != null) {
+			p.setNombre(data.$("name"));
 		}
 		return p;
 	}
-	
+
 	/**
-	 * Convierte una lista de Dictionary a una lista de localidades.
+	 * Convierte una lista de Dictionary a una lista País.
 	 */
 	@Override
-	public List<Localidad> convert(List<Dictionary> list) {
-		List<Localidad> arrP = new ArrayList<Localidad>();
+	public List<Pais> convert(List<Dictionary> list) {
+		List<Pais> arrP = new ArrayList<Pais>();
 		for(Dictionary data : list) {
 			arrP.add(convert(data));
 		}
@@ -49,8 +48,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public Response<Localidad> delete(Localidad arg0) {
-		Response<Localidad> res = new Response<Localidad>();
+	public Response<Pais> delete(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -66,20 +65,21 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	}
 
 	/**
-	 * Determina si un registro existe.
+	 * Determina si existe un registro.
 	 */
 	@Override
-	public Response<Localidad> exists(Integer arg0) {
-		Response<Localidad> res = new Response<Localidad>();
+	public Response<Pais> exists(String arg0) {
+		Response<Pais> res = new Response<Pais>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
 			if(tn) {
-				res.die(true, 200, "El registro existe. ");
-			} else res.die(false, 404, "No existe un registro con esas características. ");
+				res.die(true, "El registro existe. ");
+			} else res.die(false, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
 		return res;
 	}
@@ -88,9 +88,9 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Obtiene todos los registros de la base de datos.
 	 */
 	@Override
-	public Response<Localidad> getAll() {
-		Response<Localidad> res = new Response<Localidad>();
-		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
+	public Response<Pais> getAll() {
+		Response<Pais> res = new Response<Pais>();
+		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getAll();
 			if(tn.nonEmptyResult()) {
@@ -103,36 +103,14 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		}
 		return res;
 	}
-	
+
 	/**
-	 * Obtiene todas las localidades de una provincia.
-	 * @param p Objeto Provincia con el ID de la provincia a filtrar.
-	 * @return Resultado de la operación.
-	 */
-	public Response<Localidad> filterByProvince(Provincia p) {
-		Response<Localidad> res = new Response<Localidad>();
-		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
-		try {
-			tn = data.filterByProvince(p);
-			if(tn.nonEmptyResult()) {
-				res.fill(tn.rowsReturned);
-				res.http = 200;
-			} else res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			res.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
-		}
-		return res;
-	}
-	
-	/**
-	 * Busca una localidad por su ID.
+	 * Busca un registro por su ID.
 	 */
 	@Override
-	public Response<Localidad> getById(Integer arg0) {
-		Response<Localidad> res = new Response<Localidad>();
-		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
+	public Response<Pais> getById(String arg0) {
+		Response<Pais> res = new Response<Pais>();
+		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getById(arg0);
 			if(tn.nonEmptyResult()) {
@@ -150,8 +128,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	 * Inserta un registro.
 	 */
 	@Override
-	public Response<Localidad> insert(Localidad arg0) {
-		Response<Localidad> res = new Response<Localidad>();
+	public Response<Pais> insert(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -166,11 +144,11 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	}
 
 	/**
-	 * Modifica un registro.
+	 * Modifica un registro. 
 	 */
 	@Override
-	public Response<Localidad> modify(Localidad arg0) {
-		Response<Localidad> res = new Response<Localidad>();
+	public Response<Pais> modify(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -185,17 +163,17 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 	}
 
 	/**
-	 * Valida un objeto Localidad.
+	 * Valida un objeto Pais.
 	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public Response<Localidad> validate(Localidad arg0, boolean validateConstraints) {
-		Response<Localidad> res = new Response<Localidad>();
+	public Response<Pais> validate(Pais arg0, boolean validateConstraints) {
+		Response<Pais> res = new Response<Pais>();
 		try {
 			res.status = validateConstraints 
-					? LocalidadDao._model.validate(arg0.toDictionary()) 
-					: LocalidadDao._schema.validate(arg0.toDictionary());
+					? PaisDao._model.validate(arg0.toDictionary()) 
+					: PaisDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

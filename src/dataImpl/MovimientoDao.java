@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import entity.Cuenta;
 import entity.Movimiento;
-import logic.MovimientoLogic;
+import logicImpl.MovimientoLogic;
 import max.data.*;
 import max.net.Connector;
 import max.oops.SchemaValidationException;

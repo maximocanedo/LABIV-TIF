@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.Pais;
-import logic.PaisLogic;
+import logicImpl.PaisLogic;
 import max.data.Response;
 
 /**

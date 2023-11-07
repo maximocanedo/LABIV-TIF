@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.Provincia;
-import logic.*;
+import logicImpl.*;
 import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;

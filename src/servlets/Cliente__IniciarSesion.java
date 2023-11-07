@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import logic.AuthManager;
-import logic.ClienteLogic;
+import logicImpl.AuthManager;
+import logicImpl.ClienteLogic;
 import max.data.Dictionary;
 import max.data.Response;
 

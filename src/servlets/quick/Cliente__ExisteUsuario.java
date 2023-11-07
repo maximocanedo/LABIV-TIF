@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import logic.ClienteLogic;
+import logicImpl.ClienteLogic;
 import max.data.Response;
 
 /**

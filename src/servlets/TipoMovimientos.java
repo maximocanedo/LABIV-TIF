@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.TipoMovimiento;
-import logic.TipoMovimientoLogic;
+import logicImpl.TipoMovimientoLogic;
 import max.data.Response;
 
 

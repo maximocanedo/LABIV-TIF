@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.Concepto;
-import logic.ConceptoLogic;
+import logicImpl.ConceptoLogic;
 import max.data.Response;
 
 @WebServlet("/api/conceptos/list")

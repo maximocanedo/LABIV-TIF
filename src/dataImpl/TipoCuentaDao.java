@@ -3,7 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 import entity.TipoCuenta;
-import logic.TipoCuentaLogic;
+import logicImpl.TipoCuentaLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

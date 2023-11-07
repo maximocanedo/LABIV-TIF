@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.Concepto;
-import logic.ConceptoLogic;
+import logicImpl.ConceptoLogic;
 import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;

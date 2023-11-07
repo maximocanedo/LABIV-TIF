@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import entity.Localidad;
 import entity.Provincia;
-import logic.LocalidadLogic;
+import logicImpl.LocalidadLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

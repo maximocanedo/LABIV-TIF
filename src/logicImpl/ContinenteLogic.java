@@ -1,29 +1,26 @@
-package logic;
+package logicImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.PaisDao;
-import entity.Pais;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import dataImpl.ContinenteDao;
+import entity.*;
+import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class PaisLogic implements IRecordLogic<Pais, String> {
+public class ContinenteLogic implements IRecordLogic<Continente, String> {
 	
-	private static PaisDao data = new PaisDao();
-
-	public PaisLogic() { }
+	private static ContinenteDao data = new ContinenteDao();
+	
+	public ContinenteLogic() {}
 
 	/**
-	 * Convierte un objeto Dictionary a un objeto País.
+	 * Convierte un objeto Dictionary a un objeto de tipo Continente.
 	 */
 	@Override
-	public Pais convert(Dictionary data) {
-		Pais p = new Pais();
+	public Continente convert(Dictionary data) {
+		Continente p = new Continente();
 		if(data.$("code") != null) {
 			p.setCodigo(data.$("code"));
 		} if(data.$("name") != null) {
@@ -33,11 +30,11 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	}
 
 	/**
-	 * Convierte una lista de Dictionary a una lista País.
+	 * Convierte una lista de Dictionary a una lista de Continente.
 	 */
 	@Override
-	public List<Pais> convert(List<Dictionary> list) {
-		List<Pais> arrP = new ArrayList<Pais>();
+	public List<Continente> convert(List<Dictionary> list) {
+		List<Continente> arrP = new ArrayList<Continente>();
 		for(Dictionary data : list) {
 			arrP.add(convert(data));
 		}
@@ -48,8 +45,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Elimina un registro.
 	 */
 	@Override
-	public Response<Pais> delete(Pais arg0) {
-		Response<Pais> res = new Response<Pais>();
+	public Response<Continente> delete(Continente arg0){
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -65,22 +62,21 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	}
 
 	/**
-	 * Determina si existe un registro.
+	 * Determina si un registro existe.
 	 */
 	@Override
-	public Response<Pais> exists(String arg0) {
-		Response<Pais> res = new Response<Pais>();
+	public Response<Continente> exists(String arg0) {
+		Response<Continente> res = new Response<Continente>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
-			if(tn) {
-				res.die(true, "El registro existe. ");
-			} else res.die(false, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
+		if(tn) {
+			res.die(true, "El registro existe. ");
+		} else res.die(false, "No existe un registro con esas características. ");
 		return res;
 	}
 
@@ -88,19 +84,18 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Obtiene todos los registros de la base de datos.
 	 */
 	@Override
-	public Response<Pais> getAll() {
-		Response<Pais> res = new Response<Pais>();
-		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
+	public Response<Continente> getAll() {
+		Response<Continente> res = new Response<Continente>();
+		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {
 			tn = data.getAll();
-			if(tn.nonEmptyResult()) {
-				res.fill(tn.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
+		if(tn.nonEmptyResult()) {
+			res.fill(tn.rowsReturned);
+		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 
@@ -108,9 +103,9 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	 * Busca un registro por su ID.
 	 */
 	@Override
-	public Response<Pais> getById(String arg0) {
-		Response<Pais> res = new Response<Pais>();
-		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
+	public Response<Continente> getById(String arg0) {
+		Response<Continente> res = new Response<Continente>();
+		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
 		try {
 			tn = data.getById(arg0);
 			if(tn.nonEmptyResult()) {
@@ -125,11 +120,11 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	}
 
 	/**
-	 * Inserta un registro.
+	 * Inserta un registro en la base de datos.
 	 */
 	@Override
-	public Response<Pais> insert(Pais arg0) {
-		Response<Pais> res = new Response<Pais>();
+	public Response<Continente> insert(Continente arg0){
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -144,11 +139,11 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	}
 
 	/**
-	 * Modifica un registro. 
+	 * Modifica un registro en la base de datos.
 	 */
 	@Override
-	public Response<Pais> modify(Pais arg0) {
-		Response<Pais> res = new Response<Pais>();
+	public Response<Continente> modify(Continente arg0) {
+		Response<Continente> res = new Response<Continente>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -163,17 +158,17 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 	}
 
 	/**
-	 * Valida un objeto Pais.
+	 * Valida un objeto Continente.
 	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
 	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
 	 */
 	@Override
-	public Response<Pais> validate(Pais arg0, boolean validateConstraints) {
-		Response<Pais> res = new Response<Pais>();
+	public Response<Continente> validate(Continente arg0, boolean validateConstraints) {
+		Response<Continente> res = new Response<Continente>();
 		try {
 			res.status = validateConstraints 
-					? PaisDao._model.validate(arg0.toDictionary()) 
-					: PaisDao._schema.validate(arg0.toDictionary());
+					? ContinenteDao._model.validate(arg0.toDictionary()) 
+					: ContinenteDao._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

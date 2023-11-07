@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logic.AdministradorLogic;
+import logicImpl.AdministradorLogic;
 import max.data.Response;
 
 /**

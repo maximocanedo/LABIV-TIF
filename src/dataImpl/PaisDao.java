@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.Pais;
-import logic.PaisLogic;
+import logicImpl.PaisLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

@@ -2,7 +2,7 @@ package entity;
 
 import com.google.gson.JsonObject;
 
-import logic.PasswordUtils;
+import logicImpl.PasswordUtils;
 import max.data.Dictionary;
 import max.data.IEntity;
 

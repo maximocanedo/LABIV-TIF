@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.TipoMovimiento;
-import logic.TipoMovimientoLogic;
+import logicImpl.TipoMovimientoLogic;
 import max.data.*;
 import max.data.IRecord;
 import max.data.TransactionResponse;

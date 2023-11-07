@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import entity.*;
-import logic.RequestC01Logic;
+import logicImpl.RequestC01Logic;
 
 public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 	

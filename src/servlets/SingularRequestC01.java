@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import entity.RequestC01;
-import logic.AuthManager;
-import logic.AuthManager.TokenData;
-import logic.RequestC01Logic;
+import logicImpl.AuthManager;
+import logicImpl.RequestC01Logic;
+import logicImpl.AuthManager.TokenData;
 import max.data.Response;
 
 /**

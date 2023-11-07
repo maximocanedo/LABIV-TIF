@@ -14,7 +14,7 @@ import max.data.Response;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 import entity.*;
-import logic.*;
+import logicImpl.*;
 /**
  * Servlet implementation class Localidades
  */

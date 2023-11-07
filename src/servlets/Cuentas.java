@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
 import entity.Cuenta;
-import logic.AuthManager;
-import logic.CuentaLogic;
+import logicImpl.AuthManager;
+import logicImpl.CuentaLogic;
 import max.data.*;
 
 /**

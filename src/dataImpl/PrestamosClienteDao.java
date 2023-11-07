@@ -5,7 +5,7 @@ import java.sql.Types;
 
 
 import entity.PrestamosCliente;
-import logic.PrestamosClienteLogic;
+import logicImpl.PrestamosClienteLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;

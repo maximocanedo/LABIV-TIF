@@ -1,4 +1,4 @@
-package logic;
+package logicImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

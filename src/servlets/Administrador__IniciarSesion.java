@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logic.AdministradorLogic;
-import logic.AuthManager;
+import logicImpl.AdministradorLogic;
+import logicImpl.AuthManager;
 import max.data.Dictionary;
 import max.data.Response;
 

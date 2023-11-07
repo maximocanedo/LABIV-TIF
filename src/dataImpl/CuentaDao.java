@@ -8,7 +8,7 @@ import com.mysql.jdbc.Field;
 import dataImpl.AdministradorDao.Fields;
 import entity.Cliente;
 import entity.Cuenta;
-import logic.CuentaLogic;
+import logicImpl.CuentaLogic;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
