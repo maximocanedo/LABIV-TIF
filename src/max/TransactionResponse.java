@@ -3,6 +3,8 @@ package max;
 import java.sql.SQLException;
 import java.util.List;
 
+import entity.Paginator;
+
 public class TransactionResponse<T> {
 	public int rowsAffected = 0;
 	public List<T> rowsReturned = null;
@@ -10,6 +12,7 @@ public class TransactionResponse<T> {
 	public T objectReturned = null;
 	public SQLException dbError = null;
 	public Exception error = null;
+	public Paginator paginator = null;
 	public boolean status = false;
 	public boolean nonEmptyResult() {
 		return rowsReturned != null && rowsReturned.size() > 0;

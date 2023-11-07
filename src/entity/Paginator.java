@@ -3,12 +3,14 @@ package entity;
 import com.google.gson.JsonObject;
 
 public class Paginator {
+	public static Paginator DEFAULT = new Paginator(0, 1, 1);
+	
 	// Cantidad de elementos por página.
-	private int size; 
-	// Página actual. Comienza siempre por 0.
-	private int page; 
+	private int size = 0; 
+	// Página actual. Comienza siempre por 1.
+	private int page = 1; 
 	// Cantidad de páginas en total.
-	private int total;
+	private int total = 1;
 	
 	public Paginator(int size, int page, int totalPages) {
 		this.size = size;
