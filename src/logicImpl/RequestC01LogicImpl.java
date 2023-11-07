@@ -13,7 +13,7 @@ import max.Dictionary;
 import max.IRecordLogic;
 import max.Response;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
 

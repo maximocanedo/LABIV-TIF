@@ -20,7 +20,7 @@ import max.MySQLSchemaModel;
 import max.Response;
 import max.Schema;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class AdministradorLogicImpl implements IRecordLogic<Administrador, String>, IAdministradorLogic {
 	

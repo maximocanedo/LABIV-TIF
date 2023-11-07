@@ -17,7 +17,7 @@ import max.MySQLSchemaModel;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 

@@ -7,7 +7,7 @@ import max.MySQLSchemaModel;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 import java.sql.SQLException;
 import java.sql.Types;

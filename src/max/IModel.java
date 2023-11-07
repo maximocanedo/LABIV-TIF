@@ -2,7 +2,7 @@ package max;
 
 import java.sql.SQLException;
 
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public interface IModel {
 	

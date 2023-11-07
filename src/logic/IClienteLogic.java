@@ -8,7 +8,7 @@ import max.Dictionary;
 import max.Response;
 import max.Schema;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public interface IClienteLogic {
 	public Cliente convert(Dictionary data);

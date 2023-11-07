@@ -12,10 +12,10 @@ Export-Package: .,
  max,
  max.data,
  max.net,
- max.oops,
  max.schema,
  max.testing,
  max.tools,
+ oops,
  servlets,
  servlets.quick
 Web-ContextPath: /TPINT_GRUPO_3_LAB

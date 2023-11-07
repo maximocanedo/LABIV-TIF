@@ -15,7 +15,7 @@ import max.MySQLSchemaModel;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoDao {
 	

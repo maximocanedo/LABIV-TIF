@@ -14,7 +14,7 @@ import max.MySQLSchemaModel;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAdministradorDao {
 	

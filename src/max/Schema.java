@@ -3,7 +3,7 @@ package max;
 import java.util.HashMap;
 import java.util.Map;
 
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 @SuppressWarnings("serial")
 public class Schema extends HashMap<String, SchemaProperty> {

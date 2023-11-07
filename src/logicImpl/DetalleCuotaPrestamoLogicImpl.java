@@ -14,7 +14,7 @@ import max.Dictionary;
 import max.IRecordLogic;
 import max.Response;
 import max.TransactionResponse;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
 

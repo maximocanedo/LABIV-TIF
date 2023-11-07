@@ -14,7 +14,7 @@ import max.MySQLSchemaModel;
 import max.Response;
 import max.Schema;
 import max.SchemaProperty;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 import entity.*;
 import logic.ILocalidadLogic;
 import logicImpl.*;

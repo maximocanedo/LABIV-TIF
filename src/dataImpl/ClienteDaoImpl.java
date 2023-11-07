@@ -17,7 +17,7 @@ import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
 import max.MySQLSchemaModel.QueryAndParameters;
-import max.oops.SchemaValidationException;
+import oops.SchemaValidationException;
 
 public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 

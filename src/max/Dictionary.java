@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 
-import max.oops.KeyIsNotAStringException;
-import max.oops.OddNumberOfElementsException;
-import max.oops.ParameterNotExistsException;
+import oops.KeyIsNotAStringException;
+import oops.OddNumberOfElementsException;
+import oops.ParameterNotExistsException;
 
 
 public class Dictionary extends HashMap<String, Object> {

@@ -1,4 +1,4 @@
-package max.oops;
+package oops;
 
 @SuppressWarnings("serial")
 public class OddNumberOfElementsException extends Exception {
