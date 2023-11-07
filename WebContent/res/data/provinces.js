@@ -10,6 +10,7 @@ const getProvinces = async () => {
 		})
 		.catch((err) => {
 			console.error(err);
+			return null;
 		});
 };
 
