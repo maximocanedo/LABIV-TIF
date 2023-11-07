@@ -182,7 +182,7 @@ public class AuthManager {
     
     public static void maine(String[] args) {
     	String js = Error.InvalidOrCorruptToken.toFinalJSON();
-    	System.out.println(js);
+    	//System.out.println(js);
     	
     	
     	

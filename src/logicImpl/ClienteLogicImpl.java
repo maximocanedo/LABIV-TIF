@@ -318,7 +318,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		ClienteLogicImpl CL = new ClienteLogicImpl();
 		Response<Cliente> g = CL.getAll();
 		
-		System.out.println(g.toFinalJSON());
+		//System.out.println(g.toFinalJSON());
 	}
 
 	/**
@@ -652,7 +652,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		Response<Cliente> response = logic.login("Maximo_45006002", "Ca$60#607+04%Maxim");// logic.createAccount(data);
 		
 		
-		System.out.println(response.toFinalJSON());
+		//System.out.println(response.toFinalJSON());
 		
 	}
 	
@@ -688,9 +688,9 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 			Dictionary v = model.prepareForEditing(arg0);
 			
 			v.put(ClienteDaoImpl.Fields.usuario.name, user.getUsuario());
-			System.out.println("LOGIC 682: " + v.toString());
+			//System.out.println("LOGIC 682: " + v.toString());
 			obj = convert(v);
-			System.out.println("LOGIC 683: " + obj.toJSON());
+			//System.out.println("LOGIC 683: " + obj.toJSON());
 			return modify(obj);
 		} catch (SchemaValidationException e) {
 			res.die(false, 400, e.getMessage());
