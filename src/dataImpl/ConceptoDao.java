@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IConceptoDao;
 import entity.Concepto;
 import logicImpl.ConceptoLogic;
 import max.data.*;
@@ -10,7 +11,7 @@ import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 
-public class ConceptoDao implements IRecord<Concepto,String> {
+public class ConceptoDao implements IRecord<Concepto,String>, IConceptoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("cod_Con") {{
@@ -35,7 +36,7 @@ public class ConceptoDao implements IRecord<Concepto,String> {
 	private Connector dbCon = new Connector(_model.getDatabaseName());
 	private ConceptoLogic conlg = new ConceptoLogic();
 	
-	public String printTDB() {
+	private String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
