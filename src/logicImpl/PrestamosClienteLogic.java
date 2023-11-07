@@ -150,6 +150,20 @@ public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Int
 		}
 		return res;
 	}
+	public Response<PrestamosCliente> getById(String usuario_cl_PxC) {
+		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
+		try {
+			tpr = pcDao.getById(usuario_cl_PxC);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
 
 	@Override
 	public Response<PrestamosCliente> exists(Integer id) {

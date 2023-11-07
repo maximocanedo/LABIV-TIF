@@ -166,6 +166,9 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 	public TransactionResponse<PrestamosCliente> getById(Integer id) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
 	}
+	public TransactionResponse<PrestamosCliente> getById(String usuario_cl_PxC) throws SQLException {
+		return select("SELECT * FROM " + printTDB() + " WHERE usuario_cl_PxC = @usuario_cl_PxC", Dictionary.fromArray("usuario_cl_PxC",usuario_cl_PxC));
+	}
 
 	@Override
 	public boolean exists(Integer id) throws SQLException {	
