@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
 import entity.PrestamosCliente;
-import logic.AuthManager;
-import logic.PrestamosClienteLogic;
+import logicImpl.AuthManager;
+import logicImpl.PrestamosClienteLogic;
 import max.data.Response;
 
 /**
