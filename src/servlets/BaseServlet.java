@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import entity.Paginator;
 import max.Dictionary;
 import max.Response;
 
@@ -25,6 +26,25 @@ public abstract class BaseServlet extends HttpServlet {
 
 	public BaseServlet() {
 		super();
+	}
+	
+	protected Paginator getPaginator(HttpServletRequest req) {
+		Paginator paginator = Paginator.DEFAULT;
+		if(req.getParameter("p") != null) {
+			String pageParam = req.getParameter("p");
+			try {
+				int p = Integer.parseInt(pageParam);
+				if(p > 0) paginator.setPage(p);
+			} catch(NumberFormatException n) { }
+		}
+		if(req.getParameter("s") != null) {
+			String sizeParam = req.getParameter("s");
+			try {
+				int s = Integer.parseInt(sizeParam);
+				if(s > 0) paginator.setSize(s);
+			} catch(NumberFormatException n) { }
+		}
+		return paginator;
 	}
 	
 	protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
