@@ -6,10 +6,11 @@ import java.util.List;
 
 import dataImpl.ContinenteDao;
 import entity.*;
+import logic.IContinenteLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class ContinenteLogic implements IRecordLogic<Continente, String> {
+public class ContinenteLogic implements IRecordLogic<Continente, String>, IContinenteLogic {
 	
 	private static ContinenteDao data = new ContinenteDao();
 	
