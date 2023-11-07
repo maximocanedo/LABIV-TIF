@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.IPrestamoClienteDao;
 import entity.PrestamosCliente;
-import logicImpl.PrestamosClienteLogic;
+import logicImpl.PrestamoClienteLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -24,7 +24,7 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	public PrestamosClienteDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private PrestamosClienteLogic logic = new PrestamosClienteLogic();
+	private PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
 	
 	private static class Fields{
 		public static SchemaProperty id = new SchemaProperty("id_PxC") {{

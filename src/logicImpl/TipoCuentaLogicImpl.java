@@ -13,9 +13,9 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>, ITipoCuentaLogic{
+public class TipoCuentaLogicImpl implements IRecordLogic<TipoCuenta,String>, ITipoCuentaLogic{
 
-	public TipoCuentaLogic() {}
+	public TipoCuentaLogicImpl() {}
 	TipoCuentaDaoImpl tpDao= new TipoCuentaDaoImpl();
 	/* (non-Javadoc)
 	 * @see logicImpl.ITipoCuentaLogic#validate(entity.TipoCuenta, boolean)

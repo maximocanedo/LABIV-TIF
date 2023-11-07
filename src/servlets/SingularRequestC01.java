@@ -12,7 +12,7 @@ import entity.Administrador;
 import entity.Cliente;
 import entity.RequestC01;
 import logicImpl.AuthManager;
-import logicImpl.RequestC01Logic;
+import logicImpl.RequestC01LogicImpl;
 import logicImpl.AuthManager.TokenData;
 import max.data.Response;
 
@@ -31,7 +31,7 @@ public class SingularRequestC01 extends servlets.BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private RequestC01Logic logic = new RequestC01Logic();
+    private RequestC01LogicImpl logic = new RequestC01LogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

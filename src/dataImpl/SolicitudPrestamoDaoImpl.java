@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.ISolicitudPrestamoDao;
 import entity.SolicitudPrestamo;
-import logicImpl.SolicitudPrestamoLogic;
+import logicImpl.SolicitudPrestamoLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -21,7 +21,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	public SolicitudPrestamoDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private SolicitudPrestamoLogic logic = new SolicitudPrestamoLogic();
+	private SolicitudPrestamoLogicImpl logic = new SolicitudPrestamoLogicImpl();
 	
 	//Campos
 	public static class Fields{

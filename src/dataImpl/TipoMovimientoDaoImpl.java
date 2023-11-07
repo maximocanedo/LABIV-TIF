@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.ITipoMovimientoDao;
 import entity.TipoMovimiento;
-import logicImpl.TipoMovimientoLogic;
+import logicImpl.TipoMovimientoLogicImpl;
 import max.data.*;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -36,7 +36,7 @@ public class TipoMovimientoDaoImpl implements IRecord<TipoMovimiento,String>, IT
 	}};
 	
 	private Connector dbCon = new Connector(_model.getDatabaseName());
-	private TipoMovimientoLogic tmlg = new TipoMovimientoLogic();
+	private TipoMovimientoLogicImpl tmlg = new TipoMovimientoLogicImpl();
 	
 	/* (non-Javadoc)
 	 * @see dataImpl.ITipoMovimientoDao#printTDB()

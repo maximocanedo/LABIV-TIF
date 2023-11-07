@@ -15,9 +15,9 @@ import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 
-public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,String>, ISolicitudPrestamoLogic{
+public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestamo,String>, ISolicitudPrestamoLogic{
 
-	public SolicitudPrestamoLogic() {}
+	public SolicitudPrestamoLogicImpl() {}
 	
 	private static SolicitudPrestamoDaoImpl spDao = new SolicitudPrestamoDaoImpl();
 	

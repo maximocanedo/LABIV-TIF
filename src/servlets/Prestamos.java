@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.PrestamosCliente;
-import logicImpl.PrestamosClienteLogic;
+import logicImpl.PrestamoClienteLogicImpl;
 import max.data.Response;
 
 /**
@@ -27,7 +27,7 @@ public class Prestamos extends BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    PrestamosClienteLogic logic = new PrestamosClienteLogic();
+    PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

@@ -14,11 +14,11 @@ import logic.IMovimientoLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class MovimientoLogic implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
+public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
 	
 	private static MovimientoDaoImpl daoMov = new MovimientoDaoImpl();
 	
-	public MovimientoLogic() {}
+	public MovimientoLogicImpl() {}
 	
 	/* (non-Javadoc)
 	 * @see logicImpl.IMovimientoLogic#validate(entity.Movimiento, boolean)

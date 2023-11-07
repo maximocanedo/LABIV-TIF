@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.TipoMovimiento;
-import logicImpl.TipoMovimientoLogic;
+import logicImpl.TipoMovimientoLogicImpl;
 import max.data.Response;
 
 
@@ -20,7 +20,7 @@ private static final long serialVersionUID = 1L;
 		super();
 	}
 	
-	private TipoMovimientoLogic lgtpm = new TipoMovimientoLogic();
+	private TipoMovimientoLogicImpl lgtpm = new TipoMovimientoLogicImpl();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<TipoMovimiento> lg = lgtpm.getAll();

@@ -17,7 +17,7 @@ import max.schema.SchemaProperty;
 public class ContinenteDaoImpl implements IRecord<Continente, String>, IContinenteDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private ContinenteLogic logic = new ContinenteLogic();
+	private ContinenteLogicImpl logic = new ContinenteLogicImpl();
 	public static Schema _schema = new Schema(
 			new SchemaProperty("code") {{
 				primary = true;

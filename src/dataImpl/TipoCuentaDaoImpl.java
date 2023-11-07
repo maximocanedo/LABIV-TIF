@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.ITipoCuentaDao;
 import entity.TipoCuenta;
-import logicImpl.TipoCuentaLogic;
+import logicImpl.TipoCuentaLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -19,7 +19,7 @@ import max.schema.SchemaProperty;
 public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuentaDao{
 
 	public TipoCuentaDaoImpl(){}
-	private TipoCuentaLogic tpLogic= new TipoCuentaLogic();
+	private TipoCuentaLogicImpl tpLogic= new TipoCuentaLogicImpl();
 	
 	public static final Schema tablaTP = new Schema(
 			//2 llaves porque al ser clase anonima la tengo que encerrar 

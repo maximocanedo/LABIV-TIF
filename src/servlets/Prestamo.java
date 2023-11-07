@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Cliente;
 import entity.PrestamosCliente;
 import logicImpl.AuthManager;
-import logicImpl.PrestamosClienteLogic;
+import logicImpl.PrestamoClienteLogicImpl;
 import max.data.Response;
 
 /**
@@ -28,7 +28,7 @@ public class Prestamo extends BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    PrestamosClienteLogic logic = new PrestamosClienteLogic();
+    PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

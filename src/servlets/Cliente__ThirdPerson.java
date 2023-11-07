@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import logicImpl.AuthManager;
-import logicImpl.ClienteLogic;
+import logicImpl.ClienteLogicImpl;
 import logicImpl.AuthManager.TokenData;
 import max.data.Dictionary;
 import max.data.Response;
@@ -30,7 +30,7 @@ public class Cliente__ThirdPerson extends servlets.BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private ClienteLogic CL = new ClienteLogic();
+    private ClienteLogicImpl CL = new ClienteLogicImpl();
    // private AdministradorLogic AL = new AdministradorLogic();
 
     /**

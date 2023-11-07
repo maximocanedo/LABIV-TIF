@@ -10,11 +10,11 @@ import logic.ILocalidadLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class LocalidadLogic implements IRecordLogic<Localidad, Integer>, ILocalidadLogic {
+public class LocalidadLogicImpl implements IRecordLogic<Localidad, Integer>, ILocalidadLogic {
 	
 	private static LocalidadDaoImpl data = new LocalidadDaoImpl();
 	
-	public LocalidadLogic() { }
+	public LocalidadLogicImpl() { }
 
 	/* (non-Javadoc)
 	 * @see logicImpl.ILocalidadLogic#convert(max.data.Dictionary)

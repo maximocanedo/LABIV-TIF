@@ -6,7 +6,7 @@ import java.sql.Types;
 import data.IMovimientoDao;
 import entity.Cuenta;
 import entity.Movimiento;
-import logicImpl.MovimientoLogic;
+import logicImpl.MovimientoLogicImpl;
 import max.data.*;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
@@ -66,7 +66,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	public final static IModel _model = new MySQLSchemaModel("movimientos","tif",_schema);
 	
 	private Connector dbCon = new Connector(_model.getDatabaseName());
-	private MovimientoLogic lgm = new MovimientoLogic();
+	private MovimientoLogicImpl lgm = new MovimientoLogicImpl();
 	
 	/* (non-Javadoc)
 	 * @see dataImpl.IMovimientoDao#printTDB()

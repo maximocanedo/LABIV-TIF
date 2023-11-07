@@ -6,7 +6,7 @@ import java.sql.Types;
 import data.IDetalleCuotaPrestamoDao;
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
-import logicImpl.DetalleCuotaPrestamoLogic;
+import logicImpl.DetalleCuotaPrestamoLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -57,7 +57,7 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 	}};
 	
 	private Connector dbCon = new Connector(_model.getDatabaseName());
-	private DetalleCuotaPrestamoLogic lgcp = new DetalleCuotaPrestamoLogic();
+	private DetalleCuotaPrestamoLogicImpl lgcp = new DetalleCuotaPrestamoLogicImpl();
 	
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();

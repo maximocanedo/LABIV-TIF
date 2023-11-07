@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.IDetalleCuotaDao;
 import entity.DetalleCuota;
-import logicImpl.DetalleCuotaLogic;
+import logicImpl.DetalleCuotaLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -50,7 +50,7 @@ public class DetalleCuotaDaoImpl implements IRecord<DetalleCuota, Integer>, IDet
 	public DetalleCuotaDaoImpl() {}
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private DetalleCuotaLogic logic = new DetalleCuotaLogic();
+	private DetalleCuotaLogicImpl logic = new DetalleCuotaLogicImpl();
 	
 	private static class Fields{
 		public static SchemaProperty id = new SchemaProperty("id_DTPT") {{

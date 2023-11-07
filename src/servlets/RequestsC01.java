@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import logicImpl.AuthManager;
-import logicImpl.RequestC01Logic;
+import logicImpl.RequestC01LogicImpl;
 import max.data.Response;
 
 /**
@@ -29,7 +29,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
         // TODO Auto-generated constructor stub
     }
 
-    RequestC01Logic logic = new RequestC01Logic();
+    RequestC01LogicImpl logic = new RequestC01LogicImpl();
 	/**
 	 * Método GET: Ver todas las solicitudes sin aprobar.
 	 */

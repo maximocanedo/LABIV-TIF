@@ -32,7 +32,7 @@ public class ProvinciaDaoImpl implements IRecord<Provincia, Integer>, IProvincia
 		compile();
 	}};
 	private Connector db = new Connector(_model.getDatabaseName());
-	private ProvinciaLogic logic = new ProvinciaLogic();
+	private ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
 	
 	public ProvinciaDaoImpl() {
 		// TODO Auto-generated constructor stub

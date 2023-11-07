@@ -4,24 +4,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataImpl.ContinenteDaoImpl;
-import entity.*;
-import logic.IContinenteLogic;
-import max.data.*;
+import dataImpl.PaisDaoImpl;
+import entity.Pais;
+import logic.IPaisLogic;
+import max.data.Dictionary;
+import max.data.IRecordLogic;
+import max.data.Response;
+import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class ContinenteLogic implements IRecordLogic<Continente, String>, IContinenteLogic {
+public class PaisLogicImpl implements IRecordLogic<Pais, String>, IPaisLogic {
 	
-	private static ContinenteDaoImpl data = new ContinenteDaoImpl();
-	
-	public ContinenteLogic() {}
+	private static PaisDaoImpl data = new PaisDaoImpl();
 
-	/**
-	 * Convierte un objeto Dictionary a un objeto de tipo Continente.
+	public PaisLogicImpl() { }
+
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#convert(max.data.Dictionary)
 	 */
 	@Override
-	public Continente convert(Dictionary data) {
-		Continente p = new Continente();
+	public Pais convert(Dictionary data) {
+		Pais p = new Pais();
 		if(data.$("code") != null) {
 			p.setCodigo(data.$("code"));
 		} if(data.$("name") != null) {
@@ -30,24 +33,24 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		return p;
 	}
 
-	/**
-	 * Convierte una lista de Dictionary a una lista de Continente.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#convert(java.util.List)
 	 */
 	@Override
-	public List<Continente> convert(List<Dictionary> list) {
-		List<Continente> arrP = new ArrayList<Continente>();
+	public List<Pais> convert(List<Dictionary> list) {
+		List<Pais> arrP = new ArrayList<Pais>();
 		for(Dictionary data : list) {
 			arrP.add(convert(data));
 		}
 		return arrP;
 	}
 
-	/**
-	 * Elimina un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#delete(entity.Pais)
 	 */
 	@Override
-	public Response<Continente> delete(Continente arg0){
-		Response<Continente> res = new Response<Continente>();
+	public Response<Pais> delete(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.delete(arg0);
@@ -62,51 +65,53 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		
 	}
 
-	/**
-	 * Determina si un registro existe.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#exists(java.lang.String)
 	 */
 	@Override
-	public Response<Continente> exists(String arg0) {
-		Response<Continente> res = new Response<Continente>();
+	public Response<Pais> exists(String arg0) {
+		Response<Pais> res = new Response<Pais>();
 		boolean tn = false;
 		try {
 			tn = data.exists(arg0);
+			if(tn) {
+				res.die(true, "El registro existe. ");
+			} else res.die(false, "No existe un registro con esas características. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn) {
-			res.die(true, "El registro existe. ");
-		} else res.die(false, "No existe un registro con esas características. ");
 		return res;
 	}
 
-	/**
-	 * Obtiene todos los registros de la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#getAll()
 	 */
 	@Override
-	public Response<Continente> getAll() {
-		Response<Continente> res = new Response<Continente>();
-		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
+	public Response<Pais> getAll() {
+		Response<Pais> res = new Response<Pais>();
+		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getAll();
+			if(tn.nonEmptyResult()) {
+				res.fill(tn.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		}
-		if(tn.nonEmptyResult()) {
-			res.fill(tn.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		return res;
 	}
 
-	/**
-	 * Busca un registro por su ID.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#getById(java.lang.String)
 	 */
 	@Override
-	public Response<Continente> getById(String arg0) {
-		Response<Continente> res = new Response<Continente>();
-		TransactionResponse<Continente> tn = new TransactionResponse<Continente>();
+	public Response<Pais> getById(String arg0) {
+		Response<Pais> res = new Response<Pais>();
+		TransactionResponse<Pais> tn = new TransactionResponse<Pais>();
 		try {
 			tn = data.getById(arg0);
 			if(tn.nonEmptyResult()) {
@@ -120,12 +125,12 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		return res;
 	}
 
-	/**
-	 * Inserta un registro en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#insert(entity.Pais)
 	 */
 	@Override
-	public Response<Continente> insert(Continente arg0){
-		Response<Continente> res = new Response<Continente>();
+	public Response<Pais> insert(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.insert(arg0);
@@ -139,12 +144,12 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		return res;
 	}
 
-	/**
-	 * Modifica un registro en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#modify(entity.Pais)
 	 */
 	@Override
-	public Response<Continente> modify(Continente arg0) {
-		Response<Continente> res = new Response<Continente>();
+	public Response<Pais> modify(Pais arg0) {
+		Response<Pais> res = new Response<Pais>();
 		TransactionResponse<?> tn;
 		try {
 			tn = data.modify(arg0);
@@ -158,18 +163,16 @@ public class ContinenteLogic implements IRecordLogic<Continente, String>, IConti
 		return res;
 	}
 
-	/**
-	 * Valida un objeto Continente.
-	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
-	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#validate(entity.Pais, boolean)
 	 */
 	@Override
-	public Response<Continente> validate(Continente arg0, boolean validateConstraints) {
-		Response<Continente> res = new Response<Continente>();
+	public Response<Pais> validate(Pais arg0, boolean validateConstraints) {
+		Response<Pais> res = new Response<Pais>();
 		try {
 			res.status = validateConstraints 
-					? ContinenteDaoImpl._model.validate(arg0.toDictionary()) 
-					: ContinenteDaoImpl._schema.validate(arg0.toDictionary());
+					? PaisDaoImpl._model.validate(arg0.toDictionary()) 
+					: PaisDaoImpl._schema.validate(arg0.toDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

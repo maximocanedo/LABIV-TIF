@@ -15,10 +15,10 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>, IDetalleCuotaLogic {
+public class DetalleCuotaLogicImpl implements IRecordLogic<DetalleCuota, Integer>, IDetalleCuotaLogic {
 
 	
-	public DetalleCuotaLogic() {}
+	public DetalleCuotaLogicImpl() {}
 	
 	private static DetalleCuotaDaoImpl dcDao = new DetalleCuotaDaoImpl();
 	

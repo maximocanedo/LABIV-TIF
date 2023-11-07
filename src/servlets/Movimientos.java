@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Movimiento;
-import logicImpl.MovimientoLogic;
+import logicImpl.MovimientoLogicImpl;
 import max.data.Response;
 
 @WebServlet("/api/movimientos/list")
@@ -21,7 +21,7 @@ public class Movimientos extends HttpServlet {
 		super();
 	}
 	
-	private static MovimientoLogic lgm = new MovimientoLogic();
+	private static MovimientoLogicImpl lgm = new MovimientoLogicImpl();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<Movimiento> lg = lgm.getAll();

@@ -15,7 +15,7 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
+public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
 
 	private RequestC01DaoImpl dao = new RequestC01DaoImpl();
 	
@@ -256,7 +256,7 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer>, IRequ
 		RequestC01 req = buscarId.listReturned.get(0);
 		String dni = req.getIssuer().getDNI();
 		// Generar clave nueva
-		ClienteLogic clogic = new ClienteLogic();
+		ClienteLogicImpl clogic = new ClienteLogicImpl();
 		Response<Cliente> buscarCliente = clogic.getByDNI(dni);
 		if(buscarCliente == null) {
 			res.die(false, 500, "Error desconocido");

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logicImpl.AdministradorLogic;
+import logicImpl.AdministradorLogicImpl;
 import logicImpl.AuthManager;
 import max.data.Dictionary;
 import max.data.Response;
@@ -19,7 +19,7 @@ import max.data.Response;
  */
 @WebServlet("/api/admin/login")
 public class Administrador__IniciarSesion extends BaseServlet {
-private AdministradorLogic AL = new AdministradorLogic();
+private AdministradorLogicImpl AL = new AdministradorLogicImpl();
 	
 
 	

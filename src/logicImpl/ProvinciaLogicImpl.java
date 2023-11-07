@@ -13,11 +13,11 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class ProvinciaLogic implements IRecordLogic<Provincia, Integer>, IProvinciaLogic {
+public class ProvinciaLogicImpl implements IRecordLogic<Provincia, Integer>, IProvinciaLogic {
 	
 	private static ProvinciaDaoImpl data = new ProvinciaDaoImpl();
 	
-	public ProvinciaLogic() { }
+	public ProvinciaLogicImpl() { }
 
 	/* (non-Javadoc)
 	 * @see logicImpl.IProvinciaLogic#convert(max.data.Dictionary)

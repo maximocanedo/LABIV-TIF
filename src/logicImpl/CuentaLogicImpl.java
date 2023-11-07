@@ -16,9 +16,9 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class CuentaLogic implements IRecordLogic<Cuenta,String>, ICuentaLogic {
+public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {
 
-	public CuentaLogic() {}
+	public CuentaLogicImpl() {}
 	
 	private static CuentaDaoImpl clDao= new CuentaDaoImpl();
 	

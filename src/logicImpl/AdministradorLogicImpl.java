@@ -22,7 +22,7 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 
-public class AdministradorLogic implements IRecordLogic<Administrador, String>, IAdministradorLogic {
+public class AdministradorLogicImpl implements IRecordLogic<Administrador, String>, IAdministradorLogic {
 	
 	/**
 	 * Clase de datos.
@@ -502,7 +502,7 @@ public class AdministradorLogic implements IRecordLogic<Administrador, String>, 
 	 * @param args
 	 */
 	public static void test(String[] args) {
-		AdministradorLogic logic = new AdministradorLogic();
+		AdministradorLogicImpl logic = new AdministradorLogicImpl();
 		
 		Dictionary exampleUser = Dictionary.fromArray(
 				"usuario_admin", "root",

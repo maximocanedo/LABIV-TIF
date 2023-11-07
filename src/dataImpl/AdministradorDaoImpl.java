@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.IAdministradorDao;
 import entity.Administrador;
-import logicImpl.AdministradorLogic;
+import logicImpl.AdministradorLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -19,7 +19,7 @@ import max.schema.SchemaProperty;
 public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAdministradorDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private AdministradorLogic logic = new AdministradorLogic();
+	private AdministradorLogicImpl logic = new AdministradorLogicImpl();
 	
 	// Campos
 	public static class Fields {

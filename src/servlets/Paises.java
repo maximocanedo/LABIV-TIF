@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.Pais;
-import logicImpl.PaisLogic;
+import logicImpl.PaisLogicImpl;
 import max.data.Response;
 
 /**
@@ -27,7 +27,7 @@ public class Paises extends BaseServlet {
         // TODO Auto-generated constructor stub
     }
     
-    PaisLogic logic = new PaisLogic();
+    PaisLogicImpl logic = new PaisLogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

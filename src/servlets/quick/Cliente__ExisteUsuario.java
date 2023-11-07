@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import logicImpl.ClienteLogic;
+import logicImpl.ClienteLogicImpl;
 import max.data.Response;
 
 /**
@@ -22,7 +22,7 @@ public class Cliente__ExisteUsuario extends servlets.BaseServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    private ClienteLogic AL = new ClienteLogic();
+    private ClienteLogicImpl AL = new ClienteLogicImpl();
 
     
     public String getUsername(HttpServletRequest request) {

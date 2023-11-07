@@ -13,11 +13,11 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String>, ITipoMovimientoLogic {
+public class TipoMovimientoLogicImpl implements IRecordLogic<TipoMovimiento,String>, ITipoMovimientoLogic {
 	
 	private static TipoMovimientoDaoImpl daoTPM = new TipoMovimientoDaoImpl();
 	
-	public TipoMovimientoLogic() {}
+	public TipoMovimientoLogicImpl() {}
 
 	/* (non-Javadoc)
 	 * @see logicImpl.ITipoMovimientoLogic#validate(entity.TipoMovimiento, boolean)

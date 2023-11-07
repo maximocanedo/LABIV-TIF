@@ -16,11 +16,11 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
+public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
 
 	private static DetalleCuotaPrestamoDaoImpl daoCtPrest = new DetalleCuotaPrestamoDaoImpl();
 	
-	public DetalleCuotaPrestamoLogic() {}
+	public DetalleCuotaPrestamoLogicImpl() {}
 	
 	
 	/* (non-Javadoc)

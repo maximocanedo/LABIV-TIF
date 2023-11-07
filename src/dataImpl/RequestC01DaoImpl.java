@@ -14,7 +14,7 @@ import java.sql.Types;
 
 import data.IRequestC01Dao;
 import entity.*;
-import logicImpl.RequestC01Logic;
+import logicImpl.RequestC01LogicImpl;
 
 public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequestC01Dao {
 	
@@ -208,7 +208,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	}
 	
 	private TransactionResponse<RequestC01> select(String arg0) throws SQLException {
-		RequestC01Logic logic = new RequestC01Logic();
+		RequestC01LogicImpl logic = new RequestC01LogicImpl();
 		TransactionResponse<RequestC01> res = new TransactionResponse<RequestC01>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0);
 		if(rd.nonEmptyResult()) {
@@ -217,7 +217,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 		return res;
 	}
 	private TransactionResponse<RequestC01> select(String arg0, Dictionary arg1) throws SQLException {
-		RequestC01Logic logic = new RequestC01Logic();
+		RequestC01LogicImpl logic = new RequestC01LogicImpl();
 		TransactionResponse<RequestC01> res = new TransactionResponse<RequestC01>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
 		if(rd.nonEmptyResult()) {

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import filter.ClienteFilter;
-import logicImpl.ClienteLogic;
+import logicImpl.ClienteLogicImpl;
 import max.data.Response;
 
 /**
@@ -25,7 +25,7 @@ public class Clientes extends BaseServlet implements Servlet {
     }
 
     
-    protected ClienteLogic CL = new ClienteLogic();
+    protected ClienteLogicImpl CL = new ClienteLogicImpl();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = new Administrador(); // AuthManager.getActualAdmin(request, response);

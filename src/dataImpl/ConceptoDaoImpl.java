@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.IConceptoDao;
 import entity.Concepto;
-import logicImpl.ConceptoLogic;
+import logicImpl.ConceptoLogicImpl;
 import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;
@@ -34,7 +34,7 @@ public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	}};
 	
 	private Connector dbCon = new Connector(_model.getDatabaseName());
-	private ConceptoLogic conlg = new ConceptoLogic();
+	private ConceptoLogicImpl conlg = new ConceptoLogicImpl();
 	
 	private String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();

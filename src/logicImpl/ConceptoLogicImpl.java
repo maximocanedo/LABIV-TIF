@@ -10,11 +10,11 @@ import logic.IConceptoLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class ConceptoLogic implements IRecordLogic<Concepto,String>, IConceptoLogic {
+public class ConceptoLogicImpl implements IRecordLogic<Concepto,String>, IConceptoLogic {
 	
 	private static ConceptoDaoImpl daoCon = new ConceptoDaoImpl();
 	
-	public ConceptoLogic() {}
+	public ConceptoLogicImpl() {}
 
 	@Override
 	public Response<Concepto> validate(Concepto obj, boolean validar) {

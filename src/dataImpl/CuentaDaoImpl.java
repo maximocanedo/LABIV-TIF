@@ -8,7 +8,7 @@ import data.ICuentaDao;
 import dataImpl.AdministradorDaoImpl.Fields;
 import entity.Cliente;
 import entity.Cuenta;
-import logicImpl.CuentaLogic;
+import logicImpl.CuentaLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -22,7 +22,7 @@ import max.schema.SchemaProperty;
 public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 
 	public CuentaDaoImpl(){}
-	private CuentaLogic clLogic= new CuentaLogic();
+	private CuentaLogicImpl clLogic= new CuentaLogicImpl();
 	
 	public static final Schema tablaCL = new Schema(
 			new SchemaProperty("Num_Cuenta_CxC") {{

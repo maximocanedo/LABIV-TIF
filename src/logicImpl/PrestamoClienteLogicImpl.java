@@ -15,9 +15,9 @@ import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class PrestamosClienteLogic implements IRecordLogic<PrestamosCliente, Integer>, IPrestamoClienteLogic {
+public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, Integer>, IPrestamoClienteLogic {
 
-	public PrestamosClienteLogic() {}
+	public PrestamoClienteLogicImpl() {}
 	
 	private static PrestamosClienteDaoImpl pcDao = new PrestamosClienteDaoImpl();
 	

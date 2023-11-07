@@ -5,7 +5,7 @@ import java.sql.Types;
 
 import data.IPaisDao;
 import entity.Pais;
-import logicImpl.PaisLogic;
+import logicImpl.PaisLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -59,7 +59,7 @@ public class PaisDaoImpl implements IRecord<Pais, String>, IPaisDao {
 		);
 	public static final IModel _model = new MySQLSchemaModel("countries", "tif", _schema);
 	private Connector db = new Connector(_model.getDatabaseName());
-	private PaisLogic logic = new PaisLogic();
+	private PaisLogicImpl logic = new PaisLogicImpl();
 	
 	public PaisDaoImpl() {
 		// TODO Auto-generated constructor stub

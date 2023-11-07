@@ -6,7 +6,7 @@ import java.sql.Types;
 import data.IClienteDao;
 import entity.Cliente;
 import filter.ClienteFilter;
-import logicImpl.ClienteLogic;
+import logicImpl.ClienteLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.Response;
@@ -26,7 +26,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 	}
 
 	private Connector db = new Connector(_model.getDatabaseName());
-	private ClienteLogic logic = new ClienteLogic();
+	private ClienteLogicImpl logic = new ClienteLogicImpl();
 	
 	// Campos
 	public static class Fields {

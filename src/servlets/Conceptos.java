@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entity.Concepto;
-import logicImpl.ConceptoLogic;
+import logicImpl.ConceptoLogicImpl;
 import max.data.Response;
 
 @WebServlet("/api/conceptos/list")
 public class Conceptos extends BaseServlet {
 	
-	ConceptoLogic lgCon = new ConceptoLogic();
+	ConceptoLogicImpl lgCon = new ConceptoLogicImpl();
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +23,7 @@ public class Conceptos extends BaseServlet {
 		super();
 	}
 	
-	private ConceptoLogic lgcon = new ConceptoLogic();
+	private ConceptoLogicImpl lgcon = new ConceptoLogicImpl();
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Response<Concepto> lg = new Response<>();

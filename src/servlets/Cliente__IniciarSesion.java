@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
 import logicImpl.AuthManager;
-import logicImpl.ClienteLogic;
+import logicImpl.ClienteLogicImpl;
 import max.data.Dictionary;
 import max.data.Response;
 
@@ -19,7 +19,7 @@ import max.data.Response;
 @WebServlet("/api/client/login")
 public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-	protected ClienteLogic CL = new ClienteLogic();
+	protected ClienteLogicImpl CL = new ClienteLogicImpl();
        
     public Cliente__IniciarSesion() {
         super();

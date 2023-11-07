@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
-import logicImpl.AdministradorLogic;
+import logicImpl.AdministradorLogicImpl;
 import max.data.Response;
 
 /**
@@ -22,7 +22,7 @@ public class Administrador__ExisteUsuario extends servlets.BaseServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    private AdministradorLogic AL = new AdministradorLogic();
+    private AdministradorLogicImpl AL = new AdministradorLogicImpl();
 
     
     public String getUsername(HttpServletRequest request) {

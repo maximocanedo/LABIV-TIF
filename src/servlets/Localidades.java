@@ -40,7 +40,7 @@ public class Localidades extends BaseServlet {
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 
     private IModel parameterModel = new MySQLSchemaModel("localidades", "tif", parameterSchema);
     // Acceso a métodos de lógica.
-    private ILocalidadLogic logic = new LocalidadLogic();
+    private ILocalidadLogic logic = new LocalidadLogicImpl();
     // Acceso a métodos de manejo de JSON.
     
     // Constructor

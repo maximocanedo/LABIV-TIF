@@ -24,9 +24,9 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 
-public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogic {
+public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, IClienteLogic {
 
-	public ClienteLogic() { }
+	public ClienteLogicImpl() { }
 	
 	
 	
@@ -315,7 +315,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 		
 	}
 	public static void testing(String[] args) {
-		ClienteLogic CL = new ClienteLogic();
+		ClienteLogicImpl CL = new ClienteLogicImpl();
 		Response<Cliente> g = CL.getAll();
 		
 		System.out.println(g.toFinalJSON());
@@ -635,7 +635,7 @@ public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogi
 	 * @param args
 	 */
 	public static void test(String[] args) {
-		ClienteLogic logic = new ClienteLogic();
+		ClienteLogicImpl logic = new ClienteLogicImpl();
 		Dictionary.fromArray(
 			ClienteDaoImpl.Fields.nombre.name, "Máximo",
 			ClienteDaoImpl.Fields.apellido.name, "Canedo",

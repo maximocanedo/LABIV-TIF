@@ -6,7 +6,7 @@ import java.sql.Types;
 import data.ILocalidadDao;
 import entity.Localidad;
 import entity.Provincia;
-import logicImpl.LocalidadLogic;
+import logicImpl.LocalidadLogicImpl;
 import max.data.Dictionary;
 import max.data.IRecord;
 import max.data.TransactionResponse;
@@ -42,7 +42,7 @@ public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidad
 	}};
 	
 	private Connector db = new Connector(_model.getDatabaseName());
-	private LocalidadLogic logic = new LocalidadLogic();
+	private LocalidadLogicImpl logic = new LocalidadLogicImpl();
 	
 	public LocalidadDaoImpl() {
 		// TODO Auto-generated constructor stub
