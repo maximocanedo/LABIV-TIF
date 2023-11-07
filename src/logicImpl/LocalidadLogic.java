@@ -6,17 +6,18 @@ import java.util.List;
 
 import dataImpl.LocalidadDao;
 import entity.*;
+import logic.ILocalidadLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
+public class LocalidadLogic implements IRecordLogic<Localidad, Integer>, ILocalidadLogic {
 	
 	private static LocalidadDao data = new LocalidadDao();
 	
 	public LocalidadLogic() { }
 
-	/**
-	 * Convierte un Dictionary a un objeto Localidad.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#convert(max.data.Dictionary)
 	 */
 	@Override
 	public Localidad convert(Dictionary data) {
@@ -33,8 +34,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return p;
 	}
 	
-	/**
-	 * Convierte una lista de Dictionary a una lista de localidades.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#convert(java.util.List)
 	 */
 	@Override
 	public List<Localidad> convert(List<Dictionary> list) {
@@ -45,8 +46,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return arrP;
 	}
 
-	/**
-	 * Elimina un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#delete(entity.Localidad)
 	 */
 	@Override
 	public Response<Localidad> delete(Localidad arg0) {
@@ -65,8 +66,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		
 	}
 
-	/**
-	 * Determina si un registro existe.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#exists(java.lang.Integer)
 	 */
 	@Override
 	public Response<Localidad> exists(Integer arg0) {
@@ -84,8 +85,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 
-	/**
-	 * Obtiene todos los registros de la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#getAll()
 	 */
 	@Override
 	public Response<Localidad> getAll() {
@@ -104,11 +105,10 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 	
-	/**
-	 * Obtiene todas las localidades de una provincia.
-	 * @param p Objeto Provincia con el ID de la provincia a filtrar.
-	 * @return Resultado de la operación.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#filterByProvince(entity.Provincia)
 	 */
+	@Override
 	public Response<Localidad> filterByProvince(Provincia p) {
 		Response<Localidad> res = new Response<Localidad>();
 		TransactionResponse<Localidad> tn = new TransactionResponse<Localidad>();
@@ -126,8 +126,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 	
-	/**
-	 * Busca una localidad por su ID.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#getById(java.lang.Integer)
 	 */
 	@Override
 	public Response<Localidad> getById(Integer arg0) {
@@ -146,8 +146,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 
-	/**
-	 * Inserta un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#insert(entity.Localidad)
 	 */
 	@Override
 	public Response<Localidad> insert(Localidad arg0) {
@@ -165,8 +165,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 
-	/**
-	 * Modifica un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#modify(entity.Localidad)
 	 */
 	@Override
 	public Response<Localidad> modify(Localidad arg0) {
@@ -184,10 +184,8 @@ public class LocalidadLogic implements IRecordLogic<Localidad, Integer> {
 		return res;
 	}
 
-	/**
-	 * Valida un objeto Localidad.
-	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
-	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.ILocalidadLogic#validate(entity.Localidad, boolean)
 	 */
 	@Override
 	public Response<Localidad> validate(Localidad arg0, boolean validateConstraints) {

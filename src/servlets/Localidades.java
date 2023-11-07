@@ -14,6 +14,7 @@ import max.data.Response;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 import entity.*;
+import logic.ILocalidadLogic;
 import logicImpl.*;
 /**
  * Servlet implementation class Localidades
@@ -39,7 +40,7 @@ public class Localidades extends BaseServlet {
     // No se compila el modelo porque no se pretenden guardar datos en una base de datos. 
     private IModel parameterModel = new MySQLSchemaModel("localidades", "tif", parameterSchema);
     // Acceso a métodos de lógica.
-    private LocalidadLogic logic = new LocalidadLogic();
+    private ILocalidadLogic logic = new LocalidadLogic();
     // Acceso a métodos de manejo de JSON.
     
     // Constructor
