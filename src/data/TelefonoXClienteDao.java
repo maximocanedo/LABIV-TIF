@@ -4,15 +4,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import entity.TelefonosXCliente;
 import logic.TelefonoXClienteLogic;
-import max.data.Dictionary;
-import max.data.IRecord;
-import max.data.TransactionResponse;
-import max.net.Connector;
-import max.oops.SchemaValidationException;
-import max.schema.Schema;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.SchemaProperty;
+import max.*;
+import oops.*;
 
 public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 
