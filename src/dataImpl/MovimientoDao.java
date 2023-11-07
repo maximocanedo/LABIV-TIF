@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IMovimientoDao;
 import entity.Cuenta;
 import entity.Movimiento;
 import logicImpl.MovimientoLogic;
@@ -11,7 +12,7 @@ import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 
-public class MovimientoDao implements IRecord<Movimiento,Integer> {
+public class MovimientoDao implements IRecord<Movimiento,Integer>, IMovimientoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_Mv") {{
@@ -67,11 +68,18 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 	private Connector dbCon = new Connector(_model.getDatabaseName());
 	private MovimientoLogic lgm = new MovimientoLogic();
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 			
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#insert(entity.Movimiento)
+	 */
 	@Override
 	public TransactionResponse<?> insert(Movimiento obj) throws SQLException {
 		
@@ -86,6 +94,9 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#delete(entity.Movimiento)
+	 */
 	@Override
 	public TransactionResponse<?> delete(Movimiento obj) throws SQLException {
 		
@@ -100,6 +111,9 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#modify(entity.Movimiento)
+	 */
 	@Override
 	public TransactionResponse<?> modify(Movimiento obj) throws SQLException {
 		
@@ -114,6 +128,9 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<Movimiento> getAll() throws SQLException {
 		
@@ -127,6 +144,9 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#getById(java.lang.Integer)
+	 */
 	@Override
 	public TransactionResponse<Movimiento> getById(Integer id) throws SQLException {
 		
@@ -141,12 +161,19 @@ public class MovimientoDao implements IRecord<Movimiento,Integer> {
 		return t;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#filterByAccountNumber(entity.Cuenta)
+	 */
+	@Override
 	public TransactionResponse<Movimiento> filterByAccountNumber(Cuenta c) throws SQLException{
 		
 		return select("SELECT * FROM " + printTDB() + " WHERE num_cuenta_CxC_Mv = @numC",Dictionary.fromArray("numC",c.getNum_Cuenta_CxC()));
 			
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IMovimientoDao#exists(java.lang.Integer)
+	 */
 	@Override
 	public boolean exists(Integer id) throws SQLException {
 		return _model.exists(Dictionary.fromArray("id_Mv",id));
