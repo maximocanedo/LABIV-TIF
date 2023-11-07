@@ -3,8 +3,8 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import com.mysql.jdbc.Field;
 
+import data.ICuentaDao;
 import dataImpl.AdministradorDao.Fields;
 import entity.Cliente;
 import entity.Cuenta;
@@ -19,7 +19,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class CuentaDao implements IRecord<Cuenta, String>{
+public class CuentaDao implements IRecord<Cuenta, String>, ICuentaDao {
 
 	public CuentaDao(){}
 	private CuentaLogic clLogic= new CuentaLogic();
