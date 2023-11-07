@@ -175,7 +175,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		if(row.$("FechaCreacion_CxC") != null) cuenta.setFechaCreacion_CxC(row.$("FechaCreacion_CxC"));
 		if(row.$("Cod_TPCT_CxC") != null) { cuenta.setCod_TPCT_CxC(new TipoCuenta(){{
 			this.setCod_TPCT(row.$("Cod_TPCT_CxC"));
-		}});}else System.out.println("es nulo el Cod_TPCT_CxC");
+		}});} // else //System.out.println("es nulo el Cod_TPCT_CxC");
 		if(row.$("Dni_Cl_CxC") != null) cuenta.setDni_Cl_CxC(new Cliente() {{
 			this.setDNI(row.$("Dni_Cl_CxC"));}});
 		if(row.$("Activo_CxC") != null) cuenta.setActivo_CxC(row.$("Activo_CxC"));

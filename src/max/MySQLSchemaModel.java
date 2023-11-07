@@ -48,8 +48,8 @@ public class MySQLSchemaModel implements IModel {
 	public TransactionResponse<?> modify(Dictionary newValues, Dictionary where) throws SQLException, SchemaValidationException {
 		Dictionary preparedValues = prepareForEditing(newValues);
 		QueryAndParameters q = modify__generateQuery(preparedValues, where);
-		System.out.println(q.query);
-		System.out.println(q.params);
+		//System.out.println(q.query);
+		//System.out.println(q.params);
 		return new Connector(this.databaseName).transact(q.query, q.params);
 	}
 
@@ -226,7 +226,7 @@ public class MySQLSchemaModel implements IModel {
 				//throw new SchemaValidationException(key, "Could not found a Schema that matches that key. ");
 			}
 		}
-		System.out.println("newValues MSSM: " + newValues.toString());
+		//System.out.println("newValues MSSM: " + newValues.toString());
 		return newValues;
 	}
 	
