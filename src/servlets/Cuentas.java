@@ -11,6 +11,7 @@ import entity.Cliente;
 import entity.Cuenta;
 import logicImpl.AuthManager;
 import logicImpl.CuentaLogicImpl;
+import max.Dictionary;
 import max.Response;
 
 /**
@@ -40,8 +41,14 @@ public class Cuentas extends BaseServlet implements Servlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		Dictionary parameters = getParameters(request);
+		if(parameters == null) {
+			die(response, false, 400, "Bad request");
+			return;
+		}
+		Cuenta nuevaCuenta= CL.convert(parameters);
+		CL.insert(nuevaCuenta);
+				
 	}
 
 	@Override

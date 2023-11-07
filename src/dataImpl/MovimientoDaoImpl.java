@@ -172,7 +172,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	@Override
 	public TransactionResponse<Movimiento> filterByAccountNumber(Cuenta c) throws SQLException{
 		
-		return select("SELECT * FROM " + printTDB() + " WHERE num_cuenta_CxC_Mv = @numC",Dictionary.fromArray("numC",c.getNum_Cuenta_CxC()));
+		return select("SELECT * FROM " + printTDB() + " WHERE num_cuenta_CxC_Mv = @numC",Dictionary.fromArray("numC",c.getNumero()));
 			
 	}
 

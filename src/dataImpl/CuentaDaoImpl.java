@@ -154,6 +154,12 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return _model.exists(Dictionary.fromArray("Num_Cuenta_CxC",Num_Cuenta_CxC));
 	}
 
+	
+	public boolean existsCBU(String CBU){
+		return _model.exists(Dictionary.fromArray("CBU_CxC", CBU));
+	}
+	
+	
 	public TransactionResponse<Cuenta> getAllFor(Cliente obj) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
 			"SELECT * FROM " + printTDB() + " WHERE Dni_Cl_CxC = @dni ",
