@@ -8,13 +8,13 @@ import entity.Concepto;
 import logicImpl.ConceptoLogicImpl;
 import max.Connector;
 import max.Dictionary;
+import max.IModel;
 import max.IRecord;
+import max.MySQLSchemaModel;
+import max.Schema;
+import max.SchemaProperty;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
-import max.schema.MySQLSchemaModel;
-import max.schema.IModel;
 
 public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	

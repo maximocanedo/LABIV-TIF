@@ -1,11 +1,8 @@
-package max.schema;
+package max;
 
 import java.sql.SQLException;
 import java.util.Map;
 
-import max.Connector;
-import max.Dictionary;
-import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class MySQLSchemaModel implements IModel {

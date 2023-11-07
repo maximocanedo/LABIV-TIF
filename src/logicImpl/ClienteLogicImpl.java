@@ -16,13 +16,13 @@ import entity.Provincia;
 import filter.ClienteFilter;
 import logic.IClienteLogic;
 import max.Dictionary;
+import max.IModel;
 import max.IRecordLogic;
+import max.MySQLSchemaModel;
 import max.Response;
+import max.Schema;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.Schema;
 
 public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, IClienteLogic {
 

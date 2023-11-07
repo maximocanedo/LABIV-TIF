@@ -1,9 +1,8 @@
-package max.schema;
+package max;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import max.Dictionary;
 import max.oops.SchemaValidationException;
 
 @SuppressWarnings("serial")

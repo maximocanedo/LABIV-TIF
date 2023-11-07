@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import max.Dictionary;
+import max.IModel;
+import max.MySQLSchemaModel;
 import max.Response;
+import max.Schema;
+import max.SchemaProperty;
 import max.oops.SchemaValidationException;
-import max.schema.*;
 import entity.*;
 import logic.ILocalidadLogic;
 import logicImpl.*;

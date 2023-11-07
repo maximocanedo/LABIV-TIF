@@ -1,4 +1,4 @@
-package max.schema;
+package max;
 
 public class ReferenceInfo {
 	private String dbName;

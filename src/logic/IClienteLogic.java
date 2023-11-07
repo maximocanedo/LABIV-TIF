@@ -6,9 +6,9 @@ import entity.Cliente;
 import filter.ClienteFilter;
 import max.Dictionary;
 import max.Response;
+import max.Schema;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
 
 public interface IClienteLogic {
 	public Cliente convert(Dictionary data);

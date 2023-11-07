@@ -14,13 +14,13 @@ import entity.Pais;
 import entity.Provincia;
 import logic.IAdministradorLogic;
 import max.Dictionary;
+import max.IModel;
 import max.IRecordLogic;
+import max.MySQLSchemaModel;
 import max.Response;
+import max.Schema;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.Schema;
 
 public class AdministradorLogicImpl implements IRecordLogic<Administrador, String>, IAdministradorLogic {
 	

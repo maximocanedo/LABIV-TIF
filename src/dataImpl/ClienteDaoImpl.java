@@ -9,15 +9,15 @@ import filter.ClienteFilter;
 import logicImpl.ClienteLogicImpl;
 import max.Connector;
 import max.Dictionary;
+import max.IModel;
 import max.IRecord;
+import max.MySQLSchemaModel;
 import max.Response;
+import max.Schema;
+import max.SchemaProperty;
 import max.TransactionResponse;
+import max.MySQLSchemaModel.QueryAndParameters;
 import max.oops.SchemaValidationException;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.MySQLSchemaModel.QueryAndParameters;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 

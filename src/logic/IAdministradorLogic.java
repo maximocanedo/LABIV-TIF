@@ -5,9 +5,9 @@ import java.util.List;
 import entity.Administrador;
 import max.Dictionary;
 import max.Response;
+import max.Schema;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.Schema;
 
 public interface IAdministradorLogic {
 	public Administrador convert(Dictionary data);

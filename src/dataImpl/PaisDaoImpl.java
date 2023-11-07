@@ -8,13 +8,13 @@ import entity.Pais;
 import logicImpl.PaisLogicImpl;
 import max.Connector;
 import max.Dictionary;
+import max.IModel;
 import max.IRecord;
+import max.MySQLSchemaModel;
+import max.Schema;
+import max.SchemaProperty;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.IModel;
-import max.schema.MySQLSchemaModel;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 public class PaisDaoImpl implements IRecord<Pais, String>, IPaisDao {
 	public static final Schema _schema = new Schema(

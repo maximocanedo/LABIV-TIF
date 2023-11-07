@@ -3,11 +3,11 @@ package dataImpl;
 import max.Connector;
 import max.Dictionary;
 import max.IRecord;
+import max.MySQLSchemaModel;
+import max.Schema;
+import max.SchemaProperty;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.MySQLSchemaModel;
-import max.schema.Schema;
-import max.schema.SchemaProperty;
 
 import java.sql.SQLException;
 import java.sql.Types;

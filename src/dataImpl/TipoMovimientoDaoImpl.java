@@ -8,10 +8,13 @@ import entity.TipoMovimiento;
 import logicImpl.TipoMovimientoLogicImpl;
 import max.Connector;
 import max.Dictionary;
+import max.IModel;
 import max.IRecord;
+import max.MySQLSchemaModel;
+import max.Schema;
+import max.SchemaProperty;
 import max.TransactionResponse;
 import max.oops.SchemaValidationException;
-import max.schema.*;
 
 public class TipoMovimientoDaoImpl implements IRecord<TipoMovimiento,String>, ITipoMovimientoDao {
 	
