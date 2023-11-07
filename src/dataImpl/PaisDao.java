@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IPaisDao;
 import entity.Pais;
 import logicImpl.PaisLogic;
 import max.data.Dictionary;
@@ -15,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class PaisDao implements IRecord<Pais, String> {
+public class PaisDao implements IRecord<Pais, String>, IPaisDao {
 	public static final Schema _schema = new Schema(
 			new SchemaProperty("code") {{
 				required = true;
@@ -64,12 +65,16 @@ public class PaisDao implements IRecord<Pais, String> {
 		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
-	/**
-	 * No está previsto el uso de este método.
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#delete(entity.Pais)
 	 */
 	@Override
 	public TransactionResponse<?> delete(Pais obj) throws SQLException {
@@ -82,11 +87,17 @@ public class PaisDao implements IRecord<Pais, String> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#exists(java.lang.String)
+	 */
 	@Override
 	public boolean exists(String arg0) throws SQLException {
 		return _model.exists(Dictionary.fromArray("code", arg0));
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<Pais> getAll() throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -99,6 +110,9 @@ public class PaisDao implements IRecord<Pais, String> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#getById(java.lang.String)
+	 */
 	@Override
 	public TransactionResponse<Pais> getById(String id) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -112,6 +126,9 @@ public class PaisDao implements IRecord<Pais, String> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#insert(entity.Pais)
+	 */
 	@Override
 	public TransactionResponse<?> insert(Pais p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -123,6 +140,9 @@ public class PaisDao implements IRecord<Pais, String> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPaisDao#modify(entity.Pais)
+	 */
 	@Override
 	public TransactionResponse<?> modify(Pais p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
