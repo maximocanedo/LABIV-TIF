@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IAdministradorDao;
 import entity.Administrador;
 import logicImpl.AdministradorLogic;
 import max.data.Dictionary;
@@ -15,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class AdministradorDao implements IRecord<Administrador, String> {
+public class AdministradorDao implements IRecord<Administrador, String>, IAdministradorDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private AdministradorLogic logic = new AdministradorLogic();
