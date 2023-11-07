@@ -9,19 +9,23 @@ import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
 import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
+import logic.IDetalleCuotaPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrestamo,Integer> {
+public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
 
 	private static DetalleCuotaPrestamoDao daoCtPrest = new DetalleCuotaPrestamoDao();
 	
 	public DetalleCuotaPrestamoLogic() {}
 	
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#validate(entity.DetalleCuotaPrestamo, boolean)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> validate(DetalleCuotaPrestamo obj, boolean validar) {
 		
@@ -39,6 +43,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;		
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#insert(entity.DetalleCuotaPrestamo)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> insert(DetalleCuotaPrestamo obj) {
 		
@@ -59,6 +66,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;		
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#modify(entity.DetalleCuotaPrestamo)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> modify(DetalleCuotaPrestamo obj) {
 
@@ -79,6 +89,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#delete(entity.DetalleCuotaPrestamo)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> delete(DetalleCuotaPrestamo obj) {
 
@@ -99,6 +112,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#getAll()
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> getAll() {
 
@@ -119,6 +135,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#getById(java.lang.Integer)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> getById(Integer id) {
 
@@ -139,6 +158,10 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#filterByUserName(entity.Cliente)
+	 */
+	@Override
 	public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
 		
 		Response<DetalleCuotaPrestamo> lg = new Response<>();
@@ -159,6 +182,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#exists(java.lang.Integer)
+	 */
 	@Override
 	public Response<DetalleCuotaPrestamo> exists(Integer id) {
 		
@@ -180,6 +206,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public DetalleCuotaPrestamo convert(Dictionary row) {
 		
@@ -204,6 +233,9 @@ public class DetalleCuotaPrestamoLogic implements IRecordLogic<DetalleCuotaPrest
 		return obj;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IDetalleCuotaPrestamoLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<DetalleCuotaPrestamo> convert(List<Dictionary> rows) {
 		
