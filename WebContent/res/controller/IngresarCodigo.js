@@ -59,7 +59,7 @@ const getURLNextValue = () => {
 const BtnEnviar = document.querySelector("#btnEntrar");
 BtnEnviar.addEventListener("click", async (e) => {
 	const result= await fetch(
-		"http://localhost:8080/api/client/validateMail?code=" +
+		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/validateMail?code=" +
 		+code.value+
 		"btnEntrar=",
 		{
