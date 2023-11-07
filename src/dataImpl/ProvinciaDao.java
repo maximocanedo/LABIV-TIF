@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IProvinciaDao;
 import entity.Provincia;
 import logicImpl.*;
 import max.data.*;
@@ -13,7 +14,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ProvinciaDao implements IRecord<Provincia, Integer> {
+public class ProvinciaDao implements IRecord<Provincia, Integer>, IProvinciaDao {
 	
 	public static Schema _schema = new Schema(
 			new SchemaProperty("id_provincia") {{
@@ -37,12 +38,16 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
-	/**
-	 * No está previsto el uso de este método.
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#delete(entity.Provincia)
 	 */
 	@Override
 	public TransactionResponse<?> delete(Provincia obj) throws SQLException {
@@ -55,11 +60,17 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#exists(java.lang.Integer)
+	 */
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
 		return _model.exists(Dictionary.fromArray("id_provincia", arg0));
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<Provincia> getAll() throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -72,6 +83,9 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#getById(java.lang.Integer)
+	 */
 	@Override
 	public TransactionResponse<Provincia> getById(Integer id) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
@@ -85,6 +99,9 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		return fin;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#insert(entity.Provincia)
+	 */
 	@Override
 	public TransactionResponse<?> insert(Provincia p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -96,6 +113,9 @@ public class ProvinciaDao implements IRecord<Provincia, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IProvinciaDao#modify(entity.Provincia)
+	 */
 	@Override
 	public TransactionResponse<?> modify(Provincia p) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
