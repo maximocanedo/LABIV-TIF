@@ -9,13 +9,14 @@ import dataImpl.CuentaDao;
 import entity.Cliente;
 import entity.Cuenta;
 import entity.TipoCuenta;
+import logic.ICuentaLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class CuentaLogic implements IRecordLogic<Cuenta,String>{
+public class CuentaLogic implements IRecordLogic<Cuenta,String>, ICuentaLogic {
 
 	public CuentaLogic() {}
 	
