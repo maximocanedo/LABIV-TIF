@@ -3,7 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
-
+import data.IPrestamoClienteDao;
 import entity.PrestamosCliente;
 import logicImpl.PrestamosClienteLogic;
 import max.data.Dictionary;
@@ -18,7 +18,7 @@ import max.schema.SchemaProperty;
 	
 
 
-public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
+public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer>, IPrestamoClienteDao {
 
 	
 	public PrestamosClienteDao() {}
@@ -102,10 +102,17 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 		compile(true);
 	}};
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#insert(entity.PrestamosCliente)
+	 */
 	@Override
 	public TransactionResponse<?> insert(PrestamosCliente data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -117,6 +124,9 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#delete(entity.PrestamosCliente)
+	 */
 	@Override
 	public TransactionResponse<?> delete(PrestamosCliente data) throws SQLException {
 		TransactionResponse<?> res = null;
@@ -128,6 +138,9 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#modify(entity.PrestamosCliente)
+	 */
 	@Override
 	public TransactionResponse<?> modify(PrestamosCliente data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -139,6 +152,9 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<PrestamosCliente> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
@@ -162,14 +178,24 @@ public class PrestamosClienteDao implements IRecord<PrestamosCliente, Integer> {
 		return res;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#getById(java.lang.Integer)
+	 */
 	@Override
 	public TransactionResponse<PrestamosCliente> getById(Integer id) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
 	}
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#getById(java.lang.String)
+	 */
+	@Override
 	public TransactionResponse<PrestamosCliente> getById(String usuario_cl_PxC) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE usuario_cl_PxC = @usuario_cl_PxC", Dictionary.fromArray("usuario_cl_PxC",usuario_cl_PxC));
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IPrestamoClienteDao#exists(java.lang.Integer)
+	 */
 	@Override
 	public boolean exists(Integer id) throws SQLException {	
 		return _model.exists(Dictionary.fromArray("id", id));
