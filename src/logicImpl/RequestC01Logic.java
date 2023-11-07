@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.IRequestC01Dao;
 import dataImpl.ClienteDao;
 import dataImpl.RequestC01Dao;
 import entity.Cliente;
@@ -148,29 +149,29 @@ public class RequestC01Logic implements IRecordLogic<RequestC01, Integer> {
 	@Override
 	public RequestC01 convert(Dictionary row) {
 		RequestC01 req = new RequestC01();
-		if(row.containsKey(RequestC01Dao.Fields.id.name)) {
-			req.setId(row.$(RequestC01Dao.Fields.id.name));
+		if(row.containsKey(IRequestC01Dao.data.id.name)) {
+			req.setId(row.$(IRequestC01Dao.data.id.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.client.name)) {
+		if(row.containsKey(IRequestC01Dao.data.client.name)) {
 			Cliente cl = new Cliente();
-			cl.setDNI(row.$(RequestC01Dao.Fields.client.name));
+			cl.setDNI(row.$(IRequestC01Dao.data.client.name));
 			req.setIssuer(cl);
 		}
-		if(row.containsKey(RequestC01Dao.Fields.status.name)) {
-			req.setStatus(row.$(RequestC01Dao.Fields.status.name));
+		if(row.containsKey(IRequestC01Dao.data.status.name)) {
+			req.setStatus(row.$(IRequestC01Dao.data.status.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.issuedOn.name)) {
-			req.setIssuedOn(row.$(RequestC01Dao.Fields.issuedOn.name));
+		if(row.containsKey(IRequestC01Dao.data.issuedOn.name)) {
+			req.setIssuedOn(row.$(IRequestC01Dao.data.issuedOn.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.closedOn.name)) {
-			req.setClosedOn(row.$(RequestC01Dao.Fields.closedOn.name));
+		if(row.containsKey(IRequestC01Dao.data.closedOn.name)) {
+			req.setClosedOn(row.$(IRequestC01Dao.data.closedOn.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.message.name)) {
-			req.setMessage(row.$(RequestC01Dao.Fields.message.name));
+		if(row.containsKey(IRequestC01Dao.data.message.name)) {
+			req.setMessage(row.$(IRequestC01Dao.data.message.name));
 		}
-		if(row.containsKey(RequestC01Dao.Fields.newPassword.name)) {
+		if(row.containsKey(IRequestC01Dao.data.newPassword.name)) {
 			Cliente cl = new Cliente();
-			cl.setContraseña(row.$(RequestC01Dao.Fields.newPassword.name));
+			cl.setContraseña(row.$(IRequestC01Dao.data.newPassword.name));
 			req.setData(cl);
 		}
 		return req;

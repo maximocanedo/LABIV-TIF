@@ -12,10 +12,11 @@ import max.schema.SchemaProperty;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IRequestC01Dao;
 import entity.*;
 import logicImpl.RequestC01Logic;
 
-public class RequestC01Dao implements IRecord<RequestC01, Integer> {
+public class RequestC01Dao implements IRecord<RequestC01, Integer>, IRequestC01Dao {
 	
 	public static class Fields {
 		public static SchemaProperty id = new SchemaProperty("id_rc01") {{
@@ -82,11 +83,18 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 	}};
 	public static MySQLSchemaModel _issuer_model = new MySQLSchemaModel("C01Requests", "tif", _issuer);
 	public static MySQLSchemaModel _response_model = new MySQLSchemaModel("C01Requests", "tif", _response);
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	public RequestC01Dao() {}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#insert(entity.RequestC01)
+	 */
 	@Override
 	public TransactionResponse<?> insert(RequestC01 data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -99,6 +107,10 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		return res;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#issue(entity.RequestC01)
+	 */
+	@Override
 	public TransactionResponse<?> issue(RequestC01 data) throws SQLException {
 		data.setStatus(false);
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -111,6 +123,10 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		}
 		return res;
 	}
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#close(entity.RequestC01)
+	 */
+	@Override
 	public TransactionResponse<?> close(RequestC01 data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		Dictionary dict = data.toDictionary();
@@ -124,6 +140,9 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#delete(entity.RequestC01)
+	 */
 	@Override
 	public TransactionResponse<?> delete(RequestC01 data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -136,6 +155,9 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#modify(entity.RequestC01)
+	 */
 	@Override
 	public TransactionResponse<?> modify(RequestC01 data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -149,11 +171,17 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#getAll()
+	 */
 	@Override
 	public TransactionResponse<RequestC01> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#getById(java.lang.Integer)
+	 */
 	@Override
 	public TransactionResponse<RequestC01> getById(Integer id) throws SQLException {
 		return select(
@@ -162,12 +190,19 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		);
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#exists(java.lang.Integer)
+	 */
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
 		RequestC01 a = new RequestC01();
 		a.setId(arg0);
 		return _model.exists(a.toIdentifiableDictionary());
 	}
+	/* (non-Javadoc)
+	 * @see dataImpl.IRequestC01Dao#exists(max.data.Dictionary)
+	 */
+	@Override
 	public boolean exists(Dictionary d) throws SQLException {
 		return _model.exists(d);
 	}
