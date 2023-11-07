@@ -6,20 +6,21 @@ import java.util.List;
 
 import dataImpl.ProvinciaDao;
 import entity.Provincia;
+import logic.IProvinciaLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
+public class ProvinciaLogic implements IRecordLogic<Provincia, Integer>, IProvinciaLogic {
 	
 	private static ProvinciaDao data = new ProvinciaDao();
 	
 	public ProvinciaLogic() { }
 
-	/**
-	 * Convierte un Dictionary en un objeto Provincia.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#convert(max.data.Dictionary)
 	 */
 	@Override
 	public Provincia convert(Dictionary data) {
@@ -32,8 +33,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return p;
 	}
 
-	/**
-	 * Convierte una lista de Dictionary en una lista de provincias.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#convert(java.util.List)
 	 */
 	@Override
 	public List<Provincia> convert(List<Dictionary> list) {
@@ -44,8 +45,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return arrP;
 	}
 
-	/**
-	 * Elimina un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#delete(entity.Provincia)
 	 */
 	@Override
 	public Response<Provincia> delete(Provincia arg0) {
@@ -64,8 +65,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		
 	}
 
-	/**
-	 * Determina si existe un registro. 
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#exists(java.lang.Integer)
 	 */
 	@Override
 	public Response<Provincia> exists(Integer arg0) {
@@ -84,8 +85,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return res;
 	}
 
-	/**
-	 * Obtiene todos los registros en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#getAll()
 	 */
 	@Override
 	public Response<Provincia> getAll() {
@@ -104,8 +105,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return res;
 	}
 
-	/**
-	 * Busca un registro por su ID.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#getById(java.lang.Integer)
 	 */
 	@Override
 	public Response<Provincia> getById(Integer arg0) {
@@ -124,8 +125,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return res;
 	}
 
-	/**
-	 * Inserta un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#insert(entity.Provincia)
 	 */
 	@Override
 	public Response<Provincia> insert(Provincia arg0) {
@@ -143,8 +144,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return res;
 	}
 	
-	/**
-	 * Modifica un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#modify(entity.Provincia)
 	 */
 	@Override
 	public Response<Provincia> modify(Provincia arg0) {
@@ -162,10 +163,8 @@ public class ProvinciaLogic implements IRecordLogic<Provincia, Integer> {
 		return res;
 	}
 
-	/**
-	 * Valida un objeto Provincia.
-	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
-	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IProvinciaLogic#validate(entity.Provincia, boolean)
 	 */
 	@Override
 	public Response<Provincia> validate(Provincia arg0, boolean validateConstraints) {
