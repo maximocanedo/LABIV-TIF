@@ -15,7 +15,6 @@ import max.Dictionary;
 import max.IRecordLogic;
 import max.Response;
 import max.TransactionResponse;
-import max.data.*;
 import max.oops.SchemaValidationException;
 
 public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {

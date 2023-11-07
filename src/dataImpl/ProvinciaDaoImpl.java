@@ -9,7 +9,6 @@ import logicImpl.*;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
-import max.data.*;
 import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;

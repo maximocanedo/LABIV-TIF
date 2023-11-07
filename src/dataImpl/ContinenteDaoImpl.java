@@ -9,13 +9,12 @@ import logicImpl.*;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
-import max.data.*;
-import max.net.*;
 import max.oops.SchemaValidationException;
 import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
+import max.net.Connector;
 
 public class ContinenteDaoImpl implements IRecord<Continente, String>, IContinenteDao {
 	

@@ -9,10 +9,12 @@ import logicImpl.ConceptoLogicImpl;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
-import max.data.*;
-import max.net.*;
 import max.oops.SchemaValidationException;
-import max.schema.*;
+import max.schema.Schema;
+import max.schema.SchemaProperty;
+import max.schema.MySQLSchemaModel;
+import max.schema.IModel;
+import max.net.Connector;
 
 public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	
