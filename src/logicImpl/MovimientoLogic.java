@@ -10,15 +10,19 @@ import entity.Concepto;
 import entity.Cuenta;
 import entity.Movimiento;
 import entity.TipoMovimiento;
+import logic.IMovimientoLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
+public class MovimientoLogic implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
 	
 	private static MovimientoDao daoMov = new MovimientoDao();
 	
 	public MovimientoLogic() {}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#validate(entity.Movimiento, boolean)
+	 */
 	@Override
 	public Response<Movimiento> validate(Movimiento obj, boolean validar) {
 		
@@ -36,6 +40,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#insert(entity.Movimiento)
+	 */
 	@Override
 	public Response<Movimiento> insert(Movimiento obj) {
 		
@@ -56,6 +63,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#modify(entity.Movimiento)
+	 */
 	@Override
 	public Response<Movimiento> modify(Movimiento obj) {
 		
@@ -76,6 +86,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#delete(entity.Movimiento)
+	 */
 	@Override
 	public Response<Movimiento> delete(Movimiento obj) {
 		
@@ -96,6 +109,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#getAll()
+	 */
 	@Override
 	public Response<Movimiento> getAll() {
 		
@@ -116,6 +132,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#getById(java.lang.Integer)
+	 */
 	@Override
 	public Response<Movimiento> getById(Integer id) {
 		
@@ -136,6 +155,10 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#filterByAccountNumber(entity.Cuenta)
+	 */
+	@Override
 	public Response<Movimiento> filterByAccountNumber(Cuenta c){
 		
 		Response<Movimiento> lg = new Response<>();
@@ -156,6 +179,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#exists(java.lang.Integer)
+	 */
 	@Override
 	public Response<Movimiento> exists(Integer id) {
 		
@@ -177,6 +203,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return lg;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public Movimiento convert(Dictionary row) {
 		
@@ -212,6 +241,9 @@ public class MovimientoLogic implements IRecordLogic<Movimiento,Integer> {
 		return obj; 
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.IMovimientoLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<Movimiento> convert(List<Dictionary> rows) {
 		
