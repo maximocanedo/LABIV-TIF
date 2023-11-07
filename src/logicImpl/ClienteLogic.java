@@ -14,6 +14,7 @@ import entity.Localidad;
 import entity.Pais;
 import entity.Provincia;
 import filter.ClienteFilter;
+import logic.IClienteLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
@@ -23,7 +24,7 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 
-public class ClienteLogic implements IRecordLogic<Cliente, String> {
+public class ClienteLogic implements IRecordLogic<Cliente, String>, IClienteLogic {
 
 	public ClienteLogic() { }
 	
