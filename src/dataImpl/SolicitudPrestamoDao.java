@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.ISolicitudPrestamoDao;
 import entity.SolicitudPrestamo;
 import logicImpl.SolicitudPrestamoLogic;
 import max.data.Dictionary;
@@ -15,7 +16,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> {
+public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String>, ISolicitudPrestamoDao {
 
 	public SolicitudPrestamoDao() {}
 	
@@ -97,12 +98,19 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 		compile(true);
 	}};
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#printTDB()
+	 */
+	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 			
 			
 	
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#insert(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -114,6 +122,9 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#delete(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public TransactionResponse<?> delete(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = null;
@@ -125,6 +136,9 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#modify(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public TransactionResponse<?> modify(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -136,16 +150,25 @@ public class SolicitudPrestamoDao implements IRecord<SolicitudPrestamo, String> 
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#getAll()
+	 */
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#getById(java.lang.String)
+	 */
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getById(String arg0) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
 	}
 
+	/* (non-Javadoc)
+	 * @see dataImpl.ISolicitudPrestamoDao#exists(java.lang.String)
+	 */
 	@Override
 	public boolean exists(String codigo) throws SQLException {
 		
