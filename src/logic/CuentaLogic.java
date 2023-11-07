@@ -35,6 +35,26 @@ public class CuentaLogic implements IRecordLogic<Cuenta,String>{
 		return res;
 	}
 
+	
+	
+	public Response<Cuenta> verifyLimitAccount(Cuenta data){
+		Response<Cuenta> res = new Response<Cuenta>();
+		//TransactionResponse<?> tpr;
+		String user = data.getDni_Cl_CxC().getUsuario();
+		int count;
+		try {
+			count = clDao.countUserAccounts(user);
+			if(count < 3) {
+				res.die(true,201, "Cuenta creada exitosamente. ");
+			} else res.die(false, 403, "Limite de cuentas alcanzado. ");
+		} catch (SQLException e) {
+			res.die(false, 500 , "Hubo un error al intentar acceder a los registros. ");
+			e.printStackTrace();
+		}
+			
+		return res;
+	}
+	
 	@Override
 	public Response<Cuenta> insert(Cuenta data) {
 		Response<Cuenta> res = new Response<Cuenta>();
