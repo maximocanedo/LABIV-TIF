@@ -2,8 +2,8 @@ package max.schema;
 
 import java.sql.SQLException;
 
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public interface IModel {

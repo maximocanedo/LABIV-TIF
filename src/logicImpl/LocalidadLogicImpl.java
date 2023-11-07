@@ -7,6 +7,10 @@ import java.util.List;
 import dataImpl.LocalidadDaoImpl;
 import entity.*;
 import logic.ILocalidadLogic;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.data.*;
 import max.oops.SchemaValidationException;
 

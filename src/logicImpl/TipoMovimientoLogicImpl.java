@@ -7,10 +7,10 @@ import java.util.List;
 import dataImpl.TipoMovimientoDaoImpl;
 import entity.TipoMovimiento;
 import logic.ITipoMovimientoLogic;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class TipoMovimientoLogicImpl implements IRecordLogic<TipoMovimiento,String>, ITipoMovimientoLogic {

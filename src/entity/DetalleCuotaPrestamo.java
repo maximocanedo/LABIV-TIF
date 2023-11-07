@@ -1,7 +1,8 @@
 package entity;
 
-import max.data.Dictionary;
-import max.data.IEntity;
+import max.Dictionary;
+import max.IEntity;
+
 import java.sql.Date;
 
 import com.google.gson.JsonObject;

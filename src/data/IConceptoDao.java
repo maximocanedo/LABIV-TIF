@@ -3,7 +3,7 @@ package data;
 import java.sql.SQLException;
 
 import entity.Concepto;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface IConceptoDao {
 	public TransactionResponse<?> delete(Concepto concepto) throws SQLException;

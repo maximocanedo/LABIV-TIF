@@ -11,7 +11,7 @@ import entity.Cliente;
 import entity.PrestamosCliente;
 import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Prestamo

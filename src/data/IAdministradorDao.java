@@ -3,8 +3,8 @@ package data;
 import java.sql.SQLException;
 
 import entity.Administrador;
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 
 public interface IAdministradorDao {
 	/**

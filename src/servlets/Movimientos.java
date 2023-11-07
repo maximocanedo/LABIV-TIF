@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Movimiento;
 import logicImpl.MovimientoLogicImpl;
-import max.data.Response;
+import max.Response;
 
 @WebServlet("/api/movimientos/list")
 public class Movimientos extends HttpServlet {

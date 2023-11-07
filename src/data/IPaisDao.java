@@ -3,7 +3,7 @@ package data;
 import java.sql.SQLException;
 
 import entity.Pais;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface IPaisDao {
 

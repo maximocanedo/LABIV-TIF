@@ -3,8 +3,8 @@ package data;
 import java.sql.SQLException;
 
 import entity.RequestC01;
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 
 public interface IRequestC01Dao {
 

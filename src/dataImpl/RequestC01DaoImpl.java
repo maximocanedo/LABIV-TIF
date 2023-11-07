@@ -1,8 +1,8 @@
 package dataImpl;
 
-import max.data.Dictionary;
-import max.data.IRecord;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecord;
+import max.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.MySQLSchemaModel;

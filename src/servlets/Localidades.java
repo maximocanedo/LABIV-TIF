@@ -8,9 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 import entity.*;

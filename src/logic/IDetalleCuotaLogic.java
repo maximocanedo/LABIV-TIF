@@ -1,8 +1,8 @@
 package logic;
 
 import entity.DetalleCuota;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 public interface IDetalleCuotaLogic {
 

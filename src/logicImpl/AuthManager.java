@@ -16,8 +16,8 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Response;
+import max.TransactionResponse;
 
 public class AuthManager {
 	

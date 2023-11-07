@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Pais;
 import logicImpl.PaisLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Pais

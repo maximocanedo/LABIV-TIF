@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 import max.oops.ParameterNotExistsException;
 
 public class Connector implements IConnector {

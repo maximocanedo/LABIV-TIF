@@ -4,8 +4,8 @@ import java.util.List;
 
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 public interface IDetalleCuotaPrestamoLogic {
 

@@ -1,4 +1,4 @@
-package max.data;
+package max;
 
 public interface IAction<T> {
 	void exec(T data);

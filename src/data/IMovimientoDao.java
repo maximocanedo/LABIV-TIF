@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import entity.Cuenta;
 import entity.Movimiento;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface IMovimientoDao {
 

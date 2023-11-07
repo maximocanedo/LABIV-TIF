@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Cliente;
 import logicImpl.AuthManager;
 import logicImpl.ClienteLogicImpl;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 /**
  * Servlet implementation class Cliente__IniciarSesion

@@ -4,8 +4,8 @@ import java.util.List;
 
 import entity.Cuenta;
 import entity.Movimiento;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 public interface IMovimientoLogic {
 

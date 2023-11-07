@@ -3,7 +3,7 @@ package data;
 import java.sql.SQLException;
 
 import entity.SolicitudPrestamo;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface ISolicitudPrestamoDao {
 

@@ -3,8 +3,8 @@ package max.net;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 
 public interface IConnector {
 	

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.TipoMovimiento;
 import logicImpl.TipoMovimientoLogicImpl;
-import max.data.Response;
+import max.Response;
 
 
 @WebServlet("/api/tipomovimientos/list")

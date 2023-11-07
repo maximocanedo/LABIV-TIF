@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Concepto;
 import logicImpl.ConceptoLogicImpl;
-import max.data.Response;
+import max.Response;
 
 @WebServlet("/api/conceptos/list")
 public class Conceptos extends BaseServlet {

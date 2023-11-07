@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import logicImpl.AdministradorLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Administrador__ExisteDNI

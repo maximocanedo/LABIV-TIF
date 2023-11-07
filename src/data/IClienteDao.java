@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import entity.Cliente;
 import filter.ClienteFilter;
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.TransactionResponse;
 
 public interface IClienteDao {
 	public TransactionResponse<?> delete(Cliente cliente) throws SQLException;

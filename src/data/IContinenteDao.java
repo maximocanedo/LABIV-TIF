@@ -3,7 +3,7 @@ package data;
 import java.sql.SQLException;
 
 import entity.Continente;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface IContinenteDao {
 	public TransactionResponse<?> delete(Continente continente) throws SQLException;

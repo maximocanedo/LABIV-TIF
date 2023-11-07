@@ -2,8 +2,9 @@ package max.schema;
 
 import java.sql.SQLException;
 import java.util.Map;
-import max.data.Dictionary;
-import max.data.TransactionResponse;
+
+import max.Dictionary;
+import max.TransactionResponse;
 import max.net.Connector;
 import max.oops.SchemaValidationException;
 

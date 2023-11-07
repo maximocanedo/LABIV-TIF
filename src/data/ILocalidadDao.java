@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import entity.Localidad;
 import entity.Provincia;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface ILocalidadDao {
 

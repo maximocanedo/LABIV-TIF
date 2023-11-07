@@ -1,4 +1,4 @@
-package max.data;
+package max;
 
 import java.sql.SQLException;
 import java.util.List;

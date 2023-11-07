@@ -7,10 +7,10 @@ import java.util.List;
 import dataImpl.PaisDaoImpl;
 import entity.Pais;
 import logic.IPaisLogic;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class PaisLogicImpl implements IRecordLogic<Pais, String>, IPaisLogic {

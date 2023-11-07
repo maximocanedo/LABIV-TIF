@@ -1,4 +1,4 @@
-package max.data;
+package max;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

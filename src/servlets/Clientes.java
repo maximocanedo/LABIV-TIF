@@ -11,7 +11,7 @@ import entity.Administrador;
 import entity.Cliente;
 import filter.ClienteFilter;
 import logicImpl.ClienteLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Clientes

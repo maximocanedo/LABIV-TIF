@@ -4,9 +4,9 @@ import java.util.List;
 
 import entity.Cliente;
 import entity.RequestC01;
-import max.data.Dictionary;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.Response;
+import max.TransactionResponse;
 
 public interface IRequestC01Logic {
 

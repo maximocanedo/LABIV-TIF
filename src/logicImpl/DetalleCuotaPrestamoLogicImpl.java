@@ -10,10 +10,10 @@ import entity.DetalleCuotaPrestamo;
 import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
 import logic.IDetalleCuotaPrestamoLogic;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {

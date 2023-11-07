@@ -9,10 +9,10 @@ import dataImpl.RequestC01DaoImpl;
 import entity.Cliente;
 import entity.RequestC01;
 import logic.IRequestC01Logic;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {

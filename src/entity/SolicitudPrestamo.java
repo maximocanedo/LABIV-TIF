@@ -3,8 +3,8 @@ package entity;
 
 import com.google.gson.JsonObject;
 
-import max.data.Dictionary;
-import max.data.IEntity;
+import max.Dictionary;
+import max.IEntity;
 
 public class SolicitudPrestamo implements IEntity{
 

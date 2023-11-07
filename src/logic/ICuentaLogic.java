@@ -1,9 +1,8 @@
 package logic;
 
-import max.data.Response;
-
 import entity.Cliente;
 import entity.Cuenta;
+import max.Response;
 
 public interface ICuentaLogic {
 

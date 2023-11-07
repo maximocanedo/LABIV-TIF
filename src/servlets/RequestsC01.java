@@ -12,7 +12,7 @@ import entity.Administrador;
 import entity.Cliente;
 import logicImpl.AuthManager;
 import logicImpl.RequestC01LogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class RequestC01

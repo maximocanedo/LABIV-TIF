@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.PrestamosCliente;
 import logicImpl.PrestamoClienteLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Prestamos

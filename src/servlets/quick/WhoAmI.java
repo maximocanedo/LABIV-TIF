@@ -12,7 +12,7 @@ import entity.Cliente;
 import logicImpl.AuthManager;
 import logicImpl.ClienteLogicImpl;
 import logicImpl.AuthManager.TokenData;
-import max.data.Response;
+import max.Response;
 import servlets.BaseServlet;
 
 /**

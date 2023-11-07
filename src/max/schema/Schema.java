@@ -3,7 +3,7 @@ package max.schema;
 import java.util.HashMap;
 import java.util.Map;
 
-import max.data.Dictionary;
+import max.Dictionary;
 import max.oops.SchemaValidationException;
 
 @SuppressWarnings("serial")

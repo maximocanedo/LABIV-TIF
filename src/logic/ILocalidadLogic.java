@@ -4,8 +4,8 @@ import java.util.List;
 
 import entity.Localidad;
 import entity.Provincia;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 public interface ILocalidadLogic {
 

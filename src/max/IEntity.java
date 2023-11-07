@@ -1,4 +1,4 @@
-package max.data;
+package max;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

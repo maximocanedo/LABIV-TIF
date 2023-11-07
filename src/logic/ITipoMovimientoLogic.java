@@ -3,8 +3,8 @@ package logic;
 import java.util.List;
 
 import entity.TipoMovimiento;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 public interface ITipoMovimientoLogic {
 

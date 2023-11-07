@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
 import logicImpl.ClienteLogicImpl;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class Cliente__ExisteDNI

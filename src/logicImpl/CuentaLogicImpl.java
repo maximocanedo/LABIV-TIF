@@ -10,10 +10,10 @@ import entity.Cliente;
 import entity.Cuenta;
 import entity.TipoCuenta;
 import logic.ICuentaLogic;
-import max.data.Dictionary;
-import max.data.IRecordLogic;
-import max.data.Response;
-import max.data.TransactionResponse;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {

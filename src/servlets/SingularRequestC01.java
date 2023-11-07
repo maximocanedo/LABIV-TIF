@@ -14,7 +14,7 @@ import entity.RequestC01;
 import logicImpl.AuthManager;
 import logicImpl.RequestC01LogicImpl;
 import logicImpl.AuthManager.TokenData;
-import max.data.Response;
+import max.Response;
 
 /**
  * Servlet implementation class SingularRequestC01

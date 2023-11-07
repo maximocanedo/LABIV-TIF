@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import logicImpl.AdministradorLogicImpl;
 import logicImpl.AuthManager;
-import max.data.Dictionary;
-import max.data.Response;
+import max.Dictionary;
+import max.Response;
 
 /**
  * Endpoints para realizar acciones sobre objetos de tipo Administrador

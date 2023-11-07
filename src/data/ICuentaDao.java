@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import entity.Cliente;
 import entity.Cuenta;
-import max.data.TransactionResponse;
+import max.TransactionResponse;
 
 public interface ICuentaDao {
 
