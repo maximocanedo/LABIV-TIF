@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IDetalleCuotaPrestamoDao;
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
 import logicImpl.DetalleCuotaPrestamoLogic;
@@ -16,7 +17,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Integer>{
+public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_DTPT"){{
@@ -156,5 +157,7 @@ public class DetalleCuotaPrestamoDao implements IRecord<DetalleCuotaPrestamo,Int
 		
 		return t;
 	}
+
+
 
 }
