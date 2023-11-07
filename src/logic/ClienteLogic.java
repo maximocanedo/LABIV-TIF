@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
-import data.ClienteDao;
+import dataImpl.ClienteDao;
 import entity.Cliente;
 import entity.Localidad;
 import entity.Pais;

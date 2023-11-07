@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.PrestamosClienteDao;
+import dataImpl.PrestamosClienteDao;
 import entity.Cliente;
 import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;

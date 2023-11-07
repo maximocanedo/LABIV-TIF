@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.MovimientoDao;
+import dataImpl.MovimientoDao;
 import entity.Concepto;
 import entity.Cuenta;
 import entity.Movimiento;

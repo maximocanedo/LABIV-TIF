@@ -8,9 +8,8 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import data.AdministradorDao;
-import data.ClienteDao;
+import dataImpl.AdministradorDao;
+import dataImpl.ClienteDao;
 import entity.Administrador;
 import entity.Cliente;
 import io.jsonwebtoken.Jwt;

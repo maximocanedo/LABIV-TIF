@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.ClienteDao;
-import data.RequestC01Dao;
+import dataImpl.ClienteDao;
+import dataImpl.RequestC01Dao;
 import entity.Cliente;
 import entity.RequestC01;
 import max.data.Dictionary;

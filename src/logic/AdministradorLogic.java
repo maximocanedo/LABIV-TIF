@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import data.AdministradorDao;
+import dataImpl.AdministradorDao;
 import entity.Administrador;
 import entity.Localidad;
 import entity.Pais;

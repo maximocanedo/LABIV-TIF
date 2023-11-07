@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.ConceptoDao;
+import dataImpl.ConceptoDao;
 import entity.Concepto;
 import max.data.*;
 import max.oops.SchemaValidationException;

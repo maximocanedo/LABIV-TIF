@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.SolicitudPrestamoDao;
+import dataImpl.SolicitudPrestamoDao;
 import entity.Cliente;
 import entity.SolicitudPrestamo;
 import max.data.Dictionary;

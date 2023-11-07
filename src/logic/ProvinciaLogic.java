@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.ProvinciaDao;
+import dataImpl.ProvinciaDao;
 import entity.Provincia;
 import max.data.Dictionary;
 import max.data.IRecordLogic;

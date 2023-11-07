@@ -1,11 +1,11 @@
-package data;
+package dataImpl;
 
 import java.sql.SQLException;
 import java.sql.Types;
 
 import com.mysql.jdbc.Field;
 
-import data.AdministradorDao.Fields;
+import dataImpl.AdministradorDao.Fields;
 import entity.Cliente;
 import entity.Cuenta;
 import logic.CuentaLogic;

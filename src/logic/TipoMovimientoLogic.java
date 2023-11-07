@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.TipoMovimientoDao;
+import dataImpl.TipoMovimientoDao;
 import entity.TipoMovimiento;
 import max.data.Dictionary;
 import max.data.IRecordLogic;

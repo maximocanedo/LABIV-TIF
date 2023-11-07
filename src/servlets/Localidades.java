@@ -32,7 +32,7 @@ public class Localidades extends BaseServlet {
 	    		required = true;
 	    		type = Types.INTEGER;
 	    		min = 0;
-	    		ref = data.ProvinciaDao._model.ref("id_provincia");
+	    		ref = dataImpl.ProvinciaDao._model.ref("id_provincia");
 	    	}}
 	    );
 	

@@ -1,4 +1,4 @@
-package data;
+package dataImpl;
 
 import max.data.Dictionary;
 import max.data.IRecord;
@@ -191,8 +191,5 @@ public class RequestC01Dao implements IRecord<RequestC01, Integer> {
 		return res;
 	}
 	
-	public static void main(String[] args) {
-		
-	}
 
 }
