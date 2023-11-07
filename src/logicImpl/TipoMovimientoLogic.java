@@ -6,18 +6,22 @@ import java.util.List;
 
 import dataImpl.TipoMovimientoDao;
 import entity.TipoMovimiento;
+import logic.ITipoMovimientoLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> {
+public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String>, ITipoMovimientoLogic {
 	
 	private static TipoMovimientoDao daoTPM = new TipoMovimientoDao();
 	
 	public TipoMovimientoLogic() {}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#validate(entity.TipoMovimiento, boolean)
+	 */
 	@Override
 	public Response<TipoMovimiento> validate(TipoMovimiento obj, boolean validar) {
 		Response<TipoMovimiento> ltpm = new Response<>();
@@ -34,6 +38,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#insert(entity.TipoMovimiento)
+	 */
 	@Override
 	public Response<TipoMovimiento> insert(TipoMovimiento obj) {
 		
@@ -55,6 +62,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#modify(entity.TipoMovimiento)
+	 */
 	@Override
 	public Response<TipoMovimiento> modify(TipoMovimiento obj) {
 		
@@ -75,6 +85,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#delete(entity.TipoMovimiento)
+	 */
 	@Override
 	public Response<TipoMovimiento> delete(TipoMovimiento obj) {
 		
@@ -95,6 +108,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#getAll()
+	 */
 	@Override
 	public Response<TipoMovimiento> getAll() {
 		Response<TipoMovimiento> ltpm = new Response<>();
@@ -114,6 +130,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#getById(java.lang.String)
+	 */
 	@Override
 	public Response<TipoMovimiento> getById(String cod_TPMV) {
 		
@@ -134,6 +153,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#exists(java.lang.String)
+	 */
 	@Override
 	public Response<TipoMovimiento> exists(String cod_TPMV) {
 		
@@ -155,6 +177,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return ltpm;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public TipoMovimiento convert(Dictionary row) {
 		
@@ -171,6 +196,9 @@ public class TipoMovimientoLogic implements IRecordLogic<TipoMovimiento,String> 
 		return obj;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoMovimientoLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<TipoMovimiento> convert(List<Dictionary> rows) {
 		
