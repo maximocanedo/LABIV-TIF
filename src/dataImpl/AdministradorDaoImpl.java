@@ -258,7 +258,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 		TransactionResponse<?> res = TransactionResponse.create();
 		IModel model = new MySQLSchemaModel("administradores", "tif", _editable);
 		try {
-			System.out.println(arg0.toString());
+			//System.out.println(arg0.toString());
 			res = model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block

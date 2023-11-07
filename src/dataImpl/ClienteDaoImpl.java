@@ -332,7 +332,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 			TransactionResponse<Cliente> qp = dao.search(filtros);
 			Response<Cliente> res = new Response<Cliente>();
 			res.listReturned = qp.rowsReturned;
-			System.out.println(res.toFinalJSON());
+			//System.out.println(res.toFinalJSON());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -366,7 +366,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 		TransactionResponse<?> res = TransactionResponse.create();
 		IModel model = new MySQLSchemaModel("clientes", "tif", _editable);
 		try {
-			System.out.println(arg0.toString());
+			//System.out.println(arg0.toString());
 			res = model.modify(arg0.toDictionary(), arg0.toIdentifiableDictionary());
 		} catch (SchemaValidationException e) {
 			// TODO Auto-generated catch block
