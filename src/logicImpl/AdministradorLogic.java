@@ -12,6 +12,7 @@ import entity.Administrador;
 import entity.Localidad;
 import entity.Pais;
 import entity.Provincia;
+import logic.IAdministradorLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
@@ -21,7 +22,7 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 
-public class AdministradorLogic implements IRecordLogic<Administrador, String> {
+public class AdministradorLogic implements IRecordLogic<Administrador, String>, IAdministradorLogic {
 	
 	/**
 	 * Clase de datos.
