@@ -6,20 +6,21 @@ import java.util.List;
 
 import dataImpl.PaisDao;
 import entity.Pais;
+import logic.IPaisLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class PaisLogic implements IRecordLogic<Pais, String> {
+public class PaisLogic implements IRecordLogic<Pais, String>, IPaisLogic {
 	
 	private static PaisDao data = new PaisDao();
 
 	public PaisLogic() { }
 
-	/**
-	 * Convierte un objeto Dictionary a un objeto País.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#convert(max.data.Dictionary)
 	 */
 	@Override
 	public Pais convert(Dictionary data) {
@@ -32,8 +33,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return p;
 	}
 
-	/**
-	 * Convierte una lista de Dictionary a una lista País.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#convert(java.util.List)
 	 */
 	@Override
 	public List<Pais> convert(List<Dictionary> list) {
@@ -44,8 +45,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return arrP;
 	}
 
-	/**
-	 * Elimina un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#delete(entity.Pais)
 	 */
 	@Override
 	public Response<Pais> delete(Pais arg0) {
@@ -64,8 +65,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		
 	}
 
-	/**
-	 * Determina si existe un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#exists(java.lang.String)
 	 */
 	@Override
 	public Response<Pais> exists(String arg0) {
@@ -84,8 +85,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return res;
 	}
 
-	/**
-	 * Obtiene todos los registros de la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#getAll()
 	 */
 	@Override
 	public Response<Pais> getAll() {
@@ -104,8 +105,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return res;
 	}
 
-	/**
-	 * Busca un registro por su ID.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#getById(java.lang.String)
 	 */
 	@Override
 	public Response<Pais> getById(String arg0) {
@@ -124,8 +125,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return res;
 	}
 
-	/**
-	 * Inserta un registro.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#insert(entity.Pais)
 	 */
 	@Override
 	public Response<Pais> insert(Pais arg0) {
@@ -143,8 +144,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return res;
 	}
 
-	/**
-	 * Modifica un registro. 
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#modify(entity.Pais)
 	 */
 	@Override
 	public Response<Pais> modify(Pais arg0) {
@@ -162,10 +163,8 @@ public class PaisLogic implements IRecordLogic<Pais, String> {
 		return res;
 	}
 
-	/**
-	 * Valida un objeto Pais.
-	 * Si "validateConstraints" es falso, se valida usando el método Schema.validate().
-	 * Si "validateConstraints" es verdadero, se valida usando el método IModel.validate(), que incluye validaciones en la base de datos.
+	/* (non-Javadoc)
+	 * @see logicImpl.IPaisLogic#validate(entity.Pais, boolean)
 	 */
 	@Override
 	public Response<Pais> validate(Pais arg0, boolean validateConstraints) {
