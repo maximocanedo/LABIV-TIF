@@ -1,10 +1,7 @@
-package max.net;
+package max;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import max.Dictionary;
-import max.TransactionResponse;
 
 public interface IConnector {
 	

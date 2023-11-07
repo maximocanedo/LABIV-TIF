@@ -6,10 +6,10 @@ import java.sql.Types;
 import data.ITipoMovimientoDao;
 import entity.TipoMovimiento;
 import logicImpl.TipoMovimientoLogicImpl;
+import max.Connector;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
-import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 

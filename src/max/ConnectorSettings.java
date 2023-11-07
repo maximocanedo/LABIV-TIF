@@ -1,4 +1,4 @@
-package max.net;
+package max;
 
 /**
  * Clase que representa la configuración de conexión a la base de datos.

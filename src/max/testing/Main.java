@@ -3,9 +3,9 @@ package max.testing;
 import java.sql.SQLException;
 import java.util.List;
 
+import max.Connector;
 import max.Dictionary;
 import max.TransactionResponse;
-import max.net.Connector;
 
 public class Main {
 	public static void main(String[] args) {

@@ -6,6 +6,7 @@ import java.sql.Types;
 import data.IContinenteDao;
 import entity.Continente;
 import logicImpl.*;
+import max.Connector;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
@@ -14,7 +15,6 @@ import max.schema.IModel;
 import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
-import max.net.Connector;
 
 public class ContinenteDaoImpl implements IRecord<Continente, String>, IContinenteDao {
 	

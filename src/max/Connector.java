@@ -1,4 +1,4 @@
-package max.net;
+package max;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import max.Dictionary;
-import max.TransactionResponse;
 import max.oops.ParameterNotExistsException;
 
 public class Connector implements IConnector {

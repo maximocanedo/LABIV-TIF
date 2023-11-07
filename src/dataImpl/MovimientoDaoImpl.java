@@ -7,10 +7,10 @@ import data.IMovimientoDao;
 import entity.Cuenta;
 import entity.Movimiento;
 import logicImpl.MovimientoLogicImpl;
+import max.Connector;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
-import max.net.Connector;
 import max.oops.SchemaValidationException;
 import max.schema.*;
 

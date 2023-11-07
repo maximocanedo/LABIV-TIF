@@ -6,6 +6,7 @@ import java.sql.Types;
 import data.IConceptoDao;
 import entity.Concepto;
 import logicImpl.ConceptoLogicImpl;
+import max.Connector;
 import max.Dictionary;
 import max.IRecord;
 import max.TransactionResponse;
@@ -14,7 +15,6 @@ import max.schema.Schema;
 import max.schema.SchemaProperty;
 import max.schema.MySQLSchemaModel;
 import max.schema.IModel;
-import max.net.Connector;
 
 public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	
