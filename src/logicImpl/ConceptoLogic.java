@@ -6,10 +6,11 @@ import java.util.List;
 
 import dataImpl.ConceptoDao;
 import entity.Concepto;
+import logic.IConceptoLogic;
 import max.data.*;
 import max.oops.SchemaValidationException;
 
-public class ConceptoLogic implements IRecordLogic<Concepto,String> {
+public class ConceptoLogic implements IRecordLogic<Concepto,String>, IConceptoLogic {
 	
 	private static ConceptoDao daoCon = new ConceptoDao();
 	

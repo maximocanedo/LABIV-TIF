@@ -3,6 +3,7 @@ package dataImpl;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import data.IContinenteDao;
 import entity.Continente;
 import logicImpl.*;
 import max.data.*;
@@ -13,7 +14,7 @@ import max.schema.MySQLSchemaModel;
 import max.schema.Schema;
 import max.schema.SchemaProperty;
 
-public class ContinenteDao implements IRecord<Continente, String> {
+public class ContinenteDao implements IRecord<Continente, String>, IContinenteDao {
 	
 	private Connector db = new Connector(_model.getDatabaseName());
 	private ContinenteLogic logic = new ContinenteLogic();
@@ -37,7 +38,7 @@ public class ContinenteDao implements IRecord<Continente, String> {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String printTDB() {
+	private String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
