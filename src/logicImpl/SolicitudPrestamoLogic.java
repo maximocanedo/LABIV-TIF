@@ -7,6 +7,7 @@ import java.util.List;
 import dataImpl.SolicitudPrestamoDao;
 import entity.Cliente;
 import entity.SolicitudPrestamo;
+import logic.ISolicitudPrestamoLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
@@ -14,12 +15,15 @@ import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
 
-public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,String>{
+public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,String>, ISolicitudPrestamoLogic{
 
 	public SolicitudPrestamoLogic() {}
 	
 	private static SolicitudPrestamoDao spDao = new SolicitudPrestamoDao();
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#validate(entity.SolicitudPrestamo, boolean)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> validate(SolicitudPrestamo data, boolean validateConstraints) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -37,11 +41,10 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	
 	
 	
-	/**
-	 * Convierte un objeto TransactionResponse con wildcard a un LogicResponse parametrizado.
-	 * @param data Objeto a convertir.
-	 * @return Objeto convertido.
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#convertWildcard(max.data.TransactionResponse)
 	 */
+	@Override
 	public Response<SolicitudPrestamo> convertWildcard(TransactionResponse<?> data) {
 		Response<SolicitudPrestamo> x = new Response<SolicitudPrestamo>();
 		x.status = data.status;
@@ -52,6 +55,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#insert(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> insert(SolicitudPrestamo arg0) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -78,6 +84,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#modify(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> modify(SolicitudPrestamo data) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -94,6 +103,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#delete(entity.SolicitudPrestamo)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> delete(SolicitudPrestamo data) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -110,6 +122,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#getAll()
+	 */
 	@Override
 	public Response<SolicitudPrestamo> getAll() {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -126,6 +141,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#getById(java.lang.String)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> getById(String id) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -142,6 +160,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#exists(java.lang.String)
+	 */
 	@Override
 	public Response<SolicitudPrestamo> exists(String id) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
@@ -158,6 +179,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public SolicitudPrestamo convert(Dictionary d) {
 		SolicitudPrestamo s = new SolicitudPrestamo();
@@ -178,6 +202,9 @@ public class SolicitudPrestamoLogic implements IRecordLogic<SolicitudPrestamo,St
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ISolicitudPrestamoLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<SolicitudPrestamo> convert(List<Dictionary> rows) {
 		List<SolicitudPrestamo> list = new ArrayList<SolicitudPrestamo>();
