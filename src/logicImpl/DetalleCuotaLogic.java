@@ -8,13 +8,14 @@ import dataImpl.DetalleCuotaDao;
 import entity.Cliente;
 import entity.DetalleCuota;
 import entity.SolicitudPrestamo;
+import logic.IDetalleCuotaLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>{
+public class DetalleCuotaLogic implements IRecordLogic<DetalleCuota, Integer>, IDetalleCuotaLogic {
 
 	
 	public DetalleCuotaLogic() {}
