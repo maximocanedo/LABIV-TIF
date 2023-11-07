@@ -6,16 +6,20 @@ import java.util.List;
 
 import dataImpl.TipoCuentaDao;
 import entity.TipoCuenta;
+import logic.ITipoCuentaLogic;
 import max.data.Dictionary;
 import max.data.IRecordLogic;
 import max.data.Response;
 import max.data.TransactionResponse;
 import max.oops.SchemaValidationException;
 
-public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
+public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>, ITipoCuentaLogic{
 
 	public TipoCuentaLogic() {}
 	TipoCuentaDao tpDao= new TipoCuentaDao();
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#validate(entity.TipoCuenta, boolean)
+	 */
 	@Override
 	public Response<TipoCuenta> validate(TipoCuenta data, boolean validatePKDuplicates) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -30,6 +34,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#insert(entity.TipoCuenta)
+	 */
 	@Override
 	public Response<TipoCuenta> insert(TipoCuenta data) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -46,6 +53,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#modify(entity.TipoCuenta)
+	 */
 	@Override
 	public Response<TipoCuenta> modify(TipoCuenta data) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -62,6 +72,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#delete(entity.TipoCuenta)
+	 */
 	@Override
 	public Response<TipoCuenta> delete(TipoCuenta data) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -78,6 +91,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#getAll()
+	 */
 	@Override
 	public Response<TipoCuenta> getAll() {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -94,6 +110,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#getById(java.lang.String)
+	 */
 	@Override
 	public Response<TipoCuenta> getById(String id) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -110,6 +129,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#exists(java.lang.String)
+	 */
 	@Override
 	public Response<TipoCuenta> exists(String id) {
 		Response<TipoCuenta> res = new Response<TipoCuenta>();
@@ -126,6 +148,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#convert(max.data.Dictionary)
+	 */
 	@Override
 	public TipoCuenta convert(Dictionary row) {
 		TipoCuenta tipo = new TipoCuenta();
@@ -137,6 +162,9 @@ public class TipoCuentaLogic implements IRecordLogic<TipoCuenta,String>{
 		return tipo;
 	}
 
+	/* (non-Javadoc)
+	 * @see logicImpl.ITipoCuentaLogic#convert(java.util.List)
+	 */
 	@Override
 	public List<TipoCuenta> convert(List<Dictionary> rows) {
 		List<TipoCuenta> list = new ArrayList<TipoCuenta>();
