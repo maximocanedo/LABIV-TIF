@@ -1,4 +1,4 @@
-package max.tools;
+package max;
 
 
 /**
