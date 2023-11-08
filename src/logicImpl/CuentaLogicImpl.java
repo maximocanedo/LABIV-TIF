@@ -33,6 +33,8 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		return _eModel.validate(d);
 	}
 	
+	// TODO: Concatenar CUIL, número de cuenta. 
+	// Otra opción. Concatenar CUIL y número de cuenta del cliente. (Si el cliente tiene dos cuentas, este es 3).
 	public String generateCBU() {
         String caracteresPermitidos = "0123456789";
         StringBuilder cbu = new StringBuilder();
@@ -55,6 +57,21 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
     }
 	
 	
+	// TODO: Acá estás recibiendo por parámetro un Dictionary "d". 
+	/**
+	 * Estamos en lógica por lo que este Dictionary son los parámetros que envía el Servlet.
+	 * Pensá. ¿Qué parámetros necesitás que te envíe el servlet? 
+	 * Por ejemplo, el DNI del cliente. 
+	 * Campos como la fecha de creación NO ES NECESARIO que los obtengas del Dictionary "d". Lo calculás en esta misma función.
+	 * Código de tipo de cuenta, DNI, son datos que no sabés de antemano y los tenés que recibir.
+	 * CBU lo generás acá (O llamando a otra función, pero en sí lo hacés dentro de CuentaLogicImpl).
+	 * Fecha de creación lo creás acá (Fecha actual). 
+	 * Número de cuenta es un String y no lo estás generando acá. Solucioná eso (Si Walter en su SQL tiene algo así como un procedimiento que genera automáticamente el número de cuenta, no lo generés acá, no es necesario.)
+	 * Toda cuenta comienza con $0.00, por lo que en Saldo de Cuenta tenés que poner simplemente eso.
+	 * En la teoría dice de los $10K iniciales, pero eso se hará una vez esté listo lo de Movimientos.
+	 * 
+	 * 
+	*/
 	public Response<Cuenta> createAccount (Dictionary d){
 		Response<Cuenta> res = new Response<Cuenta>();
 		
@@ -73,11 +90,11 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		Cuenta nuevaCuenta = convert(d);
 		if(verifyLimitAccount(nuevaCuenta) == false) {
 			Date fecha = new Date();
-			d.put("CBU_CxC", generateCBU());
-			d.put("FechaCreacion_CxC", fecha);
-			d.put("SaldoCuenta_CxC", nuevaCuenta.getSaldo() );
-			d.put("Cod_TPCT_CxC", nuevaCuenta.getTipo().getCod_TPCT());
-			d.put("Dni_Cl_CxC", nuevaCuenta.getCliente().getDNI());
+			d.put("CBU_CxC", generateCBU()); // Bien. Podés de paso sumarle un parámetro CUIL por ej.
+			d.put("FechaCreacion_CxC", fecha); // Fecha actual. 
+			d.put("SaldoCuenta_CxC", nuevaCuenta.getSaldo() ); // Reemplazar por 0
+			d.put("Cod_TPCT_CxC", nuevaCuenta.getTipo().getCod_TPCT()); //  Bien.
+			d.put("Dni_Cl_CxC", nuevaCuenta.getCliente().getDNI()); // Bien, aunque es redundante. Eliminar.
 			
 			nuevaCuenta = convert(d);
 			res = insert(nuevaCuenta);
