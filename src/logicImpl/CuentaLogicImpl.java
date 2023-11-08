@@ -132,7 +132,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		try {
 			tpr = clDao.insert(data);
 			if(tpr.rowsAffected > 0) {
-				res.die(true, 201, "El registro se insertó con éxito. ");
+				res.die(true, 201, "El registro se insertï¿½ con ï¿½xito. ");
 			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
 		} catch (SQLException e) {
 			res.die(false, 500, " Hubo un error al intentar insertar el registro. ");
@@ -148,7 +148,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		try {
 			tpr = clDao.modify(data);
 			if(tpr.rowsAffected > 0) {
-				res.die(true, 200, "El registro se modificó con éxito. ");
+				res.die(true, 200, "El registro se modificï¿½ con ï¿½xito. ");
 			} else res.die(false, 500, "Hubo un error al intentar modificar el registro. ");
 		} catch (SQLException e) {
 			res.die(false, 500, " Hubo un error al intentar modificar el registro. ");
@@ -164,7 +164,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		try {
 			tpr = clDao.delete(data);
 			if(tpr.rowsAffected > 0) {
-				res.die(true, 200, "El registro se eliminó con éxito. ");
+				res.die(true, 200, "El registro se eliminï¿½ con ï¿½xito. ");
 			} else res.die(false, 500, "Hubo un error al intentar eliminar el registro. ");
 		} catch (SQLException e) {
 			res.die(false, 500, " Hubo un error al intentar eliminar el registro. ");
@@ -228,7 +228,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 			existe = clDao.exists(id);
 			if(existe) {
 				res.die(true, "El registro existe. ");
-			} else res.die(false, "No existe un registro con esas características. ");
+			} else res.die(false, "No existe un registro con esas caracterï¿½sticas. ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
@@ -244,7 +244,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		if(row.$("FechaCreacion_CxC") != null) cuenta.setFechaCreacion(row.$("FechaCreacion_CxC"));
 		if(row.$("Cod_TPCT_CxC") != null) { cuenta.setTipo(new TipoCuenta(){{
 			this.setCod_TPCT(row.$("Cod_TPCT_CxC"));
-		}});}else System.out.println("es nulo el Cod_TPCT_CxC");
+		}});} //else System.out.println("es nulo el Cod_TPCT_CxC");
 		if(row.$("Dni_Cl_CxC") != null) cuenta.setCliente(new Cliente() {{
 			this.setDNI(row.$("Dni_Cl_CxC"));}});
 		if(row.$("Activo_CxC") != null) cuenta.setEstado(row.$("Activo_CxC"));
