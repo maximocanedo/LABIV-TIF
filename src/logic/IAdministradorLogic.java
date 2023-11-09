@@ -3,6 +3,7 @@ package logic;
 import java.util.List;
 
 import entity.Administrador;
+import entity.Paginator;
 import max.Dictionary;
 import max.Response;
 import max.Schema;
@@ -10,6 +11,11 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public interface IAdministradorLogic {
+	// Funciones que devuelven tablas.
+	public Response<Administrador> getAll();
+	public Response<Administrador> getAll(Paginator paginator);
+	public Response<Administrador> getById(String username);
+	// Otras funciones
 	public Administrador convert(Dictionary data);
 	public List<Administrador> convert(List<Dictionary> data);
 	public List<Administrador> convert(List<Dictionary> data, boolean convertPrivateFields);
@@ -20,8 +26,6 @@ public interface IAdministradorLogic {
 	public Response<Administrador> delete(Administrador admin);
 	public Response<Administrador> DNIExists(String dni);
 	public Response<Administrador> exists(String username);
-	public Response<Administrador> getAll();
-	public Response<Administrador> getById(String username);
 	public Schema getInitialSchema();
 	public Schema getSchema();
 	public Response<Administrador> insert(Administrador admin);
