@@ -3,11 +3,12 @@ package logicImpl;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.sql.Date;
 
-import dataImpl.AdministradorDaoImpl;
+
 import dataImpl.CuentaDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
@@ -22,19 +23,49 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {
-
+	
+	public static void main(String[] args) {
+		//CuentaDaoImpl test = new CuentaDaoImpl();
+		//test._model.compile();
+	
+	CuentaLogicImpl logic = new CuentaLogicImpl();
+	Cuenta dc = new Cuenta();
+	Cliente cl = new Cliente();
+	//cl.setUsuario("Maria_12144165");
+	cl.setDNI("15777888");
+	TipoCuenta tc = new TipoCuenta();
+	tc.setCod_TPCT("TC01");
+	
+	
+	dc.setNumero("CC05");
+	dc.setFechaCreacion(new Date(System.currentTimeMillis()));
+	dc.setTipo(tc);
+	dc.setCliente(cl);
+	dc.setEstado(true);
+	
+	/*logic.createAccount(Dictionary.fromArray(
+			
+			"Cod_TPCT_CxC", dc.getTipo().getCod_TPCT(),
+			"Dni_Cl_CxC", dc.getCliente().getDNI()
+			
+			));*/
+	logic.createAccount(dc);
+	}
+	
+	
 	public CuentaLogicImpl() {}
 	
 	private static CuentaDaoImpl clDao= new CuentaDaoImpl();
 	
 	
-	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
+	
+	
+	
+	/*public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
 		IModel _eModel = new MySQLSchemaModel("Cuentas", "tif", CuentaDaoImpl.tablaCL);
 		return _eModel.validate(d);
-	}
+	}*/
 	
-	// TODO: Concatenar CUIL, número de cuenta. 
-	// Otra opción. Concatenar CUIL y número de cuenta del cliente. (Si el cliente tiene dos cuentas, este es 3).
 	public String generateCBU() {
         String caracteresPermitidos = "0123456789";
         StringBuilder cbu = new StringBuilder();
@@ -55,24 +86,9 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
         
         return cbuFinal;
     }
+
 	
-	
-	// TODO: Acá estás recibiendo por parámetro un Dictionary "d". 
-	/**
-	 * Estamos en lógica por lo que este Dictionary son los parámetros que envía el Servlet.
-	 * Pensá. ¿Qué parámetros necesitás que te envíe el servlet? 
-	 * Por ejemplo, el DNI del cliente. 
-	 * Campos como la fecha de creación NO ES NECESARIO que los obtengas del Dictionary "d". Lo calculás en esta misma función.
-	 * Código de tipo de cuenta, DNI, son datos que no sabés de antemano y los tenés que recibir.
-	 * CBU lo generás acá (O llamando a otra función, pero en sí lo hacés dentro de CuentaLogicImpl).
-	 * Fecha de creación lo creás acá (Fecha actual). 
-	 * Número de cuenta es un String y no lo estás generando acá. Solucioná eso (Si Walter en su SQL tiene algo así como un procedimiento que genera automáticamente el número de cuenta, no lo generés acá, no es necesario.)
-	 * Toda cuenta comienza con $0.00, por lo que en Saldo de Cuenta tenés que poner simplemente eso.
-	 * En la teoría dice de los $10K iniciales, pero eso se hará una vez esté listo lo de Movimientos.
-	 * 
-	 * 
-	*/
-	public Response<Cuenta> createAccount (Dictionary d){
+	/*public Response<Cuenta> createAccount (Dictionary d){
 		Response<Cuenta> res = new Response<Cuenta>();
 		
 		boolean initialSchemaValidated = false;
@@ -89,18 +105,54 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		}
 		Cuenta nuevaCuenta = convert(d);
 		if(verifyLimitAccount(nuevaCuenta) == false) {
-			Date fecha = new Date();
-			d.put("CBU_CxC", generateCBU()); // Bien. Podés de paso sumarle un parámetro CUIL por ej.
-			d.put("FechaCreacion_CxC", fecha); // Fecha actual. 
-			d.put("SaldoCuenta_CxC", nuevaCuenta.getSaldo() ); // Reemplazar por 0
-			d.put("Cod_TPCT_CxC", nuevaCuenta.getTipo().getCod_TPCT()); //  Bien.
-			d.put("Dni_Cl_CxC", nuevaCuenta.getCliente().getDNI()); // Bien, aunque es redundante. Eliminar.
+			Date fecha = new Date(System.currentTimeMillis());
+			nuevaCuenta.setFechaCreacion(fecha);
+			nuevaCuenta.setSaldo(0);
 			
-			nuevaCuenta = convert(d);
 			res = insert(nuevaCuenta);
 		}
 		else {
 			res.die(false, 403 , "Limite de cuentas alcanzado. ");
+		}
+		return res;
+	}*/
+	
+	public Response<Cuenta> createAccount (Cuenta d){
+		Response<Cuenta> res = new Response<Cuenta>();
+		
+		/*boolean initialSchemaValidated = false;
+		try {
+			initialSchemaValidated = validateInitialSchema(Dictionary.fromArray(
+					"Num_Cuenta_CxC", d.getNumero(),
+					"CBU_CxC", d.getCBU(),
+					"FechaCreacion_CxC", d.getFechaCreacion(),
+					"Cod_TPCT_CxC", d.getTipo().getCod_TPCT(),
+					"Dni_Cl_CxC", d.getCliente().getDNI(),
+					"saldoCuenta_CxC",d.getSaldo(),
+					"Activo_CxC", d.getEstado()
+					));
+			if(!initialSchemaValidated) {
+				res.die(false, "Unknown error during validation. ");
+				return res;
+			}
+		} catch (SchemaValidationException e ) {
+			e.printStackTrace();
+			res.die(false,  e.getMessage());
+			return res;
+		}*/
+		//Cuenta nuevaCuenta = convert(d);
+		Cuenta nuevaCuenta = d;
+		if(verifyLimitAccount(nuevaCuenta) == false) {
+			Date fecha = new Date(System.currentTimeMillis());
+			nuevaCuenta.setCBU(generateCBU());
+			nuevaCuenta.setFechaCreacion(fecha);
+			nuevaCuenta.setSaldo(0);
+			
+			res = insert(nuevaCuenta);
+		}
+		else {
+			res.die(false, 403 , "Limite de cuentas alcanzado. ");
+			System.out.println("Limite de cuentas alcanzado. ");
 		}
 		return res;
 	}
@@ -126,10 +178,10 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	
 	public boolean verifyLimitAccount(Cuenta data){
 		
-		String user = data.getCliente().getUsuario();
+		String dni = data.getCliente().getDNI();
 		int count;
 		try {
-			count = clDao.countUserAccounts(user);
+			count = clDao.countUserAccounts(dni);
 			if(count < 3) {
 				return false;
 			} else return true;

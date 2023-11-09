@@ -18,6 +18,21 @@ import oops.SchemaValidationException;
 
 public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuentaDao{
 
+	/*public static void main(String[] args) {
+
+TipoCuentaLogicImpl logic = new TipoCuentaLogicImpl();
+TipoCuenta tc = new TipoCuenta();
+
+
+tc.setCod_TPCT("TC03");
+tc.setDescripcion_TPCT("Cuenta de prueba");
+
+
+logic.insert(tc);
+
+}*/
+
+	
 	public TipoCuentaDaoImpl(){}
 	private TipoCuentaLogicImpl tpLogic= new TipoCuentaLogicImpl();
 	

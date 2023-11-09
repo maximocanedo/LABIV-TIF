@@ -5,7 +5,7 @@ import java.sql.Types;
 
 
 import data.ICuentaDao;
-import dataImpl.AdministradorDaoImpl.Fields;
+import dataImpl.ClienteDaoImpl.Fields;
 import entity.Cliente;
 import entity.Cuenta;
 import logicImpl.CuentaLogicImpl;
@@ -20,7 +20,7 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
-
+	
 	public CuentaDaoImpl(){}
 	private CuentaLogicImpl clLogic= new CuentaLogicImpl();
 	
@@ -77,10 +77,10 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
-	public int countUserAccounts(String user) throws SQLException {
+	public int countUserAccounts(String dni) throws SQLException {
 		TransactionResponse<Dictionary> res = new Connector().fetch(
-			"SELECT COUNT(*) as counted FROM " + printTDB() + " WHERE " + Fields.usuario.name + " = @usuario",
-			Dictionary.fromArray("usuario", user)
+			"SELECT COUNT(*) as counted FROM " + printTDB() + " WHERE Dni_Cl_CxC = @Dni",
+			Dictionary.fromArray("Dni", dni)
 		);
 		if(res.nonEmptyResult()) {
 			Dictionary row = res.rowsReturned.get(0);
