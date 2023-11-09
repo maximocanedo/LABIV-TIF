@@ -314,12 +314,6 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		return res;
 		
 	}
-	public static void testing(String[] args) {
-		ClienteLogicImpl CL = new ClienteLogicImpl();
-		Response<Cliente> g = CL.getAll();
-		
-		//System.out.println(g.toFinalJSON());
-	}
 
 	/**
 	 * Devuelve un registro cuyo nombre de usuario coincida con el dado.
@@ -630,31 +624,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		return response;
 	}
 	
-	/**
-	 * Método main usado para pruebas.
-	 * @param args
-	 */
-	public static void test(String[] args) {
-		ClienteLogicImpl logic = new ClienteLogicImpl();
-		Dictionary.fromArray(
-			ClienteDaoImpl.Fields.nombre.name, "Máximo",
-			ClienteDaoImpl.Fields.apellido.name, "Canedo",
-			ClienteDaoImpl.Fields.dni.name, "45006002",
-			ClienteDaoImpl.Fields.cuil.name, "20450060025",
-			ClienteDaoImpl.Fields.sexo.name, "M",
-			ClienteDaoImpl.Fields.nacionalidad.name, "AR",
-			ClienteDaoImpl.Fields.provincia.name, 78,
-			ClienteDaoImpl.Fields.localidad.name, 78007,
-			ClienteDaoImpl.Fields.fechaNacimiento.name, "1990-01-05",
-			ClienteDaoImpl.Fields.direccion.name, "Av. Lacaze 1887",
-			ClienteDaoImpl.Fields.correo.name, "maximo.canedo@alumnos.frgp.utn.edu.ar"
-		);
-		Response<Cliente> response = logic.login("Maximo_45006002", "Ca$60#607+04%Maxim");// logic.createAccount(data);
-		
-		
-		//System.out.println(response.toFinalJSON());
-		
-	}
+
 	
 	/**
 	 * Modifica datos en un objeto Cliente.
