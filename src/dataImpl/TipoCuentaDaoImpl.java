@@ -36,7 +36,7 @@ public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuen
 				maxlength= 100;
 			}}
 	);
-	public static final IModel _model= new MySQLSchemaModel("TipoCuenta","tif",tablaTP);
+	public static final IModel _model= new MySQLSchemaModel("TipoCuenta","tif",tablaTP) {{ compile(); }};
 	private Connector db = new Connector(_model.getDatabaseName());
 	
 	/* (non-Javadoc)
