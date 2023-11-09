@@ -1,0 +1,63 @@
+
+/api/admin
+ - GET: Obtener info sobre la cuenta de administrador en sesión.
+ - POST: Crear cuenta de administrador.
+ - PUT: Modificar datos de la cuenta de administrador en sesión.
+ - DELETE: Dar de baja la cuenta de administrador en sesión.
+ - PATCH: Actualizar contraseña del administrador en sesión.
+
+/api/admin/login
+ - POST: Iniciar sesión como administrador.
+
+/api/admin/user/:userId
+ - GET: Obtener info sobre la cuenta de otro administrador.
+ - DELETE: Dar de baja la cuenta de otro administrador.
+
+/api/client
+ - POST: Crear cuenta de cliente.
+ - GET: Obtener info sobre la cuenta de cliente en sesión.
+ - PUT: Modificar datos de la cuenta de cliente en sesión.
+ - DELETE: Dar de baja la cuenta de cliente en sesión.
+
+/api/client/login
+ - POST: Iniciar sesión como cliente.
+
+/api/client/user/:userId
+ - GET: Obtener info sobre la cuenta de otro cliente (Sólo admin).
+ - PUT: Modificar datos de la cuenta de otro cliente (Sólo admin).
+ - DELETE: Dar de baja la cuenta de otro cliente (Sólo admin).
+
+/api/clients
+ - GET: Listar todos los clientes (Con posibilidad de filtrar / buscar / paginar).
+
+/api/conceptos/list
+ - GET: Listar conceptos
+
+/api/client/validateMail
+ - POST: Genera un código y lo envía por correo al correo del cliente en sesión.
+ - GET: Recibe por parámetro un código y lo valida contra el código enviado al correo.
+
+/api/locality/list/:provinceId
+ - GET: Lista todas las localidades de una provincia.
+
+/api/movimientos/list
+ - GET: Lista todos los movimientos.
+
+/api/countries/list
+ - GET: Lista todos los países.
+
+/api/provinces/list
+ - GET: Lista todas las provincias.
+
+/api/requests/C01
+ - POST: Solicitar cambio de clave para la cuenta de cliente en sesión.
+ - GET: Ver solicitudes de cambio de clave sin aprobar (Sólo admins).
+
+/api/requests/C01/:requestId
+ - GET: Obtener información sobre una solicitud de cambio de clave en específico.
+ - PUT: Aprobar una solicitud de cambio de clave (Sólo admins).
+
+/api/tipomovimientos/list
+ - GET: Listar todos los tipos de movimientos.
+
+
