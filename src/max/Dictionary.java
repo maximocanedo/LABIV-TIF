@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 
+import entity.Paginator;
 import oops.KeyIsNotAStringException;
 import oops.OddNumberOfElementsException;
 import oops.ParameterNotExistsException;
@@ -42,6 +43,13 @@ public class Dictionary extends HashMap<String, Object> {
 			throw new OddNumberOfElementsException();
 		}
 		return obj;
+	}
+	
+	public Dictionary paginate(Paginator paginator) {
+		Dictionary toReturn = this;
+		toReturn.put("size", paginator.getSize());
+		toReturn.put("offset", paginator.getPage() / paginator.getSize());
+		return toReturn;
 	}
 	
 	/**
