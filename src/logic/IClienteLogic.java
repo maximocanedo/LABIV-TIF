@@ -3,7 +3,7 @@ package logic;
 import java.util.List;
 
 import entity.Cliente;
-import filter.ClienteFilter;
+import entity.filter.ClienteFilter;
 import max.Dictionary;
 import max.Response;
 import max.Schema;

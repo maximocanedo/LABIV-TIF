@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataImpl.PaisDaoImpl;
+import entity.Continente;
 import entity.Pais;
 import logic.IPaisLogic;
 import max.Dictionary;
@@ -30,6 +31,14 @@ public class PaisLogicImpl implements IRecordLogic<Pais, String>, IPaisLogic {
 		} if(data.$("name") != null) {
 			p.setNombre(data.$("name"));
 		}
+		if(data.$("full_name") != null) p.setNombre_completo(data.$("full_name"));
+		if(data.$("iso3") != null) p.setIso3(data.$("iso3"));
+		if(data.$("full_name") != null) p.setNombre_completo(data.$("full_name"));
+		if(data.$("number") != null) p.setNumero(data.$("number"));
+		if(data.$("continent_code") != null) p.setContinente(new Continente() {{
+			setCodigo(data.$("continent_code"));
+		}});
+		
 		return p;
 	}
 

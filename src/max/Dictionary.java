@@ -48,7 +48,7 @@ public class Dictionary extends HashMap<String, Object> {
 	public Dictionary paginate(Paginator paginator) {
 		Dictionary toReturn = this;
 		toReturn.put("size", paginator.getSize());
-		toReturn.put("offset", paginator.getPage() / paginator.getSize());
+		toReturn.put("page", paginator.getPage());
 		return toReturn;
 	}
 	

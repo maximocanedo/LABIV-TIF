@@ -5,7 +5,8 @@ import java.sql.Types;
 
 import data.IClienteDao;
 import entity.Cliente;
-import filter.ClienteFilter;
+import entity.Paginator;
+import entity.filter.ClienteFilter;
 import logicImpl.ClienteLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -16,7 +17,6 @@ import max.Response;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
-import max.MySQLSchemaModel.QueryAndParameters;
 import oops.SchemaValidationException;
 
 public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
@@ -255,71 +255,15 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 	public TransactionResponse<Cliente> getAll() throws SQLException {
 		return select(getSelectTemplate());
 	}
-	public TransactionResponse<Cliente> search(ClienteFilter clf) throws SQLException {
-		QueryAndParameters qap = generateWhereFromFilter(clf);
-		return select(qap.query, qap.params);
+	public TransactionResponse<Cliente> search(ClienteFilter clf, Paginator paginator) throws SQLException {
+		return select(
+				"CALL clientes__search(@q, @provinciaId, @localidadId, @sexo, @nacionalidadId, @estado, @page, @size, NULL)",
+				clf.toDictionary().paginate(paginator)
+				);
 	}
-	
-	private QueryAndParameters generateWhereFromFilter(ClienteFilter f) {
-		StringBuilder q = new StringBuilder("");
-		Dictionary param = new Dictionary();
-		q.append("SELECT * FROM " + printTDB() + " ");
-		boolean qNotEmpty = f.q != null && f.q.length() > 0;
-		boolean pidNotEmpty = f.provinceId != null;
-		boolean lidNotEmpty = f.localtyId != null;
-		boolean sNotEmpty = f.sex != null;
-		boolean stNotEmpty = f.status != null && !f.status;
-		boolean cNotEmpty = f.countryId != null;
-		if(qNotEmpty || pidNotEmpty || lidNotEmpty || sNotEmpty || stNotEmpty || cNotEmpty) {
-			q.append("WHERE ");
-		} else q.append("     ");
-		if(qNotEmpty) {
-			String[] searchableFields = {
-					Fields.nombre.name,
-					Fields.apellido.name,
-					Fields.dni.name,
-					Fields.cuil.name,
-					Fields.direccion.name,
-					Fields.correo.name
-			};
-			q.append("( ");
-			for(String field : searchableFields) {
-				q.append(field + " LIKE @" + field + "_p OR ");
-				param.put(field + "_p", "%" + f.q + "%");
-			}
-			q.setLength(q.length() - 3);
-			q.append(" ) AND");
-		}
-		if(pidNotEmpty) {
-			q.append(" " + Fields.provincia.name + " = @provinciaId AND " );
-			param.put("provinciaId", f.provinceId);
-		}
-		if(lidNotEmpty) {
-			q.append(" " +  Fields.localidad.name + " = @localidadId AND");
-			param.put("localidadId", f.localtyId);
-		}
-		if(sNotEmpty) {
-			q.append(" " + Fields.sexo.name + " = @sexo_p AND");
-			param.put("sexo_p", f.sex);
-		}
-		if(stNotEmpty) {
-			q.append(" " + Fields.estado.name + " = @status AND");
-			param.put("status", true);
-		}
-		if(cNotEmpty) {
-			q.append(" " + Fields.nacionalidad.name + " = @nac AND");
-			param.put("nac", f.countryId);
-		}
-		q.setLength(q.length() - 4);
-		QueryAndParameters qap = new QueryAndParameters() {{
-			query = q.toString();
-			params = param;
-		}};
-		return qap;
-	}
-	
+	 
 	public static void test(String[] args) {
-		ClienteFilter filtros = new ClienteFilter() {{
+		entity.filter.ClienteFilter filtros = new ClienteFilter() {{
 			q = "don";
 			//provinceId = "6";
 			//localtyId = "660";
@@ -412,5 +356,19 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 		}
 		return res;
 	}
+
+
+	@Override
+	public TransactionResponse<Cliente> getAll(Paginator paginator) throws SQLException {
+		return search(new ClienteFilter(), paginator);
+	}
+
+
+	@Override
+	public TransactionResponse<Cliente> search(ClienteFilter filters) throws SQLException {
+		return search(filters, Paginator.DEFAULT);
+	}
+
+
 }
 

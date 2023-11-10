@@ -11,9 +11,10 @@ import java.util.Random;
 import dataImpl.ClienteDaoImpl;
 import entity.Cliente;
 import entity.Localidad;
+import entity.Paginator;
 import entity.Pais;
 import entity.Provincia;
-import filter.ClienteFilter;
+import entity.filter.ClienteFilter;
 import logic.IClienteLogic;
 import max.Dictionary;
 import max.IModel;
@@ -75,10 +76,10 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		a.setApellido(d.$("apellido"));
 		a.setSexo(d.$("sexo"));
 		if(d.$("nacionalidad") != null) {
-			String fname = "";
-			if(d.$("nombre_pais") != null) fname = d.$("nombre_pais");
-			String name = fname;
-			a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad")); setNombre(name); }});
+			Pais nacionalidad = new Pais();
+			PaisLogicImpl pli = new PaisLogicImpl();
+			nacionalidad = pli.convert(d);
+			a.setNacionalidad(nacionalidad);
 		}
 		if(d.$("fechaNacimiento") != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -95,34 +96,16 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		a.setDireccion(d.$("direccion"));
 		if(d.$("localidad") != null) {
-			Number loc = (d.$("localidad"));
-			int locc = -1;
-			try {
-				Double loc2 = Double.parseDouble(loc + "");
-				locc = (int) Math.round(loc2);
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
-			int locId = locc;
-			String name = "";
-			if(d.$("nombre_loc") != null) name = d.$("nombre_loc");
-			String fname  = name;
-			a.setLocalidad(new Localidad() {{ setId(locId); setNombre(fname); }});
+			Localidad locty = new Localidad();
+			LocalidadLogicImpl lli = new LocalidadLogicImpl();
+			locty = lli.convert(d);
+			a.setLocalidad(locty);
 		}
 		if(d.$("provincia") != null) {
-			Number prov = d.$("provincia");
-			int provv = -1;
-			try {
-				Double prov2 = Double.parseDouble(prov + "");
-				provv = (int) Math.round(prov2);
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
-			int provId = provv;
-			String fname = "";
-			if(d.$("nombre_provincia") != null) fname = d.$("nombre_provincia");
-			String name = fname;
-			a.setProvincia(new Provincia() {{ setId(provId); setNombre(name); }});
+			Provincia provincia = new Provincia();
+			ProvinciaLogicImpl pli = new ProvinciaLogicImpl();
+			provincia = pli.convert(d);
+			a.setProvincia(provincia);
 		}
 		
 		if(privateData) {
@@ -307,6 +290,28 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		Response<Cliente> res = new Response<Cliente>();
 		try {
 			res = convert(data.search(filter));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+		
+	}
+	public Response<Cliente> search(ClienteFilter filter, Paginator paginator) {
+		Response<Cliente> res = new Response<Cliente>();
+		try {
+			res = convert(data.search(filter, paginator));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+		
+	}
+	public Response<Cliente> getAll(Paginator paginator) {
+		Response<Cliente> res = new Response<Cliente>();
+		try {
+			res = convert(data.getAll(paginator));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, "");
