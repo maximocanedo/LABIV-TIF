@@ -13,7 +13,7 @@ SELECT
 	INNER JOIN countries
 		ON countries.code = nacionalidad;
 
--- /*
+/*
 DROP PROCEDURE IF EXISTS cuentas__getAll;
 -- =============================================
 -- Autor: Máximo Canedo
