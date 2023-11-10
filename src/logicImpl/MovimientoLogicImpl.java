@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataImpl.MovimientoDaoImpl;
+import entity.Cliente;
 import entity.Concepto;
 import entity.Cuenta;
 import entity.Movimiento;
+import entity.Paginator;
 import entity.TipoMovimiento;
 import logic.IMovimientoLogic;
 import max.Dictionary;
@@ -117,22 +119,7 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 	 */
 	@Override
 	public Response<Movimiento> getAll() {
-		
-		Response<Movimiento> lg = new Response<>();
-		
-		try {
-				TransactionResponse<Movimiento> t = daoMov.getAll();
-				if(t.nonEmptyResult()) {
-					lg.fill(t.rowsReturned);
-				}else {
-					lg.die(false, "Error al intentar obtener todos los registros");
-				}
-		}catch(SQLException e) {
-			e.printStackTrace();
-			lg.die(false, "Error al intentar obtener todos los registros");
-		}		
-		
-		return lg;
+		return getAll(Paginator.DEFAULT);
 	}
 
 	/* (non-Javadoc)
@@ -158,29 +145,6 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		return lg;
 	}
 	
-	/* (non-Javadoc)
-	 * @see logicImpl.IMovimientoLogic#filterByAccountNumber(entity.Cuenta)
-	 */
-	@Override
-	public Response<Movimiento> filterByAccountNumber(Cuenta c){
-		
-		Response<Movimiento> lg = new Response<>();
-		
-		try {
-				TransactionResponse<Movimiento> t = daoMov.filterByAccountNumber(c);
-				if(t.nonEmptyResult()) {
-					lg.fill(t.rowsReturned);
-					lg.die(true, "Los registros por número de cuenta se han obtenido exitosamente");
-				}else {
-					lg.die(false, "Error al intentar obtener los registros por número de cuenta");
-				}
-		}catch(SQLException e) {
-			e.printStackTrace();
-			lg.die(false, "Error al intentar obtener los registros por número de cuenta");
-		}
-		
-		return lg;
-	}
 
 	/* (non-Javadoc)
 	 * @see logicImpl.IMovimientoLogic#exists(java.lang.Integer)
@@ -257,6 +221,60 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		}		
 		
 		return ls;
+	}
+
+	@Override
+	public Response<Movimiento> getAll(Paginator paginator) {
+		Response<Movimiento> lg = new Response<>();
+		try {
+			TransactionResponse<Movimiento> t = daoMov.getAll(paginator);
+			if(t.nonEmptyResult()) {
+				lg.fill(t.rowsReturned);
+			} else {
+				lg.die(false, "Error al intentar obtener todos los registros");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			lg.die(false, "Error al intentar obtener todos los registros");
+		}		
+		
+		return lg;
+	}
+
+	@Override
+	public Response<Movimiento> getAll(Cliente cliente, Paginator paginator) {
+		Response<Movimiento> lg = new Response<>();
+		try {
+			TransactionResponse<Movimiento> t = daoMov.getAll(cliente, paginator);
+			if(t.nonEmptyResult()) {
+				lg.fill(t.rowsReturned);
+			} else {
+				lg.die(false, "Error al intentar obtener todos los registros");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			lg.die(false, "Error al intentar obtener todos los registros");
+		}		
+		
+		return lg;
+	}
+
+	@Override
+	public Response<Movimiento> getAll(Cuenta cuenta, Paginator paginator) {
+		Response<Movimiento> lg = new Response<>();
+		try {
+			TransactionResponse<Movimiento> t = daoMov.getAll(cuenta, paginator);
+			if(t.nonEmptyResult()) {
+				lg.fill(t.rowsReturned);
+			} else {
+				lg.die(false, "Error al intentar obtener todos los registros");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			lg.die(false, "Error al intentar obtener todos los registros");
+		}		
+		
+		return lg;
 	}
 
 }

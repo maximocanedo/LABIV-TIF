@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import data.IMovimientoDao;
+import entity.Cliente;
 import entity.Cuenta;
 import entity.Movimiento;
+import entity.Paginator;
 import logicImpl.MovimientoLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -143,15 +145,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	 */
 	@Override
 	public TransactionResponse<Movimiento> getAll() throws SQLException {
-		
-		TransactionResponse<Dictionary> td = dbCon.fetch("SELECT * FROM " + printTDB());
-		TransactionResponse<Movimiento> t = TransactionResponse.create();
-		
-		if(td.nonEmptyResult()) {
-			t.rowsReturned = lgm.convert(td.rowsReturned);
-		}		
-		
-		return t;
+		return getAll(Paginator.DEFAULT);
 	}
 
 	/* (non-Javadoc)
@@ -171,15 +165,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 		return t;
 	}
 	
-	/* (non-Javadoc)
-	 * @see dataImpl.IMovimientoDao#filterByAccountNumber(entity.Cuenta)
-	 */
-	@Override
-	public TransactionResponse<Movimiento> filterByAccountNumber(Cuenta c) throws SQLException{
-		
-		return select("SELECT * FROM " + printTDB() + " WHERE num_cuenta_CxC_Mv = @numC",Dictionary.fromArray("numC",c.getNumero()));
-			
-	}
+
 
 	/* (non-Javadoc)
 	 * @see dataImpl.IMovimientoDao#exists(java.lang.Integer)
@@ -199,6 +185,37 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 		}
 		
 		return t;
+	}
+
+
+	@Override
+	public TransactionResponse<Movimiento> getAll(Paginator paginator) throws SQLException {
+		return select(
+			"CALL movimientos__getAll(@page, @size, NULL)",
+			new Dictionary().paginate(paginator)
+		);
+	}
+
+
+	@Override
+	public TransactionResponse<Movimiento> getAll(Cliente cliente, Paginator paginator) throws SQLException {
+		return select(
+				"CALL movimientos__getAllFromClient(@dni, @page, @size, NULL)",
+				Dictionary.fromArray(
+					"dni", cliente.getDNI()
+				).paginate(paginator)
+			);
+	}
+
+
+	@Override
+	public TransactionResponse<Movimiento> getAll(Cuenta cuenta, Paginator paginator) throws SQLException {
+		return select(
+				"CALL movimientos__getAllFromAccount(@cuenta, @page, @size, NULL)",
+				Dictionary.fromArray(
+					"cuenta", cuenta.getNumero()
+				).paginate(paginator)
+			);
 	}
 
 }
