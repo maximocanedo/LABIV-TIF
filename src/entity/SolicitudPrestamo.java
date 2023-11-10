@@ -18,7 +18,7 @@ public class SolicitudPrestamo implements IEntity{
 	private double montoPorCuota;
 	private double interes;
 	private boolean estado;
-	private String CBU_Sol;
+	private String CBU;
 	
 	public SolicitudPrestamo() {}
 	
@@ -34,7 +34,7 @@ public class SolicitudPrestamo implements IEntity{
 		obj.addProperty("montoPorCuota", montoPorCuota);
 		obj.addProperty("interes", interes);
 		obj.addProperty("estado", estado);
-		obj.addProperty("CBU_Sol", CBU_Sol);
+		obj.addProperty("CBU_Sol", CBU);
 		return obj;
 	}
 	
@@ -56,7 +56,7 @@ public class SolicitudPrestamo implements IEntity{
 				"montoPorCuota_Sol", montoPorCuota,
 				"interes_Sol", interes,
 				"estado_Sol", estado,
-				"CBU_Sol", CBU_Sol
+				"CBU_Sol", CBU
 				);
 	}
 
@@ -148,10 +148,10 @@ public class SolicitudPrestamo implements IEntity{
 		this.estado = estado;
 	}	
 	public String getCBU_Sol() {
-		return CBU_Sol;
+		return CBU;
 	}
 
 	public void setCBU_Sol(String cBU_Sol) {
-		CBU_Sol = cBU_Sol;
+		CBU = cBU_Sol;
 	}
 }

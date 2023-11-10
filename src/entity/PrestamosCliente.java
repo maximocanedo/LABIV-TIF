@@ -18,14 +18,14 @@ public class PrestamosCliente implements IEntity {
 	private double montoPorCuota;
 	private int cuotasPagadas;
 	private int cuotasRestantes;
-	private String CBU_PxC;
+	private String CBU;
 	
 	public String getCBU_PxC() {
-		return CBU_PxC;
+		return CBU;
 	}
 
 	public void setCBU_PxC(String cBU_PxC) {
-		CBU_PxC = cBU_PxC;
+		CBU = cBU_PxC;
 	}
 
 	public PrestamosCliente() {}
@@ -42,7 +42,7 @@ public class PrestamosCliente implements IEntity {
 		obj.addProperty("montoPorCuota", montoPorCuota);
 		obj.addProperty("cuotasPagadas", cuotasPagadas);
 		obj.addProperty("cuotasRestantes", cuotasRestantes);
-		obj.addProperty("CBU_PxC", CBU_PxC);
+		obj.addProperty("CBU_PxC", CBU);
 		return obj;
 	}
 	
@@ -64,7 +64,7 @@ public class PrestamosCliente implements IEntity {
 				"montoPorCuota_PxC", montoPorCuota,
 				"cuotasPagadas_PxC", cuotasPagadas,
 				"cuotasRestantes_PxC",cuotasRestantes,	
-				"CBU_PxC",CBU_PxC	
+				"CBU_PxC",CBU	
 				);
 	}
 
