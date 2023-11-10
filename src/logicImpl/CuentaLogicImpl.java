@@ -25,47 +25,34 @@ import oops.SchemaValidationException;
 public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {
 	
 	public static void main(String[] args) {
-		//CuentaDaoImpl test = new CuentaDaoImpl();
-		//test._model.compile();
-	
+
 	CuentaLogicImpl logic = new CuentaLogicImpl();
 	Cuenta dc = new Cuenta();
 	Cliente cl = new Cliente();
-	//cl.setUsuario("Maria_12144165");
 	cl.setDNI("15777888");
 	TipoCuenta tc = new TipoCuenta();
-	tc.setCod_TPCT("TC01");
+	tc.setCod_TPCT("TC02");
+
+	//CREAR NUEVA CUENTA
+	//dc.setTipo(tc);
+	//dc.setCliente(cl);
 	
+	//logic.createAccount(dc);ç
 	
-	dc.setNumero("CC05");
-	dc.setFechaCreacion(new Date(System.currentTimeMillis()));
+	//MODIFICAR CUENTA
+	dc.setNumero("1234671115");
 	dc.setTipo(tc);
 	dc.setCliente(cl);
+	dc.setSaldo(15000);
 	dc.setEstado(true);
-	
-	/*logic.createAccount(Dictionary.fromArray(
-			
-			"Cod_TPCT_CxC", dc.getTipo().getCod_TPCT(),
-			"Dni_Cl_CxC", dc.getCliente().getDNI()
-			
-			));*/
-	logic.createAccount(dc);
+	logic.modify(dc);
 	}
 	
 	
 	public CuentaLogicImpl() {}
-	
 	private static CuentaDaoImpl clDao= new CuentaDaoImpl();
 	
-	
-	
-	
-	
-	/*public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
-		IModel _eModel = new MySQLSchemaModel("Cuentas", "tif", CuentaDaoImpl.tablaCL);
-		return _eModel.validate(d);
-	}*/
-	
+	/*
 	public String generateCBU() {
         String caracteresPermitidos = "0123456789";
         StringBuilder cbu = new StringBuilder();
@@ -86,67 +73,15 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
         
         return cbuFinal;
     }
-
-	
-	/*public Response<Cuenta> createAccount (Dictionary d){
-		Response<Cuenta> res = new Response<Cuenta>();
-		
-		boolean initialSchemaValidated = false;
-		try {
-			initialSchemaValidated = validateInitialSchema(d);
-			if(!initialSchemaValidated) {
-				res.die(false, "Unknown error during validation. ");
-				return res;
-			}
-		} catch (SchemaValidationException e ) {
-			e.printStackTrace();
-			res.die(false,  e.getMessage());
-			return res;
-		}
-		Cuenta nuevaCuenta = convert(d);
-		if(verifyLimitAccount(nuevaCuenta) == false) {
-			Date fecha = new Date(System.currentTimeMillis());
-			nuevaCuenta.setFechaCreacion(fecha);
-			nuevaCuenta.setSaldo(0);
-			
-			res = insert(nuevaCuenta);
-		}
-		else {
-			res.die(false, 403 , "Limite de cuentas alcanzado. ");
-		}
-		return res;
-	}*/
+	 */
 	
 	public Response<Cuenta> createAccount (Cuenta d){
 		Response<Cuenta> res = new Response<Cuenta>();
 		
-		/*boolean initialSchemaValidated = false;
-		try {
-			initialSchemaValidated = validateInitialSchema(Dictionary.fromArray(
-					"Num_Cuenta_CxC", d.getNumero(),
-					"CBU_CxC", d.getCBU(),
-					"FechaCreacion_CxC", d.getFechaCreacion(),
-					"Cod_TPCT_CxC", d.getTipo().getCod_TPCT(),
-					"Dni_Cl_CxC", d.getCliente().getDNI(),
-					"saldoCuenta_CxC",d.getSaldo(),
-					"Activo_CxC", d.getEstado()
-					));
-			if(!initialSchemaValidated) {
-				res.die(false, "Unknown error during validation. ");
-				return res;
-			}
-		} catch (SchemaValidationException e ) {
-			e.printStackTrace();
-			res.die(false,  e.getMessage());
-			return res;
-		}*/
-		//Cuenta nuevaCuenta = convert(d);
 		Cuenta nuevaCuenta = d;
 		if(verifyLimitAccount(nuevaCuenta) == false) {
 			Date fecha = new Date(System.currentTimeMillis());
-			nuevaCuenta.setCBU(generateCBU());
 			nuevaCuenta.setFechaCreacion(fecha);
-			nuevaCuenta.setSaldo(0);
 			
 			res = insert(nuevaCuenta);
 		}
@@ -188,9 +123,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
-			
-	
+		return false;	
 	}
 	
 	@Override
