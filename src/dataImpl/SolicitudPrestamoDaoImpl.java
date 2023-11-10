@@ -74,6 +74,12 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			type = Types.BIT;
 			defaultValue= true;
 		}};
+		public static SchemaProperty CBU_Sol = new SchemaProperty("CBU_Sol") {{
+			required = true;
+			type = Types.VARCHAR;
+			maxlength = 22;
+			trim = true;
+		}};
 				
 	};
 	
@@ -87,7 +93,8 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			Fields.cuotas,
 			Fields.montoCuota,
 			Fields.interes,
-			Fields.estado
+			Fields.estado,
+			Fields.CBU_Sol
 			);
 	
 	public static final Schema _editable = new Schema(
