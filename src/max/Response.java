@@ -5,6 +5,8 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import entity.Paginator;
+
 public class Response<T> {
 	public String message = null;
 	public boolean status;
@@ -20,6 +22,8 @@ public class Response<T> {
 	public T[] arrayReturned = null;
 	
 	public List<T> listReturned = null;
+	
+	public Paginator paginator = Paginator.DEFAULT;
 	
 	public Integer http = 200;
 	

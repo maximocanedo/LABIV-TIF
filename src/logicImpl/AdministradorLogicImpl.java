@@ -10,6 +10,7 @@ import java.util.List;
 import dataImpl.AdministradorDaoImpl;
 import entity.Administrador;
 import entity.Localidad;
+import entity.Paginator;
 import entity.Pais;
 import entity.Provincia;
 import logic.IAdministradorLogic;
@@ -289,6 +290,22 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 			res = convert(data.getAll());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+		
+	}
+	
+	/**
+	 * Devuelve todos los registros de la base de datos (Paginado).
+	 */
+	@Override
+	public Response<Administrador> getAll(Paginator paginator) {
+		Response<Administrador> res = new Response<Administrador>();
+		try {
+			res = convert(data.getAll(paginator));
+		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, "");
 		}

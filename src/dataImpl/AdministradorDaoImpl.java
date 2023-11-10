@@ -5,6 +5,7 @@ import java.sql.Types;
 
 import data.IAdministradorDao;
 import entity.Administrador;
+import entity.Paginator;
 import logicImpl.AdministradorLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -232,12 +233,12 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 
 	@Override
 	public TransactionResponse<Administrador> getAll() throws SQLException {
-		return select("SELECT * FROM " + printTDB());
+		return select("CALL administradores__getAll()");
 	}
 
 	@Override
 	public TransactionResponse<Administrador> getById(String arg0) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE usuario_admin = @user", Dictionary.fromArray("user", arg0));
+		return select("CALL administradores__getByUsername(@username)", Dictionary.fromArray("username", arg0));
 	}
 
 	@Override
@@ -303,6 +304,12 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
 		return res;
+	}
+
+
+	@Override
+	public TransactionResponse<Administrador> getAll(Paginator paginator) throws SQLException {
+		return select("CALL administradores__getAll_paginated(@offset, @size)", new Dictionary().paginate(paginator));
 	}
 
 }

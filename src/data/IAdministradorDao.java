@@ -3,10 +3,21 @@ package data;
 import java.sql.SQLException;
 
 import entity.Administrador;
+import entity.Paginator;
 import max.Dictionary;
 import max.TransactionResponse;
 
 public interface IAdministradorDao {
+	// Funciones paginables:
+	/**
+	 * Obtiene todos los administradores.
+	 * @return Resultado de la operación. 
+	 * @throws SQLException Error SQL.
+	 */
+	public TransactionResponse<Administrador> getAll() throws SQLException;
+	public TransactionResponse<Administrador> getAll(Paginator paginator) throws SQLException;
+	
+	
 	/**
 	 * Elimina un administrador
 	 * @param admin Administrador a eliminar. 
@@ -28,12 +39,6 @@ public interface IAdministradorDao {
 	 * @throws SQLException Error SQL.
 	 */
 	public boolean exists(String username) throws SQLException;
-	/**
-	 * Obtiene todos los administradores.
-	 * @return Resultado de la operación. 
-	 * @throws SQLException Error SQL.
-	 */
-	public TransactionResponse<Administrador> getAll() throws SQLException;
 	/**
 	 * Busca un administrador por nombre de usuario.
 	 * @param username Nombre de usuario a buscar.
