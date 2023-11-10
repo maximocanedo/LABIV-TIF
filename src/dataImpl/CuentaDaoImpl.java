@@ -5,9 +5,9 @@ import java.sql.Types;
 
 
 import data.ICuentaDao;
-import dataImpl.ClienteDaoImpl.Fields;
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Paginator;
 import logicImpl.CuentaLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -157,15 +157,20 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	}
 
 	@Override
-	public TransactionResponse<Cuenta> getAll() throws SQLException {
+	public TransactionResponse<Cuenta> getAll(Paginator paginator) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"select * from "+ printTDB()
+			"CALL cuentas__getAll(@page, @size, NULL)",
+			new Dictionary().paginate(paginator)
 		);
 		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
 		if(rows.nonEmptyResult()) {
 			rowsTP.rowsReturned= clLogic.convert(rows.rowsReturned);
 		}
 		return rowsTP;
+	}
+	@Override
+	public TransactionResponse<Cuenta> getAll() throws SQLException {
+		return getAll(Paginator.DEFAULT);
 	}
 
 	@Override

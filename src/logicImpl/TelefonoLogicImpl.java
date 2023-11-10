@@ -1,24 +1,28 @@
-package logic;
+package logicImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import data.TelefonoXClienteDao;
-import entity.TelefonosXCliente;
-import max.*;
-import oops.*;
 
-public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, String>{
+import dataImpl.TelefonoDaoImpl;
+import logic.ITelefonoLogic;
+import entity.Telefono;
+import max.Dictionary;
+import max.IRecordLogic;
+import max.Response;
+import max.TransactionResponse;
+import oops.SchemaValidationException;
 
-	public TelefonoXClienteLogic() {}
-	TelefonoXClienteDao tpDao= new TelefonoXClienteDao();
+public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefonoLogic{
+	public TelefonoLogicImpl() {}
+	TelefonoDaoImpl tpDao= new TelefonoDaoImpl();
 	@Override
-	public Response<TelefonosXCliente> validate(TelefonosXCliente data, boolean validatePKDuplicates) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
+	public Response<Telefono> validate(Telefono data, boolean validatePKDuplicates) {
+		Response<Telefono> res = new Response<Telefono>();
 		try {
 			res.status = validatePKDuplicates 
-					? TelefonoXClienteDao._model.validate(data.toDictionary()) 
-					: TelefonoXClienteDao.tablaTP.validate(data.toDictionary());
+					? TelefonoDaoImpl._model.validate(data.toDictionary()) 
+					: TelefonoDaoImpl.tablaTP.validate(data.toDictionary());
 		} catch (SchemaValidationException e) {
 			e.printStackTrace();
 			res.die(false, e.getMessage());
@@ -27,8 +31,8 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> insert(TelefonosXCliente data) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
+	public Response<Telefono> insert(Telefono data) {
+		Response<Telefono> res = new Response<Telefono>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.insert(data);
@@ -43,8 +47,8 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> modify(TelefonosXCliente data) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
+	public Response<Telefono> modify(Telefono data) {
+		Response<Telefono> res = new Response<Telefono>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.modify(data);
@@ -59,8 +63,8 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> delete(TelefonosXCliente data) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
+	public Response<Telefono> delete(Telefono data) {
+		Response<Telefono> res = new Response<Telefono>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = tpDao.delete(data);
@@ -75,9 +79,9 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> getAll() {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
-		TransactionResponse<TelefonosXCliente> tpr = new TransactionResponse<TelefonosXCliente>();
+	public Response<Telefono> getAll() {
+		Response<Telefono> res = new Response<Telefono>();
+		TransactionResponse<Telefono> tpr = new TransactionResponse<Telefono>();
 		try {
 			tpr = tpDao.getAll();
 			if(tpr.nonEmptyResult()) {
@@ -91,9 +95,9 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> getById(String DNI) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
-		TransactionResponse<TelefonosXCliente> tpr = new TransactionResponse<TelefonosXCliente>();
+	public Response<Telefono> getById(String DNI) {
+		Response<Telefono> res = new Response<Telefono>();
+		TransactionResponse<Telefono> tpr = new TransactionResponse<Telefono>();
 		try {
 			tpr = tpDao.getById(DNI);
 			if(tpr.nonEmptyResult()) {
@@ -107,8 +111,8 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public Response<TelefonosXCliente> exists(String DNI) {
-		Response<TelefonosXCliente> res = new Response<TelefonosXCliente>();
+	public Response<Telefono> exists(String DNI) {
+		Response<Telefono> res = new Response<Telefono>();
 		boolean existe = false;
 		try {
 			existe = tpDao.exists(DNI);
@@ -123,26 +127,25 @@ public class TelefonoXClienteLogic implements IRecordLogic<TelefonosXCliente, St
 	}
 
 	@Override
-	public TelefonosXCliente convert(Dictionary row) {
-		TelefonosXCliente Telefono = new TelefonosXCliente();
+	public Telefono convert(Dictionary row) {
+		Telefono data = new Telefono();
 		if(row.$("Tel_TxC") != null) {
-			Telefono.setTelefono(row.$("Tel_TxC"));
+			data.setTelefono(row.$("Tel_TxC"));
 		} if(row.$("Dni_Cl_TxC") != null) {
-			Telefono.setDNI_Usuario(row.$("Dni_Cl_TxC"));
+			data.setDNI_Usuario(row.$("Dni_Cl_TxC"));
 		}if(row.$("Activo_TxC") != null) {
-			Telefono.setActivo(row.$("Activo_TxC"));
+			data.setActivo(row.$("Activo_TxC"));
 		}
-		return Telefono;
+		return data;
 	}
 
 	@Override
-	public List<TelefonosXCliente> convert(List<Dictionary> rows) {
-		List<TelefonosXCliente> list = new ArrayList<TelefonosXCliente>();
+	public List<Telefono> convert(List<Dictionary> rows) {
+		List<Telefono> list = new ArrayList<Telefono>();
 		for(Dictionary data : rows) {
 			list.add(convert(data));
 		}
 		return list;
 	}
 
-	
 }
