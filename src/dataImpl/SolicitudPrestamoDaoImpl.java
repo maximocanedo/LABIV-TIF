@@ -131,13 +131,21 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	}*/
 	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"CALL SP_INGRESARPEDIDOPRESTAMO (@dni , @fechaCreacion , @tipoCuenta )",
-				Dictionary.fromArray("dni",data.getCliente().getDNI() /*,
-									// "fechaCreacion" , data.getFechaCreacion(),
-									// "tipoCuenta" , data.getTipo().getCod_TPCT()*/
+				"CALL SP_INGRESARPEDIDOPRESTAMO (@usuario_cl_Sol , @fechaPedido_Sol , @montoPedido_Sol,"
+				+ " @montoAPagar_Sol,)",
+				Dictionary.fromArray("usuario_cl_Sol",data.getCliente().getUsuario(),
+									 "fechaPedido_Sol" , data.getFechaPedido(),
+									 "montoPedido_Sol" , data.getMontoPedido(),
+									 "montoAPagar_Sol", data.getMontoAPagar(),
+									 "plazoPago_Sol", data.getPlazoPago(),
+									 "cantCuotas_Sol", data.getCantCuotas(),
+									 "montoPorCuota_Sol", data.getMontoPorCuota(),
+									 "interes_Sol", data.getInteres(),
+									 "estado_Sol", data.isEstado(),
+									 "CBU_Sol", data.getCuenta().getCBU()
 									 )
 		);
-		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		TransactionResponse<SolicitudPrestamo> rowsTP= new TransactionResponse<SolicitudPrestamo>();
 		if(rows.nonEmptyResult()) {
 			return rowsTP;
 		}
