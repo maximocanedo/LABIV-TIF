@@ -11,6 +11,7 @@ import entity.Administrador;
 import entity.Cliente;
 import entity.Paginator;
 import entity.filter.ClienteFilter;
+import logicImpl.AuthManager;
 import logicImpl.ClienteLogicImpl;
 import max.Response;
 
@@ -29,7 +30,7 @@ public class Clientes extends BaseServlet implements Servlet {
     protected ClienteLogicImpl CL = new ClienteLogicImpl();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Administrador admin = new Administrador(); // AuthManager.getActualAdmin(request, response);
+		Administrador admin = AuthManager.getActualAdmin(request, response);
 		ClienteFilter filter = new ClienteFilter();
 		filter.q = request.getParameter("q");
 		filter.provinceId = request.getParameter("province");
