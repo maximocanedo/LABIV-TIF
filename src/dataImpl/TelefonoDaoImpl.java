@@ -1,16 +1,24 @@
-package data;
+package dataImpl;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import entity.TelefonosXCliente;
-import logic.TelefonoXClienteLogic;
-import max.*;
-import oops.*;
 
-public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
+import data.ITelefonoDao;
+import entity.Telefono;
+import logicImpl.TelefonoLogicImpl;
+import max.Connector;
+import max.Dictionary;
+import max.IModel;
+import max.IRecord;
+import max.MySQLSchemaModel;
+import max.Schema;
+import max.SchemaProperty;
+import max.TransactionResponse;
+import oops.SchemaValidationException;
 
-	public TelefonoXClienteDao() {}
-	private TelefonoXClienteLogic tpLogic= new TelefonoXClienteLogic();
+public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
+	public TelefonoDaoImpl() {}
+	private TelefonoLogicImpl tpLogic= new TelefonoLogicImpl();
 	
 
 	public static final Schema tablaTP = new Schema(
@@ -30,7 +38,7 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 			new SchemaProperty("Activo_TxC") {{
 				required= true;
 				type= Types.BIT;
-				maxlength= 1;
+				defaultValue = true;
 			}}
 	);
 	public static final IModel _model= new MySQLSchemaModel("TelefonosXCliente","tif",tablaTP);
@@ -41,7 +49,7 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 	}
 	
 	@Override
-	public TransactionResponse<?> insert(TelefonosXCliente data) throws SQLException {
+	public TransactionResponse<?> insert(Telefono data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			res = _model.create(data.toDictionary());
@@ -52,7 +60,7 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 	}
 
 	@Override
-	public TransactionResponse<?> delete(TelefonosXCliente data) throws SQLException {
+	public TransactionResponse<?> delete(Telefono data) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
 			res = _model.delete(data.toIdentifiableDictionary());
@@ -63,7 +71,7 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 	}
 
 	@Override
-	public TransactionResponse<?> modify(TelefonosXCliente data) throws SQLException {
+	public TransactionResponse<?> modify(Telefono data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			res = _model.modify(data.toDictionary(), data.toIdentifiableDictionary());
@@ -74,11 +82,11 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 	}
 
 	@Override
-	public TransactionResponse<TelefonosXCliente> getAll() throws SQLException {
+	public TransactionResponse<Telefono> getAll() throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"select * from "+ printTDB()
 		);
-		TransactionResponse<TelefonosXCliente> rowsTP= new TransactionResponse<TelefonosXCliente>();
+		TransactionResponse<Telefono> rowsTP= new TransactionResponse<Telefono>();
 		if(rows.nonEmptyResult()) {
 			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
 		}
@@ -86,12 +94,12 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 	}
 
 	@Override
-	public TransactionResponse<TelefonosXCliente> getById(String DNI_Usuario) throws SQLException {
+	public TransactionResponse<Telefono> getById(String DNI_Usuario) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"select * from "+ printTDB() + "where DNI_Usuario = @DNI_Usuario",
 				Dictionary.fromArray("DNI_Usuario",DNI_Usuario)
 		);
-		TransactionResponse<TelefonosXCliente> rowsTP= new TransactionResponse<TelefonosXCliente>();
+		TransactionResponse<Telefono> rowsTP= new TransactionResponse<Telefono>();
 		if(rows.nonEmptyResult()) {
 			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
 		}
@@ -103,5 +111,4 @@ public class TelefonoXClienteDao implements IRecord<TelefonosXCliente, String>{
 		
 		return _model.exists(Dictionary.fromArray("DNI_Usuario",DNI_Usuario));
 	}
-	
 }
