@@ -37,6 +37,7 @@ public class ConceptoDaoImpl implements IRecord<Concepto,String>, IConceptoDao {
 	public final static IModel _model = new MySQLSchemaModel("conceptos","tif",_schema) {{
 		compile();
 	}};
+
 	
 	private Connector dbCon = new Connector(_model.getDatabaseName());
 	private ConceptoLogicImpl conlg = new ConceptoLogicImpl();

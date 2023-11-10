@@ -68,8 +68,13 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 			}}			
 			);
 	
-	public final static IModel _model = new MySQLSchemaModel("movimientos","tif",_schema);
-	
+	public final static IModel _model = new MySQLSchemaModel("movimientos","tif",_schema) {{
+		compile();
+	}};
+
+	public static void main(String[] args) {
+		System.out.println(200);
+	}
 	private Connector dbCon = new Connector(_model.getDatabaseName());
 	private MovimientoLogicImpl lgm = new MovimientoLogicImpl();
 	
