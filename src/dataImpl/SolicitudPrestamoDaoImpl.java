@@ -165,6 +165,10 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	public TransactionResponse<SolicitudPrestamo> getById(String arg0) throws SQLException {
 		return select("SELECT * FROM " + printTDB() + " WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
 	}
+	
+	public TransactionResponse<SolicitudPrestamo> getById(Integer arg0) throws SQLException {
+		return select("SELECT * FROM " + printTDB() + " WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
+	}
 
 	/* (non-Javadoc)
 	 * @see dataImpl.ISolicitudPrestamoDao#exists(java.lang.String)
