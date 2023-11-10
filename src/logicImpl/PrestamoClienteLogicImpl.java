@@ -143,8 +143,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 		if(d.$("montoPorCuota_PxC") != null) p.setMontoPorCuota(d.$("montoPorCuota_PxC"));
 		if(d.$("cuotasPagadas_PxC") != null) p.setCuotasPagadas(d.$("cuotasPagadas_PxC"));
 		if(d.$("cuotasRestantes_PxC") != null) p.setCuotasRestantes(d.$("cuotasRestantes_PxC"));
+		if(d.$("CBU_PxC") != null) p.setCBU_PxC(d.$("CBU_PxC"));
 		if(d.$("cod_Sol_PxC") != null)p.setSolicitud(new SolicitudPrestamo() {{
-			this.setCodigo(d.$("cod_Sol_PxC"));
+		this.setCodigo(d.$("cod_Sol_PxC"));
 		}});
 		return p;
 	}

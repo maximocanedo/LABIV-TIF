@@ -212,7 +212,7 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		s.setCantCuotas(d.$("cantCuotas_Sol"));
 		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
 		s.setEstado(d.$("estado_Sol"));
-		
+		s.setEstado(d.$("CBU_Sol"));
 		return s;
 	}
 	
