@@ -33,7 +33,7 @@ public class Email extends BaseServlet {
 	    return String.format("%06d", new Random().nextInt(1000000));
 	}
 	
-	/** Funcion que gvalida que string sea numero entero
+	/** Funcion que valida que string sea numero entero
 	 * 
 	 * */
 	

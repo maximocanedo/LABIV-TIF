@@ -11,6 +11,7 @@ public class PasswordUtils {
 	private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
     public static byte[] createSalt() {
+    	//generador criptografico de numeros aleatorios
     	SecureRandom random = new SecureRandom();
     	byte[] salt = new byte[16];
     	random.nextBytes(salt);

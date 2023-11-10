@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.Administrador;
 import entity.Cliente;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
@@ -47,7 +49,7 @@ public class SolicitudPrestamo extends BaseServlet {
 			response.setStatus(404);//id= -1
 			return;
 		}
-		entity.SolicitudPrestamo requestC01 = resSL.listReturned.get(0);
+		entity.SolicitudPrestamo requestSL = resSL.listReturned.get(0);
 		/* Verificar si es cliente o admin */
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {
@@ -57,12 +59,56 @@ public class SolicitudPrestamo extends BaseServlet {
 				return;
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
-				if(requestC01.getCliente().getDNI().equals(cliente.getDNI())) {
+				if(requestSL.getCliente().getDNI().equals(cliente.getDNI())) {
 					write(response, resSL.toFinalJSON());
 					response.setStatus(200);
 					return;
 				} else {
 					response.setStatus(403);
+					return;
+				}
+			default:
+				response.setStatus(403);
+				break;
+			}
+		} else {
+			response.setStatus(401);
+		}
+		return;
+	}
+	
+	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		/* Verificar si es cliente o admin */
+		String id_s = getPathParameter(request);
+		Integer id = -1;
+		try {
+			id = Integer.parseInt(id_s);
+		} catch(NumberFormatException e) {
+			response.setStatus(400);
+			return;
+		}
+		Response<entity.SolicitudPrestamo> resSL = logic.getById(id);
+ 
+		if(resSL.listReturned.isEmpty()) {
+			response.setStatus(404);//id= -1
+			return;
+		}
+		entity.SolicitudPrestamo requestSL = resSL.listReturned.get(0);
+		TokenData td = AuthManager.readToken(request);
+		if(td != null) {
+			switch(td.role) {
+			case AuthManager.ADMIN:
+				Administrador admin = AuthManager.getActualAdmin(request, response);
+				if (admin==null)return;
+				
+			case AuthManager.CLIENT:
+				Cliente cliente = AuthManager.getActualClient(request, response);
+				if(requestSL.getCliente().getDNI().equals(cliente.getDNI())) {
+					
+					//response.setStatus(200);
+					return;
+				} else {
+					//response.setStatus(403);
 					return;
 				}
 			default:

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import data.ISolicitudPrestamoDao;
+import entity.Cuenta;
 import entity.SolicitudPrestamo;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import max.Connector;
@@ -119,7 +120,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	 * @see dataImpl.ISolicitudPrestamoDao#insert(entity.SolicitudPrestamo)
 	 */
 	@Override
-	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
+	/*public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			res = _model.create(data.toDictionary());
@@ -127,6 +128,20 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			e.printStackTrace();
 		}
 		return res;
+	}*/
+	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"CALL SP_INGRESARPEDIDOPRESTAMO (@dni , @fechaCreacion , @tipoCuenta )",
+				Dictionary.fromArray("dni",data.getCliente().getDNI() /*,
+									// "fechaCreacion" , data.getFechaCreacion(),
+									// "tipoCuenta" , data.getTipo().getCod_TPCT()*/
+									 )
+		);
+		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		if(rows.nonEmptyResult()) {
+			return rowsTP;
+		}
+		return rowsTP;
 	}
 
 	/* (non-Javadoc)
