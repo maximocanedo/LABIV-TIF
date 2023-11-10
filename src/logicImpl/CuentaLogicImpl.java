@@ -5,19 +5,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.sql.Date;
 
 
 import dataImpl.CuentaDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Paginator;
 import entity.TipoCuenta;
 import logic.ICuentaLogic;
 import max.Dictionary;
-import max.IModel;
 import max.IRecordLogic;
-import max.MySQLSchemaModel;
 import max.Response;
 import max.TransactionResponse;
 import oops.SchemaValidationException;
@@ -264,6 +262,23 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 			list.add(convert(data));
 		}
 		return list;
+	}
+
+
+	@Override
+	public Response<Cuenta> getAll(Paginator paginator) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
+		try {
+			tpr = clDao.getAll(paginator);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
 	}
 
 }

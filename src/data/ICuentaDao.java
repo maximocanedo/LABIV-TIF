@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Paginator;
 import max.TransactionResponse;
 
 public interface ICuentaDao {
@@ -14,6 +15,8 @@ public interface ICuentaDao {
 
     TransactionResponse<?> modify(Cuenta data) throws SQLException;
 
+    TransactionResponse<Cuenta> getAll(Paginator paginator) throws SQLException;
+    
     TransactionResponse<Cuenta> getAll() throws SQLException;
 
     TransactionResponse<Cuenta> getById(String Num_Cuenta_CxC) throws SQLException;
