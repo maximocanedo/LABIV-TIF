@@ -18,6 +18,21 @@ import oops.SchemaValidationException;
 
 public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuentaDao{
 
+	/*public static void main(String[] args) {
+
+TipoCuentaLogicImpl logic = new TipoCuentaLogicImpl();
+TipoCuenta tc = new TipoCuenta();
+
+
+tc.setCod_TPCT("TC03");
+tc.setDescripcion_TPCT("Cuenta de prueba");
+
+
+logic.insert(tc);
+
+}*/
+
+	
 	public TipoCuentaDaoImpl(){}
 	private TipoCuentaLogicImpl tpLogic= new TipoCuentaLogicImpl();
 	
@@ -36,7 +51,7 @@ public class TipoCuentaDaoImpl implements IRecord<TipoCuenta, String>, ITipoCuen
 				maxlength= 100;
 			}}
 	);
-	public static final IModel _model= new MySQLSchemaModel("TipoCuenta","tif",tablaTP);
+	public static final IModel _model= new MySQLSchemaModel("TipoCuenta","tif",tablaTP) {{ compile(); }};
 	private Connector db = new Connector(_model.getDatabaseName());
 	
 	/* (non-Javadoc)

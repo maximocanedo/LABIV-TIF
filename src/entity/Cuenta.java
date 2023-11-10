@@ -45,60 +45,62 @@ public class Cuenta implements IEntity{
 			);
 	}
 
-	public String getNum_Cuenta_CxC() {
+
+
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNum_Cuenta_CxC(String num_Cuenta_CxC) {
-		numero = num_Cuenta_CxC;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getCBU_CxC() {
+	public String getCBU() {
 		return CBU;
 	}
 
-	public void setCBU_CxC(String cBU_CxC) {
-		CBU = cBU_CxC;
+	public void setCBU(String cBU) {
+		CBU = cBU;
 	}
 
-	public java.sql.Date getFechaCreacion_CxC() {
+	public java.sql.Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion_CxC(java.sql.Date fechaCreacion_CxC) {
-		fechaCreacion = fechaCreacion_CxC;
+	public void setFechaCreacion(java.sql.Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
-	public double getSaldoCuenta_CxC() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldoCuenta_CxC(double saldoCuenta_CxC) {
-		this.saldo = saldoCuenta_CxC;
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
-	public TipoCuenta getCod_TPCT_CxC() {
+	public TipoCuenta getTipo() {
 		return tipo;
 	}
 
-	public void setCod_TPCT_CxC(TipoCuenta cod_TPCT_CxC) {
-		tipo = cod_TPCT_CxC;
+	public void setTipo(TipoCuenta tipo) {
+		this.tipo = tipo;
 	}
 
-	public Cliente getDni_Cl_CxC() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setDni_Cl_CxC(Cliente dni_Cl_CxC) {
-		cliente = dni_Cl_CxC;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	public boolean getActivo_CxC() {
+	public boolean getEstado() {
 		return estado;
 	}
 
-	public void setActivo_CxC(boolean activo_CxC) {
-		estado = activo_CxC;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	@Override

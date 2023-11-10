@@ -159,6 +159,21 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}
 		return res;
 	}
+	
+	public Response<SolicitudPrestamo> getById(Integer id) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
+		try {
+			tpr = spDao.getById(id);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
 
 	/* (non-Javadoc)
 	 * @see logicImpl.ISolicitudPrestamoLogic#exists(java.lang.String)

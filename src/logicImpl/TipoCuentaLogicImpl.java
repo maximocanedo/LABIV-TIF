@@ -16,7 +16,8 @@ import oops.SchemaValidationException;
 public class TipoCuentaLogicImpl implements IRecordLogic<TipoCuenta,String>, ITipoCuentaLogic{
 
 	public TipoCuentaLogicImpl() {}
-	TipoCuentaDaoImpl tpDao= new TipoCuentaDaoImpl();
+	private TipoCuentaDaoImpl tpDao= new TipoCuentaDaoImpl();
+	
 	/* (non-Javadoc)
 	 * @see logicImpl.ITipoCuentaLogic#validate(entity.TipoCuenta, boolean)
 	 */

@@ -112,7 +112,7 @@ public class Movimiento implements IEntity{
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
 				"id_Mv",id,
-				"num_cuenta_CxC_Mv",cuenta.getNum_Cuenta_CxC(),
+				"num_cuenta_CxC_Mv",cuenta.getNumero(),
 				"cod_Con_Mv",concepto.getCodigo(),
 				"saldo_anterior_Mv",saldoAnterior,
 				"importe_Mv",importe,

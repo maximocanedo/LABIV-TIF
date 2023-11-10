@@ -5,7 +5,7 @@ import java.sql.Types;
 
 
 import data.ICuentaDao;
-import dataImpl.AdministradorDaoImpl.Fields;
+import dataImpl.ClienteDaoImpl.Fields;
 import entity.Cliente;
 import entity.Cuenta;
 import logicImpl.CuentaLogicImpl;
@@ -20,7 +20,7 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
-
+	
 	public CuentaDaoImpl(){}
 	private CuentaLogicImpl clLogic= new CuentaLogicImpl();
 	
@@ -77,10 +77,10 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return _model.getDatabaseName() + "." + _model.getTableName();
 	}
 	
-	public int countUserAccounts(String user) throws SQLException {
+	public int countUserAccounts(String dni) throws SQLException {
 		TransactionResponse<Dictionary> res = new Connector().fetch(
-			"SELECT COUNT(*) as counted FROM " + printTDB() + " WHERE " + Fields.usuario.name + " = @usuario",
-			Dictionary.fromArray("usuario", user)
+			"SELECT COUNT(*) as counted FROM " + printTDB() + " WHERE Dni_Cl_CxC = @Dni",
+			Dictionary.fromArray("Dni", dni)
 		);
 		if(res.nonEmptyResult()) {
 			Dictionary row = res.rowsReturned.get(0);
@@ -90,7 +90,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return -1;
 	}
 	
-	@Override
+	/*@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
@@ -99,6 +99,22 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 			e.printStackTrace();
 		}
 		return res;
+	}*/
+	
+	@Override
+	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"CALL SP_AGREGARNUEVACUENTABANCARIA (@dni , @fechaCreacion , @tipoCuenta )",
+				Dictionary.fromArray("dni",data.getCliente().getDNI(),
+									 "fechaCreacion" , data.getFechaCreacion(),
+									 "tipoCuenta" , data.getTipo().getCod_TPCT()
+									 )
+		);
+		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		if(rows.nonEmptyResult()) {
+			return rowsTP;
+		}
+		return rowsTP;
 	}
 
 	@Override
@@ -112,7 +128,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return res;
 	}
 
-	@Override
+	/*@Override
 	public TransactionResponse<?> modify(Cuenta data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
@@ -121,6 +137,23 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 			e.printStackTrace();
 		}
 		return res;
+	}*/
+	@Override
+	public TransactionResponse<?> modify(Cuenta data) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"CALL SP_ModificarCuentaBancaria (@NumCuenta , @DNI ,@TipoCuenta ,@Saldo,@Estado)",
+				Dictionary.fromArray("NumCuenta" , data.getNumero(),
+									 "DNI",data.getCliente().getDNI(),
+									 "TipoCuenta" , data.getTipo().getCod_TPCT(),
+									 "Saldo" , data.getSaldo(),
+									 "Estado", data.getEstado()
+									 )
+		);
+		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		if(rows.nonEmptyResult()) {
+			return rowsTP;
+		}
+		return rowsTP;
 	}
 
 	@Override
@@ -154,6 +187,12 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return _model.exists(Dictionary.fromArray("Num_Cuenta_CxC",Num_Cuenta_CxC));
 	}
 
+	
+	public boolean existsCBU(String CBU){
+		return _model.exists(Dictionary.fromArray("CBU_CxC", CBU));
+	}
+	
+	
 	public TransactionResponse<Cuenta> getAllFor(Cliente obj) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
 			"SELECT * FROM " + printTDB() + " WHERE Dni_Cl_CxC = @dni ",

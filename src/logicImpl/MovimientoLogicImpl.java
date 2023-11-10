@@ -217,7 +217,7 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		
 		if(row.$("id_Mv") != null) obj.setId_Mv(row.$("id_Mv"));
 		if(row.$("num_cuenta_CxC_Mv") != null) obj.setNum_cuenta_CxC_Mv(new Cuenta() {{
-			this.setNum_Cuenta_CxC(row.$("num_cuenta_CxC_Mv"));
+			this.setNumero(row.$("num_cuenta_CxC_Mv"));
 		}});				
 		if(row.$("cod_Con_Mv") != null) obj.setCod_Con_Mv(new Concepto() {{
 			this.setCodigo(row.$("cod_Con_Mv"));		
