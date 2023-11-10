@@ -18,14 +18,14 @@ public class PrestamosCliente implements IEntity {
 	private double montoPorCuota;
 	private int cuotasPagadas;
 	private int cuotasRestantes;
-	private String CBU;
+	private Cuenta cuenta;
 	
-	public String getCBU_PxC() {
-		return CBU;
+	public Cuenta getCuenta() {
+		return cuenta;
 	}
 
-	public void setCBU_PxC(String cBU_PxC) {
-		CBU = cBU_PxC;
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
 	}
 
 	public PrestamosCliente() {}
@@ -42,7 +42,7 @@ public class PrestamosCliente implements IEntity {
 		obj.addProperty("montoPorCuota", montoPorCuota);
 		obj.addProperty("cuotasPagadas", cuotasPagadas);
 		obj.addProperty("cuotasRestantes", cuotasRestantes);
-		obj.addProperty("CBU_PxC", CBU);
+		obj.add("cuenta",cuenta.toJsonObject());
 		return obj;
 	}
 	
@@ -64,7 +64,7 @@ public class PrestamosCliente implements IEntity {
 				"montoPorCuota_PxC", montoPorCuota,
 				"cuotasPagadas_PxC", cuotasPagadas,
 				"cuotasRestantes_PxC",cuotasRestantes,	
-				"CBU_PxC",CBU	
+				"CBU_PxC",cuenta.getCBU()	
 				);
 	}
 

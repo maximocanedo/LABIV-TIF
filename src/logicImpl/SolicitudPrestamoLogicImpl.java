@@ -6,6 +6,7 @@ import java.util.List;
 
 import dataImpl.SolicitudPrestamoDaoImpl;
 import entity.Cliente;
+import entity.Cuenta;
 import entity.SolicitudPrestamo;
 import logic.ISolicitudPrestamoLogic;
 import max.Dictionary;
@@ -212,7 +213,9 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		s.setCantCuotas(d.$("cantCuotas_Sol"));
 		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
 		s.setEstado(d.$("estado_Sol"));
-		s.setEstado(d.$("CBU_Sol"));
+		if(d.$("CBU_Sol") != null) {
+			s.setCuenta(new Cuenta() {{setCBU(d.$("CBU_Sol"));}});
+	}
 		return s;
 	}
 	
