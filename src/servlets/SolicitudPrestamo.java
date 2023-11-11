@@ -54,12 +54,7 @@ public class SolicitudPrestamo extends BaseServlet {
 					return;
 				}
 				
-				//write(response, resSL.toFinalJSON());
-				
-				List<entity.SolicitudPrestamo> TodasSolicitudes= resSL.listReturned;
-				request.setAttribute("listaAdmin", TodasSolicitudes);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp");
-				dispatcher.forward(request, response);
+				write(response, resSL.toFinalJSON());
 				
 				return;
 			case AuthManager.CLIENT:
@@ -73,13 +68,8 @@ public class SolicitudPrestamo extends BaseServlet {
 					}
 					
 					 
-					
-					List<entity.SolicitudPrestamo> solicitudes= resSL.listReturned;
-					request.setAttribute("listaClient", solicitudes);
-					//write(response, resSL.toFinalJSON());
-					response.setStatus(200);
-					RequestDispatcher dispatcherC = request.getRequestDispatcher("/.jsp");
-					dispatcherC.forward(request, response);
+					write(response, resSL.toFinalJSON());
+					response.setStatus(201);
 					
 					return;
 				} else {
