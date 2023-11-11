@@ -13,11 +13,11 @@ import max.Response;
 /**
  * Servlet implementation class Cliente__ExisteCUIL
  */
-@WebServlet("/api/quick/accounts/id/*")
-public class Cuentas_ExisteCBU extends servlets.BaseServlet {
+@WebServlet("/api/quick/accounts/cbu/*")
+public class Cuentas__ExisteCBU extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Cuentas_ExisteCBU() {
+    public Cuentas__ExisteCBU() {
 		super();
 	}
 
