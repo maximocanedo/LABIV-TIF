@@ -39,17 +39,17 @@ if(whoIam == null) {
 			document.querySelector("#plazoPago").value = cCuotas + 4; //margen de pago en meses
 
             const nuevosDatosAIngresar = {
-				codigo: document.querySelector("#codigo")
-				,cliente: document.querySelector("#cliente")
-				,fechaPedido: document.querySelector("#fechaPedido")
-				,montoPedido: document.querySelector("#montoPedido")
-				,montoAPagar: document.querySelector("#montoAPagar")
-				,plazoPago: document.querySelector("#plazoPago")
-				,cantCuotas: document.querySelector("#cantCuotas")
-				,montoPorCuota: document.querySelector("#montoPorCuota")
-				,interes: document.querySelector("#interes")
+				codigo: document.querySelector("#codigo").value
+				,cliente: document.querySelector("#cliente").value
+				,fechaPedido: document.querySelector("#fechaPedido").value
+				,montoPedido: document.querySelector("#montoPedido").value
+				,montoAPagar: document.querySelector("#montoAPagar").value
+				,plazoPago: document.querySelector("#plazoPago").value
+				,cantCuotas: document.querySelector("#cantCuotas").value
+				,montoPorCuota: document.querySelector("#montoPorCuota").value
+				,interes: document.querySelector("#interes").value
 				,estado: 0
-				,cuenta: document.querySelector("#cuentaCBU")
+				,cuenta: document.querySelector("#cuentaCBU").value
 			
 			};
 			
@@ -63,7 +63,7 @@ if(whoIam == null) {
 				});
 				const code = req.status; // 200, 401, 404, ...
 				const json = await req.json();
-				const message = json.message; // "El registro se modificó correctamente. "
+				const message = json.message; // "El registro se ingreso correctamente. "
 				
 			});
 			
