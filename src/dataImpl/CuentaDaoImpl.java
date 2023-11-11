@@ -207,15 +207,21 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return rowsTP;
 	}
 	
+	public boolean exists(Dictionary d) throws SQLException {
+		return _model.exists(d);
+	}
+	
 	@Override
-	public boolean exists(String Num_Cuenta_CxC) throws SQLException {
-		
+	public boolean exists(String Num_Cuenta_CxC) throws SQLException {	
 		return _model.exists(Dictionary.fromArray("Num_Cuenta_CxC",Num_Cuenta_CxC));
 	}
-
 	
-	public boolean existsCBU(String CBU){
+	public boolean existsCBU(String CBU) throws SQLException {
 		return _model.exists(Dictionary.fromArray("CBU_CxC", CBU));
+	}
+	
+	public boolean existsDNI(String DNI) throws SQLException {
+		return _model.exists(Dictionary.fromArray("Dni_Cl_CxC", DNI));
 	}
 	
 	

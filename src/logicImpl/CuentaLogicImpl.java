@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-
+import dataImpl.ClienteDaoImpl;
 import dataImpl.CuentaDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
@@ -245,12 +245,17 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		return res;
 	}
 	
+	/**
+	 * Examina si existe una cuenta en la base de datos a partir del numero de cuenta otorgado.
+	 * @param numero Número de cuenta a buscar.
+	 * @return Resultado de la operación.
+	 */
 	@Override
-	public Response<Cuenta> exists(String id) {
+	public Response<Cuenta> exists(String numero) {
 		Response<Cuenta> res = new Response<Cuenta>();
 		boolean existe = false;
 		try {
-			existe = clDao.exists(id);
+			existe = clDao.exists(numero);
 			if(existe) {
 				res.die(true, "El registro existe. ");
 			} else res.die(false, "No existe un registro con esas caracterï¿½sticas. ");
@@ -260,7 +265,46 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		}
 		return res;
 	}
-
+	
+	
+	/**
+	 * Examina si existe una cuenta en la base de datos a partir del CBU de cuenta otorgado.
+	 * @param CBU Número de CBU a buscar.
+	 * @return Resultado de la operación.
+	 */
+	public Response<Cuenta> CBUExists(String CBU) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		boolean o = false;
+		try {
+			o = clDao.existsCBU(CBU);
+			res.die(o, o ? 200 : 404, "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, 500, "");
+		}
+		return res;
+	}
+	/**
+	 * Examina si existe una cuenta en la base de datos a partir del DNI otorgado.
+	 * @param DNI Número de DNI a buscar.
+	 * @return Resultado de la operación.
+	 */
+	public Response<Cuenta> DNIExists(String DNI) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		boolean o = false;
+		try {
+			o = clDao.existsDNI(DNI);
+			res.die(o, o ? 200 : 404, "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, 500, "");
+		}
+		return res;
+	}
+	
+	
+	
+	
 	@Override
 	public Cuenta convert(Dictionary row) {
 		Cuenta cuenta = new Cuenta();
