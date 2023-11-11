@@ -132,7 +132,8 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"CALL SP_INGRESARPEDIDOPRESTAMO (@usuario_cl_Sol , @fechaPedido_Sol , @montoPedido_Sol,"
-				+ " @montoAPagar_Sol,)",
+				+ " @montoAPagar_Sol, @plazoPago_Sol ,@cantCuotas_Sol , @montoPorCuota_Sol ,@interes_Sol "
+				+ ",@estado_Sol ,@CBU_Sol)",
 				Dictionary.fromArray("usuario_cl_Sol",data.getCliente().getUsuario(),
 									 "fechaPedido_Sol" , data.getFechaPedido(),
 									 "montoPedido_Sol" , data.getMontoPedido(),
