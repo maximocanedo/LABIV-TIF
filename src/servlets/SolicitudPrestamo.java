@@ -112,7 +112,7 @@ public class SolicitudPrestamo extends BaseServlet {
 					
 					entity.SolicitudPrestamo nuevaSolicitud= logic.convert(parameters);
 					logic.insert(nuevaSolicitud);
-					
+					response.setStatus(200);
 					return;
 				} else {
 					response.setStatus(403);
