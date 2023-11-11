@@ -21,41 +21,31 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {
-	
-	/*public static void main(String[] args) {
+	/*
+	public static void main(String[] args) {
 
 	CuentaLogicImpl logic = new CuentaLogicImpl();
 	Cuenta dc = new Cuenta();
 	Cliente cl = new Cliente();
-	cl.setDNI("12144165");
+	cl.setDNI("15777888");
 	TipoCuenta tc = new TipoCuenta();
-	tc.setCod_TPCT("TC01");
+	tc.setCod_TPCT("TC02");
 
 	//CREAR NUEVA CUENTA
 	//dc.setTipo(tc);
 	//dc.setCliente(cl);
-	//logic.createAccount(dc);
+	
+	//logic.createAccount(dc);ï¿½
 	
 	//MODIFICAR CUENTA
-	//dc.setNumero("1234671115");
-	//dc.setTipo(tc);
-	//dc.setCliente(cl);
-	//dc.setSaldo(15000);
-	//dc.setEstado(true);
-	//logic.modify(dc);
-	
-	//ELIMINAR CUENTA
-	//dc.setNumero("1234671115");
-	//dc.setCliente(cl);
-	//logic.delete(dc);
-	
-	//LISTAR CUENTAS DE X CLIENTE (Testeado en CuentaDaoImpl)
-	//logic.getAllFor(cl);
-	
-
-		
-	}*/
-	
+	dc.setNumero("1234671115");
+	dc.setTipo(tc);
+	dc.setCliente(cl);
+	dc.setSaldo(15000);
+	dc.setEstado(true);
+	logic.modify(dc);
+	}
+	*/
 	
 	public CuentaLogicImpl() {}
 	private static CuentaDaoImpl clDao= new CuentaDaoImpl();
@@ -247,9 +237,10 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	
 	/**
 	 * Examina si existe una cuenta en la base de datos a partir del numero de cuenta otorgado.
-	 * @param numero Número de cuenta a buscar.
-	 * @return Resultado de la operación.
+	 * @param numero Nï¿½mero de cuenta a buscar.
+	 * @return Resultado de la operaciï¿½n.
 	 */
+
 	@Override
 	public Response<Cuenta> exists(String numero) {
 		Response<Cuenta> res = new Response<Cuenta>();
@@ -269,8 +260,8 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	
 	/**
 	 * Examina si existe una cuenta en la base de datos a partir del CBU de cuenta otorgado.
-	 * @param CBU Número de CBU a buscar.
-	 * @return Resultado de la operación.
+	 * @param CBU Nï¿½mero de CBU a buscar.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Cuenta> CBUExists(String CBU) {
 		Response<Cuenta> res = new Response<Cuenta>();
@@ -286,8 +277,8 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	}
 	/**
 	 * Examina si existe una cuenta en la base de datos a partir del DNI otorgado.
-	 * @param DNI Número de DNI a buscar.
-	 * @return Resultado de la operación.
+	 * @param DNI Nï¿½mero de DNI a buscar.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Cuenta> DNIExists(String DNI) {
 		Response<Cuenta> res = new Response<Cuenta>();
