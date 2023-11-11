@@ -81,21 +81,7 @@ public class SolicitudPrestamo extends BaseServlet {
 	
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		/* Verificar si es cliente o admin */
-		String id_s = getPathParameter(request);
-		Integer id = -1;
-		try {
-			id = Integer.parseInt(id_s);
-		} catch(NumberFormatException e) {
-			response.setStatus(400);
-			return;
-		}
-		Response<entity.SolicitudPrestamo> resSL = logic.getById(id);
- 
-		if(resSL.listReturned.isEmpty()) {
-			response.setStatus(404);//id= -1
-			return;
-		}
-		entity.SolicitudPrestamo requestSL = resSL.listReturned.get(0);
+		
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {
 			switch(td.role) {
@@ -107,7 +93,7 @@ public class SolicitudPrestamo extends BaseServlet {
 				
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
-				if(requestSL.getCliente().getDNI().equals(cliente.getDNI())) {
+				if(cliente!=null) {
 					Dictionary parameters = getParameters(request);
 					if(parameters == null) {
 						die(response, false, 400, "Bad request");
