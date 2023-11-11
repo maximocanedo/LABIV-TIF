@@ -46,6 +46,7 @@ A esta función la llamaremos "función principal" de ahora en más.
 ## Autenticación
 Algunos endpoints requieren autenticación previa por parte de un administrador o cliente para funcionar bien. 
 A continuación, formas de saber quién es el admin/cliente actual.
+Toda función de autenticación va dentro y al principio de la función principal. 
 
 ### Clientes
 La función `allowClient` verifica si un cliente tiene iniciada la sesión. En caso de **no tener iniciada** la sesión, lo redirige a la página de inicio de sesión, la cual está definida en la librería `auth`. 
