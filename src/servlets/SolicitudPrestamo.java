@@ -90,6 +90,15 @@ public class SolicitudPrestamo extends BaseServlet {
 				Administrador admin = AuthManager.getActualAdmin(request, response);
 				
 				if (admin==null)return;
+				Dictionary parametersAdmin = getParameters(request);
+				if(parametersAdmin == null) {
+					die(response, false, 400, "Bad request");
+					return;
+				}
+				
+				entity.SolicitudPrestamo prestamo= logic.convert(parametersAdmin);
+				logic.modify(prestamo);
+				response.setStatus(200);
 				
 				
 				

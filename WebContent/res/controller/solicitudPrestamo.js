@@ -16,6 +16,11 @@ if(whoIam == null) {
     switch(role) {
         case "ADMIN":
             /* Código que se ejecutará si es admin. */
+        	//si es admin va a tener otro jsp con dos botones, 
+        	//uno para aceptar y otro para rechazar
+        	
+        	
+        	
             //alert("¡Sos un admin!");
             break;
         case "CLIENT":
@@ -40,7 +45,7 @@ if(whoIam == null) {
 
             const nuevosDatosAIngresar = {
 				codigo: document.querySelector("#codigo").value
-				,cliente: document.querySelector("#cliente").value
+				,cliente: await auth.Allowclient() //document.querySelector("#cliente").value
 				,fechaPedido: document.querySelector("#fechaPedido").value
 				,montoPedido: document.querySelector("#montoPedido").value
 				,montoAPagar: document.querySelector("#montoAPagar").value
