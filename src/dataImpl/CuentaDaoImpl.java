@@ -21,6 +21,25 @@ import oops.SchemaValidationException;
 
 public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
+	/*public static void main(String[] args) {
+	CuentaDaoImpl cdi = new CuentaDaoImpl();
+	TransactionResponse<Cuenta> res = new TransactionResponse<Cuenta>();
+	Cliente cl = new Cliente();
+	cl.setDNI("12144165");
+	
+	try {
+		res = cdi.getAllFor(cl);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	if(res.rowsReturned != null) {			
+		for (Cuenta cuenta : res.rowsReturned) {
+            System.out.println(cuenta.toJSON());
+        }
+	}
+}*/
+	
+	
 	public CuentaDaoImpl(){}
 	private CuentaLogicImpl clLogic= new CuentaLogicImpl();
 	
@@ -90,16 +109,6 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return -1;
 	}
 	
-	/*@Override
-	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
-		TransactionResponse<?> res = TransactionResponse.create();
-		try {
-			res = _model.create(data.toDictionary());
-		} catch(SchemaValidationException e) {
-			e.printStackTrace();
-		}
-		return res;
-	}*/
 	
 	@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
@@ -185,7 +194,19 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		}
 		return rowsTP;
 	}
-
+	
+	public TransactionResponse<Cuenta> getByDNI(String Dni) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"select * from "+ printTDB() + "where Dni_Cl_CxC = @Dni",
+				Dictionary.fromArray("Dni",Dni)
+		);
+		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		if(rows.nonEmptyResult()) {
+			rowsTP.rowsReturned= clLogic.convert(rows.rowsReturned);
+		}
+		return rowsTP;
+	}
+	
 	@Override
 	public boolean exists(String Num_Cuenta_CxC) throws SQLException {
 		

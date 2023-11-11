@@ -22,29 +22,39 @@ import oops.SchemaValidationException;
 
 public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogic {
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 	CuentaLogicImpl logic = new CuentaLogicImpl();
 	Cuenta dc = new Cuenta();
 	Cliente cl = new Cliente();
-	cl.setDNI("15777888");
+	cl.setDNI("12144165");
 	TipoCuenta tc = new TipoCuenta();
-	tc.setCod_TPCT("TC02");
+	tc.setCod_TPCT("TC01");
 
 	//CREAR NUEVA CUENTA
 	//dc.setTipo(tc);
 	//dc.setCliente(cl);
-	
-	//logic.createAccount(dc);ç
+	//logic.createAccount(dc);
 	
 	//MODIFICAR CUENTA
-	dc.setNumero("1234671115");
-	dc.setTipo(tc);
-	dc.setCliente(cl);
-	dc.setSaldo(15000);
-	dc.setEstado(true);
-	logic.modify(dc);
-	}
+	//dc.setNumero("1234671115");
+	//dc.setTipo(tc);
+	//dc.setCliente(cl);
+	//dc.setSaldo(15000);
+	//dc.setEstado(true);
+	//logic.modify(dc);
+	
+	//ELIMINAR CUENTA
+	//dc.setNumero("1234671115");
+	//dc.setCliente(cl);
+	//logic.delete(dc);
+	
+	//LISTAR CUENTAS DE X CLIENTE (Testeado en CuentaDaoImpl)
+	//logic.getAllFor(cl);
+	
+
+		
+	}*/
 	
 	
 	public CuentaLogicImpl() {}
@@ -219,7 +229,22 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		}
 		return res;
 	}
-
+	
+	public Response<Cuenta> getByDNI(String dni) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
+		try {
+			tpr = clDao.getByDNI(dni);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
 	@Override
 	public Response<Cuenta> exists(String id) {
 		Response<Cuenta> res = new Response<Cuenta>();
