@@ -60,9 +60,9 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 	 * @see logicImpl.ISolicitudPrestamoLogic#insert(entity.SolicitudPrestamo)
 	 */
 	@Override
-	public Response<SolicitudPrestamo> insert(SolicitudPrestamo arg0) {
-		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
-		/*TransactionResponse<?>spr;
+	public Response<SolicitudPrestamo> insert(SolicitudPrestamo data) {
+		/*Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<?>spr;
 		try {
 			spr = spDao.insert(arg0);
 			if(spr.rowsAffected>0) {
@@ -71,7 +71,7 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}catch (SQLException e) {
 			res.die(false,500,"Hubo un error al intentar insertar el registro.");
 			e.printStackTrace();
-		}*/
+		}
 		try {
 			res = convertWildcard(spDao.insert(arg0));
 			res.objectReturned = arg0;
@@ -79,6 +79,19 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 			res.http = res.status ? 201 : 500;
 		} catch (SQLException e) {
 			res.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			e.printStackTrace();
+		}
+		return res;*/
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<?> tpr;
+		
+		try {
+			tpr = spDao.insert(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 201, "El registro se inserto con exito. ");
+			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar insertar el registro. ");
 			e.printStackTrace();
 		}
 		return res;

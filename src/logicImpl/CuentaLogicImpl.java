@@ -35,7 +35,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	//dc.setTipo(tc);
 	//dc.setCliente(cl);
 	
-	//logic.createAccount(dc);�
+	//logic.createAccount(dc);
 	
 	//MODIFICAR CUENTA
 	dc.setNumero("1234671115");
