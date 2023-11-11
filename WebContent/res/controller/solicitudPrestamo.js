@@ -30,10 +30,12 @@ if(whoIam == null) {
         	const json = await req.json();
         	const listaDeSolicitudes = json.listReturned;
         	
-        	//luego cuando pulse el boton de aceptar o rechazar debo llamar a post
-        	// con el addEventListener
+        	//hacer tabla con listaDeSolicitudes
         	
-        	//ahora, no se como traerme los datos de esa fila especifica
+        	// tengo q llamar a post si toca 1 de los dos botones
+        	// debe seleccionar la fila y obtener el codigo de solicitudPrestamo       	
+        	
+        	
         	
         	
             //alert("¡Sos un admin!");
@@ -42,7 +44,7 @@ if(whoIam == null) {
 			//fatores para el interes de forma que sea dinamico
 			const factorMonto = 0.1; 
 			const factorCuotas = 0.25; 
-
+			
 			const mPedido = parseDouble(document.querySelector("#montoPedido").value);
 			const cCuotas = parseInt(document.querySelector("#cantCuotas").value);
 
@@ -59,8 +61,7 @@ if(whoIam == null) {
 			document.querySelector("#plazoPago").value = cCuotas + 4; //margen de pago en meses
 
             const nuevosDatosAIngresar = {
-				codigo: document.querySelector("#codigo").value
-				,cliente: await auth.Allowclient() //document.querySelector("#cliente").value
+            	cliente: await auth.Allowclient() //document.querySelector("#cliente").value
 				,fechaPedido: document.querySelector("#fechaPedido").value
 				,montoPedido: document.querySelector("#montoPedido").value
 				,montoAPagar: document.querySelector("#montoAPagar").value

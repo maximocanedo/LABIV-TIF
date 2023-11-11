@@ -1,6 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +53,13 @@ public class SolicitudPrestamo extends BaseServlet {
 					response.setStatus(404);
 					return;
 				}
-				write(response, resSL.toFinalJSON());
+				
+				//write(response, resSL.toFinalJSON());
+				
+				List<entity.SolicitudPrestamo> TodasSolicitudes= resSL.listReturned;
+				request.setAttribute("listaAdmin", TodasSolicitudes);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp");
+				dispatcher.forward(request, response);
 				
 				return;
 			case AuthManager.CLIENT:
@@ -63,8 +72,15 @@ public class SolicitudPrestamo extends BaseServlet {
 						return;
 					}
 					
-					write(response, resSL.toFinalJSON());
+					 
+					
+					List<entity.SolicitudPrestamo> solicitudes= resSL.listReturned;
+					request.setAttribute("listaClient", solicitudes);
+					//write(response, resSL.toFinalJSON());
 					response.setStatus(200);
+					RequestDispatcher dispatcherC = request.getRequestDispatcher("/.jsp");
+					dispatcherC.forward(request, response);
+					
 					return;
 				} else {
 					response.setStatus(403);
@@ -99,8 +115,6 @@ public class SolicitudPrestamo extends BaseServlet {
 				entity.SolicitudPrestamo prestamo= logic.convert(parametersAdmin);
 				logic.modify(prestamo);
 				response.setStatus(200);
-				
-				
 				
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
