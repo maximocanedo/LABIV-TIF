@@ -19,6 +19,25 @@ if(whoIam == null) {
             //alert("¡Sos un admin!");
             break;
         case "CLIENT":
+			//fatores para el interes de forma que sea dinamico
+			const factorMonto = 0.1; 
+			const factorCuotas = 0.25; 
+
+			const mPedido = parseDouble(document.querySelector("#montoPedido").value);
+			const cCuotas = parseInt(document.querySelector("#cantCuotas").value);
+
+			//formula de interes
+			const interes = factorCuotas * cCuotas + mPedido * factorMonto;
+
+			document.querySelector("#interes").value = interes;
+
+			const mAPagar = montoPedido * ( 1 + (interes / 100));
+			document.querySelector("#montoAPagar").value = montoAPagar;
+
+			const montoPorCuota = mAPagar / cCuotas;
+			document.querySelector("#montoPorCuota").value = montoPorCuota;
+			document.querySelector("#plazoPago").value = cCuotas + 4; //margen de pago en meses
+
             const nuevosDatosAIngresar = {
 				codigo: document.querySelector("#codigo")
 				,cliente: document.querySelector("#cliente")
@@ -29,7 +48,7 @@ if(whoIam == null) {
 				,cantCuotas: document.querySelector("#cantCuotas")
 				,montoPorCuota: document.querySelector("#montoPorCuota")
 				,interes: document.querySelector("#interes")
-				,estado: document.querySelector("#estado")
+				,estado: 0
 				,cuenta: document.querySelector("#cuentaCBU")
 			
 			};
@@ -52,20 +71,3 @@ if(whoIam == null) {
             break;
     }
 }
-/*
-try {    
-    const res = await fetch(
-        "http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo",
-        {
-			method: "GET",
- 			headers: auth.AUTH_HEADER // Adjuntamos el pase, para autenticarnos.
-        }
-    );
-    const codigo = res.status;
-    const data = await res.json();
-	const listaDeSolicitudes = json.listReturned;
-} catch(err) {
-    console.log(err);
-    return;
-}
-*/

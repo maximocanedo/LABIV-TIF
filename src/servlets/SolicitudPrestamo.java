@@ -81,8 +81,8 @@ public class SolicitudPrestamo extends BaseServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		/* Verificar si es cliente o admin */
 		
+		/* Verificar si es cliente o admin */
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {
 			switch(td.role) {
