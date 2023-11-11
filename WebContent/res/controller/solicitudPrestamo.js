@@ -19,6 +19,21 @@ if(whoIam == null) {
         	//si es admin va a tener otro jsp con dos botones, 
         	//uno para aceptar y otro para rechazar
         	
+        	//primero le debe mostrar la tabla, (con get)
+        	
+        	const req = await fetch(
+				"http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo", {
+				method: "GET", 
+				headers: auth.AUTH_HEADER, // Adjuntamos el pase, para autenticarnos.
+			});
+        	const code = req.status
+        	const json = await req.json();
+        	const listaDeSolicitudes = json.listReturned;
+        	
+        	//luego cuando pulse el boton de aceptar o rechazar debo llamar a post
+        	// con el addEventListener
+        	
+        	//ahora, no se como traerme los datos de esa fila especifica
         	
         	
             //alert("¡Sos un admin!");
