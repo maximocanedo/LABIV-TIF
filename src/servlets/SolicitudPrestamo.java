@@ -45,23 +45,32 @@ public class SolicitudPrestamo extends BaseServlet {
 			response.setStatus(400);
 			return;
 		}
-		Response<entity.SolicitudPrestamo> resSL = logic.getById(id);
- 
-		if(resSL.listReturned.isEmpty()) {
-			response.setStatus(404);//id= -1
-			return;
-		}
-		entity.SolicitudPrestamo requestSL = resSL.listReturned.get(0);
+		Response<entity.SolicitudPrestamo> resSL;
+		
 		/* Verificar si es cliente o admin */
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {
 			switch(td.role) {
 			case AuthManager.ADMIN:
+				resSL = logic.getAll();
+				 
+				if(resSL.listReturned.isEmpty()) {
+					response.setStatus(404);
+					return;
+				}
 				write(response, resSL.toFinalJSON());
+				
 				return;
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
-				if(requestSL.getCliente().getDNI().equals(cliente.getDNI())) {
+				if(cliente!=null) {
+					resSL = logic.getById(id);
+					
+					if(resSL.listReturned.isEmpty()) {
+						response.setStatus(404);//id= -1
+						return;
+					}
+					
 					write(response, resSL.toFinalJSON());
 					response.setStatus(200);
 					return;
@@ -87,6 +96,7 @@ public class SolicitudPrestamo extends BaseServlet {
 			switch(td.role) {
 			case AuthManager.ADMIN:
 				Administrador admin = AuthManager.getActualAdmin(request, response);
+				
 				if (admin==null)return;
 				
 				
