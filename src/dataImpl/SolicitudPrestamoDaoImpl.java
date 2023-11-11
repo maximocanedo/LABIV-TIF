@@ -102,7 +102,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			Fields.estado
 			);
 	
-	public static final IModel _model = new MySQLSchemaModel("solicitudPrestamos","tif",_schema) {{
+	public static final IModel _model = new MySQLSchemaModel("solicitudprestamos","tif",_schema) {{
 		compile(true);
 	}};
 	

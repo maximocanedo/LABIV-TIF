@@ -27,6 +27,10 @@ public class Response<T> {
 	
 	public Integer http = 200;
 	
+	public boolean nonEmptyResult() {
+		return listReturned != null && listReturned.size() > 0;
+	}
+	
 	public void clean(boolean clearMessages) {
 		this.http = null;
 		this.exception = null;

@@ -1,13 +1,14 @@
 package max;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.Paginator;
 
 public class TransactionResponse<T> {
 	public int rowsAffected = 0;
-	public List<T> rowsReturned = null;
+	public List<T> rowsReturned = new ArrayList<T>();
 	public T[] arrayReturned = null;
 	public T objectReturned = null;
 	public SQLException dbError = null;

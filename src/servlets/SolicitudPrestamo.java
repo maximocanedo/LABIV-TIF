@@ -49,7 +49,7 @@ public class SolicitudPrestamo extends BaseServlet {
 			case AuthManager.ADMIN:
 				resSL = logic.getAll();
 				 
-				if(resSL.listReturned.isEmpty()) {
+				if(resSL.nonEmptyResult()) {
 					response.setStatus(404);
 					return;
 				}
