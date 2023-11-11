@@ -37,14 +37,6 @@ public class SolicitudPrestamo extends BaseServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id_s = getPathParameter(request);
-		Integer id = -1;
-		try {
-			id = Integer.parseInt(id_s);
-		} catch(NumberFormatException e) {
-			response.setStatus(400);
-			return;
-		}
 		Response<entity.SolicitudPrestamo> resSL;
 		
 		/* Verificar si es cliente o admin */
@@ -64,10 +56,10 @@ public class SolicitudPrestamo extends BaseServlet {
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(cliente!=null) {
-					resSL = logic.getById(id);
+					resSL = logic.getById(cliente.getUsuario());
 					
 					if(resSL.listReturned.isEmpty()) {
-						response.setStatus(404);//id= -1
+						response.setStatus(404);
 						return;
 					}
 					
