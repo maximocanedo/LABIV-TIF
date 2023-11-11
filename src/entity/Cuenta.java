@@ -21,10 +21,10 @@ public class Cuenta implements IEntity{
 		JsonObject obj = new JsonObject();
 		obj.addProperty("numero", numero);
 		obj.addProperty("CBU", CBU);
-		obj.addProperty("fechaCreacion", fechaCreacion.toString());
+		obj.addProperty("fechaCreacion", fechaCreacion  == null ? null : fechaCreacion.toString());
 		obj.addProperty("saldo", saldo);
-		obj.add("tipo", tipo.toJsonObject());
-		obj.add("cliente", cliente.toJsonObject());
+		obj.add("tipo", tipo  == null ? null : tipo.toJsonObject());
+		obj.add("cliente", cliente  == null ? null : cliente.toJsonObject());
 		obj.addProperty("estado", estado);
 		return obj;
 	}

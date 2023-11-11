@@ -47,13 +47,7 @@ public class SolicitudPrestamo extends BaseServlet {
 		if(td != null) {
 			switch(td.role) {
 			case AuthManager.ADMIN:
-				resSL = logic.getAll();
-				 
-				if(resSL.nonEmptyResult()) {
-					response.setStatus(404);
-					return;
-				}
-				
+				resSL = logic.getAll();				
 				write(response, resSL.toFinalJSON());
 				
 				return;
