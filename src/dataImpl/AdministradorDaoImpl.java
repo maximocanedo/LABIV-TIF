@@ -197,16 +197,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 	public TransactionResponse<?> delete(Administrador a) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			// Bug #41. Descomentar cuando se haya resuelto.
 			res = _model.modify(Dictionary.fromArray("estado_admin", false), a.toIdentifiableDictionary());
-			/*res = new Connector(_model.getDatabaseName())
-					.transact(
-						"UPDATE " + printTDB() + " SET " + Fields.estado.name + " = @estado WHERE " + Fields.usuario.name + " = @usuario",
-						Dictionary.fromArray(
-							"estado", false,
-							"usuario", a.getUsuario()
-						)
-					); */
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SchemaValidationException e) {

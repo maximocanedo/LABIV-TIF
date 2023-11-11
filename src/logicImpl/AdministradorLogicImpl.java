@@ -70,7 +70,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		a.setApellido(d.$("apellido_admin"));
 		a.setSexo(d.$("sexo_admin"));
 		if(d.$("nacionalidad_admin") != null) {
-			a.setNacionalidad(new Pais() {{ setCodigo(d.$("nacionalidad_admin")); }});
+			Pais nacionalidad = new Pais();
+			PaisLogicImpl pli = new PaisLogicImpl();
+			nacionalidad = pli.convert(d);
+			a.setNacionalidad(nacionalidad);
 		}
 		if(d.$("fechaNacimiento_admin") != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,28 +90,16 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		}
 		a.setDireccion(d.$("direccion_admin"));
 		if(d.$("localidad_admin") != null) {
-			Number loc = (d.$("localidad_admin"));
-			int locc = -1;
-			try {
-				Double loc2 = Double.parseDouble(loc + "");
-				locc = (int) Math.round(loc2);
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
-			int locId = locc;
-			a.setLocalidad(new Localidad() {{ setId(locId); }});
+			Localidad locty = new Localidad();
+			LocalidadLogicImpl lli = new LocalidadLogicImpl();
+			locty = lli.convert(d);
+			a.setLocalidad(locty);
 		}
 		if(d.$("provincia_admin") != null) {
-			Number prov = d.$("provincia_admin");
-			int provv = -1;
-			try {
-				Double prov2 = Double.parseDouble(prov + "");
-				provv = (int) Math.round(prov2);
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
-			int provId = provv;
-			a.setProvincia(new Provincia() {{ setId(provId); }});
+			Provincia provincia = new Provincia();
+			ProvinciaLogicImpl pli = new ProvinciaLogicImpl();
+			provincia = pli.convert(d);
+			a.setProvincia(provincia);
 		}
 		
 		if(privateData) {
