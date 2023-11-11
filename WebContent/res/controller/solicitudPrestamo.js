@@ -48,7 +48,6 @@ if(whoIam == null) {
 				,cantCuotas: document.querySelector("#cantCuotas").value
 				,montoPorCuota: document.querySelector("#montoPorCuota").value
 				,interes: document.querySelector("#interes").value
-				,estado: 0
 				,cuenta: document.querySelector("#cuentaCBU").value
 			
 			};
