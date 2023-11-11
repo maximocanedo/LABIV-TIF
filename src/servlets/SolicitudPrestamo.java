@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
+import entity.Cuenta;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import logicImpl.AuthManager.TokenData;
+import max.Dictionary;
 import max.Response;
 
 /**
@@ -101,14 +103,23 @@ public class SolicitudPrestamo extends BaseServlet {
 				Administrador admin = AuthManager.getActualAdmin(request, response);
 				if (admin==null)return;
 				
+				
+				
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(requestSL.getCliente().getDNI().equals(cliente.getDNI())) {
+					Dictionary parameters = getParameters(request);
+					if(parameters == null) {
+						die(response, false, 400, "Bad request");
+						return;
+					}
 					
-					//response.setStatus(200);
+					entity.SolicitudPrestamo nuevaSolicitud= logic.convert(parameters);
+					logic.insert(nuevaSolicitud);
+					
 					return;
 				} else {
-					//response.setStatus(403);
+					response.setStatus(403);
 					return;
 				}
 			default:
