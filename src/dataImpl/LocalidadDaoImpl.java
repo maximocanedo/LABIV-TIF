@@ -84,7 +84,7 @@ public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidad
 	@Override
 	public TransactionResponse<Localidad> getAll() throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
-			"SELECT * FROM " + printTDB()
+			"SELECT * FROM localidades__select"
 		);
 		TransactionResponse<Localidad> fin = new TransactionResponse<Localidad>();
 		if(res.nonEmptyResult()) {
@@ -99,7 +99,7 @@ public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidad
 	@Override
 	public TransactionResponse<Localidad> getById(Integer id) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
-			"SELECT * FROM " + printTDB() + " WHERE id_loc = @id",
+			"SELECT * FROM localidades__select WHERE id_loc = @id",
 			Dictionary.fromArray("id", id)
 		);
 		TransactionResponse<Localidad> fin = new TransactionResponse<Localidad>();
@@ -151,7 +151,7 @@ public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidad
 	 */
 	@Override
 	public TransactionResponse<Localidad> filterByProvince(Provincia p) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE provincia_loc = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
+		return select("SELECT * FROM localidades__select WHERE provincias.id_provincia = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
 	}
 
 

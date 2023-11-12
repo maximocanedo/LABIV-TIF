@@ -30,9 +30,9 @@ public class LocalidadLogicImpl implements IRecordLogic<Localidad, Integer>, ILo
 		} if(data.$("nombre_loc") != null) {
 			p.setNombre(data.$("nombre_loc"));
 		} if(data.$("provincia_loc") != null) {
-			p.setProvincia(new Provincia() {{
-				setId(data.$("provincia_loc"));
-			}});
+			p.setProvincia(
+					(new ProvinciaLogicImpl()).convert(data)
+					);
 		}
 		return p;
 	}
