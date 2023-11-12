@@ -154,7 +154,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	@Override
 	public TransactionResponse<Movimiento> getById(Integer id) throws SQLException {
 		
-		TransactionResponse<Dictionary> td = dbCon.fetch("SELECT * FROM " + printTDB() + " WHERE id_Mv=@idMv",
+		TransactionResponse<Dictionary> td = dbCon.fetch("SELECT * FROM movimientos__select WHERE id_Mv=@idMv",
 				Dictionary.fromArray("idMv",id));
 		TransactionResponse<Movimiento> t = TransactionResponse.create();
 		

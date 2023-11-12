@@ -134,9 +134,18 @@ public class DetalleCuotaDaoImpl implements IRecord<DetalleCuota, Integer>, IDet
 		return res;
 	}
 
+	public String selectTemplate() {
+		return "SELECT * " + 
+				"	FROM tif.detallecuotas" + 
+				"	INNER JOIN clientes__safeselect" + 
+				"		ON clientes__safeselect.usuario = detallecuotas.usuario_cl_DTPT" + 
+				"	INNER JOIN solicitudprestamos" + 
+				"		ON solicitudprestamos.cod_Sol = detallecuotas.cod_Sol_DTPT";
+	}
+	
 	@Override
 	public TransactionResponse<DetalleCuota> getAll() throws SQLException {
-		return select("SELECT * FROM " + printTDB());
+		return select(selectTemplate());
 	}
 
 	private TransactionResponse<DetalleCuota> select(String arg0) throws SQLException {
@@ -160,7 +169,7 @@ public class DetalleCuotaDaoImpl implements IRecord<DetalleCuota, Integer>, IDet
 	
 	@Override
 	public TransactionResponse<DetalleCuota> getById(Integer id) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
+		return select(selectTemplate() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
 	}
 
 	@Override

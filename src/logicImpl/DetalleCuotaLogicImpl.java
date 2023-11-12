@@ -144,10 +144,14 @@ public class DetalleCuotaLogicImpl implements IRecordLogic<DetalleCuota, Integer
 		DetalleCuota c = new DetalleCuota();
 		if(d.$("id_DTPT") != null) c.setId(d.$("id_DTPT"));
 		if(d.$("cod_Sol_DTPT") != null) { 
-			c.setCod_Solicitud(new SolicitudPrestamo() {{setCodigo(d.$("cod_Sol_DTPT"));}});
+			c.setCod_Solicitud(
+					(new SolicitudPrestamoLogicImpl()).convert(d)
+					);
 		}
 		if(d.$("usuario_cl_DTPT") != null) {
-			c.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_DTPT"));}});
+			c.setCliente(
+					(new ClienteLogicImpl()).convert(d)
+					);
 		}
 		if(d.$("fechaPago_DTPT") != null) c.setFechaPago(d.$("fechaPago_DTPT"));
 		if(d.$("numCuotaPagada_DTPT") != null) c.setNumCuotaPagada(d.$("numCuotaPagada_DTPT"));

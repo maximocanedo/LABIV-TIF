@@ -302,11 +302,12 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		if(row.$("Num_Cuenta_CxC") != null) cuenta.setNumero(row.$("Num_Cuenta_CxC"));
 		if(row.$("CBU_CxC") != null) cuenta.setCBU(row.$("CBU_CxC"));
 		if(row.$("FechaCreacion_CxC") != null) cuenta.setFechaCreacion(row.$("FechaCreacion_CxC"));
-		if(row.$("Cod_TPCT_CxC") != null) { cuenta.setTipo(new TipoCuenta(){{
-			this.setCod_TPCT(row.$("Cod_TPCT_CxC"));
-		}});} //else System.out.println("es nulo el Cod_TPCT_CxC");
-		if(row.$("Dni_Cl_CxC") != null) cuenta.setCliente(new Cliente() {{
-			this.setDNI(row.$("Dni_Cl_CxC"));}});
+		if(row.$("Cod_TPCT_CxC") != null) { 
+			cuenta.setTipo((new TipoCuentaLogicImpl()).convert(row));
+		}
+		if(row.$("Dni_Cl_CxC") != null) {
+			cuenta.setCliente((new ClienteLogicImpl().convert(row)));
+		}
 		if(row.$("Activo_CxC") != null) cuenta.setEstado(row.$("Activo_CxC"));
 		if(row.$("saldoCuenta_CxC") != null) {
 			BigDecimal saldo = row.$("saldoCuenta_CxC");

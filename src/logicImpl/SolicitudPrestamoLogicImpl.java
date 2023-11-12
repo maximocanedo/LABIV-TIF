@@ -216,7 +216,7 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		SolicitudPrestamo s = new SolicitudPrestamo();
 		s.setCodigo(d.$("cod_Sol"));
 		if(d.$("usuario_cl_Sol") != null) {
-				s.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_Sol"));}});
+				s.setCliente((new ClienteLogicImpl()).convert(d));
 		}
 		s.setFechaPedido(d.$("fechaPedido_Sol"));
 		s.setMontoPedido(d.$("montoPedido_Sol"));
@@ -227,8 +227,10 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
 		s.setEstado(d.$("estado_Sol"));
 		if(d.$("CBU_Sol") != null) {
-			s.setCuenta(new Cuenta() {{setCBU(d.$("CBU_Sol"));}});
-	}
+			s.setCuenta(
+					(new CuentaLogicImpl()).convert(d)
+					);
+		}
 		return s;
 	}
 	

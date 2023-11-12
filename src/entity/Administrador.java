@@ -32,7 +32,7 @@ public class Administrador implements IEntity {
 		obj.addProperty("apellido", apellido);
 		obj.addProperty("sexo", sexo);
 		obj.add("nacionalidad", nacionalidad == null ? null : nacionalidad.toJsonObject());
-		obj.addProperty("fechaNacimiento", fechaNacimiento.toString());
+		obj.addProperty("fechaNacimiento", fechaNacimiento == null ? null : fechaNacimiento.toString());
 		obj.addProperty("direccion", direccion);
 		obj.add("localidad", localidad == null ? null : localidad.toJsonObject());
 		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
