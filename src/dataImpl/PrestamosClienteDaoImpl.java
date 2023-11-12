@@ -157,7 +157,7 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 */
 	@Override
 	public TransactionResponse<PrestamosCliente> getAll() throws SQLException {
-		return select("SELECT * FROM " + printTDB());
+		return select("SELECT * FROM prestamos__select");
 	}
 	
 	private TransactionResponse<PrestamosCliente> select(String arg0) throws SQLException {
@@ -183,14 +183,14 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 */
 	@Override
 	public TransactionResponse<PrestamosCliente> getById(Integer id) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE id_PxC = @id", Dictionary.fromArray("id",id));
+		return select("SELECT * FROM prestamos__select WHERE id_PxC = @id", Dictionary.fromArray("id",id));
 	}
 	/* (non-Javadoc)
 	 * @see dataImpl.IPrestamoClienteDao#getById(java.lang.String)
 	 */
 	@Override
 	public TransactionResponse<PrestamosCliente> getById(String usuario_cl_PxC) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE usuario_cl_PxC = @usuario_cl_PxC", Dictionary.fromArray("usuario_cl_PxC",usuario_cl_PxC));
+		return select("SELECT * FROM prestamos__select WHERE usuario_cl_PxC = @usuario_cl_PxC", Dictionary.fromArray("usuario_cl_PxC",usuario_cl_PxC));
 	}
 
 	/* (non-Javadoc)
