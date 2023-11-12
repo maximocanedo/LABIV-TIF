@@ -180,12 +180,16 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		BigDecimal num;
 		
 		if(row.$("id_Mv") != null) obj.setId_Mv(row.$("id_Mv"));
-		if(row.$("num_cuenta_CxC_Mv") != null) obj.setNum_cuenta_CxC_Mv(new Cuenta() {{
-			this.setNumero(row.$("num_cuenta_CxC_Mv"));
-		}});				
-		if(row.$("cod_Con_Mv") != null) obj.setCod_Con_Mv(new Concepto() {{
-			this.setCodigo(row.$("cod_Con_Mv"));		
-		}});				
+		if(row.$("num_cuenta_CxC_Mv") != null) {
+			obj.setNum_cuenta_CxC_Mv(
+				(new CuentaLogicImpl()).convert(row)
+			);
+		}
+		if(row.$("cod_Con_Mv") != null) {
+			obj.setCod_Con_Mv(
+					(new ConceptoLogicImpl()).convert(row)
+					);
+		}
 		if(row.$("saldo_anterior_Mv") != null) {
 			num = row.$("saldo_anterior_Mv");
 			obj.setSaldo_anterior_Mv(num.doubleValue());
@@ -199,9 +203,11 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 			obj.setSaldo_posterior_Mv(num.doubleValue());
 		}
 		if(row.$("fechaMov_Mv") != null) obj.setFechaMov_Mv(row.$("fechaMov_Mv"));
-		if(row.$("cod_TPMV_Mv") != null) obj.setCod_TPMV_Mv(new TipoMovimiento() {{
-			this.setCod_TPMV(row.$("cod_TPMV_Mv"));		
-		}});
+		if(row.$("cod_TPMV_Mv") != null) {
+			obj.setCod_TPMV_Mv(
+					(new TipoMovimientoLogicImpl()).convert(row)
+			);
+		}
 		
 		 
 		
