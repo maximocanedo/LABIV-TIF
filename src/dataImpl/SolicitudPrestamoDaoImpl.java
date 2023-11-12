@@ -186,7 +186,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	 */
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getAll() throws SQLException {
-		return select("SELECT * FROM " + printTDB());
+		return select("SELECT * FROM solicitudesDePrestamos__select");
 	}
 
 	/* (non-Javadoc)
@@ -194,11 +194,11 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	 */
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getById(String arg0) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE usuario_cl_Sol = @usuario_cl_Sol", Dictionary.fromArray("usuario_cl_Sol",arg0));
+		return select("SELECT * FROM solicitudesDePrestamos__select WHERE usuario_cl_Sol = @usuario_cl_Sol", Dictionary.fromArray("usuario_cl_Sol",arg0));
 	}
 	
 	public TransactionResponse<SolicitudPrestamo> getById(Integer arg0) throws SQLException {
-		return select("SELECT * FROM " + printTDB() + " WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
+		return select("SELECT * FROM solicitudesDePrestamos__select WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
 	}
 
 	/* (non-Javadoc)
