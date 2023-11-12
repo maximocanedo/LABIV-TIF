@@ -89,9 +89,11 @@ const loginSuccessfulShowData = async (isAdmin = false) => {
 	const userData = await auth.getActualUser(isAdmin);
 	const user = userData.data;
 	// console.log(userData);
+	//No funciona, dice undefined, lo reemplazo desde el jsp con variable session
 	document.querySelector(
 		"#successfulLoginSpanText"
-	).innerText = `¡Hola, ${user.nombre}!`;
+	).innerText = `¡Bienvenid@!`;
+	
 	setTimeout(() => {
 		window.location = getURLNextValue(isAdmin);
 	}, 1000);

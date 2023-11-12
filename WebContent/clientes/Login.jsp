@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="entity.Administrador" %>
+<%@page import="entity.Cliente" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -101,7 +104,9 @@
         <div id="tab-ok" class="__login-card--tab">
           
           <div class="_header">
-            <span class="mdc-typography--headline5" id="successfulLoginSpanText">Â¡Hola!</span>
+            <span class="mdc-typography--headline5" id="successfulLoginSpanText">¡Hola,  
+           
+            </span>
           </div>
           <div class="_body">
             <span class="mdc-typography--body1">En un momento serÃ¡s redirigido a la pÃ¡gina de inicio. </span>
@@ -120,5 +125,16 @@
     </div>
   </aside>
   <script type="module" src="./../res/controller/login.js"></script>
+ 
+	 
+  
+
+  	
+    
+            
+  
+  
+  
+  
 </body>
 </html>
