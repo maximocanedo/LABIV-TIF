@@ -151,7 +151,7 @@ public class LocalidadDaoImpl implements IRecord<Localidad, Integer>, ILocalidad
 	 */
 	@Override
 	public TransactionResponse<Localidad> filterByProvince(Provincia p) throws SQLException {
-		return select("SELECT * FROM localidades__select WHERE provincias.id_provincia = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
+		return select("SELECT * FROM localidades__select WHERE id_provincia = @provincia", Dictionary.fromArray( "provincia", p.getId() ));
 	}
 
 

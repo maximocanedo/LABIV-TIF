@@ -185,7 +185,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	@Override
 	public TransactionResponse<Cuenta> getById(String Num_Cuenta_CxC) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"select * from "+ printTDB() + "where Num_Cuenta_CxC = @Num_Cuenta_CxC",
+				"select * from cuentas__select where Num_Cuenta_CxC = @Num_Cuenta_CxC",
 				Dictionary.fromArray("Num_Cuenta_CxC",Num_Cuenta_CxC)
 		);
 		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
@@ -197,7 +197,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
 	public TransactionResponse<Cuenta> getByDNI(String Dni) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"select * from "+ printTDB() + "where Dni_Cl_CxC = @Dni",
+				"select * from cuentas__select where Dni_Cl_CxC = @Dni",
 				Dictionary.fromArray("Dni",Dni)
 		);
 		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
@@ -227,7 +227,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
 	public TransactionResponse<Cuenta> getAllFor(Cliente obj) throws SQLException {
 		TransactionResponse<Dictionary> res = db.fetch(
-			"SELECT * FROM " + printTDB() + " WHERE Dni_Cl_CxC = @dni ",
+			"SELECT * FROM cuentas__select WHERE Dni_Cl_CxC = @dni ",
 			Dictionary.fromArray("dni", obj.getDNI())
 		);
 		TransactionResponse<Cuenta> fres = new TransactionResponse<Cuenta>();

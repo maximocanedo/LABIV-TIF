@@ -34,7 +34,6 @@ logic.insert(tc);
 
 	
 	public TipoCuentaDaoImpl(){}
-	private TipoCuentaLogicImpl tpLogic= new TipoCuentaLogicImpl();
 	
 	public static final Schema tablaTP = new Schema(
 			//2 llaves porque al ser clase anonima la tengo que encerrar 
@@ -114,7 +113,7 @@ logic.insert(tc);
 		);
 		TransactionResponse<TipoCuenta> rowsTP= new TransactionResponse<TipoCuenta>();
 		if(rows.nonEmptyResult()) {
-			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
+			rowsTP.rowsReturned= new TipoCuentaLogicImpl().convert(rows.rowsReturned);
 		}
 		return rowsTP;
 	}
@@ -130,7 +129,7 @@ logic.insert(tc);
 		);
 		TransactionResponse<TipoCuenta> rowsTP= new TransactionResponse<TipoCuenta>();
 		if(rows.nonEmptyResult()) {
-			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
+			rowsTP.rowsReturned= new TipoCuentaLogicImpl().convert(rows.rowsReturned);
 		}
 		return rowsTP;
 	}
