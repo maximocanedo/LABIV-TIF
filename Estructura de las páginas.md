@@ -4,7 +4,7 @@ Las flechas punteadas simbolizan funciones que **aún no están disponibles**.
 ```mermaid
 graph LR;
     Clientes-->Login;
-    Clientes-.->logout[Cerrar sesión];
+    Clientes-..->logout[Cerrar sesión];
     Login-->id1[Iniciar sesión];
     Login-->Registrarse;
     Clientes-.->Dashboard;
@@ -21,7 +21,7 @@ Las flechas punteadas simbolizan funciones que **aún no están disponibles**.
 ```mermaid
 graph LR;
     Administradores-->Login;
-    Administradores-.->logout[Cerrar sesión];
+    Administradores-..->logout[Cerrar sesión];
     Login-->id1[Iniciar sesión];
     Login-->Registrarse;
     Administradores-.->Dashboard;
