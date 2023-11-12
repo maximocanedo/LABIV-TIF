@@ -1,4 +1,5 @@
 USE tif;
+/*
 CREATE VIEW Clientes__SafeSelect AS 
 SELECT 
 	usuario, nombre, apellido, correo, 
@@ -12,8 +13,8 @@ SELECT
 		ON provincias.id_provincia = provincia
 	INNER JOIN countries
 		ON countries.code = nacionalidad;
-
-/*
+-- */
+ /*
 DROP PROCEDURE IF EXISTS cuentas__getAll;
 -- =============================================
 -- Autor: Máximo Canedo
@@ -39,6 +40,8 @@ BEGIN
     SET __offset = (__page - 1) * __size;
 	SELECT *, Clientes__SafeSelect.* 
 		FROM tif.cuentas
+        INNER JOIN tif.tipocuenta
+			ON tipocuenta.Cod_TPCT = tif.cuentas.Cod_TPCT_CxC
         INNER JOIN Clientes__SafeSelect
 			ON Clientes__SafeSelect.dni = cuentas.Dni_Cl_CxC
 		LIMIT __offset, __size;
