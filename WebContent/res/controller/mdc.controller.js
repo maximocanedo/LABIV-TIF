@@ -138,7 +138,12 @@ const loadElements = () => {
 	});
 	document
 		.querySelectorAll(".mdc-button")
-		.forEach((element) => rippleIt(element));
+		.forEach((element) => {
+			const e = rippleIt(element);
+			if (e.root.getAttribute("id") != null) {
+				doc[e.root.getAttribute("id")] = e;
+			}
+		});
 
 	document.querySelectorAll(".mdc-snackbar").forEach((element) => {
 		var md = new mdc.snackbar.MDCSnackbar(element);

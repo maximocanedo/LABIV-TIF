@@ -88,10 +88,10 @@ const getRolePreferred = () => {
 const loginSuccessfulShowData = async (isAdmin = false) => {
 	const userData = await auth.getActualUser(isAdmin);
 	const user = userData.data;
-	// console.log(userData);
+	console.log({user});
 	document.querySelector(
 		"#successfulLoginSpanText"
-	).innerText = `¡Hola, ${user.nombre}!`;
+	).innerText = userData.status == 200 ? `¡Hola, ${user.nombre}!` : "¡Bienvenido!";
 	setTimeout(() => {
 		window.location = getURLNextValue(isAdmin);
 	}, 1000);

@@ -73,7 +73,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 			Pais nacionalidad = new Pais();
 			PaisLogicImpl pli = new PaisLogicImpl();
 			nacionalidad = pli.convert(d);
+			nacionalidad.setCodigo(d.$("nacionalidad_admin"));
 			a.setNacionalidad(nacionalidad);
+			
 		}
 		if(d.$("fechaNacimiento_admin") != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -93,12 +95,14 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 			Localidad locty = new Localidad();
 			LocalidadLogicImpl lli = new LocalidadLogicImpl();
 			locty = lli.convert(d);
+			locty.setId((int) Math.round(Double.parseDouble(d.$("localidad_admin") + "")));
 			a.setLocalidad(locty);
 		}
 		if(d.$("provincia_admin") != null) {
 			Provincia provincia = new Provincia();
 			ProvinciaLogicImpl pli = new ProvinciaLogicImpl();
 			provincia = pli.convert(d);
+			provincia.setId((int) Math.round(Double.parseDouble(d.$("provincia_admin") + "")));
 			a.setProvincia(provincia);
 		}
 		

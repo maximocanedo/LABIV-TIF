@@ -156,6 +156,8 @@ const testAccess = async (isAdmin = false) => {
 };
 
 const getActualUser = async (isAdmin = false) => {
+	let status = 500
+	  , data = {};
 	try {
 		const response = await fetch(
 			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/" +
@@ -165,12 +167,12 @@ const getActualUser = async (isAdmin = false) => {
 				method: "GET",
 			}
 		);
-		const status = response.status;
-		const data = await response.json();
-		return { status, data };
+		status = response.status;
+		data = await response.json();
 	} catch (err) {
 		console.error(err);
 	}
+	return { status, data };
 };
 
 export {
@@ -181,4 +183,5 @@ export {
 	whoIam,
 	allowAdmin,
 	allowClient,
+	LOGIN_PATH
 };

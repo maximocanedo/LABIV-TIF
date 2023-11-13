@@ -139,6 +139,7 @@ public class MySQLSchemaModel implements IModel {
 
 	@Override
 	public boolean validate(Dictionary data) throws SchemaValidationException {
+		System.out.println(data.toJSON());
 	    for (Map.Entry<String, SchemaProperty> entry : schema.entrySet()) {
 	        String key = entry.getKey();
 	        SchemaProperty sp = entry.getValue();

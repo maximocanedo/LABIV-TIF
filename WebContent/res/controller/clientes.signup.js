@@ -5,6 +5,14 @@ import * as clients from "./../data/clients.js";
 import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
 
+let state = {
+	dniOK: false,
+	cuilOK: false,
+	userOK: false,
+	clave1OK: false,
+	clave2OK: false
+};
+
 let design = {
 	setProgress: (pc) => {
 		let lp = document.querySelector("#progressbar");
@@ -37,29 +45,78 @@ let design = {
 
 let events = {
 	btnNombreApellidoOK__click: (e) => {
-		design.switchTab("tab-documentos");
+		let nombre = material.doc.mdtxtNombre.foundation;
+		let apellido = material.doc.mdtxtApellido.foundation;
+		if(nombre.isValid() && apellido.isValid() && nombre.isNativeInputValid() && apellido.isNativeInputValid())
+			design.switchTab("tab-documentos");
+		else material.showSnackbar("Ingrese valores válidos. ");
 	},
 	btnDocumentosOK__click: (e) => {
-		design.switchTab("tab-sexo");
+		let dni = material.doc.mdtxtDNI.foundation;
+		let cuil = material.doc.mdtxtCUIL.foundation;
+		if(cuil.isValid() && cuil.isNativeInputValid() && dni.isValid() && dni.isNativeInputValid() && state.dniOK && state.cuilOK)	design.switchTab("tab-sexo");
+		else material.showSnackbar("Ingresá un DNI y CUIL válidos. ");
 	},
 	btnSexOK__click: (e) => {
-		design.switchTab("tab-fecha-nacimiento");
+		if(document.signup.sex.value == "M" || document.signup.sex.value == "F")
+			design.switchTab("tab-fecha-nacimiento");
+		else material.showSnackbar("Seleccioná tu sexo. ");
 	},
-	btnBirthdayOK__click: (e) => {
+	btnBirthdayOK__click: async (e) => {
+		const i = material.doc.mdtxtFechaNacimiento.foundation.isValid();
+		if(!i) {
+			showSnackbar("Ingresá una fecha válida. ");
+			return;
+		}
 		design.switchTab("tab-direccion");
+		const control = material.loadSelect(
+			document.querySelector("#mdSelectProvincia")
+		);
+		await events.mdSelectProvincia__load(control);
+
 	},
-	btnAddressOK__click: (e) => {
+	btnAddressOK__click:  async (e) => {
+		const pro = material.doc.mdSelectProvincia.foundation.adapter.getSelectedIndex() != -1;
+		const loc = material.doc.mdSelectLocalidad.foundation.adapter.getSelectedIndex() != -1;
+		const dir = material.doc.mdtxtDireccion.foundation.isValid();
+		if(!dir) {
+			material.showSnackbar("Ingresá una dirección. ");
+			return;
+		}
+		if(!pro) {
+			material.showSnackbar("Seleccioná una provincia. ");
+			return;
+		}
+		if(!loc) {
+			material.showSnackbar("Seleccioná una localidad. ");
+			return;
+		}
 		design.switchTab("tab-nationality");
+		const control = material.loadSelect(
+			document.querySelector("#mdSelectNacionalidad")
+		);
+		events.mdSelectNacionalidad__load(control);
 	},
 	btnNacionalityOK__click: (e) => {
-		design.switchTab("tab-mail");
+		const pro = material.doc.mdSelectNacionalidad.foundation.adapter.getSelectedIndex() != -1;
+		if(pro) design.switchTab("tab-mail");
+		else {
+			material.showSnackbar("Elegí un país. ");
+			return;
+		}
 	},
 	btnMailOK__click: async (e) => {
-		design.switchTab("tab-processing");
-		await saveAll();
+		const v = material.doc.mdtxtMail.foundation.isValid();
+		if(v) {
+			design.switchTab("tab-processing");
+			await saveAll();
+		} else {
+			material.showSnackbar("Ingresá un correo válido. ");
+			return;
+		}
 	},
 	btnNombreApellidoBack__click: (e) => {
-		design.switchTab("tab-documentos");
+		window.location = auth.LOGIN_PATH;
 	},
 	btnDocumentosBack__click: (e) => {
 		design.switchTab("tab-nombres");
@@ -79,7 +136,13 @@ let events = {
 	btnMailBack__click: (e) => {
 		design.switchTab("tab-nationality");
 	},
+	btnLogin__click: (e) => {
+		console.log(auth.LOGIN_PATH);
+		window.location = auth.LOGIN_PATH;
+	},
 	mdSelectProvincia__load: async (e) => {
+		design.setLoadingStatus("tab-direccion");
+		design.setProgress(true);
 		const data = await provinces.getProvinces();
 		data.map((province) => {
 			const listItem = material.mdSelectMenuItemSingleLine(
@@ -89,10 +152,14 @@ let events = {
 			e.menuElement.querySelector("ul").append(listItem);
 		});
 		e.layoutOptions();
+		design.removeLoadingStatus("tab-direccion");
+		design.setProgress(false);
 	},
 	mdSelectLocalidad__load: async (e, p) => {
 		e.menuElement.querySelector("ul").innerHTML = "";
 		if (p != "") {
+			design.setLoadingStatus("tab-direccion");
+			design.setProgress(true);
 			const data = await localties.getLocalties(p);
 			e.disabled = false;
 			data.map((localty) => {
@@ -103,6 +170,8 @@ let events = {
 				e.menuElement.querySelector("ul").append(listItem);
 			});
 			e.layoutOptions();
+			design.removeLoadingStatus("tab-direccion");
+			design.setProgress(false);
 		} else {
 			e.setSelectedIndex(-1);
 			e.disabled = true;
@@ -111,6 +180,11 @@ let events = {
 		}
 	},
 	mdSelectNacionalidad__load: async (e) => {
+		design.switchTab("tab-nationality");
+		material.showSnackbar("Obteniendo la lista de países... ");
+		design.setProgress(true);
+		design.setLoadingStatus("tab-nationality");
+		e.disabled = true;
 		const data = await countries.getCountries();
 		data.map((country) => {
 			const listItem = material.mdSelectMenuItemSingleLine(
@@ -120,6 +194,9 @@ let events = {
 			e.menuElement.querySelector("ul").append(listItem);
 			e.layoutOptions();
 		});
+		e.disabled = false;
+		design.setProgress(false);
+		design.removeLoadingStatus("tab-nationality");
 	},
 	mdtxtDNI__change: async (e, control, btn) => {
 		const value = e.srcElement.value;
@@ -133,10 +210,13 @@ let events = {
 			material.showSnackbar(
 				"El DNI ingresado ya existe. Probá con otro. "
 			);
-			control.input.setCustomValidity("Este DNI ya está registrado. ");
+			state.dniOK = false;
+			//control.input.setCustomValidity("Este DNI ya está registrado. ");
 		} else {
-			control.foundation.setHelperTextContent("");
+			state.dniOK = true;
 			control.foundation.setValid(true);
+			control.foundation.setHelperTextContent("");
+			state.dniOK = true;
 		}
 	},
 	mdtxtCUIL__change: async (e, control, btn) => {
@@ -149,13 +229,17 @@ let events = {
 			control.foundation.setHelperTextContent(
 				"Este CUIL ya existe. Probá con otro. "
 			);
-			control.input.setCustomValidity("Este CUIL ya está registrado. ");
+			state.cuilOK = false;
+			//control.input.setCustomValidity("Este CUIL ya está registrado. ");
 			material.showSnackbar(
 				"El CUIL ingresado ya existe. Probá con otro. "
 			);
 		} else {
+			state.cuilOK = true;
+			control.foundation.setValid(true);
 			control.foundation.setHelperTextContent("");
 			control.foundation.setValid(true);
+			state.cuilOK = true;
 		}
 	},
 };
@@ -282,7 +366,7 @@ let controls = {
 		const control = material.loadSelect(
 			document.querySelector("#mdSelectProvincia")
 		);
-		events.mdSelectProvincia__load(control);
+		//events.mdSelectProvincia__load(control);
 		control.listen("MDCSelect:change", (e) => {
 			events.mdSelectLocalidad__load(
 				material.loadSelect(
@@ -304,7 +388,6 @@ let controls = {
 		const control = material.loadSelect(
 			document.querySelector("#mdSelectNacionalidad")
 		);
-		events.mdSelectNacionalidad__load(control);
 		return control;
 	})(),
 	mdffSexo: (() => {

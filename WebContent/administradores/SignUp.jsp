@@ -205,7 +205,7 @@
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
                                 <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="lblClave2">Contraseña</span>
+                                    <span class="mdc-floating-label" id="lblClave2">Volvé a escribir la contraseña</span>
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
@@ -243,7 +243,7 @@
                         <div class="mdc-form-field" id="mdffSexo">
                             <div class="mdc-radio">
                                 <input class="mdc-radio__native-control" type="radio" id="radioSexoMasculino" name="sex" value="M"
-                                    required>
+                                    required selected>
                                 <div class="mdc-radio__background">
                                     <div class="mdc-radio__outer-circle"></div>
                                     <div class="mdc-radio__inner-circle"></div>
@@ -321,7 +321,7 @@
                     </div>
                 </div>
                 <!-- Sección Dirección -->
-                <div id="tab-direccion" class="__signup-card--tab">
+                <div id="tab-direccion" class="__signup-card--tab ">
                     <div class="_header">
                         <span class="mdc-typography--headline5">¿Dónde vivís?</span>
                     </div>
@@ -526,10 +526,9 @@
                     <!-- Botón siguiente -->
                     <div class="_footer">
                         </div>
-
                 </div>
                 <!-- Sección Listo -->
-                <div id="tab-done" class="__signup-card--tab">
+                <div id="tab-done" class="__signup-card--tab ">
                     <div class="_header">
                         <span class="mdc-typography--headline5">¡Listo!</span>
                     </div>
@@ -539,7 +538,7 @@
                     </div>
                     <div class="_footer">
                         <div class="mdc-touch-target-wrapper">
-                            <button id="btnLogin" onclick="window.location = '/clientes/login.html';" class="mdc-button mdc-button--touch mdc-button--raised"
+                            <button id="btnLogin" class="mdc-button mdc-button--touch mdc-button--raised"
                                 type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>

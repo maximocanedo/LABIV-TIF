@@ -76,7 +76,7 @@
               <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                  <span class="mdc-floating-label" id="lblClave">ContraseÃ±a</span>
+                  <span class="mdc-floating-label" id="lblClave">Contraseña</span>
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
@@ -101,10 +101,10 @@
         <div id="tab-ok" class="__login-card--tab">
           
           <div class="_header">
-            <span class="mdc-typography--headline5" id="successfulLoginSpanText">Â¡Hola!</span>
+            <span class="mdc-typography--headline5" id="successfulLoginSpanText">¡Hola!</span>
           </div>
           <div class="_body">
-            <span class="mdc-typography--body1">En un momento serÃ¡s redirigido a la pÃ¡gina de inicio. </span>
+            <span class="mdc-typography--body1">En un momento serás redirigido a la página de inicio. </span>
             <div class="mdc-touch-target-wrapper">
               
             </div>
