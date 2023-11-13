@@ -566,20 +566,21 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	}
 	
 	/**
-	 * Intenta iniciar sesión, y devuelve un token JWT.
+	 * Intenta iniciar sesión, y devuelve un Cliente.
 	 * @param user Usuario
 	 * @param pass Contraseña, en texto plano
 	 * @return
 	 */
-	public Response<Cliente> login(String user, String pass) {
+	public Cliente loginCliente(String user, String pass) {
 		Response<Cliente> res = new Response<Cliente>();
 		// Validar que el usuario exista:
 		Response<Cliente> userExists =  exists(user);
+		Cliente adm=null;
 		if(userExists.status) {
 			try {
 				TransactionResponse<Cliente> res2 = data.getFullById(user);
 				if(res2.nonEmptyResult()) {
-					Cliente adm = res2.rowsReturned.get(0);
+					adm = res2.rowsReturned.get(0);
 					if(adm.isEstado()) {
 						Response<Cliente> resI = validatePassword(adm, pass);
 						if(resI.status) {
@@ -588,9 +589,9 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 							Response<Cliente> resT = new Response<Cliente>();
 							resT.die(true, null); 
 							resT.eField = token;
-							return resT;
+							return adm;
 						}
-						return resI;
+						return adm;
 					} else {
 						res.die(false, 403, "User was disabled and cannot log in. ");
 					}
@@ -604,7 +605,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		} else {
 			res.http = 401; // UNAUTHORIZED
 		}
-		return res;
+		return adm; //se valida el tema del null por eso retorno siempre el objeto
 	}
 	
 	/**
@@ -612,7 +613,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	 * @param servlet_parameters Parámetros recibidos del servlet.
 	 * @return Resultado de la operación.
 	 */
-	public Response<Cliente> login(Dictionary servlet_parameters) {
+/*	public Response<Cliente> login(Dictionary servlet_parameters) {
 		Response<Cliente> response = new Response<Cliente>();
 		Schema schema = new Schema(ClienteDaoImpl.Fields.usuario, ClienteDaoImpl.Fields.contraseña);
 		try {
@@ -631,7 +632,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return response;
 	}
-	
+	*/
 
 	
 	/**
@@ -694,5 +695,17 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 			res.die(false, e.getMessage());
 		}
 		return res;
+	}
+
+	@Override
+	public Response<Cliente> login(Dictionary data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response<Cliente> login(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
