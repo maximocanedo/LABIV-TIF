@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <div class="_root_background">
         <div class="circle c1"></div>
     </div>
@@ -516,6 +517,7 @@
 
                     </div>
                 </div>
+                
                 <!-- Sección Procesando -->
                 <div id="tab-processing" class="__signup-card--tab">
                     <div class="_header">
@@ -572,12 +574,13 @@
         </form>
     </main>
 
-    <aside class="mdc-snackbar">
+     <aside class="mdc-snackbar">
         <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
             <div class="mdc-snackbar__label" aria-atomic="false"></div>
         </div>
     </aside>
-    <script type="module" src="./../res/controller/admin.signup.js"></script>
+    <script type="module" src="./../res/controller/admin.signup.js"></script>-->
+    
 </body>
 
 </html>

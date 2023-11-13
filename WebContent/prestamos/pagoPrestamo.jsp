@@ -17,7 +17,7 @@
     <div class="nav-wrapper">
       <a class="brand-logo" href="#"><img src="https://cadastro.iqnear.com.br/company_logos/banco-empresa-teste-1618528973-992.png" style="width:65px;"/></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Cuentas</a></li>
+        <li><a href="/TPINT_GRUPO_3_LAB/clientes/cuentasCliente.jsp">Cuentas</a></li>
         <li><a href="#">Transferencias</a></li>
         <li><a href="#">Movimientos realizados</a></li>
         <li>
@@ -28,7 +28,7 @@
         	<li class="divider"></li>
         	<li><a href="#">Préstamos otorgados</a></li>
         	<li class="divider"></li>
-        	<li><a href="#">Pago de préstamo</a></li>
+        	<li><a href="pagoPrestamo.jsp">Pago de préstamo</a></li>
         	<li class="divider"></li>        
  			</ul>
         </li>

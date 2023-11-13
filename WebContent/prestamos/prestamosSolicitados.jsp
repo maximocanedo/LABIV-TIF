@@ -24,7 +24,7 @@
         	<a href="#" class="dropdown-trigger" data-target="id_drop">Préstamos
         	<i class="material-icons right">arrow_drop_down</i></a>
         	<ul id="id_drop" class="dropdown-content">
-        	<li><a href="#">Solicitar préstamo</a></li>
+        	<li><a href="solicitarPrestamo.jsp">Solicitar préstamo</a></li>
         	<li class="divider"></li>
         	<li><a href="#">Préstamos otorgados</a></li>
         	<li class="divider"></li>
