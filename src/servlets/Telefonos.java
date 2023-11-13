@@ -20,14 +20,18 @@ public class Telefonos extends HttpServlet {
     public Telefonos() {
         super();
         // TODO Auto-generated constructor stub
+        // TAREAS:
+        // Ver teléfonos de un cliente, agregar un teléfono (Sólo cliente), eliminar un teléfono (Sólo cliente)
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    // Ver teléfonos de un cliente
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**

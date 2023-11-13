@@ -7,22 +7,22 @@ import max.IEntity;
 
 public class Telefono implements IEntity {
 	
-private String DNI_Usuario;
-private String Telefono;
+private String DNI;
+private String Tel;
 private Boolean Activo;
 
 public Telefono() {}
 
 public Telefono(String usuario, String telefono) {
 	super();
-	DNI_Usuario = usuario;
-	Telefono = telefono;
+	DNI = usuario;
+	Tel = telefono;
 }
 
 public JsonObject toJsonObject() {
 	JsonObject obj = new JsonObject();
-	obj.addProperty("Dni_Cl_TxC", DNI_Usuario);
-	obj.addProperty("Tel_TxC", Telefono);
+	obj.addProperty("Dni", DNI);
+	obj.addProperty("Tel", Tel);
 	return obj;
 }
 
@@ -39,29 +39,29 @@ public String toJSON() {
 }
 
 public String getDNI_Usuario() {
-	return DNI_Usuario;
+	return DNI;
 }
 public void setDNI_Usuario(String usuario) {
-	DNI_Usuario = usuario;
+	DNI = usuario;
 }
 public String getTelefono() {
-	return DNI_Usuario;
+	return DNI;
 }
 public void setTelefono(String numeroTelefono) {
-	DNI_Usuario = numeroTelefono;
+	DNI = numeroTelefono;
 }
 @Override
 public Dictionary toDictionary() {
 	return Dictionary.fromArray(
-			"Dni_Cl_TxC", DNI_Usuario,
-			"Tel_TxC", Telefono,
-			"Activo_TxC",Activo
+			"Dni", DNI,
+			"Tel", Tel,
+			"Activo",Activo
 	);
 }
 @Override
 public Dictionary toIdentifiableDictionary() {
 	return Dictionary.fromArray(
-		"Dni_Cl_TxC", DNI_Usuario
+		"Dni", DNI
 	);
 }
 }
