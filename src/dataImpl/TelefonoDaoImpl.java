@@ -24,24 +24,27 @@ public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
 	public static final Schema tablaTP = new Schema(
 			//2 llaves porque al ser clase anonima la tengo que encerrar 
 			//El otro par es para llenar las variables de la clase
-			new SchemaProperty("Dni_Cl_TxC") {{
+			new SchemaProperty("Dni") {{
 				required= true;
 				primary= true;
 				type= Types.VARCHAR;
 				maxlength= 60;
 			}},
-			new SchemaProperty("Tel_TxC") {{
+			new SchemaProperty("Tel") {{
 				required= true;
+				//primary= true; da error, lo hare desde el workbench
 				type= Types.VARCHAR;
 				maxlength= 30;
 			}},
-			new SchemaProperty("Activo_TxC") {{
+			new SchemaProperty("Activo") {{
 				required= true;
 				type= Types.BIT;
 				defaultValue = true;
 			}}
 	);
-	public static final IModel _model= new MySQLSchemaModel("TelefonosXCliente","tif",tablaTP);
+	public static final IModel _model= new MySQLSchemaModel("telefonos","tif",tablaTP) {{
+		compile();
+	}};
 	private Connector db = new Connector(_model.getDatabaseName());
 	
 	public String printTDB() {
@@ -96,7 +99,7 @@ public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
 	@Override
 	public TransactionResponse<Telefono> getById(String DNI_Usuario) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"select * from "+ printTDB() + "where DNI_Usuario = @DNI_Usuario",
+				"select * from "+ printTDB() + "where Dni = @DNI_Usuario",
 				Dictionary.fromArray("DNI_Usuario",DNI_Usuario)
 		);
 		TransactionResponse<Telefono> rowsTP= new TransactionResponse<Telefono>();
@@ -105,10 +108,10 @@ public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
 		}
 		return rowsTP;
 	}
-
+ 
 	@Override
 	public boolean exists(String DNI_Usuario) throws SQLException {
 		
-		return _model.exists(Dictionary.fromArray("DNI_Usuario",DNI_Usuario));
+		return _model.exists(Dictionary.fromArray("Dni",DNI_Usuario));
 	}
 }

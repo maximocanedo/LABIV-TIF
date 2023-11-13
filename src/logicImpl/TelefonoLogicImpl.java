@@ -129,12 +129,12 @@ public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefo
 	@Override
 	public Telefono convert(Dictionary row) {
 		Telefono data = new Telefono();
-		if(row.$("Tel_TxC") != null) {
-			data.setTelefono(row.$("Tel_TxC"));
-		} if(row.$("Dni_Cl_TxC") != null) {
-			data.setDNI_Usuario(row.$("Dni_Cl_TxC"));
-		}if(row.$("Activo_TxC") != null) {
-			data.setActivo(row.$("Activo_TxC"));
+		if(row.$("Tel") != null) {
+			data.setTelefono(row.$("Tel"));
+		} if(row.$("Dni") != null) {
+			data.setDNI_Usuario(row.$("Dni"));
+		}if(row.$("Activo") != null) {
+			data.setActivo(row.$("Activo"));
 		}
 		return data;
 	}
