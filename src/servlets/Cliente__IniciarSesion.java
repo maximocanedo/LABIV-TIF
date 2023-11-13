@@ -31,7 +31,7 @@ public class Cliente__IniciarSesion extends BaseServlet implements Servlet {
 		if(finalRes.status) {
 			String tk = finalRes.eField;
 			if(tk != null) {
-				AuthManager.sendToken(response, tk);
+				AuthManager.sendToken(request, response, tk);
 			}
 		}
 		response.setStatus(finalRes.http);

@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dataImpl.AdministradorDaoImpl;
 import dataImpl.ClienteDaoImpl;
@@ -60,8 +61,10 @@ public class AuthManager {
     	return td;
     }
     
-    public static void sendToken(HttpServletResponse res, String token) {
-    	res.setHeader("Authorization", token);
+    public static void sendToken(HttpServletRequest req, HttpServletResponse res, String token) {
+    	//res.setHeader("Authorization", token);
+    	HttpSession session = req.getSession();
+    	session.setAttribute("jwt", token);
     }
     
     protected static class Error {
@@ -81,6 +84,7 @@ public class AuthManager {
     public static void send(HttpServletResponse res, Response<Administrador> mes) {
     	res.setStatus(mes.http == null ? 200 : mes.http);
     	try {
+    		// Querrán cambiar acá para que devuelva sólo el Response para poder trabajar bien
     		String jsn = mes.toFinalJSON();
 			res.getWriter().append(jsn);
 		} catch (IOException e) {
@@ -91,7 +95,9 @@ public class AuthManager {
     }
     
     public static boolean authenticate(HttpServletRequest req, HttpServletResponse res, String roleRequired) {
-    	String authHeader = req.getHeader("Authorization");
+    	HttpSession session = req.getSession();
+    	// String authHeader = req.getHeader("Authorization");
+    	String authHeader = (String) session.getAttribute("jwt");
     	if(authHeader != null && authHeader.startsWith("Bearer ")) {
     		// Autenticable
     		String token = authHeader.substring(7);
@@ -113,7 +119,9 @@ public class AuthManager {
     }
     
     public static TokenData readToken(HttpServletRequest request) {
-    	String authHeader = request.getHeader("Authorization");
+    	HttpSession session = request.getSession();
+    	// String authHeader = req.getHeader("Authorization");
+    	String authHeader = (String) session.getAttribute("jwt");
     	if(authHeader != null && authHeader.startsWith("Bearer ")) {
     		String token = authHeader.substring(7);
     		TokenData td = readJWT(token);
@@ -124,8 +132,9 @@ public class AuthManager {
     
     public static Administrador getActualAdmin(HttpServletRequest req, HttpServletResponse res) {
     	boolean auth = authenticate(req, res, ADMIN);
+    	HttpSession session = req.getSession();
     	if(auth) {
-    		String authHeader = req.getHeader("Authorization");
+    		String authHeader = (String) session.getAttribute("jwt");
     		String token = authHeader.substring(7);
     		TokenData td = readJWT(token);
     		AdministradorDaoImpl admindao = new AdministradorDaoImpl();
@@ -152,8 +161,9 @@ public class AuthManager {
     
     public static Cliente getActualClient(HttpServletRequest req, HttpServletResponse res) {
     	boolean auth = authenticate(req, res, CLIENT);
+    	HttpSession session = req.getSession();
     	if(auth) {
-    		String authHeader = req.getHeader("Authorization");
+    		String authHeader = (String) session.getAttribute("jwt");
     		String token = authHeader.substring(7);
     		TokenData td = readJWT(token);
     		ClienteDaoImpl admindao = new ClienteDaoImpl();
