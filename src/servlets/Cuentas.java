@@ -66,7 +66,7 @@ public class Cuentas extends BaseServlet implements Servlet {
 			return;
 		}
 		Cuenta nuevaCuenta= CL.convert(parameters);
-		CL.insert(nuevaCuenta);
+		CL.createAccount(nuevaCuenta);
 				
 	}
 

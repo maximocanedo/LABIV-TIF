@@ -17,6 +17,7 @@ import max.Dictionary;
 import max.IRecordLogic;
 import max.Response;
 import max.TransactionResponse;
+import oops.ParameterNotExistsException;
 import oops.SchemaValidationException;
 
 public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
@@ -45,6 +46,43 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		return lg;
 	}
 
+	
+	
+	public Response<Movimiento> createMovement (Dictionary m){
+		Response<Movimiento> res = new Response<Movimiento>();
+		
+		Dictionary nuevo = new Dictionary();
+			nuevo.put("CBUorigen", m.$("cbuOrigen"));
+			nuevo.put("CBUdestino", m.$("cbuDestino"));
+			if(m.$("monto")!=null) {
+				BigDecimal nuevomonto = m.$("monto");
+				nuevo.put("Monto", nuevomonto);
+			}		
+			nuevo.put("tipoConc", m.$("concepto"));
+			nuevo.put("tipoMov", m.$("tipoMov"));
+			
+			switch (m.$("tipoMov").toString()) {
+            case "TM01":
+            	//EJECUTAR ALTA DE CUENTA
+                break;
+            case "TM02":
+            	//EJECUTAR ALTA DE PRESTAMO
+                break;
+            case "TM03":
+            	//EJECUTAR PAGO DE PRESTAMO
+                break;
+            case "TM04":
+            	insertTransfer(nuevo);//EJECUTAR TRANSFERENCIA
+            	
+            	break;
+            default:
+                
+        }			
+		
+		
+		return res;
+		
+	}
 	/* (non-Javadoc)
 	 * @see logicImpl.IMovimientoLogic#insert(entity.Movimiento)
 	 */
@@ -65,6 +103,24 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 			lg.die(false, 500, "Error al intentar ingresar el registro");
 		}		
 		
+		return lg;
+	}
+	
+	
+	public Response<Movimiento> insertTransfer(Dictionary obj) {
+		
+		Response<Movimiento> lg = new Response<>();
+		try {
+				TransactionResponse<?> t = daoMov.insertTransfer(obj);
+				if(t.rowsAffected > 0) {
+					lg.die(true, 201, "El registro ha sido ingresado con éxito");
+				}else {
+					lg.die(false, 500, "Error al intentar ingresar el registro");
+				}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			lg.die(false, 500, "Error al intentar ingresar el registro");
+		}			
 		return lg;
 	}
 

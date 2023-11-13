@@ -17,6 +17,7 @@ import max.MySQLSchemaModel;
 import max.Schema;
 import max.SchemaProperty;
 import max.TransactionResponse;
+import oops.ParameterNotExistsException;
 import oops.SchemaValidationException;
 
 public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimientoDao {
@@ -105,7 +106,29 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 		
 		return t;
 	}
-
+	
+	public TransactionResponse<?> insertTransfer(Dictionary d) throws SQLException{
+		TransactionResponse<Dictionary> rows = new TransactionResponse<Dictionary>();
+		try {
+			rows = dbCon.fetch(
+					"CALL SP_TRANSFERENCIA (@CBUorigen , @CBUdestino , @monto, @tipoConc, @tipoMov )",
+					Dictionary.fromArray("CBUorigen",d.getParameters("CBUorigen"),
+										 "CBUdestino" , d.getParameters("CBUdestino"),
+										 "monto" , d.getParameters("monto"),
+										 "tipoConc", d.getParameters("tipoConcepto"),
+										 "tipoMov", d.getParameters("tipoMovimiento")
+										 )
+			);
+		} catch (ParameterNotExistsException e) {
+			
+			e.printStackTrace();
+		}
+		TransactionResponse<Movimiento> rowsTP= new TransactionResponse<Movimiento>();
+		if(rows.nonEmptyResult()) {
+			return rowsTP;
+		}
+		return rowsTP;
+	}
 	/* (non-Javadoc)
 	 * @see dataImpl.IMovimientoDao#delete(entity.Movimiento)
 	 */
