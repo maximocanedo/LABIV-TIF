@@ -20,7 +20,7 @@
       <a class="brand-logo" href="#"><img src="https://cadastro.iqnear.com.br/company_logos/banco-empresa-teste-1618528973-992.png" style="width:65px;"/></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="cuentaCliente.jsp">Cuentas</a></li>
-        <li><a href="#">Transferencias</a></li>
+        <li><a href="/TPINT_GRUPO_3_LAB/clientes/transferencias.jsp">Transferencias</a></li>
         <li><a href="MovimientosRealizados.jsp">Movimientos realizados</a></li>
         <li>
         	<a href="#" class="dropdown-trigger" data-target="id_drop">Prestamos

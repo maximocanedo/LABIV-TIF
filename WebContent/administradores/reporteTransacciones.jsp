@@ -69,10 +69,8 @@
         <h2 class="center-align">Informe de transacciones</h2>
 
         <canvas id="graficoBarras" width="400" height="400"></canvas>
-
-        <script>
-            // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
-            var datosTransacciones = {
+				
+				<!--  var datosTransacciones = { SI NO QUIEREN QUE MUESTREN LOS MESES, REEEMPLAZAR POR ESTE DATA QUE MUESTRA DIRECTAMENTE LA CANTIDAD X CADA TIPO
                 labels: ["Alta de cuenta", "Alta de prestamo", "Pago de prestamo", "Transferencia"], // Nombres de los tipos de transacciones
                 datasets: [{
                     data: [10, 6, 18,28], // Cantidad de transacciones por cada tipo
@@ -80,13 +78,48 @@
                     borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)","rgba(0, 255, 0, 0.5)"],
                     borderWidth: 1
                 }]
-            };
-
+            };-->
+        <script>
+            // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
+          
+             var datosTransacciones = {
+            	    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+            	    datasets: [
+            	        {
+            	            label: "Alta de cuenta",
+            	            data: [10, 15, 20, 25, 30, 35],
+            	            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            	            borderColor: "rgba(255, 99, 132, 1)",
+            	            borderWidth: 1
+            	        },
+            	        {
+            	            label: "Alta de prestamo",
+            	            data: [20, 25, 30, 35, 40, 45],
+            	            backgroundColor: "rgba(54, 162, 235, 0.5)",
+            	            borderColor: "rgba(54, 162, 235, 1)",
+            	            borderWidth: 1
+            	        },
+            	        {
+            	            label: "Pago de prestamo",
+            	            data: [15, 20, 25, 30, 35, 40],
+            	            backgroundColor: "rgba(255, 206, 86, 0.5)",
+            	            borderColor: "rgba(255, 206, 86, 1)",
+            	            borderWidth: 1
+            	        },
+            	        {
+            	        	label:"Transferencia",
+            	        	data: [28,28,28,28,28,3],
+            	        	backgroundColor:"rgba(0, 255, 0, 0.5)",
+            	        	borderColor:"rgba(0, 255, 0, 0.5)",
+            	        	borderWidth: 1
+            	        }
+            	    ]
+            	};
             // Configuración del gráfico de barras
             var opcionesGrafico = {
             		plugins: {
             	        legend: {
-            	            display: false
+            	            display: true
             	        }
             	    },
                 scales: {
@@ -106,11 +139,8 @@
             });
         </script>
 
-        <!-- Agrega aquí cualquier otro contenido o elementos que desees mostrar -->
-
+       
     </div>
-
-        <!-- Agrega aquí cualquier otro contenido o elementos que desees mostrar -->
 
     </div>
 	
@@ -118,6 +148,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </body>
+<script>
+    M.AutoInit(); 
+</script>
+
    <footer class="page-footer indigo darken-2">
           <div class="container">
             <div class="row">
