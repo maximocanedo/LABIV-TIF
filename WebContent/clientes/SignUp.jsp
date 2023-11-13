@@ -473,7 +473,7 @@
                     </div>
                     <div class="_footer">
                         <div class="mdc-touch-target-wrapper">
-                            <button id="btnLogin" onclick="window.location = '/clientes/login.html';" class="mdc-button mdc-button--touch mdc-button--raised"
+                            <button id="btnLogin" class="mdc-button mdc-button--touch mdc-button--raised"
                                 type="button">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__touch"></span>

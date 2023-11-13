@@ -405,6 +405,12 @@ let controls = {
 		const control = material.loadTxt(document.querySelector("#mdtxtClave"));
 		return control;
 	})(),
+	mdbtnLogin: (() => {
+		const control = document.querySelector("#btnLogin");
+		control.addEventListener("click", (e) => {
+			window.location = auth.LOGIN_PATH;
+		});
+	})(),
 	errorDetails: document.querySelector("#errorDetails"),
 };
 (async () => {
