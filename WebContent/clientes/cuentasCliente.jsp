@@ -95,7 +95,7 @@
 <div style="width: 300px; margin: auto; border: 1px solid #ccc; padding: 20px; margin-top: 50px;">
     <h2>Cuentas</h2>
 
-    <form action="TuServlet" method="post">
+    <form action="servlet" method="post">
         <label for="tipoCuenta">Tipo de Cuenta:</label>
         <input type="text" id="tipoCuenta" name="tipoCuenta" value='Caja ahorro' readonly />
 
