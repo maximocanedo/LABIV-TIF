@@ -11,7 +11,9 @@
 <title>Transferencias</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>       
+
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>  
+       
 <link rel="stylesheet" type="text/css" href="estiloPaginaCliente-Administrador.css">
 <link rel="stylesheet" type="text/css" href="estiloDatosCliente.css">
 <link rel="stylesheet" type="text/css" href="estiloTablaTransferencia.css">
@@ -67,38 +69,44 @@
  <div class="transparent-bg"></div>
 
 
-<div class="wrapper"> 
-<div class="container">
-    <h4>Transferencias</h4>
-    <table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Cuenta Origen</th>
-            <th>Cuenta Destino</th>
-            <th>Monto</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="transferencia" items="${listaDeTransferencias}"> <!--  hay que enviarle un List con la lista de transferencias hechas por el cliente y asignarle los campos -->
-            <tr>
-            <% //aca hacer el while o lo que sea para que se autocargue la lista, ya que el c:forEach no se usarlo %>
-            </tr>
-            <tr>
-                <td><input type="text" id="campoId" name="campoId" value="1"></td>
-                <td><input type="text" id="cuentaOrigen" name="cuentaOrigen" value="000012345"></td>
-                <td><input type="text" id="cuentaDestino" name="cuentaDestino" value="000067890"></td>
-                <td><input type="text" id="monto" name="monto" value="15000"></td>
-                
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
-  </div>
+<div class="center-align-container">
+			<div class="row">
+				<div class="col s12">
+					<div class="card">
+						<div class="card-content">
+							<span class="card-title">Realizar transferencia</span>
+                    		<!-- Combobox para seleccionar la cuenta -->
+                    		<div class="input-field">
+                       				 <select id="cuenta" required>
+                           			 <option value="" disabled selected>Seleccione una cuenta</option>
+                          			  <option value="cuenta1">Cuenta 1</option>
+                          			  <option value="cuenta2">Cuenta 2</option>
+                          			  <option value="cuenta3">Cuenta 3</option>
+                     		   		</select>
+                       			 <label for="prestamo">Cuenta a descontar monto</label>
+                    		</div>
+                    		<div>
+                    		<label for= "CBUDestino">Ingrese el CBU del destinatario: </label>
+                    			<input type="text" id="CBUdestino" name="CBUdestino">               			
+                    		</div>
+                    		<div>
+                    			<label for="monto">Monto: </label>
+                    		</div>
+                    		<div class="input-field">
+                    			<input class="validate" type="number" step="0.01" pattern="\d+(\.\d{2})?" title="Formato: XX.XX" required>
+                    		</div>
+                    	<div>
+                    		<a class="waves-effect waves-light btn" href="#">Transferir</a>
+                    	</div>
+					</div>
+					</div>
+				</div> 
+			</div>
 </div>
 
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </body>
    <footer class="page-footer indigo darken-2">
@@ -116,4 +124,16 @@
 			</div>
           </div>
 </footer>
+
+<script>
+$(document).ready(function(){
+	$(".dropdown-trigger").dropdown();
+  });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
 </html>
