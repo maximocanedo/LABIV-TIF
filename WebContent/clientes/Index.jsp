@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="entity.Administrador" %>
 <%@page import="entity.Cliente" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,19 +37,7 @@
         <li><a href="datospersonalesCliente.jsp">Registro personal</a></li>
         <li><a id="clienteBanco">Bienvenido, 
 
-				<%
-					String nombre="";
-				if((Administrador)session.getAttribute("admin")!=null){
-					Administrador admin= (Administrador)session.getAttribute("admin");
-					nombre= admin.getNombre();
-				}
-				else if((Cliente)session.getAttribute("cliente")!=null){
-					Cliente client= (Cliente)session.getAttribute("cliente");
-					nombre= client.getNombre();
-				}
-					
-				%>
-				<%=nombre %>
+				<%=request.getAttribute("nombre")%>
 </a></li>
         <li>
         	<a class="waves-effect waves-light btn" id="logout-button" href="inicioSesion.jsp">
@@ -83,3 +70,5 @@
           </div>
 </footer>
 </html>
+
+

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Administrador;
 import entity.Cliente;
+import logicImpl.AdministradorLogicImpl;
 import logicImpl.ClienteLogicImpl;
 
 /**
@@ -27,7 +29,8 @@ public class InicioSesion extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    ClienteLogicImpl logic = new  ClienteLogicImpl();
+    ClienteLogicImpl CLlogic = new  ClienteLogicImpl();
+    AdministradorLogicImpl ADlogic = new AdministradorLogicImpl();
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,25 +46,40 @@ public class InicioSesion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		 String usuario = request.getParameter("inputUsuario");
+         String clave = request.getParameter("inputClave");
 		if (request.getParameter("btnInicioSesion") != null) {
 	        String rol = request.getParameter("user-type").toString();
-	        System.out.println("User type: " + rol);
-
 	        if (rol.equals("cliente")) {
-	            String usuario = request.getParameter("inputUsuario");
-	            String clave = request.getParameter("inputClave");
+	           
 
-	            Cliente cliente = logic.loginCliente(usuario, clave);
+	            Cliente cliente = CLlogic.loginCliente(usuario, clave);
 
 	            if (cliente != null && cliente.isEstado()) {
-	                
+	            	 request.setAttribute("usuario", cliente.getUsuario());
+	            	 request.setAttribute("nombre", cliente.getNombre());
+		             RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/Index.jsp");
+		             dispatcher.forward(request, response);
 	            } else {
-	                System.out.println("Login failed for username: " + usuario);
 	                request.setAttribute("error", "Error al iniciar sesion, el usuario no existe o fue dado de baja");
 	                RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/inicioSesion.jsp");
 	                dispatcher.forward(request, response);
 	            }
 	        } else {
+	        	 
+		            Administrador admin = ADlogic.loginAdmin(usuario, clave);
+
+		            if (admin != null && admin.isEstado()) {
+		            	 request.setAttribute("usuario", admin.getUsuario());
+		            	 request.setAttribute("nombre", admin.getNombre());
+			             RequestDispatcher dispatcher = request.getRequestDispatcher("/administradores/Index.jsp");
+			             dispatcher.forward(request, response);
+		            } else {
+		                request.setAttribute("error", "Error al iniciar sesion, el usuario no existe o fue dado de baja");
+		                RequestDispatcher dispatcher = request.getRequestDispatcher("/administradores/inicioSesion.jsp");
+		                dispatcher.forward(request, response);
+		            }
+	        	
 	        }
 	    }
 
