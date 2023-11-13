@@ -3,7 +3,10 @@ import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
 import * as accounts from "./../data/accounts.js";
 import * as movements from "./../data/movements.js";
-
+let paginator = {
+	page: 1,
+	size: 10
+};
 const formatearNumeroCuenta = (nc) => {
     const cleaned = ('' + nc).replace(/\D/g, '');
     const formatted = cleaned.replace(/(\d{4})(\d{3})(\d{3})/, '$1-$2-$3');
@@ -35,14 +38,7 @@ const logic = {
 	},
 };
 
-
-(async () => {
-	// Instanciar componentes
-	material.loadElements();
-
-	console.log(material);
-	// Obtener datos del cliente actual. Si no hay cliente redirige a la página de inicio de sesión.
-	const actualUser = await auth.allowClient();
+const loadData = async() => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const noCuenta = urlParams.get('accountno');
@@ -54,8 +50,6 @@ const logic = {
 	const cuentasData = await accounts.getAccount(noCuenta);
 	const cuentas = cuentasData.data.listReturned;
 	for(let i = 0; i < 1; i++) {
-		console.log(".__account_1_tipodesc");
-		console.log(cuentas[i]);
 		document.querySelectorAll(".account_1").forEach(e => e.classList.remove("non-displayable"));
 		document.querySelectorAll(".__account_1_tipodesc").forEach(e => e.innerText = cuentas[i].tipo.descripcion);
 		document.querySelectorAll(".__account_1_saldo").forEach(e => e.innerText = formatearComoDinero(cuentas[i].saldo));
@@ -66,7 +60,15 @@ const logic = {
 		document.querySelectorAll(".__account_1_clcuil").forEach(e => e.innerText = logic.formatearCUIL(cuentas[i].cliente.CUIL));	
 		document.querySelectorAll(".__account_1_clnac").forEach(e => e.innerText = cuentas[i].cliente.nacionalidad.nombre);			 
 	}
-	const movimientos = await movements.getMovementsFromAccount(noCuenta, {page: 1, size: 10});
+};
+
+const loadTable = async () => {
+	const actualUser = await auth.allowClient();
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const noCuenta = urlParams.get('accountno');
+	
+	const movimientos = await movements.getMovementsFromAccount(noCuenta, paginator);
 	for(let i = 0; i < movimientos.data.listReturned.length; i++) {
 		let mv = movimientos.data.listReturned[i];
 		let row = document.createElement("tr");
@@ -83,7 +85,23 @@ const logic = {
 		row.addEventListener("click", () => {
 			const dialog = material.showDialog(`ID: ${mv.id}\nCuenta: ${formatearNumeroCuenta(mv.cuenta.numero)}\nConcepto: ${mv.concepto.descripcion}\nTipo: ${mv.tipo.descripcion}\nImporte: ${formatearComoDinero(mv.importe)}`)
 		});
-		document.querySelector("#tablaMovimientos").append(row);
+		document.querySelector("#tablaMovimientos__body").append(row);
 	}
 	console.log(movimientos);
+};
+
+(async () => {
+	// Instanciar componentes
+	material.loadElements();
+
+	console.log({material});
+
+	const mdSelectPaginator = material.loadSelect(document.querySelector("#mdSelectPaginator"));
+
+	console.log({mdSelectPaginator});
+
+	await loadData();
+	await loadTable();
+
+	
 })();
