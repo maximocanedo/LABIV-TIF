@@ -45,8 +45,6 @@ public class InicioSesion extends HttpServlet {
 		// TODO Auto-generated method stub
 		if (request.getParameter("btnInicioSesion") != null) {
 	        String rol = request.getParameter("user-type").toString();
-	        System.out.println("User type: " + rol);
-
 	        if (rol.equals("cliente")) {
 	            String usuario = request.getParameter("inputUsuario");
 	            String clave = request.getParameter("inputClave");
@@ -54,9 +52,11 @@ public class InicioSesion extends HttpServlet {
 	            Cliente cliente = logic.loginCliente(usuario, clave);
 
 	            if (cliente != null && cliente.isEstado()) {
-	                
+	            	 request.setAttribute("usuario", cliente.getUsuario());
+	            	 request.setAttribute("nombre", cliente.getNombre());
+		             RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/Index.jsp");
+		             dispatcher.forward(request, response);
 	            } else {
-	                System.out.println("Login failed for username: " + usuario);
 	                request.setAttribute("error", "Error al iniciar sesion, el usuario no existe o fue dado de baja");
 	                RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/inicioSesion.jsp");
 	                dispatcher.forward(request, response);
