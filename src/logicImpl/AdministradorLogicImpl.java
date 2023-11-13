@@ -447,6 +447,45 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		return response;
 	}
 	
+	
+	public Administrador loginAdmin(String user, String pass) {
+		Response<Administrador> res = new Response<Administrador>();
+		// Validar que el usuario exista:
+		Administrador adm= null;
+		Response<Administrador> userExists =  exists(user);
+		if(userExists.status) {
+			try {
+				TransactionResponse<Administrador> res2 = data.getFullById(user);
+				if(res2.nonEmptyResult()) {
+					adm = res2.rowsReturned.get(0);
+					if(adm.isEstado()) {
+						Response<Administrador> resI = validatePassword(adm, pass);
+						if(resI.status) {
+							// Inicio de sesión válido.
+							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
+							Response<Administrador> resT = new Response<Administrador>();
+							resT.die(true, null);
+							resT.eField = token;
+							return adm;
+						}
+						return adm;
+					} else {
+						res.die(false, 403, "User was disabled and cannot log in. ");
+					}
+					
+				}
+			} catch (SQLException e) {
+				res.status = false;
+				res.http = 500; // INTERNAL SERVER ERROR
+				e.printStackTrace();
+			}
+		} else {
+			res.http = 401; // UNAUTHORIZED
+		}
+		return adm;
+	}
+	
+	
 	/**
 	 * Intenta iniciar sesión, y devuelve un token JWT.
 	 * @param user Usuario

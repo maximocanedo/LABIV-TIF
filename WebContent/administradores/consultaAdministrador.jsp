@@ -37,14 +37,7 @@
         <li><a href="datospersonalesCliente.jsp">Registro personal</a></li>
         <li><a id="clienteBanco">Bienvenido, 
 
-				<%
-					String nombre="";
-				if((Administrador)session.getAttribute("admin")!=null){
-					Administrador admin= (Administrador)session.getAttribute("admin");
-					nombre= admin.getNombre();
-				}				
-				%>
-				<%=nombre %>
+				
 </a></li>
         <li>
         	<a class="waves-effect waves-light btn" id="logout-button" href="inicioSesion.jsp">
