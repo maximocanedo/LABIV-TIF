@@ -2,11 +2,13 @@
     pageEncoding="ISO-8859-1"%>
     <%@page import="entity.Administrador" %>
 <%@page import="entity.Cliente" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Transferencias</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>       
@@ -23,8 +25,8 @@
       <a class="brand-logo" href="#"><img src="https://cadastro.iqnear.com.br/company_logos/banco-empresa-teste-1618528973-992.png" style="width:65px;"/></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/TPINT_GRUPO_3_LAB/clientes/cuentasCliente.jsp">Cuentas</a></li>
-        <li><a href="#">Transferencias</a></li>
-        <li><a href="MovimientosRealizados.jsp">Movimientos realizados</a></li>
+        <li><a href="/TPINT_GRUPO_3_LAB/clientes/transferencias.jsp">Transferencias</a></li>
+        <li><a href="/TPINT_GRUPO_3_LAB/MovimientosRealizados.jsp">Movimientos realizados</a></li>
         <li>
         	<a href="#" class="dropdown-trigger" data-target="id_drop">Prestamos
         	<i class="material-icons right">arrow_drop_down</i></a>
@@ -67,37 +69,32 @@
 
 <div class="wrapper"> 
 <div class="container">
-    <h4>Tus Cuentas Bancarias</h4>
-    <table class="striped highlight centered">
-      <thead>
+    <h4>Transferencias</h4>
+    <table border="1">
+    <thead>
         <tr>
-          <th>N.º Cuenta</th>
-          <th>Tipo de Cuenta</th>
-          <th>Saldo</th>
-          <th>CBU</th>
+            <th>ID</th>
+            <th>Cuenta Origen</th>
+            <th>Cuenta Destino</th>
+            <th>Monto</th>
+            
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1234671110</td>
-          <td>Cuenta Corriente</td>
-          <td>$5,000.00</td>
-          <td>4050600712346711105401</td>
-        </tr>
-        <tr>
-          <td>1234671113</td>
-          <td>Caja de Ahorro</td>
-          <td>$10,000.00</td>
-          <td>4050600712346711135401</td>
-        </tr>
-        <tr>
-          <td>1234671115</td>
-          <td>Caja de Ahorro</td>
-          <td>$50,000.00</td>
-          <td>4050600712346711155401</td>
-        </tr>
-      </tbody>
-    </table>
+    </thead>
+    <tbody>
+        <c:forEach var="transferencia" items="${listaDeTransferencias}"> <!--  hay que enviarle un List con la lista de transferencias hechas por el cliente y asignarle los campos -->
+            <tr>
+            <% //aca hacer el while o lo que sea para que se autocargue la lista, ya que el c:forEach no se usarlo %>
+            </tr>
+            <tr>
+                <td><input type="text" id="campoId" name="campoId" value="1"></td>
+                <td><input type="text" id="cuentaOrigen" name="cuentaOrigen" value="000012345"></td>
+                <td><input type="text" id="cuentaDestino" name="cuentaDestino" value="000067890"></td>
+                <td><input type="text" id="monto" name="monto" value="15000"></td>
+                
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
   </div>
 </div>
 
