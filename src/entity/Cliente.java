@@ -264,4 +264,12 @@ public class Cliente implements IEntity {
 				"apellido", apellido
 			);
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario: " + usuario + "\r\nDNI: " + DNI + "\r\nCUIL: " + CUIL + "\r\nNombre: " + nombre + "\r\nApellido: "
+				+ apellido + "\r\nSexo: " + sexo + "\r\nNacionalidad: " + nacionalidad + "\r\nFecha De Nacimiento: "
+				+ fechaNacimiento + "\r\nDireccion: " + direccion + "\r\nlocalidad: " + localidad + "\r\nprovincia: " + provincia
+				+ "\r\nCorreo: " + correo;
+	}
 }

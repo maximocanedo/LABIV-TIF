@@ -613,7 +613,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	 * @param servlet_parameters Parámetros recibidos del servlet.
 	 * @return Resultado de la operación.
 	 */
-/*	public Response<Cliente> login(Dictionary servlet_parameters) {
+	public Response<Cliente> login(Dictionary servlet_parameters) {
 		Response<Cliente> response = new Response<Cliente>();
 		Schema schema = new Schema(ClienteDaoImpl.Fields.usuario, ClienteDaoImpl.Fields.contraseña);
 		try {
@@ -632,7 +632,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return response;
 	}
-	*/
+	
 
 	
 	/**
@@ -697,11 +697,6 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		return res;
 	}
 
-	@Override
-	public Response<Cliente> login(Dictionary data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Response<Cliente> login(String username, String password) {
