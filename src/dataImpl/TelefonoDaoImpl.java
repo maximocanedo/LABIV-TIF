@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import data.ITelefonoDao;
+import entity.Cliente;
+import entity.Cuenta;
 import entity.Telefono;
 import logicImpl.TelefonoLogicImpl;
 import max.Connector;
@@ -113,5 +115,24 @@ public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
 	public boolean exists(String DNI_Usuario) throws SQLException {
 		
 		return _model.exists(Dictionary.fromArray("Dni",DNI_Usuario));
+	}
+
+	public TransactionResponse<Telefono> getAll(Cliente obj) {
+		String dni= obj.getDNI();
+		TransactionResponse<Dictionary> rows = null;
+		try {
+			rows = db.fetch(
+					"select * from telefonos where dni = @dni",
+					Dictionary.fromArray("dni",dni)
+			);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TransactionResponse<Telefono> rowsTP= new TransactionResponse<Telefono>();
+		if(rows.nonEmptyResult()) {
+			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
+		}
+		return rowsTP;
 	}
 }

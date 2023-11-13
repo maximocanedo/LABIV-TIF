@@ -4,8 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataImpl.CuentaDaoImpl;
 import dataImpl.TelefonoDaoImpl;
 import logic.ITelefonoLogic;
+import entity.Cliente;
+import entity.Cuenta;
 import entity.Telefono;
 import max.Dictionary;
 import max.IRecordLogic;
@@ -15,7 +18,7 @@ import oops.SchemaValidationException;
 
 public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefonoLogic{
 	public TelefonoLogicImpl() {}
-	TelefonoDaoImpl tpDao= new TelefonoDaoImpl();
+	private static TelefonoDaoImpl tpDao= new TelefonoDaoImpl();
 	@Override
 	public Response<Telefono> validate(Telefono data, boolean validatePKDuplicates) {
 		Response<Telefono> res = new Response<Telefono>();
@@ -146,6 +149,16 @@ public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefo
 			list.add(convert(data));
 		}
 		return list;
+	}
+
+	public Response<Telefono> getAllFor(Cliente obj) {
+		Response<Telefono> res = new Response<Telefono>();
+		TransactionResponse<Telefono> tpr = new TransactionResponse<Telefono>();
+		tpr = tpDao.getAll(obj);
+		if(tpr.nonEmptyResult()) {
+			res.fill(tpr.rowsReturned);
+		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		return res;
 	}
 
 }
