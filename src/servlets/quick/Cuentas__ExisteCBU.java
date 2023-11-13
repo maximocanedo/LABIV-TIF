@@ -10,9 +10,7 @@ import entity.Cuenta;
 import logicImpl.CuentaLogicImpl;
 import max.Response;
 
-/**
- * Servlet implementation class Cliente__ExisteCUIL
- */
+
 @WebServlet("/api/quick/accounts/cbu/*")
 public class Cuentas__ExisteCBU extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;
