@@ -60,13 +60,18 @@ public class Cuentas extends BaseServlet implements Servlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cliente cliente = AuthManager.getActualClient(request, response);
+		if(cliente == null) return;
 		Dictionary parameters = getParameters(request);
 		if(parameters == null) {
 			die(response, false, 400, "Bad request");
 			return;
 		}
+		parameters.put("Dni_Cl_CxC", cliente.getDNI());
 		Cuenta nuevaCuenta= CL.convert(parameters);
-		CL.insert(nuevaCuenta);
+		Response<Cuenta> res = CL.insert(nuevaCuenta);
+		response.setStatus(res.http);
+		write(response, res.toFinalJSON());
 				
 	}
 

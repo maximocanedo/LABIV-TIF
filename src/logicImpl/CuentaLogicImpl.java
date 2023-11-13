@@ -127,12 +127,17 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 	@Override
 	public Response<Cuenta> insert(Cuenta data) {
 		Response<Cuenta> res = new Response<Cuenta>();
-		TransactionResponse<?> tpr;
-		
 		try {
+			int count = clDao.countUserAccounts(data.getCliente().getDNI());
+			if(count == 3) {
+				res.die(false, 403, "Alcanzaste el límite de cuentas. ");
+				return res;
+			}
+			TransactionResponse<?> tpr;
+			System.out.println(data.toJSON());
 			tpr = clDao.insert(data);
 			if(tpr.rowsAffected > 0) {
-				res.die(true, 201, "El registro se insertï¿½ con ï¿½xito. ");
+				res.die(true, 201, "El registro se insertó con éxito. ");
 			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
 		} catch (SQLException e) {
 			res.die(false, 500, " Hubo un error al intentar insertar el registro. ");
@@ -303,10 +308,14 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		if(row.$("CBU_CxC") != null) cuenta.setCBU(row.$("CBU_CxC"));
 		if(row.$("FechaCreacion_CxC") != null) cuenta.setFechaCreacion(row.$("FechaCreacion_CxC"));
 		if(row.$("Cod_TPCT_CxC") != null) { 
-			cuenta.setTipo((new TipoCuentaLogicImpl()).convert(row));
+			TipoCuenta tc = (new TipoCuentaLogicImpl()).convert(row);
+			tc.setCod_TPCT(row.$("Cod_TPCT_CxC"));
+			cuenta.setTipo(tc);
 		}
 		if(row.$("Dni_Cl_CxC") != null) {
-			cuenta.setCliente((new ClienteLogicImpl().convert(row)));
+			Cliente cliente = (new ClienteLogicImpl().convert(row));
+			cliente.setDNI(row.$("Dni_Cl_CxC"));
+			cuenta.setCliente(cliente);
 		}
 		if(row.$("Activo_CxC") != null) cuenta.setEstado(row.$("Activo_CxC"));
 		if(row.$("saldoCuenta_CxC") != null) {

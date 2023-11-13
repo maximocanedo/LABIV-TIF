@@ -40,7 +40,7 @@ public class Movimientos__Cuenta extends BaseServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String numeroCuenta = getPathParameter(request);
 		Response<Cuenta> resCuenta = cuentaLogic.getById(numeroCuenta);
-		if(resCuenta.nonEmptyResult()) {
+		if(!resCuenta.nonEmptyResult()) {
 			response.setStatus(404);
 			return;
 		}

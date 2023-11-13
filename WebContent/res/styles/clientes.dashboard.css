@@ -1,0 +1,14 @@
+
+body {
+    background: var(--material-grey-50);
+    box-sizing: border-box;
+}
+.account_card {
+
+}
+.non-displayable {
+	display: none !important;
+}
+.account_card .mdc-layout-grid__inner {
+		grid-gap: 0px !important;
+	}

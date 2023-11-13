@@ -11,50 +11,9 @@
 </head>
 
 <body style="background: rgb(0,0,0,0.04)" class="mdc-typography">
-	<aside class="mdc-drawer mdc-drawer--modal">
-		<div class="mdc-drawer__content">
-			<nav class="mdc-deprecated-list">
-				<a class="mdc-deprecated-list-item" href="/TPINT_GRUPO_3_LAB/clientes/MiPerfil.jsp">
-					<span class="mdc-deprecated-list-item__ripple"></span>
-					<i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">account_circle</i>
-					<span class="mdc-deprecated-list-item__text">Tu cuenta</span>
-				</a>
-				<a class="mdc-deprecated-list-item mdc-deprecated-list-item--activated"
-					href="/TPINT_GRUPO_3_LAB/clientes/Index.jsp" aria-current="page" tabindex="0">
-					<span class="mdc-deprecated-list-item__ripple"></span>
-					<i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">home</i>
-					<span class="mdc-deprecated-list-item__text">Inicio</span>
-				</a>
-				<a class="mdc-deprecated-list-item " href="/TPINT_GRUPO_3_LAB/administradores/listaClientes.jsp"
-					aria-current="page" tabindex="0">
-					<span class="mdc-deprecated-list-item__ripple"></span>
-					<i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">people</i>
-					<span class="mdc-deprecated-list-item__text">Listar clientes</span>
-				</a>
-			</nav>
-		</div>
-	</aside>
-	<div class="mdc-drawer-scrim"></div>
-	<header class="mdc-top-app-bar" style="top: 0px;">
-		<div class="mdc-top-app-bar__row">
-			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-				<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button btn--open-drawer"
-					aria-label="Open navigation menu">menu</button>
-				<span class="mdc-top-app-bar__title">TIF Bank</span>
-			</section>
-			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-				<button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
-					aria-label="Search">search</button>
-				<button class="mdc-button mdc-button--icon-leading">
-					<span class="mdc-button__ripple"></span>
-					<span class="mdc-button__focus-ring"></span>
-					<span class="mdc-button__label" style="color: white !important">root</span>
-					<i class="material-icons mdc-button__icon" style="color: white !important"
-						aria-hidden="true">account_circle</i>
-				</button>
-			</section>
-		</div>
-	</header>
+	
+    <%@ include file="../res/web/drawer.part.html" %>
+    <%@ include file="../res/web/header.part.html" %>
 	<main class="mdc-top-app-bar--fixed-adjust">
 		<div id="principal-grid" class="mdc-layout-grid mdc-layout-grid__cell--align-middle mdc-layout-grid-margin-12">
 			<div class="mdc-layout-grid__inner">
@@ -430,31 +389,9 @@
 			<div class="mdc-dialog__scrim"></div>
 		</div>
 	</form>
-	<div class="mdc-dialog" id="defaultDialog">
-		<div class="mdc-dialog__container">
-			<div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
-				aria-describedby="my-dialog-content" tabindex="-1">
-				<div class="mdc-dialog__content" id="dialog--question"></div>
-				<div class="mdc-dialog__actions">
-					<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-						<div class="mdc-button__ripple"></div>
-						<span class="mdc-button__label" id="dialog--cancel"></span>
-					</button>
-					<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
-						<div class="mdc-button__ripple"></div>
-						<span class="mdc-button__label" id="dialog--ok"></span>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-dialog__scrim"></div>
-	</div>
-	<!--<%@ include file="../res/web/snackbar.part.html" %>-->
-	<aside class="mdc-snackbar">
-		<div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
-			<div class="mdc-snackbar__label" aria-atomic="false"></div>
-		</div>
-	</aside>
+	
+    <%@ include file="../res/web/dialog.part.html" %>
+    <%@ include file="../res/web/snackbar.part.html" %>
 	<script type="module" src="../res/controller/clientes.miperfil.js"></script>
 </body>
 

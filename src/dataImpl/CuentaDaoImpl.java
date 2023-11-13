@@ -45,25 +45,21 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
 	public static final Schema tablaCL = new Schema(
 			new SchemaProperty("Num_Cuenta_CxC") {{
-				required= true;
 				primary= true;
 				type= Types.VARCHAR;
 				maxlength= 10;
 				modifiable = false;
 			}},
 			new SchemaProperty("CBU_CxC") {{
-				required= true;
 				type= Types.VARCHAR;
 				maxlength= 22;
 				modifiable = false;
 			}},
 			new SchemaProperty("FechaCreacion_CxC") {{
-				required= true;
 				type= Types.DATE;
 				modifiable = false;
 			}},
 			new SchemaProperty("saldoCuenta_CxC") {{
-				required= true;
 				type= Types.DECIMAL;
 				maxlength= 10;
 			}},
@@ -81,8 +77,8 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 				modifiable = false;
 			}},
 			new SchemaProperty("Activo_CxC") {{
-				required= true;
 				type= Types.BIT;
+				defaultValue = true;
 				
 			}}
 
@@ -112,18 +108,24 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
 	@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
+		java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+		TransactionResponse<?> finalres = TransactionResponse.create();
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"CALL SP_AGREGARNUEVACUENTABANCARIA (@dni , @fechaCreacion , @tipoCuenta )",
 				Dictionary.fromArray("dni",data.getCliente().getDNI(),
-									 "fechaCreacion" , data.getFechaCreacion(),
+									 "fechaCreacion" , fechaActual,
 									 "tipoCuenta" , data.getTipo().getCod_TPCT()
 									 )
 		);
-		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
 		if(rows.nonEmptyResult()) {
-			return rowsTP;
+			String result = rows.rowsReturned.get(0).$("RESULT");
+			System.out.println("RESULT === " + result);
+			if(result.equals("Cuenta asignada exitosamente")) {
+				finalres.status = true;
+				finalres.rowsAffected = 1;
+			}
 		}
-		return rowsTP;
+		return finalres;
 	}
 
 	@Override

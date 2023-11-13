@@ -70,7 +70,7 @@
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-              <input type="text" pattern="^[a-zA-Z0-9_]{4,20}$" minlength="4" maxlength="20" id="txtUsername" class="mdc-text-field__input" required aria-labelledby="lblUsername">
+              <input type="text" value="Kiara_15152152" pattern="^[a-zA-Z0-9_]{4,20}$" minlength="4" maxlength="20" id="txtUsername" class="mdc-text-field__input" required aria-labelledby="lblUsername">
             </label>
             <label id="tP" class="mdc-text-field mdc-text-field--outlined">
               <span class="mdc-notched-outline">
@@ -80,7 +80,7 @@
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-              <input type="password" required minlength="8" id="txtPassword" class="mdc-text-field__input" aria-labelledby="lblClave">
+              <input type="password" value="Kiar#15%305$51*More" required minlength="8" id="txtPassword" class="mdc-text-field__input" aria-labelledby="lblClave">
             </label>
             <div class="mdc-touch-target-wrapper">
               <button id="btnEntrar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">
