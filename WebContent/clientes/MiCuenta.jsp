@@ -195,7 +195,7 @@
         <div class="mdc-data-table__pagination-total" id="tablaMovimientos__textoPaginacion">
           
         </div>
-        <button class="mdc-icon-button material-icons mdc-data-table__pagination-button" data-prev-page="true" disabled id="tablaMovimientos__btnAnterior">
+        <button class="mdc-icon-button material-icons mdc-data-table__pagination-button" data-prev-page="true" id="tablaMovimientos__btnAnterior">
           <div class="mdc-button__icon">chevron_left</div>
         </button>
         <button id="tablaMovimientos__btnSiguiente" class="mdc-icon-button material-icons mdc-data-table__pagination-button" data-next-page="true">
