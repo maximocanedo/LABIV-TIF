@@ -56,10 +56,6 @@ public class SolicitudPrestamo extends BaseServlet {
 				if(cliente!=null) {
 					resSL = logic.getById(cliente.getUsuario());
 					
-					if(resSL.listReturned.isEmpty()) {
-						response.setStatus(404);
-						return;
-					}
 					
 					 
 					write(response, resSL.toFinalJSON());
@@ -110,8 +106,10 @@ public class SolicitudPrestamo extends BaseServlet {
 					}
 					
 					entity.SolicitudPrestamo nuevaSolicitud= logic.convert(parameters);
-					logic.insert(nuevaSolicitud);
-					response.setStatus(200);
+					nuevaSolicitud.setCliente(cliente);
+					Response<entity.SolicitudPrestamo> res = logic.insert(nuevaSolicitud);
+					response.setStatus(res.http);
+					write(response, res.toFinalJSON());
 					return;
 				} else {
 					response.setStatus(403);

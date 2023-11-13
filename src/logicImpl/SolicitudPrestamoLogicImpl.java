@@ -1,6 +1,8 @@
 package logicImpl;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,7 +166,7 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
 		try {
 			tpr = spDao.getById(id);
-			if(tpr.nonEmptyResult()) {
+			if(tpr.rowsReturned != null) {
 				res.fill(tpr.rowsReturned);
 			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
 		} catch (SQLException e) {
@@ -216,9 +218,25 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		SolicitudPrestamo s = new SolicitudPrestamo();
 		s.setCodigo(d.$("cod_Sol"));
 		if(d.$("usuario_cl_Sol") != null) {
-				s.setCliente((new ClienteLogicImpl()).convert(d));
+			Cliente c = (new ClienteLogicImpl()).convert(d);
+			c.setUsuario(d.$("usuario_cl_Sol"));
+			s.setCliente(c);
+				
 		}
-		s.setFechaPedido(d.$("fechaPedido_Sol"));
+		
+		if(d.$("fechaPedido_Sol") != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        java.util.Date parsedDate = new java.util.Date();
+			try {
+				parsedDate = dateFormat.parse(d.$("fechaPedido_Sol") + "");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
+	        s.setFechaPedido(edate);
+			
+		}
 		s.setMontoPedido(d.$("montoPedido_Sol"));
 		s.setMontoAPagar(d.$("montoAPagar_Sol"));
 		s.setInteres((float)d.$("interes_Sol"));
