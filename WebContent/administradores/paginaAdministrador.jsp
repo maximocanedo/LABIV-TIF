@@ -12,13 +12,9 @@
 <script src="htmlEnDiv.js"></script>
 </head>
 <body>
-    <div id="nav"></div>
-  
-    <div id="footer"></div>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <script>htmlEnDiv("Footer.html", "footer");</script>
-
-    <script>htmlEnDiv("NavAdmin.html", "nav");</script>
+  
 
 </html>
