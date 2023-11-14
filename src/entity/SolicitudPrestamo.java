@@ -16,7 +16,7 @@ public class SolicitudPrestamo implements IEntity{
 	private int plazoPago;
 	private int cantCuotas;
 	private double montoPorCuota;
-	private double interes;
+	private float interes;
 	private boolean estado;
 	private Cuenta cuenta;
 	
@@ -132,11 +132,11 @@ public class SolicitudPrestamo implements IEntity{
 		this.montoPorCuota = montoPorCuota;
 	}
 
-	public double getInteres() {
+	public float getInteres() {
 		return interes;
 	}
 
-	public void setInteres(double interes) {
+	public void setInteres(float interes) {
 		this.interes = interes;
 	}
 

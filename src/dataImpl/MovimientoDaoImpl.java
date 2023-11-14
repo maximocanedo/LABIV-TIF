@@ -200,7 +200,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	@Override
 	public TransactionResponse<Movimiento> getAll(Cliente cliente, Paginator paginator) throws SQLException {
 		return select(
-				"CALL movimientos__getAllFromClient(@dni, @page, @size, NULL)",
+				"CALL movimientos__getAllFromAccount(@dni, @page, @size, NULL)",
 				Dictionary.fromArray(
 					"dni", cliente.getDNI()
 				).paginate(paginator)
