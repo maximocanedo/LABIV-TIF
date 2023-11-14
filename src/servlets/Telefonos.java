@@ -1,45 +1,92 @@
 package servlets;
 
 import java.io.IOException;
+
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import entity.Administrador;
+import entity.Cliente;
+import entity.Telefono;
+import logicImpl.AuthManager;
+import logicImpl.TelefonoLogicImpl;
+import logicImpl.AuthManager.TokenData;
+import max.Dictionary;
+import max.Response;
 
 /**
  * Servlet implementation class Telefonos
  */
-@WebServlet("/Telefonos")
-public class Telefonos extends HttpServlet {
+@WebServlet("/api/Telefonos/list")
+public class Telefonos extends BaseServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public Telefonos() {
         super();
-        // TODO Auto-generated constructor stub
-        // TAREAS:
-        // Ver teléfonos de un cliente, agregar un teléfono (Sólo cliente), eliminar un teléfono (Sólo cliente)
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    // Ver teléfonos de un cliente
+    
+    private TelefonoLogicImpl TEL = new TelefonoLogicImpl();
+    
+    /**
+     * Método GET: Listar telefonos 
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		TokenData td = AuthManager.readToken(request);
+		/*if(td == null) {
+			response.setStatus(401);  para validar que solo sea admin
+			return;
+		}*/
+		if(td != null) {
+			try {
+				if(td.role.equals(AuthManager.ADMIN)) {
+					Administrador admin = AuthManager.getActualAdmin(request, response);
+		 
+					if(admin != null) {
+						Response<Telefono> res = TEL.getAll();
+						response.setStatus(res.http);
+						write(response, res.toFinalJSON());
+					}
+				} else {
+					Cliente cliente = AuthManager.getActualClient(request, response);
+					
+					if(cliente != null) {
+						Response<Telefono> res = TEL.getAllFor(cliente);
+						response.setStatus(res.http);
+						write(response, res.toFinalJSON());
+					}
+				}
+			}catch(Exception e) {
+				e.getMessage();
+			}
+		}
+		return;
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		Cliente cliente = AuthManager.getActualClient(request, response);
+		if(cliente == null) return;
+		Dictionary parameters = getParameters(request);
+		if(parameters == null) {
+			die(response, false, 400, "Bad request");
+			return;
+		}
+		
+		parameters.put("Dni", cliente.getDNI());
+		
+		Telefono nuevoTelefono = TEL.convert(parameters);
+		Response<Telefono> res = TEL.insert(nuevoTelefono);
+		response.setStatus(res.http);
+		write(response, res.toFinalJSON());
+				
+	}
+
+	@Override
+	protected String[] getAllowedMethods() {
+		return new String[] { "GET", "POST", "OPTIONS" };
 	}
 
 }
