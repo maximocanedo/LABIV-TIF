@@ -4,7 +4,8 @@ body {
     box-sizing: border-box;
 }
 .account_card {
-
+	user-select: none;
+	cursor: pointer;
 }
 .non-displayable {
 	display: none !important;
@@ -12,3 +13,24 @@ body {
 .account_card .mdc-layout-grid__inner {
 		grid-gap: 0px !important;
 	}
+.icon-container {
+	width: 100px;
+	height: 100px;
+	background: var(--material-red-50);
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+}
+.icon-container {
+	color: var(--material-red-600);
+	font-size: 72px;
+}
+.super-icon-container {
+	display: grid;
+	place-items: center;
+	margin-bottom: 25px;
+}
+
+.centered-text {
+	text-align: center;
+}
