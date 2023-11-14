@@ -221,6 +221,19 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		return res;
 	}
 	
+	public Response<Cuenta> getByCBU(String CBU) {
+		Response<Cuenta> res = new Response<Cuenta>();
+		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
+		try {
+			tpr = clDao.getByCBU(CBU);
+			res.fill(tpr.rowsReturned);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
 	public Response<Cuenta> getByDNI(String dni) {
 		Response<Cuenta> res = new Response<Cuenta>();
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();

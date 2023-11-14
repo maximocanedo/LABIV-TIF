@@ -28,6 +28,14 @@ public class Cuenta implements IEntity{
 		obj.addProperty("estado", estado);
 		return obj;
 	}
+	public JsonObject toSimpleJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("numero", numero);
+		obj.addProperty("CBU", CBU);
+		obj.add("tipo", tipo  == null ? null : tipo.toJsonObject());
+		obj.add("cliente", cliente  == null ? null : cliente.toJsonObject());
+		return obj;		
+	}
 	
 	public String toJSON() {
 		return toJsonObject().toString();

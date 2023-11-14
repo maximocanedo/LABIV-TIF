@@ -39,7 +39,22 @@ const getAccount = async (accountNo) => {
 
 };
 
+const quickAccount = async (accountDetail, key) => {
+	try {
+		const f = await fetch(
+			'http://localhost:8080/TPINT_GRUPO_3_LAB/api/quick/account/data/' + key + '/' + accountDetail, {
+				method: 'GET'
+		});
+		const status = f.status;
+		const data = await f.json();
+		return { status, data };
+	} catch(err) {
+		console.error(err);
+	}
+}
+
 export {
 	getAccounts,
-	getAccount
+	getAccount,
+	quickAccount
 }

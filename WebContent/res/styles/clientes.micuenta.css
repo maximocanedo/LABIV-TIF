@@ -22,3 +22,11 @@ body {
 .importe_plus {
 	color: #00e676;
 }
+.montoTotal {
+    border: 0px;
+    width: 90%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    outline: none;
+}

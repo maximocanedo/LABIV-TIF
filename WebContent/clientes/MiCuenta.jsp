@@ -39,7 +39,7 @@
 					<span class="__account_1_tipodesc"></span> <span class="__account_1_nc"></span>
 				</span>
 				<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_1_saldo centered-text"></span>
-				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6">
+				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6" id="btnTransferir">
 				  <span class="mdc-button__ripple"></span>
 				  <span class="mdc-button__focus-ring"></span>
 				  <span class="mdc-button__label">Transferir</span>
@@ -218,6 +218,106 @@
 		</div>
 
     </main>
+
+    <form onsubmit="return false; " class="mdc-dialog mdc-dialog--open" action="#" name="transfer" id="transferDialog" >
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+            aria-describedby="my-dialog-content" tabindex="-1">
+            <div class="mdc-dialog__content" >
+                <span class="mdc-typography--headline6">Transferir</span>
+                <br>
+                <input type="number" required min="1" value="1" class="montoTotal" name="montoTotal" step="0.01" />
+                <br><br>
+							<div id="tipusDestinoSegmentedButton" class="mdc-segmented-button mdc-segmented-button--single-select" role="radiogroup">
+							  <button class="mdc-segmented-button__segment mdc-ripple-upgraded mdc-segmented-button__segment--selected" role="radio" aria-checked="true">
+							    <div class="mdc-segmented-button__label">CBU</div>
+							  </button>
+							  <button class="mdc-segmented-button__segment" role="radio" aria-checked="false">
+							    <div class="mdc-segmented-button__label">Número de cuenta</div>
+							  </button>
+							</div>
+							<br><br>
+							<label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label">
+							  <span class="mdc-notched-outline">
+							    <span class="mdc-notched-outline__leading"></span>
+							    <span class="mdc-notched-outline__trailing"></span>
+							  </span>
+							  <input class="mdc-text-field__input" name="idCuentaDestino" type="text" aria-label="Label">
+							</label>
+							<br><br>
+							<div class="mdc-select mdc-select--filled demo-width-class" id="conceptoSelect">
+						  <div class="mdc-select__anchor"
+						       role="button"
+						       aria-haspopup="listbox"
+						       aria-expanded="false"
+						       aria-labelledby="concepto-transferencia demo-selected-text">
+						    <span class="mdc-select__ripple"></span>
+						    <span id="concepto-transferencia" class="mdc-floating-label">Concepto</span>
+						    <span class="mdc-select__selected-text-container">
+						      <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+						    </span>
+						    <span class="mdc-select__dropdown-icon">
+						      <svg
+						          class="mdc-select__dropdown-icon-graphic"
+						          viewBox="7 10 10 5" focusable="false">
+						        <polygon
+						            class="mdc-select__dropdown-icon-inactive"
+						            stroke="none"
+						            fill-rule="evenodd"
+						            points="7 10 12 15 17 10">
+						        </polygon>
+						        <polygon
+						            class="mdc-select__dropdown-icon-active"
+						            stroke="none"
+						            fill-rule="evenodd"
+						            points="7 15 12 10 17 15">
+						        </polygon>
+						      </svg>
+						    </span>
+						    <span class="mdc-line-ripple"></span>
+						  </div>
+
+						  <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+						    <ul class="mdc-deprecated-list" role="listbox" aria-label="Food picker listbox">
+						      <li class="mdc-deprecated-list-item mdc-deprecated-list-item--selected" aria-selected="true" data-value="" role="option">
+						        <span class="mdc-deprecated-list-item__ripple"></span>
+						      </li>
+						      <li class="mdc-deprecated-list-item" aria-selected="false" data-value="grains" role="option">
+						        <span class="mdc-deprecated-list-item__ripple"></span>
+						        <span class="mdc-deprecated-list-item__text">
+						          Bread, Cereal, Rice, and Pasta
+						        </span>
+						      </li>
+						      <li class="mdc-deprecated-list-item mdc-deprecated-list-item--disabled" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+						        <span class="mdc-deprecated-list-item__ripple"></span>
+						        <span class="mdc-deprecated-list-item__text">
+						          Vegetables
+						        </span>
+						      </li>
+						      <li class="mdc-deprecated-list-item" aria-selected="false" data-value="fruit" role="option">
+						        <span class="mdc-deprecated-list-item__ripple"></span>
+						        <span class="mdc-deprecated-list-item__text">
+						          Fruit
+						        </span>
+						      </li>
+						    </ul>
+						  </div>
+						</div>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Volver</span>
+                </button>
+                <button id="btnTransferir" class="mdc-button mdc-dialog__button" >
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Transferir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</form>
 	<%@ include file="../res/web/dialog.part.html" %>
 	<%@ include file="../res/web/snackbar.part.html" %>
     <script type="module" src="./../res/controller/default.controller.js"></script>

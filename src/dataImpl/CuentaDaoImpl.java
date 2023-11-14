@@ -196,6 +196,18 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		return rowsTP;
 	}
 	
+	public TransactionResponse<Cuenta> getByCBU(String CBU) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"select * from cuentas__select where CBU_CxC = @CBU",
+				Dictionary.fromArray("CBU", CBU)
+		);
+		TransactionResponse<Cuenta> rowsTP= new TransactionResponse<Cuenta>();
+		if(rows.nonEmptyResult()) {
+			rowsTP.rowsReturned= clLogic.convert(rows.rowsReturned);
+		}
+		return rowsTP;
+	}
+	
 	public TransactionResponse<Cuenta> getByDNI(String Dni) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"select * from cuentas__select where Dni_Cl_CxC = @Dni",

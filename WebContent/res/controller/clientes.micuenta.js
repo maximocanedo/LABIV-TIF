@@ -3,6 +3,7 @@ import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
 import * as accounts from "./../data/accounts.js";
 import * as movements from "./../data/movements.js";
+import * as concepts from "./../data/concepts.js";
 
 const paginationReducer = (state = { page: 1, size: 10 }, action) => {
   switch (action.type) {
@@ -88,30 +89,7 @@ const logic = {
 	},
 };
 
-/*const loadData = async() => {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const noCuenta = urlParams.get('accountno');
-	if(noCuenta == null) {
-		material.showDialog("No se especificó un número de cuenta válido. ");
-		return;
-	}
-	document.querySelectorAll(".account_card").forEach(e => e.classList.add("non-displayable"));
-	const cuentasData = await accounts.getAccount(noCuenta);
-	const cuentas = cuentasData.data.listReturned;
-	for(let i = 0; i < 1; i++) {
-		document.querySelectorAll(".account_1").forEach(e => e.classList.remove("non-displayable"));
-		document.querySelectorAll(".__account_1_tipodesc").forEach(e => e.innerText = cuentas[i].tipo.descripcion);
-		document.querySelectorAll(".__account_1_saldo").forEach(e => e.innerText = formatearComoDinero(cuentas[i].saldo));
-		document.querySelectorAll(".__account_1_nc").forEach(e => e.innerText = formatearNumeroCuenta(cuentas[i].numero));
-		document.querySelectorAll(".__account_1_cbu").forEach(e => e.innerText = cuentas[i].CBU);
-		document.querySelectorAll(".__account_1_fechaCreacion").forEach(e => e.innerText = cuentas[i].fechaCreacion);	
-		document.querySelectorAll(".__account_1_clname").forEach(e => e.innerText = cuentas[i].cliente.apellido + ", " + cuentas[i].cliente.nombre);	
-		document.querySelectorAll(".__account_1_clcuil").forEach(e => e.innerText = logic.formatearCUIL(cuentas[i].cliente.CUIL));	
-		document.querySelectorAll(".__account_1_clnac").forEach(e => e.innerText = cuentas[i].cliente.nacionalidad.nombre);			 
-	}
-	store.dispatch(setPage(paginator.page));
-}; */
+
 
 const loadData = () => {
 	const queryString = window.location.search;
@@ -147,34 +125,6 @@ const loadData = () => {
 		});
 };
 
-/*
-const loadTable = async () => {
-	const actualUser = await auth.allowClient();
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const noCuenta = urlParams.get('accountno');
-	
-	const movimientos = await movements.getMovementsFromAccount(noCuenta, store.getState());
-	for(let i = 0; i < movimientos.data.listReturned.length; i++) {
-		let mv = movimientos.data.listReturned[i];
-		let row = document.createElement("tr");
-		row.classList.add("mdc-data-table__row");
-		let html = `
-	          <td class="mdc-data-table__cell mdc-data-table__cell--numeric">${mv.id}</td>
-	          <th class="mdc-data-table__cell" scope="row">${mv.concepto.descripcion}</th>
-	          <td class="mdc-data-table__cell">${mv.tipo.descripcion}</td>
-	          <td class="mdc-data-table__cell mdc-data-table__cell--numeric mdc-typography--button ${mv.importe > 0 ? "importe_plus" : "importe_less"}">
-	          	${mv.importe > 0 ? "+" : "-"} ${formatearComoDinero(mv.importe)}
-	          </td>
-		`;
-		row.innerHTML = html;
-		row.addEventListener("click", () => {
-			const dialog = material.showDialog(`ID: ${mv.id}\nCuenta: ${formatearNumeroCuenta(mv.cuenta.numero)}\nConcepto: ${mv.concepto.descripcion}\nTipo: ${mv.tipo.descripcion}\nImporte: ${formatearComoDinero(mv.importe)}`)
-		});
-		document.querySelector("#tablaMovimientos__body").append(row);
-	}
-	console.log(movimientos);
-}; */
 
 const loadTable = () => {
 	auth.allowClient()
@@ -233,5 +183,148 @@ const loadTable = () => {
 	await loadData();
 	await loadTable();
 
+
+
+
+
 	
+})();
+
+
+
+(async () => {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const noCuenta = urlParams.get('accountno');
+
+	const tipusDestinoSegmentedButton_root = document.querySelector("#tipusDestinoSegmentedButton");
+	const tipusDestinoSegmentedButton = new material.mdc.segmentedButton.MDCSegmentedButton(tipusDestinoSegmentedButton_root);
+	const tipusValue = ["CBU", "No"][tipusDestinoSegmentedButton.foundation.getSelectedSegments()[0].index];
+	const conceptoSelect = material.loadSelect(document.querySelector("#conceptoSelect")); // Cargar:
+	console.log(tipusDestinoSegmentedButton);
+	let data = {
+		monto: document.transfer.montoTotal.value,
+		cuenta: noCuenta,
+		cuentaDestino: {
+			id: tipusValue,
+			value: document.transfer.idCuentaDestino.value
+		}
+	};
+	(async () => {
+		const conceptos_data = await concepts.getConcepts();
+		if(conceptos_data.status != 200) {
+			material.showSnackbar("Hubo un problema al intentar cargar los conceptos. ");
+			return;
+		}
+		const conceptos = conceptos_data.data.listReturned;
+		conceptoSelect.root.querySelector("ul").innerHTML = "";
+		for(let i = 0; i < conceptos.length; i++) {
+			let item = material.mdSelectMenuItemSingleLine(conceptos[i].codigo, conceptos[i].descripcion);
+			conceptoSelect.root.querySelector("ul").append(item);
+		}
+		conceptoSelect.layoutOptions();
+	})();
+	window.transferir = async () => {
+		const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const noCuenta = urlParams.get('accountno');
+
+	const tipusDestinoSegmentedButton_root = document.querySelector("#tipusDestinoSegmentedButton");
+	const tipusDestinoSegmentedButton = new material.mdc.segmentedButton.MDCSegmentedButton(tipusDestinoSegmentedButton_root);
+	const tipusValue = ["CBU", "No"][tipusDestinoSegmentedButton.foundation.getSelectedSegments()[0].index];
+	const conceptoSelect = material.loadSelect(document.querySelector("#conceptoSelect")); // Cargar:
+	console.log(tipusDestinoSegmentedButton);
+	let data = {
+		monto: document.transfer.montoTotal.value,
+		cuenta: noCuenta,
+		cuentaDestino: {
+			id: tipusValue,
+			value: document.transfer.idCuentaDestino.value
+		}
+	};
+		console.log(33);
+		// Validar monto
+		let miCuenta = await accounts.getAccount(noCuenta); // TODO: Implementar Redux acá
+		if(miCuenta.status != 200) {
+			material.showSnackbar("Hubo un error al validar los datos. ");
+			return false;
+		}
+		console.log(34);
+		let saldo = miCuenta.data.listReturned[0].saldo;
+		let miCBU = miCuenta.data.listReturned[0].CBU;
+		console.log({saldo});
+		console.log(35);
+		if(data.monto > saldo) {
+			material.showSnackbar("No tenés fondos suficientes para realizar esta transferencia. ");
+			return false;
+		}
+		// Validar cuenta destino
+		console.log(36);
+		const key = data.cuentaDestino.id;
+		const id = data.cuentaDestino.value;
+		console.log({key, id});
+		const accountDetails = await accounts.quickAccount(id, key);
+		const ek = ["CBU", "número de cuenta"][tipusDestinoSegmentedButton.foundation.getSelectedSegments()[0].index];
+		
+		console.log(37);
+		if(accountDetails.status != 200) {
+			material.showSnackbar("El " + ek + " ingresado no corresponde con ninguna cuenta. ");
+			return false;
+		}
+		console.log(accountDetails);
+		// Validar select
+		if(conceptoSelect.value == "") {
+			material.showSnackbar("Seleccioná un concepto. ");
+			return false;
+		}
+		console.log(38);
+
+		console.log({data});
+
+		console.log(39);
+		let decision = await material.showDialog(
+			"Vas a transferir $ " + formatearComoDinero(data.monto)
+			+ " a: \n" + accountDetails.data.tipo.descripcion + "\n"
+			+ formatearNumeroCuenta(accountDetails.data.numero) + "\n"
+			+ "CBU: " + accountDetails.data.CBU + "\n" 
+			+ "Titular: " + accountDetails.data.cliente.apellido + ", " + accountDetails.data.cliente.nombre + "\n\n"
+			+ "¿Continuar?"
+		);
+		if(!decision) {
+			material.showSnackbar("Cancelaste la transferencia. ");
+			return false;
+		}
+
+		console.log(40);
+		const transferData = await fetch(
+			"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/transferencia", {
+				method: "POST",
+				headers: auth.AUTH_HEADER,
+				body: JSON.stringify({
+				    "CBUOrigen": miCBU,
+				    "CBUDestino" : accountDetails.data.CBU,
+				    "montoTransf": data.monto,
+				    "tipoConcep": conceptoSelect.value
+				})
+			});
+		const status = transferData.status;
+		const edata = await transferData.json();
+		const res = {status, edata};
+		console.log(res);
+		if(status == 200 || status == 201) {
+			material.showSnackbar("La transferencia se realizó con éxito!");
+			await loadData();
+			await loadTable();
+			return;
+		} else {
+			material.showSnackbar("Hubo un problema al realizar la transferencia. ");
+			return;
+		}
+
+
+	};
+    document.querySelector("#btnTransferir").addEventListener('click', async (e) => {
+        console.log(32);
+        await transferir();
+    });
 })();
