@@ -64,27 +64,6 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 	 */
 	@Override
 	public Response<SolicitudPrestamo> insert(SolicitudPrestamo data) {
-		/*Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
-		TransactionResponse<?>spr;
-		try {
-			spr = spDao.insert(arg0);
-			if(spr.rowsAffected>0) {
-				res.die(true, 201,"El registro se insertó con éxito. ");
-			} else res.die(false, 500,"Hubo un error al intentar insertar el registro");
-		}catch (SQLException e) {
-			res.die(false,500,"Hubo un error al intentar insertar el registro.");
-			e.printStackTrace();
-		}
-		try {
-			res = convertWildcard(spDao.insert(arg0));
-			res.objectReturned = arg0;
-			res.message = res.status ? "El registro se insertó correctamente. " : "No se insertó ningún registro. ";
-			res.http = res.status ? 201 : 500;
-		} catch (SQLException e) {
-			res.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
-			e.printStackTrace();
-		}
-		return res;*/
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<?> tpr;
 		
@@ -278,8 +257,10 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
 		s.setEstado(d.$("estado_Sol"));
 		if(d.$("CBU_Sol") != null) {
+			Cuenta cuenta = (new CuentaLogicImpl()).convert(d);
+			cuenta.setCBU(d.$("CBU_Sol"));
 			s.setCuenta(
-					(new CuentaLogicImpl()).convert(d)
+					cuenta
 					);
 		}
 		return s;

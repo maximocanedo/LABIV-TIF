@@ -117,8 +117,7 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 									 )
 		);
 		if(rows.nonEmptyResult()) {
-			String result = rows.rowsReturned.get(0).$("resultado");
-			System.out.println("resultado === " + result);
+			String result = rows.rowsReturned.get(0).$("RESULT");
 			if(result.equals("Cuenta asignada exitosamente")) {
 				finalres.status = true;
 				finalres.rowsAffected = 1;

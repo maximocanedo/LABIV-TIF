@@ -102,7 +102,7 @@ public class SolicitudPrestamo extends BaseServlet {
 						return;
 					}
 					
-					entity.SolicitudPrestamo nuevaSolicitud= logic.convert(parameters);
+					entity.SolicitudPrestamo nuevaSolicitud = logic.convert(parameters);
 					nuevaSolicitud.setCliente(cliente);
 					Response<entity.SolicitudPrestamo> res = logic.insert(nuevaSolicitud);
 					response.setStatus(res.http);
