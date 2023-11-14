@@ -184,9 +184,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getAll();
-			if(tpr.nonEmptyResult()) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.fill(tpr.rowsReturned);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
@@ -199,9 +197,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getAllFor(obj);
-			if(tpr.nonEmptyResult()) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.fill(tpr.rowsReturned);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
@@ -215,9 +211,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getById(id);
-			if(tpr.nonEmptyResult()) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.fill(tpr.rowsReturned);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
@@ -230,9 +224,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		TransactionResponse<Cuenta> tpr = new TransactionResponse<Cuenta>();
 		try {
 			tpr = clDao.getByDNI(dni);
-			if(tpr.nonEmptyResult()) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+			res.fill(tpr.rowsReturned);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");

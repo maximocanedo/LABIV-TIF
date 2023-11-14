@@ -224,66 +224,17 @@
             <div class="mdc-dialog__content" >
                 <span class="mdc-typography--headline6">Crear una nueva cuenta</span>
                 <div class="select-container">
-                	<ul class="mdc-deprecated-list" id="tipoCuentaSelect" role="radiogroup">
-  <li class="mdc-deprecated-list-item" role="radio" aria-checked="false">
-    <span class="mdc-deprecated-list-item__ripple"></span>
-    <span class="mdc-deprecated-list-item__graphic">
-      <div class="mdc-radio">
-        <input class="mdc-radio__native-control"
-              type="radio"
-              id="demo-list-radio-item-1"
-              name="demo-list-radio-item-group"
-              value="1">
-        <div class="mdc-radio__background">
-          <div class="mdc-radio__outer-circle"></div>
-          <div class="mdc-radio__inner-circle"></div>
-        </div>
-      </div>
-    </span>
-    <label class="mdc-deprecated-list-item__text" for="demo-list-radio-item-1">Option 1</label>
-  </li>
-  <li class="mdc-deprecated-list-item" role="radio" aria-checked="true" tabindex="0">
-    <span class="mdc-deprecated-list-item__ripple"></span>
-    <span class="mdc-deprecated-list-item__graphic">
-      <div class="mdc-radio">
-        <input class="mdc-radio__native-control"
-              type="radio"
-              id="demo-list-radio-item-2"
-              name="demo-list-radio-item-group"
-              value="2"
-              checked>
-        <div class="mdc-radio__background">
-          <div class="mdc-radio__outer-circle"></div>
-          <div class="mdc-radio__inner-circle"></div>
-        </div>
-      </div>
-    </span>
-    <label class="mdc-deprecated-list-item__text" for="demo-list-radio-item-2">Option 2</label>
-  </li>
-  <li class="mdc-deprecated-list-item" role="radio" aria-checked="false">
-    <span class="mdc-deprecated-list-item__ripple"></span>
-    <span class="mdc-deprecated-list-item__graphic">
-      <div class="mdc-radio">
-        <input class="mdc-radio__native-control"
-              type="radio"
-              id="demo-list-radio-item-3"
-              name="demo-list-radio-item-group"
-              value="3">
-        <div class="mdc-radio__background">
-          <div class="mdc-radio__outer-circle"></div>
-          <div class="mdc-radio__inner-circle"></div>
-        </div>
-      </div>
-    </span>
-    <label class="mdc-deprecated-list-item__text" for="demo-list-radio-item-3">Option 3</label>
-  </li>
-</ul>
+                	<ul class="mdc-deprecated-list" id="tipoCuentaSelect" role="radiogroup"></ul>
                 </div>
             </div>
             <div class="mdc-dialog__actions">
                 <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Cancelar</span>
+                </button>
+                <button type="button" id="crearCuentaBtn" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Crear</span>
                 </button>
             </div>
         </div>
