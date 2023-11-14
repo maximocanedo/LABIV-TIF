@@ -39,6 +39,16 @@
 					<span class="__account_1_tipodesc"></span> <span class="__account_1_nc"></span>
 				</span>
 				<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_1_saldo centered-text"></span>
+				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6">
+				  <span class="mdc-button__ripple"></span>
+				  <span class="mdc-button__focus-ring"></span>
+				  <span class="mdc-button__label">Transferir</span>
+				</button>
+				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6">
+				  <span class="mdc-button__ripple"></span>
+				  <span class="mdc-button__focus-ring"></span>
+				  <span class="mdc-button__label">Pedir un préstamo</span>
+				</button>
 				<div class="mdc-layout-grid__cell 
 					mdc-layout-grid__cell--span-6
 					mdc-layout-grid__cell--span-12-phone
