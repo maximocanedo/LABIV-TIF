@@ -30,7 +30,7 @@ public class Telefonos extends BaseServlet implements Servlet {
     private TelefonoLogicImpl TEL = new TelefonoLogicImpl();
     
     /**
-     * Método GET: Listar cuentas (Admin only)
+     * Método GET: Listar telefonos (Admin only)
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TokenData td = AuthManager.readToken(request);
