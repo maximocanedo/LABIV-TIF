@@ -33,12 +33,13 @@ public class CuentaPorNo extends BaseServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String CBU = getPathParameter(request);
 		Response<Cuenta> res = (new CuentaLogicImpl()).getById(CBU);
+		response.setStatus(res.http);
 		if(res.nonEmptyResult()) {
 			Cuenta obj = res.listReturned.get(0);
 			String ready = obj.toSimpleJsonObject().toString();
 			write(response, ready);
 		} 
-		response.setStatus(res.http);
+		
 		
 	}
 
