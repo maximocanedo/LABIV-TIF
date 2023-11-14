@@ -54,10 +54,8 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		Dictionary nuevo = new Dictionary();
 			nuevo.put("CBUorigen", m.$("cbuOrigen"));
 			nuevo.put("CBUdestino", m.$("cbuDestino"));
-			if(m.$("monto")!=null) {
-				BigDecimal nuevomonto = m.$("monto");
-				nuevo.put("Monto", nuevomonto);
-			}		
+			nuevo.put("Monto", m.$("monto"));
+					
 			nuevo.put("tipoConc", m.$("concepto"));
 			nuevo.put("tipoMov", m.$("tipoMov"));
 			

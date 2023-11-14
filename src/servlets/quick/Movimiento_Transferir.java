@@ -18,6 +18,7 @@ import max.Dictionary;
 import max.Response;
 import servlets.BaseServlet;
 
+@WebServlet("/api/quick/movements/transfer")
 public class Movimiento_Transferir extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;

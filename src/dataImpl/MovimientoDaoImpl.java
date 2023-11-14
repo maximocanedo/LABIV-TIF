@@ -108,21 +108,17 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	}
 	
 	public TransactionResponse<?> insertTransfer(Dictionary d) throws SQLException{
-		TransactionResponse<Dictionary> rows = new TransactionResponse<Dictionary>();
-		try {
+		TransactionResponse<Dictionary> rows = new TransactionResponse<Dictionary>();	
 			rows = dbCon.fetch(
 					"CALL SP_TRANSFERENCIA (@CBUorigen , @CBUdestino , @monto, @tipoConc, @tipoMov )",
-					Dictionary.fromArray("CBUorigen",d.getParameters("CBUorigen"),
-										 "CBUdestino" , d.getParameters("CBUdestino"),
-										 "monto" , d.getParameters("monto"),
-										 "tipoConc", d.getParameters("tipoConcepto"),
-										 "tipoMov", d.getParameters("tipoMovimiento")
+					Dictionary.fromArray("CBUorigen",d.$("CBUorigen"),
+										 "CBUdestino" , d.$("CBUdestino"),
+										 "monto" , d.$("monto"),
+										 "tipoConc", d.$("tipoConc"),
+										 "tipoMov", d.$("tipoMov")
 										 )
 			);
-		} catch (ParameterNotExistsException e) {
-			
-			e.printStackTrace();
-		}
+		
 		TransactionResponse<Movimiento> rowsTP= new TransactionResponse<Movimiento>();
 		if(rows.nonEmptyResult()) {
 			return rowsTP;
