@@ -117,16 +117,19 @@ public class TelefonoDaoImpl implements IRecord<Telefono, String>, ITelefonoDao{
 		return _model.exists(Dictionary.fromArray("Dni",DNI_Usuario));
 	}
 
-	public TransactionResponse<Telefono> getAll(Cliente obj) throws SQLException {
-		String dniCL= obj.getDNI();
-		TransactionResponse<Dictionary> rows= db.fetch(
-				"select * from telefonos where Dni = @dniCL",
-				Dictionary.fromArray("Dni",dniCL)
+	
+
+	public TransactionResponse<Telefono> getAllFor(Cliente obj) throws SQLException{
+		
+		TransactionResponse<Dictionary> res = db.fetch(
+			"SELECT * FROM telefonos__select WHERE Dni = @dni ",
+			Dictionary.fromArray("dni", obj.getDNI())
 		);
-		TransactionResponse<Telefono> rowsTP= new TransactionResponse<Telefono>();
-		if(rows.nonEmptyResult()) {
-			rowsTP.rowsReturned= tpLogic.convert(rows.rowsReturned);
+		TransactionResponse<Telefono> fres = new TransactionResponse<Telefono>();
+		fres.status = res.status;
+		if(res.nonEmptyResult()) {
+			fres.rowsReturned = tpLogic.convert(res.rowsReturned);
 		}
-		return rowsTP;
+		return fres;
 	}
 }

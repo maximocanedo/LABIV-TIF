@@ -154,10 +154,15 @@ public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefo
 	public Response<Telefono> getAllFor(Cliente obj) throws SQLException {
 		Response<Telefono> res = new Response<Telefono>();
 		TransactionResponse<Telefono> tpr = new TransactionResponse<Telefono>();
-		tpr = tpDao.getAll(obj);
-		if(tpr.nonEmptyResult()) {
-			res.fill(tpr.rowsReturned);
-		} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		try {
+			tpr = tpDao.getAllFor(obj);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
 		return res;
 	}
 
