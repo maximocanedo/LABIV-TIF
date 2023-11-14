@@ -22,6 +22,26 @@ import oops.SchemaValidationException;
 
 public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IMovimientoLogic {
 	
+	
+	public static void main(String[] args) {
+		//CREAR NUEVA transferencia
+		MovimientoLogicImpl ML= new MovimientoLogicImpl();
+		//String cbuOrigen = "4050600712346711185401";
+		//String cbuDestino = "4050600712346711175401";
+		//double monto = 500;
+		//String concepto = "CP04";
+		//String tipoMov = "TM04";
+		ML.createMovement(Dictionary.fromArray(
+				"cbuOrigen","4050600712346711185401",
+				"cbuDestino","4050600712346711175401",
+				"monto", 500,
+				"concepto", "CP04",
+				"tipoMov" , "TM04"
+				));
+		
+		}
+	
+	
 	private static MovimientoDaoImpl daoMov = new MovimientoDaoImpl();
 	
 	public MovimientoLogicImpl() {}

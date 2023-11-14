@@ -110,13 +110,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	public TransactionResponse<?> insertTransfer(Dictionary d) throws SQLException{
 		TransactionResponse<Dictionary> rows = new TransactionResponse<Dictionary>();	
 			rows = dbCon.fetch(
-					"CALL SP_TRANSFERENCIA (@CBUorigen , @CBUdestino , @monto, @tipoConc, @tipoMov )",
-					Dictionary.fromArray("CBUorigen",d.$("CBUorigen"),
-										 "CBUdestino" , d.$("CBUdestino"),
-										 "monto" , d.$("monto"),
-										 "tipoConc", d.$("tipoConc"),
-										 "tipoMov", d.$("tipoMov")
-										 )
+					"CALL SP_TRANSFERENCIA("+ d.$("CBUorigen")+","+d.$("CBUdestino") +","+ d.$("monto") +"," +d.$("tipoConc")+","+ d.$("tipoMov")+")"
 			);
 		
 		TransactionResponse<Movimiento> rowsTP= new TransactionResponse<Movimiento>();
