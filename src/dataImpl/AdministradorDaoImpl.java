@@ -303,4 +303,6 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 		return select("CALL administradores__getAll_paginated(@offset, @size)", new Dictionary().paginate(paginator));
 	}
 
+
+
 }

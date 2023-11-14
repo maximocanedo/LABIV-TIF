@@ -41,37 +41,7 @@ public class Transferencia extends BaseServlet implements Servlet {
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		TokenData td = AuthManager.readToken(request);
-		/*if(td == null) {
-			response.setStatus(401);  para validar que solo sea admin
-			return;
-		}*/
-		if(td != null) {
-			try {
-				if(td.role.equals(AuthManager.ADMIN)) {
-					Administrador admin = AuthManager.getActualAdmin(request, response);
-		 
-					if(admin != null) {
-						//EN PROCESO
-						//Response<Movimiento> res = ADlogic.getAllTransfer();
-						//response.setStatus(res.http);
-						//write(response, res.toFinalJSON());
-					}
-				} else {
-					Cliente cliente = AuthManager.getActualClient(request, response);
-					
-					if(cliente != null) {
-						//EN PROCESO
-						//Response<Movimiento> res = CuentaLogic.getAllForTransfer(cliente);
-						//response.setStatus(res.http);
-						//write(response, res.toFinalJSON());
-					}
-				}
-			}catch(Exception e) {
-				e.getMessage();
-			}
-		}
-		return;
+		//usar el doGet de mmovimientos y se cumple bien
 	}
 
 	
