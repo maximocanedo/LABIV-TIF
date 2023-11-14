@@ -2,6 +2,7 @@
 import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
 import * as accounts from "./../data/accounts.js";
+import * as loans from "./../data/loans.js";
 
 const formatearNumeroCuenta = (nc) => {
     const cleaned = ('' + nc).replace(/\D/g, '');
@@ -13,23 +14,132 @@ const formatearComoDinero = (numero) => {
     return numeroFormateado;
 }
 
+
+
+
 (async () => {
 	// Instanciar componentes
 	material.loadElements();
-	console.log(material);
 	// Obtener datos del cliente actual. Si no hay cliente redirige a la página de inicio de sesión.
 	const actualUser = await auth.allowClient();
-	document.querySelectorAll(".account_card").forEach(e => e.classList.add("non-displayable"));
+	document.querySelectorAll(".account_card:not(.action__account)").forEach(e => {
+		e.classList.add("non-displayable");
+		material.rippleIt(e);
+	});
+	material.rippleIt(document.querySelector(".action__account"));
 	const cuentasData = await accounts.getAccounts();
 	const cuentas = cuentasData.data.listReturned;
 	for(let i = 0; i < cuentas.length; i++) {
-		console.log(".__account_" + (i + 1) + "_tipodesc");
-		console.log(cuentas[i]);
-		document.querySelectorAll(".account_" + (i+1)).forEach(e => e.classList.remove("non-displayable"));
+		if(i == 2) {
+			document.querySelector(".action__account").classList.add("non-displayable");
+		}
+		document.querySelectorAll(".account_" + (i+1)).forEach(e =>{ 
+			e.classList.remove("non-displayable");
+			e.addEventListener("click", event => {
+				window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/MiCuenta.jsp?accountno=" + cuentas[i].numero;
+			})
+		});
 		document.querySelector(".__account_" + (i + 1) + "_tipodesc").innerText = cuentas[i].tipo.descripcion;
 		document.querySelector(".__account_" + (i + 1) + "_saldo").innerText = formatearComoDinero(cuentas[i].saldo);
 		document.querySelector(".__account_" + (i + 1) + "_nc").innerText = formatearNumeroCuenta(cuentas[i].numero);
 		document.querySelector(".__account_" + (i + 1) + "_cbu").innerText = cuentas[i].CBU;
 	}
-	console.log(cuentas);
+
+
+	//document.querySelector(".action__account").addEventListener('click', 
+	(async () => {
+		const dialog = material.showOtherDialog("#crearCuentaBancaria");
+		const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
+		const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
+		tipoCuentaSelect.layout();
+	})();
+	//);
+
+
+
+
+})();
+
+
+// Tabla SOLIICITUDES DE PRÉSTAMOS
+(async () => {
+	const paginationReducer = (state = { page: 1, size: 10 }, action) => {
+	  switch (action.type) {
+	    case 'SET_PAGE':
+	      return { ...state, page: action.payload };
+	    case 'NEXT_PAGE': 
+	    	return {...state, page: state.page + 1};
+	    case 'PREV_PAGE': 
+	    	return {...state, page: state.page > 1 ? state.page - 1 : 1 }
+	    case 'SET_SIZE':
+	      return { ...state, size: action.payload };
+	    default:
+	      return state;
+	  }
+	};
+
+	// Crear el store de Redux
+	const store = Redux.createStore(paginationReducer);
+
+	// Acciones para cambiar la página y el tamaño de la página
+	const setPage = (page) => ({
+	  type: 'SET_PAGE',
+	  payload: page,
+	});
+
+	const nextPage = () => ({
+	  type: 'NEXT_PAGE',
+	  payload: 1,
+	});
+
+	const prevPage = () => ({
+	  type: 'PREV_PAGE',
+	  payload: 1,
+	});
+
+	const setSize = (size) => ({
+	  type: 'SET_SIZE',
+	  payload: size,
+	});
+	const fillLoanRequestsTable = async () => {
+		const cliente = auth.allowClient();
+		const ress = await loans.getMyLoanRequests(store.getState());
+		const data = ress.list;
+		document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML = "";
+		for(let i = 0; i < data.length; i++) {
+			let html = `
+			<tr class="mdc-data-table__row">
+	          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">${data[i].codigo}</th>
+	          <td class="mdc-data-table__cell">${formatearNumeroCuenta(data[i].cuenta.numero)}</td>
+	          <td class="mdc-data-table__cell mdc-data-table__cell--numeric">${formatearComoDinero(data[i].montoPedido)}</td>
+	          <td class="mdc-data-table__cell">${data[i].cantCuotas} &times; ${formatearComoDinero(data[i].montoPorCuota)}</td>
+	        </tr>
+			`;
+			document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML += html;
+		}
+	};
+
+	// Suscribirse al estado del store para actualizarse cuando cambie la paginación
+	store.subscribe(async () => {
+	  const { page, size } = store.getState();
+	  await fillLoanRequestsTable();
+	  document.querySelector("#tablaSolicitudesPrestamos__textoPaginacion").innerText = `Página ${page}`;
+	  console.log({page, size});
+	});
+
+	const paginator = {
+		page: 1,
+		size: 10
+	};
+	const mdSelectPaginator = material.loadSelect(document.querySelector("#mdSelectPaginator"));
+	const nextBtn = document.querySelector("#tablaSolicitudesPrestamos__btnSiguiente");
+	const prevBtn = document.querySelector("#tablaSolicitudesPrestamos__btnAnterior");
+	
+	mdSelectPaginator.root.addEventListener("MDCSelect:change", e => {
+		let size = e.detail.value;
+		store.dispatch(setSize(size));
+	});
+	nextBtn.addEventListener("click", e => store.dispatch(nextPage()));
+	prevBtn.addEventListener("click", e => store.dispatch(prevPage()));
+	store.dispatch(setPage(1));
 })();
