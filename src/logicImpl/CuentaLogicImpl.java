@@ -11,8 +11,10 @@ import dataImpl.ClienteDaoImpl;
 import dataImpl.CuentaDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Movimiento;
 import entity.Paginator;
 import entity.TipoCuenta;
+import entity.Transferencia;
 import logic.ICuentaLogic;
 import max.Dictionary;
 import max.IRecordLogic;
@@ -339,6 +341,38 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		} catch (SQLException e) {
 			e.printStackTrace();
 			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+
+
+
+
+	public entity.Transferencia convertTransfer(Dictionary row) {
+		entity.Transferencia transferencia = new Transferencia();
+		if(row.$("CBUOrigen") != null)transferencia.setCBUOrigen(row.$("CBUOrigen"));
+		if(row.$("CBUDestino") != null)transferencia.setCBUDestino(row.$("CBUDestino"));
+		if(row.$("montoTransf") != null)transferencia.setMontoTransf(row.$("montoTransf"));
+		if(row.$("tipoMov") != null)transferencia.setTipoCon(row.$("tipoMov"));
+				
+		return transferencia;
+	}
+
+
+
+
+	public Response<entity.Transferencia> insertTransfer(entity.Transferencia data) {
+		Response<entity.Transferencia> res = new Response<entity.Transferencia>();
+		try {
+			TransactionResponse<?> tpr;
+			System.out.println(data.toJSON());
+			tpr = clDao.insertTransfer(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 201, "La transferencia se insertó con éxito. ");
+			} else res.die(false, 500, "Hubo un error al intentar transferir. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar transferir. ");
+			e.printStackTrace();
 		}
 		return res;
 	}

@@ -8,6 +8,7 @@ import data.ICuentaDao;
 import entity.Cliente;
 import entity.Cuenta;
 import entity.Paginator;
+import entity.Transferencia;
 import logicImpl.CuentaLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -116,8 +117,8 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 									 )
 		);
 		if(rows.nonEmptyResult()) {
-			String result = rows.rowsReturned.get(0).$("RESULT");
-			System.out.println("RESULT === " + result);
+			String result = rows.rowsReturned.get(0).$("resultado");
+			System.out.println("resultado === " + result);
 			if(result.equals("Cuenta asignada exitosamente")) {
 				finalres.status = true;
 				finalres.rowsAffected = 1;
@@ -237,6 +238,28 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 		}
 		return fres;
 		
+	}
+
+	public TransactionResponse<?> insertTransfer(Transferencia data)throws SQLException {
+		TransactionResponse<?> finalres = TransactionResponse.create();
+		TransactionResponse<Dictionary> rows= db.fetch(
+
+				"CALL SP_TRANSFERENCIA (@CBUOrigen , @CBUDestino , @montoTransf, @tipoConcep )",
+				Dictionary.fromArray("CBUOrigen",data.getCBUOrigen(),
+									 "CBUDestino" , data.getCBUDestino(),
+									 "montoTransf" , data.getMontoTransf(),
+									 "tipoCon" , data.getTipoCon()
+									 )
+		);
+		if(rows.nonEmptyResult()) {
+			String result = rows.rowsReturned.get(0).$("resultado");
+			System.out.println("resultado === " + result);
+			if(result.equals("transferencia hecha exitosamente")) {
+				finalres.status = true;
+				finalres.rowsAffected = 1;
+			}
+		}
+		return finalres;
 	}
 
 }
