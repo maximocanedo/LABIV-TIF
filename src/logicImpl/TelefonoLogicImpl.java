@@ -151,7 +151,7 @@ public class TelefonoLogicImpl implements IRecordLogic<Telefono,String>, ITelefo
 		return list;
 	}
 
-	public Response<Telefono> getAllFor(Cliente obj) {
+	public Response<Telefono> getAllFor(Cliente obj) throws SQLException {
 		Response<Telefono> res = new Response<Telefono>();
 		TransactionResponse<Telefono> tpr = new TransactionResponse<Telefono>();
 		tpr = tpDao.getAll(obj);

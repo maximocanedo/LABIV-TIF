@@ -40,22 +40,26 @@ public class Telefonos extends BaseServlet implements Servlet {
 			return;
 		}*/
 		if(td != null) {
-			if(td.role.equals(AuthManager.ADMIN)) {
-				Administrador admin = AuthManager.getActualAdmin(request, response);
-	 
-				if(admin != null) {
-					Response<Telefono> res = TEL.getAll();
-					response.setStatus(res.http);
-					write(response, res.toFinalJSON());
+			try {
+				if(td.role.equals(AuthManager.ADMIN)) {
+					Administrador admin = AuthManager.getActualAdmin(request, response);
+		 
+					if(admin != null) {
+						Response<Telefono> res = TEL.getAll();
+						response.setStatus(res.http);
+						write(response, res.toFinalJSON());
+					}
+				} else {
+					Cliente cliente = AuthManager.getActualClient(request, response);
+					
+					if(cliente != null) {
+						Response<Telefono> res = TEL.getAllFor(cliente);
+						response.setStatus(res.http);
+						write(response, res.toFinalJSON());
+					}
 				}
-			} else {
-				Cliente cliente = AuthManager.getActualClient(request, response);
-				
-				if(cliente != null) {
-					Response<Telefono> res = TEL.getAllFor(cliente);
-					response.setStatus(res.http);
-					write(response, res.toFinalJSON());
-				}
+			}catch(Exception e) {
+				e.getMessage();
 			}
 		}
 		return;
