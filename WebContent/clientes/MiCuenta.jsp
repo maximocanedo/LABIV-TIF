@@ -219,7 +219,7 @@
 
     </main>
 
-    <form onsubmit="return false; " class="mdc-dialog mdc-dialog--open" action="#" name="transfer" id="transferDialog" >
+    <form onsubmit="return false; " class="mdc-dialog" action="#" name="transfer" id="transferDialog" >
     <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
             aria-describedby="my-dialog-content" tabindex="-1">
@@ -309,7 +309,7 @@
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Volver</span>
                 </button>
-                <button id="btnTransferir" class="mdc-button mdc-dialog__button" >
+                <button id="btnTransferirDialog" class="mdc-button " >
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">Transferir</span>
                 </button>

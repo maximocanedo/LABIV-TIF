@@ -303,7 +303,7 @@ const loadTable = () => {
 				body: JSON.stringify({
 				    "CBUOrigen": miCBU,
 				    "CBUDestino" : accountDetails.data.CBU,
-				    "montoTransf": data.monto,
+				    "montoTransf": parseFloat(data.monto),
 				    "tipoConcep": conceptoSelect.value
 				})
 			});
@@ -313,6 +313,9 @@ const loadTable = () => {
 		console.log(res);
 		if(status == 200 || status == 201) {
 			material.showSnackbar("La transferencia se realizó con éxito!");
+    	const dialog = material.loadDialog("#transferDialog");
+    	dialog.close();
+
 			await loadData();
 			await loadTable();
 			return;
@@ -323,8 +326,13 @@ const loadTable = () => {
 
 
 	};
-    document.querySelector("#btnTransferir").addEventListener('click', async (e) => {
-        console.log(32);
-        await transferir();
-    });
+  
 })();
+	  document.querySelector("#btnTransferirDialog").addEventListener("click", async (e) => {
+        console.log(32);
+        await window.transferir();
+    });
+    document.querySelector("#btnTransferir").addEventListener("click", (e) => {
+    	const dialog = material.showOtherDialog("#transferDialog");
+
+    });
