@@ -30,28 +30,32 @@ public class Telefonos extends BaseServlet implements Servlet {
     private TelefonoLogicImpl TEL = new TelefonoLogicImpl();
     
     /**
-     * Método GET: Listar telefonos (Admin only)
+     * Método GET: Listar telefonos 
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		TokenData td = AuthManager.readToken(request);
-		if(td == null) {
-			response.setStatus(401);
+		/*if(td == null) {
+			response.setStatus(401);  para validar que solo sea admin
 			return;
-		}
-		if(td.role.equals(AuthManager.ADMIN)) {
-			Administrador admin = AuthManager.getActualAdmin(request, response);
- 
-			if(admin != null) {
-				Response<Telefono> res = TEL.getAll();
-				response.setStatus(res.http);
-				write(response, res.toFinalJSON());
-			}
-		} else {
-			Cliente cliente = AuthManager.getActualClient(request, response);
-			if(cliente != null) {
-				Response<Telefono> res = TEL.getAllFor(cliente);
-				response.setStatus(res.http);
-				write(response, res.toFinalJSON());
+		}*/
+		if(td != null) {
+			if(td.role.equals(AuthManager.ADMIN)) {
+				Administrador admin = AuthManager.getActualAdmin(request, response);
+	 
+				if(admin != null) {
+					Response<Telefono> res = TEL.getAll();
+					response.setStatus(res.http);
+					write(response, res.toFinalJSON());
+				}
+			} else {
+				Cliente cliente = AuthManager.getActualClient(request, response);
+				
+				if(cliente != null) {
+					Response<Telefono> res = TEL.getAllFor(cliente);
+					response.setStatus(res.http);
+					write(response, res.toFinalJSON());
+				}
 			}
 		}
 		return;
