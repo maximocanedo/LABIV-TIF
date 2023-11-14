@@ -17,12 +17,14 @@ public Telefono(String usuario, String telefono) {
 	super();
 	DNI = usuario;
 	Tel = telefono;
+	Activo = true;
 }
 
 public JsonObject toJsonObject() {
 	JsonObject obj = new JsonObject();
 	obj.addProperty("Dni", DNI);
 	obj.addProperty("Tel", Tel);
+	obj.addProperty("Activo", Activo);
 	return obj;
 }
 
@@ -41,14 +43,14 @@ public String toJSON() {
 public String getDNI_Usuario() {
 	return DNI;
 }
-public void setDNI_Usuario(String usuario) {
-	DNI = usuario;
+public void setDNI_Usuario(String dni) {
+	DNI = dni;
 }
 public String getTelefono() {
-	return DNI;
+	return Tel;
 }
 public void setTelefono(String numeroTelefono) {
-	DNI = numeroTelefono;
+	Tel = numeroTelefono;
 }
 @Override
 public Dictionary toDictionary() {
