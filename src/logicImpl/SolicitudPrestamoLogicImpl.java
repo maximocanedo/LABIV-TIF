@@ -9,6 +9,7 @@ import java.util.List;
 import dataImpl.SolicitudPrestamoDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Paginator;
 import entity.SolicitudPrestamo;
 import logic.ISolicitudPrestamoLogic;
 import max.Dictionary;
@@ -157,6 +158,21 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		return res;
 	}
 
+	public Response<SolicitudPrestamo> getAll(Paginator paginator) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
+		try {
+			tpr = spDao.getAll(paginator);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
 	/* (non-Javadoc)
 	 * @see logicImpl.ISolicitudPrestamoLogic#getById(java.lang.String)
 	 */
@@ -166,6 +182,21 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
 		try {
 			tpr = spDao.getById(id);
+			if(tpr.rowsReturned != null) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
+	public Response<SolicitudPrestamo> getById(String id, Paginator paginator) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
+		try {
+			tpr = spDao.getById(id, paginator);
 			if(tpr.rowsReturned != null) {
 				res.fill(tpr.rowsReturned);
 			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");

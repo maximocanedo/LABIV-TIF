@@ -5,6 +5,7 @@ import java.sql.Types;
 
 import data.ISolicitudPrestamoDao;
 import entity.Cuenta;
+import entity.Paginator;
 import entity.SolicitudPrestamo;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import max.Connector;
@@ -188,6 +189,10 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	public TransactionResponse<SolicitudPrestamo> getAll() throws SQLException {
 		return select("SELECT * FROM solicitudesDePrestamos__select");
 	}
+	
+	public TransactionResponse<SolicitudPrestamo> getAll(Paginator paginator) throws SQLException {
+		return select("CALL solicitudesDePrestamos__getAll(@page, @size, NULL)", new Dictionary().paginate(paginator));
+	}
 
 	/* (non-Javadoc)
 	 * @see dataImpl.ISolicitudPrestamoDao#getById(java.lang.String)
@@ -195,6 +200,10 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getById(String arg0) throws SQLException {
 		return select("SELECT * FROM solicitudesDePrestamos__select WHERE usuario_cl_Sol = @usuario_cl_Sol", Dictionary.fromArray("usuario_cl_Sol",arg0));
+	}
+	
+	public TransactionResponse<SolicitudPrestamo> getById(String arg0, Paginator paginator) throws SQLException {
+		return select("CALL solicitudesDePrestamos__getAllFromClient(@usuario, @page, @size, NULL)", Dictionary.fromArray("usuario",arg0).paginate(paginator));
 	}
 	
 	public TransactionResponse<SolicitudPrestamo> getById(Integer arg0) throws SQLException {

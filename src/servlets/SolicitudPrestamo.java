@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Administrador;
 import entity.Cliente;
 import entity.Cuenta;
+import entity.Paginator;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import logicImpl.AuthManager.TokenData;
@@ -41,26 +42,22 @@ public class SolicitudPrestamo extends BaseServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Response<entity.SolicitudPrestamo> resSL;
-		
+		Paginator paginator = getPaginator(request);
 		/* Verificar si es cliente o admin */
 		TokenData td = AuthManager.readToken(request);
 		if(td != null) {
 			switch(td.role) {
 			case AuthManager.ADMIN:
-				resSL = logic.getAll();				
+				resSL = logic.getAll(paginator);				
 				write(response, resSL.toFinalJSON());
 				
 				return;
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(cliente!=null) {
-					resSL = logic.getById(cliente.getUsuario());
-					
-					
-					 
+					resSL = logic.getById(cliente.getUsuario(), paginator);
 					write(response, resSL.toFinalJSON());
 					response.setStatus(201);
-					
 					return;
 				} else {
 					response.setStatus(403);
