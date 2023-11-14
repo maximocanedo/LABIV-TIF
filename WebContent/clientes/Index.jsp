@@ -35,7 +35,63 @@
 			</div>
 		<div id="principal-grid" class="mdc-layout-grid mdc-layout-grid__cell--align-middle mdc-layout-grid-margin-12">
 			<div class="mdc-layout-grid__inner">
-				<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis Solicitudes de préstamos</span>
+				
+				<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis cuentas</span>
+				<div class="mdc-layout-grid__cell 
+				mdc-layout-grid__cell--span-6
+				mdc-layout-grid__cell--span-12-phone
+				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_1">
+				<div class="mdc-card__ripple"></div>
+					<div class="mdc-layout-grid__inner">
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_tipodesc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_1_saldo"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_nc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_cbu"></span>
+
+					</div>
+				</div>
+
+
+				<div class="mdc-layout-grid__cell 
+				mdc-layout-grid__cell--span-6
+				mdc-layout-grid__cell--span-12-phone
+				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_2">
+					<div class="mdc-layout-grid__inner">
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_tipodesc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_2_saldo"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_nc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_cbu"></span>
+
+					</div>
+				</div>
+
+
+				<div class="mdc-layout-grid__cell 
+				mdc-layout-grid__cell--span-6
+				mdc-layout-grid__cell--span-12-phone
+				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_3">
+					<div class="mdc-layout-grid__inner">
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_tipodesc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_3_saldo"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_nc"></span>
+						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_cbu"></span>
+
+					</div>
+				</div>
+				<div class="mdc-layout-grid__cell 
+				mdc-layout-grid__cell--span-6
+				mdc-layout-grid__cell--span-12-phone
+				mdc-card mdc-layout-grid account_card action__account mdc-ripple-surface mdc-ripple-surface--primary ">
+					<div class="mdc-layout-grid__inner">
+						<div class="super-icon-container mdc-layout-grid__cell--span-12">
+							<div class="icon-container">
+								<i class="material-icons">add</i>
+							</div>
+						</div>
+						<span class="mdc-layout-grid__cell--span-12 mdc-typography--body1 centered-text">Crear cuenta</span>
+					</div>
+				</div>
+<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis Solicitudes de préstamos</span>
 
 				<div id="tablaSolicitudesPrestamos" class="mdc-data-table mdc-layout-grid__cell--span-12">
 				  <div class="mdc-data-table__table-container">
@@ -50,12 +106,7 @@
 				        </tr>
 				      </thead>
 				      <tbody class="mdc-data-table__content" id="tablaSolicitudesPrestamos__body">
-				      	<tr class="mdc-data-table__row">
-				          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">PR001</th>
-				          <td class="mdc-data-table__cell"># 1724-113-459</td>
-				          <td class="mdc-data-table__cell mdc-data-table__cell--numeric">$ 2.500.000,00</td>
-				          <td class="mdc-data-table__cell">24 &times; $ 100.000,00</td>
-				        </tr>
+				      	
 				      </tbody>
 				    </table>
 				  </div>
@@ -153,66 +204,6 @@
 				</div>
 
 			</div>
-
-
-
-
-				<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis cuentas</span>
-				<div class="mdc-layout-grid__cell 
-				mdc-layout-grid__cell--span-6
-				mdc-layout-grid__cell--span-12-phone
-				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_1">
-				<div class="mdc-card__ripple"></div>
-					<div class="mdc-layout-grid__inner">
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_tipodesc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_1_saldo"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_nc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_1_cbu"></span>
-
-					</div>
-				</div>
-
-
-				<div class="mdc-layout-grid__cell 
-				mdc-layout-grid__cell--span-6
-				mdc-layout-grid__cell--span-12-phone
-				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_2">
-					<div class="mdc-layout-grid__inner">
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_tipodesc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_2_saldo"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_nc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_2_cbu"></span>
-
-					</div>
-				</div>
-
-
-				<div class="mdc-layout-grid__cell 
-				mdc-layout-grid__cell--span-6
-				mdc-layout-grid__cell--span-12-phone
-				mdc-card mdc-layout-grid account_card mdc-ripple-surface mdc-ripple-surface--accent account_3">
-					<div class="mdc-layout-grid__inner">
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_tipodesc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_3_saldo"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_nc"></span>
-						<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--button __account_3_cbu"></span>
-
-					</div>
-				</div>
-				<div class="mdc-layout-grid__cell 
-				mdc-layout-grid__cell--span-6
-				mdc-layout-grid__cell--span-12-phone
-				mdc-card mdc-layout-grid account_card action__account mdc-ripple-surface mdc-ripple-surface--primary ">
-					<div class="mdc-layout-grid__inner">
-						<div class="super-icon-container mdc-layout-grid__cell--span-12">
-							<div class="icon-container">
-								<i class="material-icons">add</i>
-							</div>
-						</div>
-						<span class="mdc-layout-grid__cell--span-12 mdc-typography--body1 centered-text">Crear cuenta</span>
-					</div>
-				</div>
-
 			</div>
 		</div>
 

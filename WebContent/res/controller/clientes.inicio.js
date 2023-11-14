@@ -15,16 +15,7 @@ const formatearComoDinero = (numero) => {
     return numeroFormateado;
 }
 
-
-
-
-(async () => {
-	// Instanciar componentes
-	material.loadElements();
-
-		const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
-		const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
-	// Obtener datos del cliente actual. Si no hay cliente redirige a la página de inicio de sesión.
+const cargarCuentas = async () => {
 	const actualUser = await auth.allowClient();
 	document.querySelectorAll(".account_card:not(.action__account)").forEach(e => {
 		e.classList.add("non-displayable");
@@ -50,7 +41,18 @@ const formatearComoDinero = (numero) => {
 		document.querySelector(".__account_" + (i + 1) + "_nc").innerText = formatearNumeroCuenta(cuentas[i].numero);
 		document.querySelector(".__account_" + (i + 1) + "_cbu").innerText = cuentas[i].CBU;
 	}
+}
 
+
+(async () => {
+	// Instanciar componentes
+	material.loadElements();
+
+	const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
+	const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
+	// Obtener datos del cliente actual. Si no hay cliente redirige a la página de inicio de sesión.
+	
+	await cargarCuentas();
 
 	document.querySelector(".action__account").addEventListener('click', 
 	(async () => {
@@ -87,6 +89,9 @@ const formatearComoDinero = (numero) => {
 		}
 		tipoCuentaSelect.layout();
 	}));
+
+
+
 	document.querySelector("#crearCuentaBtn").addEventListener('click', async (e) => {
 		const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
 		const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
@@ -111,6 +116,7 @@ const formatearComoDinero = (numero) => {
 		);
 		if(f.status == 201 || f.status == 200) {
 			material.showSnackbar("¡Tu cuenta se creó exitosamente!");
+			await cargarCuentas();
 		} else {
 			material.showSnackbar("Hubo un problema y tu cuenta no se creó. ");
 		}
