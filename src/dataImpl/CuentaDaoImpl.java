@@ -250,13 +250,13 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 				Dictionary.fromArray("CBUOrigen",data.getCBUOrigen(),
 									 "CBUDestino" , data.getCBUDestino(),
 									 "montoTransf" , data.getMontoTransf(),
-									 "tipoCon" , data.getTipoCon()
+									 "tipoConcep" , data.getTipoCon()
 									 )
 		);
 		if(rows.nonEmptyResult()) {
 			String result = rows.rowsReturned.get(0).$("resultado");
 			System.out.println("resultado === " + result);
-			if(result.equals("transferencia hecha exitosamente")) {
+			if(result.equals("la transferencia se realizó con éxito")) {
 				finalres.status = true;
 				finalres.rowsAffected = 1;
 			}

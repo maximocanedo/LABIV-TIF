@@ -353,7 +353,7 @@ public class CuentaLogicImpl implements IRecordLogic<Cuenta,String>, ICuentaLogi
 		if(row.$("CBUOrigen") != null)transferencia.setCBUOrigen(row.$("CBUOrigen"));
 		if(row.$("CBUDestino") != null)transferencia.setCBUDestino(row.$("CBUDestino"));
 		if(row.$("montoTransf") != null)transferencia.setMontoTransf(row.$("montoTransf"));
-		if(row.$("tipoMov") != null)transferencia.setTipoCon(row.$("tipoMov"));
+		if(row.$("tipoConcep") != null)transferencia.setTipoCon(row.$("tipoConcep"));
 				
 		return transferencia;
 	}
