@@ -108,12 +108,10 @@ public class CuentaDaoImpl implements IRecord<Cuenta, String>, ICuentaDao {
 	
 	@Override
 	public TransactionResponse<?> insert(Cuenta data) throws SQLException {
-		java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
 		TransactionResponse<?> finalres = TransactionResponse.create();
 		TransactionResponse<Dictionary> rows= db.fetch(
-				"CALL SP_AGREGARNUEVACUENTABANCARIA (@dni , @fechaCreacion , @tipoCuenta )",
+				"CALL SP_AGREGARNUEVACUENTABANCARIA (@dni , @tipoCuenta )",
 				Dictionary.fromArray("dni",data.getCliente().getDNI(),
-									 "fechaCreacion" , fechaActual,
 									 "tipoCuenta" , data.getTipo().getCod_TPCT()
 									 )
 		);
