@@ -11,7 +11,7 @@ import logicImpl.CuentaLogicImpl;
 import max.Response;
 
 
-@WebServlet("/api/quick/accounts/cbu/*")
+@WebServlet("/api/quick/account/cbuExist/*")
 public class Cuentas__ExisteCBU extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,14 +22,28 @@ public class Cuentas__ExisteCBU extends servlets.BaseServlet {
 	private CuentaLogicImpl AL = new CuentaLogicImpl();
 
     public void getAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	String CBU = getPathParameter(request);
-    	Response<Cuenta> result = AL.CBUExists(CBU);
+    	String cbuExist = getPathParameter(request);
+    	Response<Cuenta> result = AL.CBUExists(cbuExist);
+    	response.setStatus(result.http);
+    	if(result.nonEmptyResult()) {
+    		//write(response, "Esta cuenta existe");
+    	}
     	sendEmptyResponse(response, result.http);
     	return; 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getAdmin(request, response);
+		//getAdmin(request, response);
+		String cbuExist = getPathParameter(request);
+    	Response<Cuenta> result = AL.CBUExists(cbuExist);
+    	response.setStatus(result.http);
+    	if(result.nonEmptyResult()) {
+    		write(response, "Esta cuenta existe");
+    		
+    	}
+    	//sendEmptyResponse(response, result.http);
+    	//return; 
+  
 	}
 
 
