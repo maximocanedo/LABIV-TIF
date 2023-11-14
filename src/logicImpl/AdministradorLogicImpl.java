@@ -13,6 +13,7 @@ import entity.Localidad;
 import entity.Paginator;
 import entity.Pais;
 import entity.Provincia;
+import entity.Transferencia;
 import logic.IAdministradorLogic;
 import max.Dictionary;
 import max.IModel;
@@ -597,5 +598,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		}
 		return res;
 	}
+
+	
 
 }

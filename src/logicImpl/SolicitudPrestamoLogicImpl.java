@@ -270,6 +270,8 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}
 		s.setMontoPedido(d.$("montoPedido_Sol"));
 		s.setMontoAPagar(d.$("montoAPagar_Sol"));
+		//double i = (double)d.$("interes_Sol");
+		//s.setInteres(i);
 		s.setInteres(d.$("interes_Sol"));
 		s.setPlazoPago(d.$("plazoPago_Sol"));
 		s.setCantCuotas(d.$("cantCuotas_Sol"));
