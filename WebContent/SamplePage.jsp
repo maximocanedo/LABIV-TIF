@@ -14,9 +14,12 @@
 	<%@ include file="res/web/header.part.html" %>
 	<main class="mdc-top-app-bar--fixed-adjust">
 		
+		
+		
+		
     </main>
 	<%@ include file="res/web/dialog.part.html" %>
 	<%@ include file="res/web/snackbar.part.html" %>
-	<script type="module" src="res/controller/res.js"></script>
+	<script type="module" src="res/controller/default.controller.js"></script>
 </body>
 </html>
