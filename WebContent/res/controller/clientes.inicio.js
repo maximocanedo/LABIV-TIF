@@ -174,12 +174,14 @@ const cargarCuentas = async () => {
 		const data = ress.list;
 		document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML = "";
 		for(let i = 0; i < data.length; i++) {
+			let leggend = `<span class="mdc-typography--button importe_${data[i].estado ? "plus" : "less"}">${data[i].estado ? "Aprobado" : "Sin aprobar / En espera"}</span>`
 			let html = `
 			<tr class="mdc-data-table__row">
 	          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">${data[i].codigo}</th>
 	          <td class="mdc-data-table__cell">${formatearNumeroCuenta(data[i].cuenta.numero)}</td>
 	          <td class="mdc-data-table__cell mdc-data-table__cell--numeric">${formatearComoDinero(data[i].montoPedido)}</td>
 	          <td class="mdc-data-table__cell">${data[i].cantCuotas} &times; ${formatearComoDinero(data[i].montoPorCuota)}</td>
+	          <td class="mdc-data-table__cell">${leggend}</td>
 	        </tr>
 			`;
 			document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML += html;

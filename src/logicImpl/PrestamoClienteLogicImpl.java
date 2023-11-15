@@ -135,7 +135,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 		
 		if(d.$("id_PxC") != null) p.setId(d.$("id_PxC"));
 		if(d.$("usuario_cl_PxC") != null) {
-				p.setCliente(new Cliente() {{setUsuario(d.$("usuario_cl_PxC"));}});
+			Cliente cliente = (new ClienteLogicImpl()).convert(d);
+			cliente.setUsuario(d.$("usuario_cl_PxC"));
+			p.setCliente(cliente);
 		}
 		if(d.$("fechaOtorgado_PxC") != null) p.setFechaOtorgado(d.$("fechaOtorgado_PxC"));
 		if(d.$("montoAPagar_PxC") != null) p.setMontoAPagar(d.$("montoAPagar_PxC"));
@@ -144,12 +146,16 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 		if(d.$("montoPorCuota_PxC") != null) p.setMontoPorCuota(d.$("montoPorCuota_PxC"));
 		if(d.$("cuotasPagadas_PxC") != null) p.setCuotasPagadas(d.$("cuotasPagadas_PxC"));
 		if(d.$("cuotasRestantes_PxC") != null) p.setCuotasRestantes(d.$("cuotasRestantes_PxC"));
-		if(d.$("CBU_PxC") != null) { 
-				p.setCuenta(new Cuenta() {{setCBU(d.$("CBU_PxC"));}});
+		if(d.$("CBU_PxC") != null) {
+			Cuenta cuenta = (new CuentaLogicImpl()).convert(d);
+			cuenta.setCBU(d.$("CBU_PxC"));
+			p.setCuenta(cuenta);
 		}
-		if(d.$("cod_Sol_PxC") != null)p.setSolicitud(new SolicitudPrestamo() {{
-		this.setCodigo(d.$("cod_Sol_PxC"));
-		}});
+		if(d.$("cod_Sol_PxC") != null) {
+			SolicitudPrestamo sp = (new SolicitudPrestamoLogicImpl()).convert(d);
+			sp.setCodigo(d.$("cod_Sol_PxC"));
+			p.setSolicitud(sp);
+		}
 		return p;
 	}
 

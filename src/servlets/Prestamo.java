@@ -16,7 +16,7 @@ import max.Response;
 /**
  * Servlet implementation class Prestamo
  */
-@WebServlet("/api/client/Prestamo")
+@WebServlet("/api/loans/*")
 public class Prestamo extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,17 +29,51 @@ public class Prestamo extends BaseServlet {
     }
     
     PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String strLoanId = getPathParameter(request);
+    	Integer loanId = -1;
+    	try {
+    		loanId = Integer.parseInt(strLoanId);
+    	} catch(NumberFormatException e) {
+    		response.setStatus(400);
+    		e.printStackTrace();
+    		return;
+    	}
+    	if(loanId < 0) {
+    		response.setStatus(400);
+    		return;
+    	}
+    	Cliente cliente = AuthManager.getActualClient(request, response);
+    	if(cliente == null) {
+    		response.setStatus(401);
+    		return;
+    	}
+    	Response<PrestamosCliente> res = (new PrestamoClienteLogicImpl()).getById(loanId);
+    	response.setStatus(res.http);
+    	if(res.nonEmptyResult()) {
+    		PrestamosCliente loan = res.listReturned.get(0);
+    		if(loan == null) {
+    			response.setStatus(503);
+    			return;
+    		}
+    		if(loan.getCliente().getUsuario().equals(cliente.getUsuario())) {
+    	    	write(response, res.toFinalJSON());
+    	    	return;
+    		} else {
+    			response.setStatus(403);
+    			return;
+    		}    		
+    	} else {
+    		response.setStatus(404);
+    	}
+    	    	
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cliente cliente = AuthManager.getActualClient(request, response);
-		Response<PrestamosCliente> res = logic.getById(cliente.getUsuario().toString());
-		String json = res.toFinalJSON();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(json);
+    // DEPRECATED. 
+	protected void deprecatedGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 
 	@Override

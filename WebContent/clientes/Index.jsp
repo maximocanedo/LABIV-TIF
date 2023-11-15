@@ -91,7 +91,7 @@
 						<span class="mdc-layout-grid__cell--span-12 mdc-typography--body1 centered-text">Crear cuenta</span>
 					</div>
 				</div>
-<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis Solicitudes de préstamos</span>
+			<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis Solicitudes de préstamos</span>
 
 				<div id="tablaSolicitudesPrestamos" class="mdc-data-table mdc-layout-grid__cell--span-12">
 				  <div class="mdc-data-table__table-container">
@@ -205,9 +205,15 @@
 				</div>
 
 			</div>
+			<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6"><br /></span>
+			<span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6"><br /></span>
 			</div>
 		</div>
-
+<button class="mdc-fab mdc-fab--extended _fab" onclick="window.location = 'http://localhost:8080/TPINT_GRUPO_3_LAB/prestamos/Solicitar.jsp';">
+  <div class="mdc-fab__ripple"></div>
+  <span class="material-icons mdc-fab__icon">add</span>
+  <span class="mdc-fab__label">Pedir un préstamo</span>
+</button>
     </main>
     <form class="mdc-dialog mdc-dialog__open" name="crearCuentaBancaria" id="crearCuentaBancaria">
     <div class="mdc-dialog__container">
