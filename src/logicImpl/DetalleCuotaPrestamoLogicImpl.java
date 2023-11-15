@@ -7,8 +7,10 @@ import java.util.List;
 import dataImpl.DetalleCuotaPrestamoDaoImpl;
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
+import entity.Movimiento;
 import entity.PrestamosCliente;
 import entity.SolicitudPrestamo;
+import entity.Telefono;
 import logic.IDetalleCuotaPrestamoLogic;
 import max.Dictionary;
 import max.IRecordLogic;
@@ -246,6 +248,23 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 		}		
 		
 		return ls;
+	}
+
+
+	public Response<DetalleCuotaPrestamo> getAll(Cliente cliente) {
+		Response<DetalleCuotaPrestamo> res = new Response<DetalleCuotaPrestamo>();
+		TransactionResponse<DetalleCuotaPrestamo> tpr = new TransactionResponse<DetalleCuotaPrestamo>();
+		try {
+			tpr = daoCtPrest.getAll(obj);
+			if(tpr.nonEmptyResult()) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
 	}
 
 }

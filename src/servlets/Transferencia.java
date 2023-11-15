@@ -33,7 +33,6 @@ public class Transferencia extends BaseServlet implements Servlet {
         super();
     }
     
-    private AdministradorLogicImpl ADlogic = new AdministradorLogicImpl();
     private CuentaLogicImpl CuentaLogic = new CuentaLogicImpl();
     
     /**

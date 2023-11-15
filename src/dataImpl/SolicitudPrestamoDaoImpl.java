@@ -149,6 +149,25 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		}
 		return affectedRows;
 	}
+	
+	public TransactionResponse<?> PagarCuota(SolicitudPrestamo data) throws SQLException {
+		TransactionResponse<Dictionary> rows= db.fetch(
+				"CALL SP_PAGARCUOTAPRESTAMO (@codSol, @CBU)",
+				Dictionary.fromArray("codSol",data.getCodigo(),
+									 "CBU",data.getCuenta().getCBU()
+									 )
+		);
+		TransactionResponse<?> affectedRows= TransactionResponse.create();
+		if(rows.nonEmptyResult()) {
+			String result = rows.rowsReturned.get(0).$("resultado");
+			if(result.equals("el pago se realizo con exito")) {
+				affectedRows.status = true;
+				affectedRows.rowsAffected = 1;
+			}
+		}
+		return affectedRows;	
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see dataImpl.ISolicitudPrestamoDao#delete(entity.SolicitudPrestamo)
