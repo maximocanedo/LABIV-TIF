@@ -139,11 +139,15 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 									 "CBU", data.getCuenta().getCBU()
 									 )
 		);
-		TransactionResponse<SolicitudPrestamo> rowsTP= new TransactionResponse<SolicitudPrestamo>();
+		TransactionResponse<?> affectedRows= TransactionResponse.create();
 		if(rows.nonEmptyResult()) {
-			return rowsTP;
+			String result = rows.rowsReturned.get(0).$("RESULT");
+			if(result.equals("Pedido de prestamo generado correctamente")) {
+				affectedRows.status = true;
+				affectedRows.rowsAffected = 1;
+			}
 		}
-		return rowsTP;
+		return affectedRows;
 	}
 
 	/* (non-Javadoc)
