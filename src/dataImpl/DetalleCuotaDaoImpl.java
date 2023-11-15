@@ -135,7 +135,7 @@ public class DetalleCuotaDaoImpl implements IRecord<DetalleCuota, Integer>, IDet
 	}
 
 	public String selectTemplate() {
-		return "SELECT * " + 
+		return "SELECT *, clientes__safeselect.*, solicitudprestamos.* " + 
 				"	FROM tif.detallecuotas" + 
 				"	INNER JOIN clientes__safeselect" + 
 				"		ON clientes__safeselect.usuario = detallecuotas.usuario_cl_DTPT" + 
