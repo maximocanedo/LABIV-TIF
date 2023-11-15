@@ -17,7 +17,7 @@ public class SolicitudPrestamo implements IEntity{
 	private int cantCuotas;
 	private double montoPorCuota;
 	private float interes;
-	private boolean estado;
+	private int estado;
 	private Cuenta cuenta;
 	
 	public SolicitudPrestamo() {}
@@ -140,11 +140,11 @@ public class SolicitudPrestamo implements IEntity{
 		this.interes = interes;
 	}
 
-	public boolean isEstado() {
+	public int isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}	
 	public Cuenta getCuenta() {

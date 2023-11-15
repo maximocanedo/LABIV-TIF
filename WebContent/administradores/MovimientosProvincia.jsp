@@ -67,7 +67,67 @@
     </div>
  </nav>
   
- <div class="transparent-bg"></div>
+<div class="transparent-bg"></div>
+	
+<!--  <div class="wrapper">    
+    <div class="container"> 
+    	<div class="row">
+      		<div class="col s12 m8 offset-m2">
+        		<div class="form-container">
+        			<h5>Registro de préstamos por cliente</h5>
+          			<form>    	
+      					<div class="row">
+        					<div class="input-field col s12">
+    						<select id="tipoMovimiento">
+        						<option value="" disabled selected>Selecciona el tipo de movimiento</option>
+        
+    						</select>
+    						<label for="tipoMovimiento">Tipo de Movimiento</label>
+							</div>
+
+
+							<div class="input-field col s12">
+    							<select id="provincias">
+        							<option value="" disabled selected>Selecciona una provincia</option>
+       
+    							</select>
+   	 							<label for="provincias">Provincias</label>
+							</div>
+      					</div>
+    				</form>
+        		</div>
+     		</div>
+   		</div>
+	</div>
+</div>-->
+<div class="container center-align">
+  <div class="row">
+   <div class="col s6 offset-s3">
+    <div class="input-field col s6">
+    	<div class ="form-container">
+        <select id="tipoMovimiento">
+            <option value="" disabled selected>Selecciona el tipo de movimiento</option>
+            <!-- Los elementos se cargarán dinámicamente desde la base de datos -->
+        </select>
+        <label for="tipoMovimiento">Tipo de Movimiento</label>
+    </div>
+   </div>
+  </div>
+ </div>
+
+    <!-- Dropdown para seleccionar provincias -->
+    <div class="row">
+    <div class="input-field col s6">
+        <select id="provincias">
+            <option value="" disabled selected>Selecciona una provincia</option>
+            <!-- Los elementos se cargarán dinámicamente desde la base de datos -->
+        </select>
+        <label for="provincias">Provincias</label>
+    </div>
+   </div>
+</div>
+
+	
 	
 	<div class="container">
         <h2 class="center-align">Informe de movimientos(Barras)</h2>
@@ -112,19 +172,19 @@
             	    ]
             	};-->
             	<%
-            	MovimientoLogicImpl logic = new MovimientoLogicImpl();
-            	ArrayList<Integer> data = logic.getInforme();
+            	//MovimientoLogicImpl logic = new MovimientoLogicImpl();
+            	//ArrayList<Integer> data = logic.getInforme();
             	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
-            	int TP1 = 0;
-            	int TP2 = 0;
-            	int TP3 = 0;
-            	int TP4 = 0;
-            	if(data !=null && !data.isEmpty()){
+            	int TP1 = 1;
+            	int TP2 = 1;
+            	int TP3 = 1;
+            	int TP4 = 1;
+            	/*if(data !=null && !data.isEmpty()){
             	TP1 = data.get(0);
             	TP2 = data.get(1);
             	TP3 = data.get(2);
             	TP4 = data.get(3);
-            	}
+            	}*/
             	%>
             	
         <script>
@@ -163,45 +223,8 @@
             });
         </script>
         </div>
- <div class="container">
-        <h2 class="center-align">Informe de movimientos(Torta)</h2>
-<div style="margin-top: 100px;" >
-       <canvas id="graficoTorta" width="100" height="100"></canvas>
-</div>
 
-<script>
-    var ctx = document.getElementById('graficoTorta').getContext('2d');
-
-    var datosTorta = {
-        labels: ["Altas de cuenta", "Altas de prestamo", "Pagos de prestamo", "Transferencias"],
-        datasets: [{
-            label: 'Cantidad de Movimientos',
-            data: [<%= TP1 %>, <%= TP2 %>, <%= TP3 %>, <%= TP4 %>],
-            backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)","rgba(0, 255, 0, 0.5)"],
-            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)","rgba(0, 255, 0, 0.5)"],
-            borderWidth: 1
-        }]
-    };
-
-    var opcionesGrafico = {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    };
-
-    var graficoTorta = new Chart(ctx, {
-        type: 'pie',
-        data: datosTorta,
-        options: opcionesGrafico
-    });
-</script>
-
-    </div>
-
-    
-	
+   	
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 

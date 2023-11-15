@@ -73,8 +73,8 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		}};
 		public static SchemaProperty estado = new SchemaProperty("estado_Sol") {{
 			required = true;
-			type = Types.BIT;
-			defaultValue= false;
+			type = Types.INTEGER;
+			
 		}};
 		public static SchemaProperty CBU_Sol = new SchemaProperty("CBU_Sol") {{
 			required = true;
