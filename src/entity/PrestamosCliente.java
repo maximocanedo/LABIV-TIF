@@ -33,16 +33,16 @@ public class PrestamosCliente implements IEntity {
 	public JsonObject toJsonObject() {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("id", id);
-		obj.add("cliente", cliente.toJsonObject());
-		obj.add("solicitud", solicitud.toJsonObject());
-		obj.addProperty("fechaOtorgado", fechaOtorgado.toString());
+		obj.add("cliente", cliente == null ? null : cliente.toJsonObject());
+		obj.add("solicitud", solicitud == null ? null : solicitud.toJsonObject());
+		obj.addProperty("fechaOtorgado", fechaOtorgado == null ? null : fechaOtorgado.toString());
 		obj.addProperty("montoAPagar", montoAPagar);
 		obj.addProperty("plazoPago", plazoPago);
 		obj.addProperty("cantCuotas", cantCuotas);
 		obj.addProperty("montoPorCuota", montoPorCuota);
 		obj.addProperty("cuotasPagadas", cuotasPagadas);
 		obj.addProperty("cuotasRestantes", cuotasRestantes);
-		obj.add("cuenta",cuenta.toJsonObject());
+		obj.add("cuenta",cuenta == null ? null : cuenta.toJsonObject());
 		return obj;
 	}
 	

@@ -39,9 +39,9 @@ const pagarCuota = async (k = {
 	return { status, data };
 };
 
-const getPaidInstallments = async (paginator) => {
+const getPaidInstallments = async (requestId) => {
 	const r = await fetch(
-		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo?p=" + paginator.page + "&s=" + paginator.size,
+		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/pagarcuota?cod_Sol=" + requestId,
 		{
 			method: "GET",
 			headers: auth.AUTH_HEADER
@@ -56,5 +56,6 @@ const getPaidInstallments = async (paginator) => {
 export {
 	getMyLoanRequests,
 	getById,
-	pagarCuota
+	pagarCuota,
+	getPaidInstallments
 };
