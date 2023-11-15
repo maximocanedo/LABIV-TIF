@@ -2,6 +2,7 @@ package dataImpl;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Map;
 
 import data.IMovimientoDao;
 import entity.Cliente;
@@ -20,6 +21,22 @@ import max.TransactionResponse;
 import oops.SchemaValidationException;
 
 public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimientoDao {
+	
+	public static void main(String[] args) {
+		MovimientoDaoImpl l = new MovimientoDaoImpl();
+		
+		try {
+			l.getInformeMovimientos();
+			//String tipo1 = cantidad.rowsReturned.get(0).$("Cantidad");
+			//System.out.println("CANTIDAD ===" + tipo1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+		
+		
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_Mv") {{
@@ -74,9 +91,6 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 		compile();
 	}};
 
-	public static void main(String[] args) {
-		System.out.println(200);
-	}
 	private Connector dbCon = new Connector(_model.getDatabaseName());
 	private MovimientoLogicImpl lgm = new MovimientoLogicImpl();
 	
@@ -163,6 +177,28 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 		}		
 		
 		return t;
+	}
+	
+	public TransactionResponse<Dictionary> getInformeMovimientos() throws SQLException{
+		TransactionResponse<Dictionary> rows = dbCon.fetch(
+				"SELECT cod_TPMV_Mv, COUNT(*) AS Cantidad FROM movimientos GROUP BY cod_TPMV_Mv"  
+				);
+		if(rows.nonEmptyResult()) {
+		Dictionary row = new Dictionary();
+		row.put("tipo1", rows.rowsReturned.get(0));
+		if(rows.rowsReturned.size() > 1) { row.put("tipo2", rows.rowsReturned.get(1));}
+		if(rows.rowsReturned.size() > 2) { row.put("tipo3", rows.rowsReturned.get(2));}
+		if(rows.rowsReturned.size() > 3) { row.put("tipo4", rows.rowsReturned.get(3));}
+		
+		
+		for (int i = 1; i <= rows.rowsReturned.size(); i++) {	
+		//int cantidad = (int)row.get("Cantidad").getOrDefault("Cantidad", 0);            
+           	
+		//System.out.println("TIPO = "+ i +", CANTIDAD =  "+ (int)cantidad);
+			return rows;
+			}
+		}
+		return rows;
 	}
 	
 
