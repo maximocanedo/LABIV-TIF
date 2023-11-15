@@ -17,6 +17,7 @@ import entity.Paginator;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import logicImpl.AuthManager.TokenData;
+import logicImpl.CuentaLogicImpl;
 import max.Dictionary;
 import max.Response;
 
@@ -36,6 +37,7 @@ public class SolicitudPrestamo extends BaseServlet {
     }
     
     private SolicitudPrestamoLogicImpl logic = new SolicitudPrestamoLogicImpl();
+    private CuentaLogicImpl cuentaL = new CuentaLogicImpl();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -101,9 +103,10 @@ public class SolicitudPrestamo extends BaseServlet {
 						die(response, false, 400, "Bad request");
 						return;
 					}
-					
+					Cuenta cuenta = cuentaL.convert(parameters);
 					entity.SolicitudPrestamo nuevaSolicitud = logic.convert(parameters);
 					nuevaSolicitud.setCliente(cliente);
+					nuevaSolicitud.setCuenta(cuenta);
 					Response<entity.SolicitudPrestamo> res = logic.insert(nuevaSolicitud);
 					response.setStatus(res.http);
 					write(response, res.toFinalJSON());
