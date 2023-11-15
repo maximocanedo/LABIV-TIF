@@ -75,59 +75,64 @@ public class SolicitudPrestamo extends BaseServlet {
 		return;
 	}
 	
-	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		
-		/* Verificar si es cliente o admin */
-		TokenData td = AuthManager.readToken(request);
-		if(td != null) {
-			switch(td.role) {
-			case AuthManager.ADMIN:
-				Administrador admin = AuthManager.getActualAdmin(request, response);
-				
-				if (admin==null)return;
-				Dictionary parametersAdmin = getParameters(request);
-				if(parametersAdmin == null) {
-					die(response, false, 400, "Bad request");
-					return;
-				}
-				
-				entity.SolicitudPrestamo prestamo= logic.convert(parametersAdmin);
-				logic.modify(prestamo);
-				response.setStatus(200);
-				
-			case AuthManager.CLIENT:
-				Cliente cliente = AuthManager.getActualClient(request, response);
-				if(cliente!=null) {
-					Dictionary parameters = getParameters(request);
-					if(parameters == null) {
-						die(response, false, 400, "Bad request");
-						return;
-					}
-					Cuenta cuenta = cuentaL.convert(parameters);
-					entity.SolicitudPrestamo nuevaSolicitud = logic.convert(parameters);
-					nuevaSolicitud.setCliente(cliente);
-					nuevaSolicitud.setCuenta(cuenta);
-					Response<entity.SolicitudPrestamo> res = logic.insert(nuevaSolicitud);
-					response.setStatus(res.http);
-					write(response, res.toFinalJSON());
-					return;
-				} else {
-					response.setStatus(403);
-					return;
-				}
-			default:
-				response.setStatus(403);
-				break;
+	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		Cliente cliente = AuthManager.getActualClient(request, response);
+		if(cliente!=null) {
+			Dictionary parameters = getParameters(request);
+			if(parameters == null) {
+				die(response, false, 400, "Bad request");
+				return;
 			}
+			Cuenta cuenta = cuentaL.convert(parameters);
+			entity.SolicitudPrestamo nuevaSolicitud = logic.convert(parameters);
+			nuevaSolicitud.setCliente(cliente);
+			nuevaSolicitud.setCuenta(cuenta);
+			Response<entity.SolicitudPrestamo> res = logic.insert(nuevaSolicitud);
+			response.setStatus(res.http);
+			write(response, res.toFinalJSON());
+			return;
 		} else {
-			response.setStatus(401);
+			response.setStatus(403);
+			return;
 		}
-		return;
+	}
+	protected void doPut(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		Dictionary parametersAdmin = getParameters(request);
+		if (admin == null) {
+			response.setStatus(403);
+			return;
+		}
+		if(parametersAdmin == null) {
+			response.setStatus(400);
+			return;
+		}
+		
+		entity.SolicitudPrestamo prestamo = logic.convert(parametersAdmin);
+		Response<entity.SolicitudPrestamo> res = logic.approve(prestamo);
+		response.setStatus(res.http);
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Administrador admin = AuthManager.getActualAdmin(request, response);
+		Dictionary parametersAdmin = getParameters(request);
+		if (admin == null) {
+			response.setStatus(403);
+			return;
+		}
+		if(parametersAdmin == null) {
+			response.setStatus(400);
+			return;
+		}
+		
+		entity.SolicitudPrestamo prestamo = logic.convert(parametersAdmin);
+		Response<entity.SolicitudPrestamo> res = logic.reject(prestamo);
+		response.setStatus(res.http);
 	}
 
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "GET", "POST" };
+		return new String[] { "GET", "POST", "PUT", "DELETE" };
 	}
 }

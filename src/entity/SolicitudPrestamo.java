@@ -47,8 +47,8 @@ public class SolicitudPrestamo implements IEntity{
 	public Dictionary toDictionary() {
 		return Dictionary.fromArray(
 				"cod_Sol", codigo,
-				"usuario_cl_Sol", cliente.getUsuario(),
-				"fechaPedido_Sol",fechaPedido,
+				"usuario_cl_Sol", cliente == null ? null : cliente.getUsuario(),
+				"fechaPedido_Sol",fechaPedido == null ? null : fechaPedido,
 				"montoPedido_Sol",montoPedido,
 				"montoAPagar_Sol", montoAPagar,
 				"plazoPago_Sol", plazoPago,
@@ -56,7 +56,7 @@ public class SolicitudPrestamo implements IEntity{
 				"montoPorCuota_Sol", montoPorCuota,
 				"interes_Sol", interes,
 				"estado_Sol", estado,
-				"CBU_Sol", cuenta.getCBU()
+				"CBU_Sol", cuenta == null ? null : cuenta.getCBU()
 				);
 	}
 

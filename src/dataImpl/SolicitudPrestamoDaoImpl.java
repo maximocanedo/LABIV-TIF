@@ -196,7 +196,18 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		}
 		return res;
 	}
+	
+	public TransactionResponse<?> approve(SolicitudPrestamo data) throws SQLException {
+		return db.transact("UPDATE tif.solicitudprestamos SET estado_Sol = 1 WHERE cod_Sol = @solicitud", Dictionary.fromArray(
+			"solicitud", data.getCodigo()
+		));
+	}
 
+	public TransactionResponse<?> reject(SolicitudPrestamo data) throws SQLException {
+		return db.transact("UPDATE tif.solicitudprestamos SET estado_Sol = -1 WHERE cod_Sol = @solicitud", Dictionary.fromArray(
+			"solicitud", data.getCodigo()
+		));
+	}
 	/* (non-Javadoc)
 	 * @see dataImpl.ISolicitudPrestamoDao#getAll()
 	 */

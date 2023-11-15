@@ -19,10 +19,10 @@
 		<ul id="prestamosList">
 			
 		</ul>
-		<input type="number" name="page" id="page" placeholder="Número de página">
+		<input type="number" name="size" id="size" value="5" placeholder="Elementos por página">
 		<button id="prevBtn">Anterior</button>
 		<span id="textoPaginacion"></span>
-		<button id="prevBtn">Siguiente</button>
+		<button id="nextBtn">Siguiente</button>
     </main>
 	<%@ include file="../res/web/dialog.part.html" %>
 	<%@ include file="../res/web/snackbar.part.html" %>
