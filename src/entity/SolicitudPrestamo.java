@@ -25,8 +25,8 @@ public class SolicitudPrestamo implements IEntity{
 	public JsonObject toJsonObject() {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("codigo", codigo);
-		obj.add("cliente", cliente.toJsonObject());
-		obj.addProperty("fechaPedido", fechaPedido.toString());
+		obj.add("cliente", cliente == null ? null : cliente.toJsonObject());
+		obj.addProperty("fechaPedido", fechaPedido == null ? null : fechaPedido.toString());
 		obj.addProperty("montoPedido", montoPedido);
 		obj.addProperty("montoAPagar", montoAPagar);
 		obj.addProperty("plazoPago", plazoPago);
@@ -34,7 +34,7 @@ public class SolicitudPrestamo implements IEntity{
 		obj.addProperty("montoPorCuota", montoPorCuota);
 		obj.addProperty("interes", interes);
 		obj.addProperty("estado", estado);
-		obj.add("cuenta",cuenta.toJsonObject() );
+		obj.add("cuenta",cuenta == null ? null : cuenta.toJsonObject() );
 		return obj;
 	}
 	
