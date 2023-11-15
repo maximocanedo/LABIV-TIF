@@ -68,21 +68,12 @@
 	<div class="container">
         <h2 class="center-align">Informe de transacciones</h2>
 
-        <canvas id="graficoBarras" width="400" height="400"></canvas>
+        <canvas id="graficoBarras" width="200" height="200"></canvas>
 				
-				<!--  var datosTransacciones = { SI NO QUIEREN QUE MUESTREN LOS MESES, REEEMPLAZAR POR ESTE DATA QUE MUESTRA DIRECTAMENTE LA CANTIDAD X CADA TIPO
-                labels: ["Alta de cuenta", "Alta de prestamo", "Pago de prestamo", "Transferencia"], // Nombres de los tipos de transacciones
-                datasets: [{
-                    data: [10, 6, 18,28], // Cantidad de transacciones por cada tipo
-                    backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)","rgba(0, 255, 0, 0.5)"],
-                    borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)","rgba(0, 255, 0, 0.5)"],
-                    borderWidth: 1
-                }]
-            };-->
-        <script>
-            // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
-          
-             var datosTransacciones = {
+				 
+            
+            <!-- Vista mensual, va dentro del script -->
+            <!--  var datosTransacciones = {
             	    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
             	    datasets: [
             	        {
@@ -114,12 +105,26 @@
             	        	borderWidth: 1
             	        }
             	    ]
-            	};
+            	};-->
+            	
+            	
+        <script>
+            // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
+          var datosTransacciones = { 
+                labels: ["Alta de cuenta", "Alta de prestamo", "Pago de prestamo", "Transferencia"], // Nombres de los tipos de transacciones
+                datasets: [{
+                    data: [10, 6, 18,28], // Cantidad de transacciones por cada tipo
+                    backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)","rgba(0, 255, 0, 0.5)"],
+                    borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)","rgba(0, 255, 0, 0.5)"],
+                    borderWidth: 1
+                }]
+            };
+           
             // Configuración del gráfico de barras
             var opcionesGrafico = {
             		plugins: {
             	        legend: {
-            	            display: true
+            	            display: false
             	        }
             	    },
                 scales: {
