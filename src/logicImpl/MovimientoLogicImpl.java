@@ -290,32 +290,25 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 			if(data.nonEmptyResult()) {
 				long casteado;		
 				//1
-				if(data.rowsReturned.get(0).$("Cantidad") != null) {
+				if(data.rowsReturned.get(0).$("Cantidad") != null && data.rowsReturned.get(0).$("cod_TPMV").equals("TM01")) {
 				casteado = data.rowsReturned.get(0).$("Cantidad");
 				listaCantidad.add((int)casteado);
 				} else {listaCantidad.add(0); }
 				//2
-				if(data.rowsReturned.size()>1) {
-				if(data.rowsReturned.get(1).$("Cantidad") != null) {
+				if(data.rowsReturned.get(1).$("Cantidad") != null && data.rowsReturned.get(1).$("cod_TPMV").equals("TM02")) {
 					casteado = data.rowsReturned.get(1).$("Cantidad");
 					listaCantidad.add((int)casteado);
-					} else {listaCantidad.add(0); }
-				}else {listaCantidad.add(0);}
-				//3
-				if(data.rowsReturned.size()>2) {
-				if(data.rowsReturned.get(2).$("Cantidad") != null) {
+					} else {listaCantidad.add(0); }			
+				//3			
+				if(data.rowsReturned.get(2).$("Cantidad") != null && data.rowsReturned.get(2).$("cod_TPMV").equals("TM03")) {
 					casteado = data.rowsReturned.get(2).$("Cantidad");
 					listaCantidad.add((int)casteado);
-					} else {listaCantidad.add(0); }
-				} else {listaCantidad.add(0);}
-				//4
-				if(data.rowsReturned.size()>3) {
-				if(data.rowsReturned.get(3).$("Cantidad") != null) {
+					} else {listaCantidad.add(0); }				
+				//4			
+				if(data.rowsReturned.get(3).$("Cantidad") != null && data.rowsReturned.get(3).$("cod_TPMV").equals("TM04")) {
 					casteado = data.rowsReturned.get(3).$("Cantidad");
 					listaCantidad.add((int)casteado);
-					} else {listaCantidad.add(0); }
-				} else {listaCantidad.add(0);}
-				
+					} else {listaCantidad.add(0); }			
 			}
 		} catch (SQLException e) {
 			

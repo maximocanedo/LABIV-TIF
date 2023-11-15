@@ -182,7 +182,7 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 	
 	public TransactionResponse<Dictionary> getInformeMovimientos() throws SQLException{
 		TransactionResponse<Dictionary> rows = dbCon.fetch(
-				"SELECT cod_TPMV_Mv, COUNT(*) AS Cantidad FROM movimientos GROUP BY cod_TPMV_Mv"  
+"SELECT T.cod_TPMV, COALESCE(COUNT(M.cod_TPMV_Mv), 0) AS Cantidad FROM tipo_movimiento T LEFT JOIN movimientos M ON T.cod_TPMV = M.cod_TPMV_Mv GROUP BY T.cod_TPMV;"  
 				);
 		if(rows.nonEmptyResult()) {
 			/*ArrayList<Integer> listaCantidad = new ArrayList<>();
