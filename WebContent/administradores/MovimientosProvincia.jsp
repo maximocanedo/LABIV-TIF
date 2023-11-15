@@ -2,7 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entity.Administrador" %>
 <%@page import="entity.Cliente" %>
+<%@page import="entity.Provincia" %>
 <%@page import="logicImpl.MovimientoLogicImpl" %>
+<%@page import="logicImpl.ProvinciaLogicImpl" %>
 <%@page import="max.Response" %>
 <%@page import="max.Dictionary" %>
 <%@page import="java.util.ArrayList" %> 
@@ -69,26 +71,24 @@
   
 <div class="transparent-bg"></div>
 	
-<!--  <div class="wrapper">    
+<div class="wrapper">    
     <div class="container"> 
     	<div class="row">
       		<div class="col s12 m8 offset-m2">
         		<div class="form-container">
-        			<h5>Registro de préstamos por cliente</h5>
+        			<h5>Ver movimientos por provincia</h5>
           			<form>    	
       					<div class="row">
-        					<div class="input-field col s12">
-    						<select id="tipoMovimiento">
-        						<option value="" disabled selected>Selecciona el tipo de movimiento</option>
-        
-    						</select>
-    						<label for="tipoMovimiento">Tipo de Movimiento</label>
-							</div>
-
-
 							<div class="input-field col s12">
     							<select id="provincias">
         							<option value="" disabled selected>Selecciona una provincia</option>
+        							<%
+        							ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
+        			            	ArrayList<Provincia> data = logic.getAllOnArray();//luego hacer el logic en servlets
+        							
+        							for (int i = 0; i < data.size(); i++) {%>            						 
+              						  <option value="<%=data.get(i).getId()%>"><%=data.get(i).getNombre() %></option>
+           							 <%}%>
        
     							</select>
    	 							<label for="provincias">Provincias</label>
@@ -99,92 +99,36 @@
      		</div>
    		</div>
 	</div>
-</div>-->
-<div class="container center-align">
-  <div class="row">
-   <div class="col s6 offset-s3">
-    <div class="input-field col s6">
-    	<div class ="form-container">
-        <select id="tipoMovimiento">
-            <option value="" disabled selected>Selecciona el tipo de movimiento</option>
-            <!-- Los elementos se cargarán dinámicamente desde la base de datos -->
-        </select>
-        <label for="tipoMovimiento">Tipo de Movimiento</label>
-    </div>
-   </div>
-  </div>
- </div>
-
-    <!-- Dropdown para seleccionar provincias -->
-    <div class="row">
-    <div class="input-field col s6">
-        <select id="provincias">
-            <option value="" disabled selected>Selecciona una provincia</option>
-            <!-- Los elementos se cargarán dinámicamente desde la base de datos -->
-        </select>
-        <label for="provincias">Provincias</label>
-    </div>
-   </div>
 </div>
+
 
 	
 	
 	<div class="container">
-        <h2 class="center-align">Informe de movimientos(Barras)</h2>
+        <h2 class="center-align">Informe de movimientos por provincia</h2>
         
 <div style="margin-bottom: 100px;">	
         <canvas id="graficoBarras" width="200" height="200"></canvas>
 </div>				
-				 
-            
-            <!-- Vista mensual, va dentro del script -->
-            <!--  var datosTransacciones = {
-            	    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
-            	    datasets: [
-            	        {
-            	            label: "Alta de cuenta",
-            	            data: [10, 15, 20, 25, 30, 35],
-            	            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            	            borderColor: "rgba(255, 99, 132, 1)",
-            	            borderWidth: 1
-            	        },
-            	        {
-            	            label: "Alta de prestamo",
-            	            data: [20, 25, 30, 35, 40, 45],
-            	            backgroundColor: "rgba(54, 162, 235, 0.5)",
-            	            borderColor: "rgba(54, 162, 235, 1)",
-            	            borderWidth: 1
-            	        },
-            	        {
-            	            label: "Pago de prestamo",
-            	            data: [15, 20, 25, 30, 35, 40],
-            	            backgroundColor: "rgba(255, 206, 86, 0.5)",
-            	            borderColor: "rgba(255, 206, 86, 1)",
-            	            borderWidth: 1
-            	        },
-            	        {
-            	        	label:"Transferencia",
-            	        	data: [28,28,28,28,28,3],
-            	        	backgroundColor:"rgba(0, 255, 0, 0.5)",
-            	        	borderColor:"rgba(0, 255, 0, 0.5)",
-            	        	borderWidth: 1
-            	        }
-            	    ]
-            	};-->
+				         
+           
             	<%
-            	//MovimientoLogicImpl logic = new MovimientoLogicImpl();
-            	//ArrayList<Integer> data = logic.getInforme();
+            	MovimientoLogicImpl logic2 = new MovimientoLogicImpl();
+            	
+            	
+     
+            	ArrayList<Integer> data2 = logic2.getInformeProvincia(VALOR AQUI);
             	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
             	int TP1 = 1;
             	int TP2 = 1;
             	int TP3 = 1;
             	int TP4 = 1;
-            	/*if(data !=null && !data.isEmpty()){
-            	TP1 = data.get(0);
-            	TP2 = data.get(1);
-            	TP3 = data.get(2);
-            	TP4 = data.get(3);
-            	}*/
+            	if(data !=null && !data.isEmpty()){
+            	TP1 = data2.get(0);
+            	TP2 = data2.get(1);
+            	TP3 = data2.get(2);
+            	TP4 = data2.get(3);
+            	}
             	%>
             	
         <script>

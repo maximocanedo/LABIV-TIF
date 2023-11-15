@@ -9,7 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Provincia;
 import logicImpl.MovimientoLogicImpl;
+import logicImpl.ProvinciaLogicImpl;
+import max.Response;
 
 public class Informes extends BaseServlet implements Servlet{
 	
@@ -34,6 +37,16 @@ public class Informes extends BaseServlet implements Servlet{
         
     }
 	
+	protected void cargarProvincias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
+		Response<Provincia> data = logic.getAll();
+		ArrayList<Provincia> list = (ArrayList<Provincia>) data.listReturned;
+		
+		request.setAttribute("provincias", list);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/MovimientosProvincia.jsp");
+		dispatcher.forward(request, response);
+	}
 	
 	@Override
 	protected String[] getAllowedMethods() {

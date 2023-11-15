@@ -84,6 +84,16 @@ public class ProvinciaDaoImpl implements IRecord<Provincia, Integer>, IProvincia
 		}
 		return fin;
 	}
+	
+	public TransactionResponse<Dictionary> getAllDic() throws SQLException {
+		TransactionResponse<Dictionary> res = db.fetch(
+			"SELECT * FROM " + printTDB()
+		);
+		if(res.nonEmptyResult()) {
+			return res;
+		}
+		return res;
+	}
 
 	/* (non-Javadoc)
 	 * @see dataImpl.IProvinciaDao#getById(java.lang.Integer)

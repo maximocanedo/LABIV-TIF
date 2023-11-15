@@ -185,40 +185,22 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 "SELECT T.cod_TPMV, COALESCE(COUNT(M.cod_TPMV_Mv), 0) AS Cantidad FROM tipo_movimiento T LEFT JOIN movimientos M ON T.cod_TPMV = M.cod_TPMV_Mv GROUP BY T.cod_TPMV;"  
 				);
 		if(rows.nonEmptyResult()) {
-			/*ArrayList<Integer> listaCantidad = new ArrayList<>();
-			
-			//1
-			if(rows.rowsReturned.get(0).$("cod_TPMV_Mv") != null) {
-			listaCantidad.add(rows.rowsReturned.get(0).$("Cantidad"));
-			} else {listaCantidad.add(0); }
-			//2
-			if(rows.rowsReturned.get(1).$("cod_TPMV_Mv") != null) {
-				listaCantidad.add(rows.rowsReturned.get(1).$("Cantidad"));
-				} else {listaCantidad.add(0); }
-			//3
-			if(rows.rowsReturned.get(2).$("cod_TPMV_Mv") != null) {
-				listaCantidad.add(rows.rowsReturned.get(2).$("Cantidad"));
-				} else {listaCantidad.add(0); }
-			//4
-			if(rows.rowsReturned.get(3).$("cod_TPMV_Mv") != null) {
-				listaCantidad.add(rows.rowsReturned.get(3).$("Cantidad"));
-				} else {listaCantidad.add(0); }
-			
-						
-			
-		Dictionary row = new Dictionary();
-		row.put("TM01", rows.rowsReturned.get(0).$("Cantidad"));
-		if(rows.rowsReturned.size() > 1) { row.put("TM02", rows.rowsReturned.get(1).$("Cantidad"));}
-		if(rows.rowsReturned.size() > 2) { row.put("TM03", rows.rowsReturned.get(2).$("Cantidad"));}
-		if(rows.rowsReturned.size() > 3) { row.put("TM04", rows.rowsReturned.get(3).$("Cantidad"));}
 		
-		System.out.println(row.$("TM01").toString());
-		System.out.println(row.$("TM02").toString());
-		System.out.println(row.$("TM03").toString());
-		System.out.println(row.$("TM04").toString());*/
 		 return rows;
 		}
 		return rows;
+	}
+	
+	public TransactionResponse<Dictionary> getInformePorProvincia(int idProvincia) throws SQLException{
+		TransactionResponse<Dictionary> rows = dbCon.fetch(
+				"CALL SP_Movimientos_Provincia(@id)",			 
+				Dictionary.fromArray("id",idProvincia)			
+				);
+		if(rows.nonEmptyResult()) {
+			return rows;
+		}
+		
+		return null;
 	}
 	
 
