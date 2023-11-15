@@ -104,6 +104,31 @@ public class ProvinciaLogicImpl implements IRecordLogic<Provincia, Integer>, IPr
 		}
 		return res;
 	}
+	
+	public ArrayList<Provincia> getAllOnArray() {
+		ArrayList<Provincia> Provs = new ArrayList();
+		Provincia a = new Provincia();
+		try {
+			TransactionResponse<Dictionary> dat = data.getAllDic();
+			if(dat.nonEmptyResult()) {
+				//long casteado;		
+				
+				for (int i = 0; i < dat.rowsReturned.size(); i++) {
+					if(dat.rowsReturned.get(i).$("id_provincia") != null) {
+						//casteado = dat.rowsReturned.get(i).$("nombre_provincia");
+						a.setId(dat.rowsReturned.get(i).$("id_provincia"));
+						a.setNombre(dat.rowsReturned.get(i).$("nombre_provincia"));
+						Provs.add(a);
+					}    
+				}									
+			}	
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return Provs;
+	}
 
 	/* (non-Javadoc)
 	 * @see logicImpl.IProvinciaLogic#getById(java.lang.Integer)

@@ -317,4 +317,43 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		
 		return listaCantidad;	
 	}
+	
+	
+	public ArrayList<Integer> getInformeProvincia(int idProv){
+		ArrayList<Integer> cantidadProv = new ArrayList<>();
+		
+		try {
+			TransactionResponse<Dictionary> data = daoMov.getInformePorProvincia(idProv);
+			if(data.nonEmptyResult()) {
+				long casteado;		
+				//1
+				if(data.rowsReturned.get(0).$("cantidadMovimientos") != null && data.rowsReturned.get(0).$("cod_TPMV").equals("TM01")) {
+				casteado = data.rowsReturned.get(0).$("cantidadMovimientos");
+				cantidadProv.add((int)casteado);
+				} else {cantidadProv.add(0); }
+				//2
+				if(data.rowsReturned.get(1).$("cantidadMovimientos") != null && data.rowsReturned.get(1).$("cod_TPMV").equals("TM02")) {
+					casteado = data.rowsReturned.get(1).$("cantidadMovimientos");
+					cantidadProv.add((int)casteado);
+					} else {cantidadProv.add(0); }	
+				//3			
+				if(data.rowsReturned.get(2).$("cantidadMovimientos") != null && data.rowsReturned.get(2).$("cod_TPMV").equals("TM03")) {
+					casteado = data.rowsReturned.get(2).$("cantidadMovimientos");
+					cantidadProv.add((int)casteado);
+					} else {cantidadProv.add(0); }			
+				//4			
+				if(data.rowsReturned.get(3).$("cantidadMovimientos") != null && data.rowsReturned.get(3).$("cod_TPMV").equals("TM04")) {
+					casteado = data.rowsReturned.get(3).$("cantidadMovimientos");
+					cantidadProv.add((int)casteado);
+					} else {cantidadProv.add(0); }
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return cantidadProv;
+	}
 }
