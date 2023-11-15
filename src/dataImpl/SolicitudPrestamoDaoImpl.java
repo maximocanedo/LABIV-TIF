@@ -159,11 +159,11 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		);
 		TransactionResponse<?> affectedRows= TransactionResponse.create();
 		if(rows.nonEmptyResult()) {
-			String result = rows.rowsReturned.get(0).$("resultado");
-			if(result.equals("el pago se realizo con exito")) {
+			//String result = rows.rowsReturned.get(0).$("resultado");
+			//if(result.equals("el pago se realizo con exito")) {
 				affectedRows.status = true;
 				affectedRows.rowsAffected = 1;
-			}
+			//}
 		}
 		return affectedRows;	
 	}
