@@ -103,6 +103,7 @@
 				          <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Monto</th>
 
 				          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Cuotas</th>
+				          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Estado</th>
 				        </tr>
 				      </thead>
 				      <tbody class="mdc-data-table__content" id="tablaSolicitudesPrestamos__body">
