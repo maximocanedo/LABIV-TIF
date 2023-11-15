@@ -24,8 +24,23 @@ const getById = async (id) => {
 	const data = await res.json();
 	return { status, data };
 };
+const pagarCuota = async (k = {
+	"cod_Sol": null,
+	"CBU_Sol": null
+}) => {
+	const res = await fetch(
+		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/pagarcuota", {
+		method: "POST",
+		headers: auth.AUTH_HEADER,
+		body: JSON.stringify(k)
+	});
+	const status = res.status;
+	const data = await res.json();
+	return { status, data };
+};
 
 export {
 	getMyLoanRequests,
-	getById
+	getById,
+	pagarCuota
 };

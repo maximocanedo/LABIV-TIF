@@ -39,16 +39,6 @@
 					<span class="__account_1_tipodesc"></span> <span class="__account_1_nc"></span>
 				</span>
 				<span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline4 __account_1_saldo centered-text"></span>
-				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6" id="btnTransferir">
-				  <span class="mdc-button__ripple"></span>
-				  <span class="mdc-button__focus-ring"></span>
-				  <span class="mdc-button__label">Transferir</span>
-				</button>
-				<button class="mdc-button mdc-button--raised mdc-layout-grid__cell--span-6">
-				  <span class="mdc-button__ripple"></span>
-				  <span class="mdc-button__focus-ring"></span>
-				  <span class="mdc-button__label">Pedir un préstamo</span>
-				</button>
 				<div class="mdc-layout-grid__cell 
 					mdc-layout-grid__cell--span-6
 					mdc-layout-grid__cell--span-12-phone
@@ -216,7 +206,12 @@
 
 			</div>
 		</div>
-
+<br><br><br>
+				<button class="mdc-fab mdc-fab--extended _fab" id="btnTransferir">
+				  <div class="mdc-fab__ripple"></div>
+				  <span class="material-icons mdc-fab__icon">add</span>
+				  <span class="mdc-fab__label">Transferir</span>
+				</button>
     </main>
 
     <form onsubmit="return false; " class="mdc-dialog" action="#" name="transfer" id="transferDialog" >
@@ -277,7 +272,7 @@
 						    <span class="mdc-line-ripple"></span>
 						  </div>
 
-						  <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+						  <div class="mdc-select__menu mdc-menu mdc-menu-surface ">
 						    <ul class="mdc-deprecated-list" role="listbox" aria-label="Food picker listbox">
 						      <li class="mdc-deprecated-list-item mdc-deprecated-list-item--selected" aria-selected="true" data-value="" role="option">
 						        <span class="mdc-deprecated-list-item__ripple"></span>

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"></script>
 <link rel="stylesheet" href="../res/styles/init.css" />
 <link rel="stylesheet" type="text/css" href="../res/styles/estiloPaginaCliente-Administrador.css">
 
@@ -13,7 +14,8 @@
 	<%@ include file="../res/web/drawer.part.html" %>
 	<%@ include file="../res/web/header.part.html" %>
 	<main class="mdc-top-app-bar--fixed-adjust">
-		<span class="mdc-typography--headline4 _titulo"></span>
+		<br><br>
+		<span class="mdc-typography--headline4 _title"></span>
 		<br>
 		<br>
 		<span class="_otorgadoEl"></span>
@@ -22,22 +24,26 @@
 		<span class="_estadoCuotas"></span>
 		<br>
 		<br>
-		<span class="_estadoCuotas"></span>
+		<span class="_estadoCuotasPagas"></span>
 		<br>
 		<br>
 		<br>
-		<span>Cuotas pagadas</span>
+		<span>Cuotas pagadas  
+			<button id="pagarCuota" class="mdc-button mdc-button--raised mdc-button--icon-leading">
+			  <span class="mdc-button__ripple"></span>
+			  <span class="mdc-button__focus-ring"></span>
+			  <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+			  <span class="mdc-button__label">Pagar una cuota</span>
+			</button>
+		</span>
 		<br>
 		<div id="tablaCuotasPagadas" class="mdc-data-table mdc-layout-grid__cell--span-12">
 			<div class="mdc-data-table__table-container">
 			  <table class="mdc-data-table__table" aria-label="Dessert calories">
 			    <thead>
 			      <tr class="mdc-data-table__header-row">
-			        <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">ID</th>
-			        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Cuenta</th>
-			        <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Monto</th>
-			        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Cuotas</th>
-			        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Estado</th>
+			        <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Cuota N.º</th>
+			        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Pagado el</th>
 			      </tr>
 			    </thead>
 			    <tbody class="mdc-data-table__content" id="tablaCuotasPagadas__body">
@@ -60,7 +66,7 @@
 			      </div>
 			    </div>
 			  </div>
-			  <div class="mdc-data-table__pagination">
+			  <!--div class="mdc-data-table__pagination">
 			    <div class="mdc-data-table__pagination-trailing">
 			      <div class="mdc-data-table__pagination-rows-per-page">
 			        <div class="mdc-data-table__pagination-rows-per-page-label">
@@ -100,6 +106,13 @@
 
 			          <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth" role="listbox">
 			            <ul class="mdc-list">
+			              <li class="mdc-select__option mdc-select__one-line-option mdc-list-item mdc-list-item--with-one-line"
+			                  role="option" data-value="5">
+			                <span class="mdc-list-item__ripple"></span>
+			                <span class="mdc-list-item__content">
+			                  <span class="mdc-list-item__primary-text">5</span>
+			                </span>
+			              </li>
 			              <li class="mdc-select__option mdc-select__one-line-option mdc-list-item mdc-list-item--selected mdc-list-item--with-one-line"
 			                  aria-selected="true" role="option" data-value="10">
 			                <span class="mdc-list-item__ripple"></span>
@@ -108,17 +121,24 @@
 			                </span>
 			              </li>
 			              <li class="mdc-select__option mdc-select__one-line-option mdc-list-item mdc-list-item--with-one-line"
-			                  role="option" data-value="25">
+			                  role="option" data-value="15">
 			                <span class="mdc-list-item__ripple"></span>
 			                <span class="mdc-list-item__content">
-			                  <span class="mdc-list-item__primary-text">25</span>
+			                  <span class="mdc-list-item__primary-text">15</span>
 			                </span>
 			              </li>
 			              <li class="mdc-select__option mdc-select__one-line-option mdc-list-item mdc-list-item--with-one-line"
-			                  role="option" data-value="100">
+			                  role="option" data-value="20">
 			                <span class="mdc-list-item__ripple"></span>
 			                <span class="mdc-list-item__content">
-			                  <span class="mdc-list-item__primary-text">100</span>
+			                  <span class="mdc-list-item__primary-text">20</span>
+			                </span>
+			              </li>
+			              <li class="mdc-select__option mdc-select__one-line-option mdc-list-item mdc-list-item--with-one-line"
+			                  role="option" data-value="24">
+			                <span class="mdc-list-item__ripple"></span>
+			                <span class="mdc-list-item__content">
+			                  <span class="mdc-list-item__primary-text">24</span>
 			                </span>
 			              </li>
 			            </ul>
@@ -135,10 +155,34 @@
 			        </button>      
 			      </div>
 			    </div>
-			</div>
+			</div-->
 		</div>
 
     </main>
+    <form class="mdc-dialog" name="pay" id="pagarCuotaDialog">
+	    <div class="mdc-dialog__container">
+	        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+	            aria-describedby="my-dialog-content" tabindex="-1">
+	            <div class="mdc-dialog__content" >
+	                <span class="mdc-typography--headline6">¿Con qué cuenta querés pagar la cuota?</span>
+	                <div class="select-container">
+	                	<ul class="mdc-deprecated-list" id="cuentaRadioSelect" role="radiogroup"></ul>
+	                </div>
+	            </div>
+	            <div class="mdc-dialog__actions">
+	                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+	                    <div class="mdc-button__ripple"></div>
+	                    <span class="mdc-button__label">Cancelar</span>
+	                </button>
+	                <button type="button" id="continuarBtn" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+	                    <div class="mdc-button__ripple"></div>
+	                    <span class="mdc-button__label">Continuar</span>
+	                </button>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="mdc-dialog__scrim"></div>
+	</form>
 	<%@ include file="../res/web/dialog.part.html" %>
 	<%@ include file="../res/web/snackbar.part.html" %>
 	<script type="module" src="./../res/controller/default.controller.js"></script>

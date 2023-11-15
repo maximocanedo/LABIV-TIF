@@ -265,5 +265,5 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 		}
 		return res;
 	}
-	}
+}
 
