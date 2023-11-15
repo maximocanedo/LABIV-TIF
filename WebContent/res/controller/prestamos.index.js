@@ -89,18 +89,13 @@ const cargarCuentas = async (cliente, loan) => {
 	if(!noneCanPay) {
 		document.querySelector("#continuarBtn").disabled = false;
 	}
-	document.querySelector("#continuarBtn").addEventListener("click", async (e) => {
-		if(document.pay.cuenta.value == '') {
-			material.showSnackbar("Seleccioná una cuenta. ");
-			return;
-		}
-		const v = parseInt(document.pay.cuenta.value);
-		const cuenta = data[v];
-		await pagarCuota(cliente, loan, cuenta);
-	});
 };
 
-const pagarCuota = async (cliente, loan, cuenta) => {
+
+
+
+const pagarCuota = async (loan, cuenta) => {
+	const cliente = await auth.allowClient();
 	const confirmation = await material.showDialog(
 		`Vas a pagar una cuota de ${formatearComoDinero(loan.montoPorCuota)} del préstamo #${loan.id}, con tu ${cuenta.tipo.descripcion} ${formatearNumeroCuenta(cuenta.numero)}. \n¿Continuar?`
 	);
@@ -122,6 +117,39 @@ const pagarCuota = async (cliente, loan, cuenta) => {
 	}
 
 };
+
+document.querySelector("#continuarBtn").addEventListener("click", async (e) => {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const loanId = urlParams.get('id');
+	if (loanId == null) {
+		material.showDialog("No se especificó un código de préstamo válido. ");
+		return;
+	}
+	const f = await loans.getById(loanId);
+	if(f.status != 200) {
+		material.showSnackbar("No se encontró un préstamo con el código especificado. ");
+		return;
+	}
+	const loan = f.data.listReturned[0];
+	if(loan == null) {
+		material.showSnackbar("Hubo un error al intentar procesar los detalles del préstamo. ");
+		return;
+	}
+	const misCuentas = await accounts.getAccounts();
+	if(misCuentas.status != 200) {
+		material.showSnackbar("Hubo un problema al cargar tus cuentas. ");
+		return;
+	}
+	const data = misCuentas.data.listReturned;
+		if(document.pay.cuenta.value == '') {
+			material.showSnackbar("Seleccioná una cuenta. ");
+			return;
+		}
+		const v = parseInt(document.pay.cuenta.value);
+		const cuenta = data[v];
+		await pagarCuota(loan, cuenta);
+	});
 
 (async () => {
 	material.loadElements();
