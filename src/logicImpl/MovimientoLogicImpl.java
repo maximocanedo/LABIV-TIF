@@ -283,4 +283,45 @@ public class MovimientoLogicImpl implements IRecordLogic<Movimiento,Integer>, IM
 		return lg;
 	}
 
+	public ArrayList<Integer> getInforme(){
+		ArrayList<Integer> listaCantidad = new ArrayList<>();
+		try {
+			TransactionResponse<Dictionary> data = daoMov.getInformeMovimientos();
+			if(data.nonEmptyResult()) {
+				long casteado;		
+				//1
+				if(data.rowsReturned.get(0).$("Cantidad") != null) {
+				casteado = data.rowsReturned.get(0).$("Cantidad");
+				listaCantidad.add((int)casteado);
+				} else {listaCantidad.add(0); }
+				//2
+				if(data.rowsReturned.size()>1) {
+				if(data.rowsReturned.get(1).$("Cantidad") != null) {
+					casteado = data.rowsReturned.get(1).$("Cantidad");
+					listaCantidad.add((int)casteado);
+					} else {listaCantidad.add(0); }
+				}else {listaCantidad.add(0);}
+				//3
+				if(data.rowsReturned.size()>2) {
+				if(data.rowsReturned.get(2).$("Cantidad") != null) {
+					casteado = data.rowsReturned.get(2).$("Cantidad");
+					listaCantidad.add((int)casteado);
+					} else {listaCantidad.add(0); }
+				} else {listaCantidad.add(0);}
+				//4
+				if(data.rowsReturned.size()>3) {
+				if(data.rowsReturned.get(3).$("Cantidad") != null) {
+					casteado = data.rowsReturned.get(3).$("Cantidad");
+					listaCantidad.add((int)casteado);
+					} else {listaCantidad.add(0); }
+				} else {listaCantidad.add(0);}
+				
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return listaCantidad;	
+	}
 }

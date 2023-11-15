@@ -2,6 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entity.Administrador" %>
 <%@page import="entity.Cliente" %>
+<%@page import="logicImpl.MovimientoLogicImpl" %>
+<%@page import="max.Response" %>
+<%@page import="max.Dictionary" %>
+<%@page import="java.util.ArrayList" %> 
 
 
 
@@ -106,14 +110,21 @@
             	        }
             	    ]
             	};-->
-            	
+            	<%
+            	MovimientoLogicImpl logic = new MovimientoLogicImpl();
+            	ArrayList<Integer> data = logic.getInforme();
+            	int TP1 = data.get(0);
+            	int TP2 = data.get(1);
+            	int TP3 = data.get(2);
+            	int TP4 = data.get(3);
+            	%>
             	
         <script>
             // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
           var datosTransacciones = { 
                 labels: ["Alta de cuenta", "Alta de prestamo", "Pago de prestamo", "Transferencia"], // Nombres de los tipos de transacciones
                 datasets: [{
-                    data: [10, 6, 18,28], // Cantidad de transacciones por cada tipo
+                    data: [<%= TP1 %>, <%= TP2 %>, <%= TP3 %>, <%= TP4 %>], // Cantidad de transacciones por cada tipo
                     backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)","rgba(0, 255, 0, 0.5)"],
                     borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)","rgba(0, 255, 0, 0.5)"],
                     borderWidth: 1

@@ -2,6 +2,7 @@ package dataImpl;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Map;
 
 import data.IMovimientoDao;
@@ -184,19 +185,38 @@ public class MovimientoDaoImpl implements IRecord<Movimiento,Integer>, IMovimien
 				"SELECT cod_TPMV_Mv, COUNT(*) AS Cantidad FROM movimientos GROUP BY cod_TPMV_Mv"  
 				);
 		if(rows.nonEmptyResult()) {
+			/*ArrayList<Integer> listaCantidad = new ArrayList<>();
+			
+			//1
+			if(rows.rowsReturned.get(0).$("cod_TPMV_Mv") != null) {
+			listaCantidad.add(rows.rowsReturned.get(0).$("Cantidad"));
+			} else {listaCantidad.add(0); }
+			//2
+			if(rows.rowsReturned.get(1).$("cod_TPMV_Mv") != null) {
+				listaCantidad.add(rows.rowsReturned.get(1).$("Cantidad"));
+				} else {listaCantidad.add(0); }
+			//3
+			if(rows.rowsReturned.get(2).$("cod_TPMV_Mv") != null) {
+				listaCantidad.add(rows.rowsReturned.get(2).$("Cantidad"));
+				} else {listaCantidad.add(0); }
+			//4
+			if(rows.rowsReturned.get(3).$("cod_TPMV_Mv") != null) {
+				listaCantidad.add(rows.rowsReturned.get(3).$("Cantidad"));
+				} else {listaCantidad.add(0); }
+			
+						
+			
 		Dictionary row = new Dictionary();
-		row.put("tipo1", rows.rowsReturned.get(0));
-		if(rows.rowsReturned.size() > 1) { row.put("tipo2", rows.rowsReturned.get(1));}
-		if(rows.rowsReturned.size() > 2) { row.put("tipo3", rows.rowsReturned.get(2));}
-		if(rows.rowsReturned.size() > 3) { row.put("tipo4", rows.rowsReturned.get(3));}
+		row.put("TM01", rows.rowsReturned.get(0).$("Cantidad"));
+		if(rows.rowsReturned.size() > 1) { row.put("TM02", rows.rowsReturned.get(1).$("Cantidad"));}
+		if(rows.rowsReturned.size() > 2) { row.put("TM03", rows.rowsReturned.get(2).$("Cantidad"));}
+		if(rows.rowsReturned.size() > 3) { row.put("TM04", rows.rowsReturned.get(3).$("Cantidad"));}
 		
-		
-		for (int i = 1; i <= rows.rowsReturned.size(); i++) {	
-		//int cantidad = (int)row.get("Cantidad").getOrDefault("Cantidad", 0);            
-           	
-		//System.out.println("TIPO = "+ i +", CANTIDAD =  "+ (int)cantidad);
-			return rows;
-			}
+		System.out.println(row.$("TM01").toString());
+		System.out.println(row.$("TM02").toString());
+		System.out.println(row.$("TM03").toString());
+		System.out.println(row.$("TM04").toString());*/
+		 return rows;
 		}
 		return rows;
 	}
