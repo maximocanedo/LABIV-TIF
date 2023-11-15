@@ -78,6 +78,22 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}
 		return res;
 	}
+	
+	public Response<SolicitudPrestamo> PagarCuota(SolicitudPrestamo data) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<?> tpr;
+		
+		try {
+			tpr = spDao.PagarCuota(data);
+			if(tpr.rowsAffected > 0) {
+				res.die(true, 201, "El registro se inserto con exito. ");
+			} else res.die(false, 500, "Hubo un error al intentar insertar el registro. ");
+		} catch (SQLException e) {
+			res.die(false, 500, " Hubo un error al intentar insertar el registro. ");
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 	
 	/* (non-Javadoc)
