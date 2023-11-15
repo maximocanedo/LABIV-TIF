@@ -210,3 +210,4 @@ const cargarCuentas = async () => {
 	prevBtn.addEventListener("click", e => store.dispatch(prevPage()));
 	store.dispatch(setPage(1));
 })();
+
