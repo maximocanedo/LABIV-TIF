@@ -142,7 +142,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		TransactionResponse<?> affectedRows= TransactionResponse.create();
 		if(rows.nonEmptyResult()) {
 			String result = rows.rowsReturned.get(0).$("RESULT");
-			if(result.equals("Pedido de prestamo generado correctamente")) {
+			if(result.equals("Pedido de préstamo generado correctamente.")) {
 				affectedRows.status = true;
 				affectedRows.rowsAffected = 1;
 			}
