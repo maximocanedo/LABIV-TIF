@@ -226,14 +226,12 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 	@Override
 	public SolicitudPrestamo convert(Dictionary d) {
 		SolicitudPrestamo s = new SolicitudPrestamo();
-		s.setCodigo(d.$("cod_Sol"));
+		if(d.$("cod_Sol")!=null){s.setCodigo(d.$("cod_Sol"));}
 		if(d.$("usuario_cl_Sol") != null) {
 			Cliente c = (new ClienteLogicImpl()).convert(d);
 			c.setUsuario(d.$("usuario_cl_Sol"));
-			s.setCliente(c);
-				
-		}
-		
+			s.setCliente(c);		
+		}	
 		if(d.$("fechaPedido_Sol") != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        java.util.Date parsedDate = new java.util.Date();
@@ -247,15 +245,19 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 	        s.setFechaPedido(edate);
 			
 		}
-		s.setMontoPedido(d.$("montoPedido_Sol"));
-		s.setMontoAPagar(d.$("montoAPagar_Sol"));
+		if(d.$("montoPedido_Sol")!=null) {s.setMontoPedido(d.$("montoPedido_Sol"));}
+		if(d.$("montoAPagar_Sol")!=null) {s.setMontoAPagar(d.$("montoAPagar_Sol"));}
 		//double i = (double)d.$("interes_Sol");
 		//s.setInteres(i);
-		s.setInteres(d.$("interes_Sol"));
-		s.setPlazoPago(d.$("plazoPago_Sol"));
-		s.setCantCuotas(d.$("cantCuotas_Sol"));
-		s.setMontoPorCuota(d.$("montoPorCuota_Sol"));
-		s.setEstado(d.$("estado_Sol"));
+		if(d.$("interes_Sol")!=null) {s.setInteres(d.$("interes_Sol"));}
+		if(d.$("plazoPago_Sol")!=null) {s.setPlazoPago(d.$("plazoPago_Sol"));}
+		if(d.$("cantCuotas_Sol")!=null) {
+			double dc = d.$("cantCuotas_Sol");
+			int c = (int)dc;
+			s.setCantCuotas(c);
+			}
+		if(d.$("montoPorCuota_Sol")!=null) {s.setMontoPorCuota(d.$("montoPorCuota_Sol"));}
+		if(d.$("estado_Sol")!=null) {s.setEstado(d.$("estado_Sol"));}
 		if(d.$("CBU_Sol") != null) {
 			Cuenta cuenta = (new CuentaLogicImpl()).convert(d);
 			cuenta.setCBU(d.$("CBU_Sol"));
@@ -265,6 +267,8 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}
 		return s;
 	}
+	
+	
 	
 
 	/* (non-Javadoc)
