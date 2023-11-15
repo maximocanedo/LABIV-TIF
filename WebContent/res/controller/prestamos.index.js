@@ -169,19 +169,34 @@ document.querySelector("#continuarBtn").addEventListener("click", async (e) => {
 
 // Tabla CUOTAS PAGADAS
 (async () => {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const loanId = urlParams.get('id');
+	if (loanId == null) {
+		material.showDialog("No se especificó un código de préstamo válido. ");
+		return;
+	}
+	const f = await loans.getById(loanId);
+	if(f.status != 200) {
+		material.showSnackbar("No se encontró un préstamo con el código especificado. ");
+		return;
+	}
+	const loan = f.data.listReturned[0];
+	if(loan == null) {
+		material.showSnackbar("Hubo un error al intentar procesar los detalles del préstamo. ");
+		return;
+	}
 
 	const fillLoanQuotas = async () => {
-		return;
 		const cliente = auth.allowClient();
-		const ress = await loans.getMyLoanRequests(store.getState());
+		const ress = await loans.getPaidInstallments(loan.solicitud.codigo);
 		const data = ress.list;
 		document.querySelector("#tablaCuotasPagadas__body").innerHTML = "";
 		for(let i = 0; i < data.length; i++) {
-			let leggend = `<span class="mdc-typography--button importe_${data[i].estado ? "plus" : "less"}">${data[i].estado ? "Aprobado" : "Sin aprobar / En espera"}</span>`
 			let html = `
 			<tr class="mdc-data-table__row">
-	          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">${data[i].codigo}</th>
-	          <td class="mdc-data-table__cell">${formatearNumeroCuenta(data[i].cuenta.numero)}</td>
+	          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">${data[i].numeroCuotaPagada}</th>
+	          <td class="mdc-data-table__cell">${data[i].fechaPago}</td>
 	        </tr>
 			`;
 			document.querySelector("#tablaCuotasPagadas__body").innerHTML += html;

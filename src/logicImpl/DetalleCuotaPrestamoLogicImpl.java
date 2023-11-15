@@ -164,7 +164,7 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#filterByUserName(entity.Cliente)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
+public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
 		
 		Response<DetalleCuotaPrestamo> lg = new Response<>();
 		
@@ -177,6 +177,19 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 					lg.die(false, "Error al intentar obtener los registros por nombre de usuario");
 				}
 		}catch(SQLException e) {
+			e.printStackTrace();
+			lg.die(false, "Error al intentar obtener los registros por nombre de usuario");
+		}
+		
+		return lg;
+	}
+	
+public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
+		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		try {
+			TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getByRequest(sp);
+			lg.fill(t.rowsReturned);
+		} catch(SQLException e) {
 			e.printStackTrace();
 			lg.die(false, "Error al intentar obtener los registros por nombre de usuario");
 		}

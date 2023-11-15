@@ -39,7 +39,7 @@
             <div class="flex-row full-width __login-selectRole">
               <div class="mdc-form-field">
                 <div class="mdc-radio">
-                  <input class="mdc-radio__native-control" type="radio" id="radioCliente" name="role" checked
+                  <input class="mdc-radio__native-control" type="radio" id="radioCliente" name="role" 
                     value="client">
                   <div class="mdc-radio__background">
                     <div class="mdc-radio__outer-circle"></div>
@@ -51,7 +51,7 @@
               </div>
               <div class="mdc-form-field">
                 <div class="mdc-radio">
-                  <input class="mdc-radio__native-control" type="radio" id="radioAdministrador" name="role"
+                  <input class="mdc-radio__native-control" type="radio" id="radioAdministrador" checked name="role"
                     value="admin">
                   <div class="mdc-radio__background">
                     <div class="mdc-radio__outer-circle"></div>
@@ -70,7 +70,7 @@
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-              <input type="text" value="Kiara_15152152" pattern="^[a-zA-Z0-9_]{4,20}$" minlength="4" maxlength="20" id="txtUsername" class="mdc-text-field__input" required aria-labelledby="lblUsername">
+              <input type="text" value="root" pattern="^[a-zA-Z0-9_]{4,20}$" minlength="4" maxlength="20" id="txtUsername" class="mdc-text-field__input" required aria-labelledby="lblUsername">
             </label>
             <label id="tP" class="mdc-text-field mdc-text-field--outlined">
               <span class="mdc-notched-outline">
@@ -80,7 +80,7 @@
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-              <input type="password" value="Kiar#15%305$51*More" required minlength="8" id="txtPassword" class="mdc-text-field__input" aria-labelledby="lblClave">
+              <input type="password" value="D2g%CF**#3$9!62bNL&F$T$7724" required minlength="8" id="txtPassword" class="mdc-text-field__input" aria-labelledby="lblClave">
             </label>
             <div class="mdc-touch-target-wrapper">
               <button id="btnEntrar" class="mdc-button mdc-button--touch mdc-button--raised" type="submit">

@@ -49,7 +49,13 @@ public class PagarCuota extends BaseServlet {
 		
 		Cliente cliente = AuthManager.getActualClient(request, response);
 		if(cliente != null) {
-			Response<DetalleCuotaPrestamo> res = cuota.getAll(cliente);
+			String codigo = "";
+			if(request.getParameter("cod_Sol") != null) {
+				codigo = request.getParameter("cod_Sol");
+			}
+			entity.SolicitudPrestamo sp = new entity.SolicitudPrestamo();
+			sp.setCodigo(codigo);
+			Response<DetalleCuotaPrestamo> res = cuota.getByRequest(sp);
 			response.setStatus(res.http);
 			write(response, res.toFinalJSON());
 		}
@@ -90,6 +96,6 @@ public class PagarCuota extends BaseServlet {
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "POST" };
+		return new String[] { "GET", "OPTIONS", "POST" };
 	}
 }

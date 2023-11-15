@@ -36,7 +36,7 @@
 			  <span class="mdc-button__label">Pagar una cuota</span>
 			</button>
 		</span>
-		<br>
+		<br><br>
 		<div id="tablaCuotasPagadas" class="mdc-data-table mdc-layout-grid__cell--span-12">
 			<div class="mdc-data-table__table-container">
 			  <table class="mdc-data-table__table" aria-label="Dessert calories">
