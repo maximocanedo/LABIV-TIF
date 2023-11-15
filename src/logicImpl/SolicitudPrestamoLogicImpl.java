@@ -252,8 +252,7 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		if(d.$("interes_Sol")!=null) {s.setInteres(d.$("interes_Sol"));}
 		if(d.$("plazoPago_Sol")!=null) {s.setPlazoPago(d.$("plazoPago_Sol"));}
 		if(d.$("cantCuotas_Sol")!=null) {
-			double dc = d.$("cantCuotas_Sol");
-			int c = (int)dc;
+			int c = Integer.parseInt(d.$("cantCuotas_Sol") + "");
 			s.setCantCuotas(c);
 			}
 		if(d.$("montoPorCuota_Sol")!=null) {s.setMontoPorCuota(d.$("montoPorCuota_Sol"));}
