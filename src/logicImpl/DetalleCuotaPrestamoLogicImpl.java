@@ -255,7 +255,7 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 		Response<DetalleCuotaPrestamo> res = new Response<DetalleCuotaPrestamo>();
 		TransactionResponse<DetalleCuotaPrestamo> tpr = new TransactionResponse<DetalleCuotaPrestamo>();
 		try {
-			tpr = daoCtPrest.getAll(obj);
+			tpr = daoCtPrest.getAll(cliente);
 			if(tpr.nonEmptyResult()) {
 				res.fill(tpr.rowsReturned);
 			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
@@ -267,4 +267,3 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	}
 	}
 
-}
