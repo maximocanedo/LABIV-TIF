@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
+import entity.DetalleCuotaPrestamo;
+import entity.Movimiento;
 import entity.Paginator;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import logicImpl.AuthManager.TokenData;
+import logicImpl.DetalleCuotaPrestamoLogicImpl;
 import max.Dictionary;
 import max.Response;
 
@@ -32,12 +35,26 @@ public class PagarCuota extends BaseServlet {
     }
     
     private SolicitudPrestamoLogicImpl logic = new SolicitudPrestamoLogicImpl();
-
+    private DetalleCuotaPrestamoLogicImpl cuota = new DetalleCuotaPrestamoLogicImpl();
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		TokenData td = AuthManager.readToken(request);
+		if(td == null) {
+			response.setStatus(401);
+			return;
+		}
 		
+		Cliente cliente = AuthManager.getActualClient(request, response);
+		if(cliente != null) {
+			Response<DetalleCuotaPrestamo> res = cuota.getAll(cliente);
+			response.setStatus(res.http);
+			write(response, res.toFinalJSON());
+		}
+		
+		return;
 	}
 	
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{

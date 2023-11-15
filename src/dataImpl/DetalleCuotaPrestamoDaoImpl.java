@@ -6,6 +6,7 @@ import java.sql.Types;
 import data.IDetalleCuotaPrestamoDao;
 import entity.Cliente;
 import entity.DetalleCuotaPrestamo;
+import entity.Telefono;
 import logicImpl.DetalleCuotaPrestamoLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -117,6 +118,20 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 		}
 		
 		return t;
+	}
+	
+	public TransactionResponse<DetalleCuotaPrestamo> getAll(Cliente obj) throws SQLException {
+		
+		TransactionResponse<Dictionary> res = dbCon.fetch(
+				"SELECT * FROM cuotas__select WHERE usuario_cl_DTPT = @user ",
+				Dictionary.fromArray("user", obj.getUsuario())
+			);
+			TransactionResponse<DetalleCuotaPrestamo> fres = new TransactionResponse<DetalleCuotaPrestamo>();
+			fres.status = res.status;
+			if(res.nonEmptyResult()) {
+				fres.rowsReturned = lgcp.convert(res.rowsReturned);
+			}
+			return fres;
 	}
 
 	@Override
