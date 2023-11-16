@@ -118,6 +118,7 @@ public class ProvinciaLogicImpl implements IRecordLogic<Provincia, Integer>, IPr
 						//casteado = dat.rowsReturned.get(i).$("nombre_provincia");
 						a.setId(dat.rowsReturned.get(i).$("id_provincia"));
 						a.setNombre(dat.rowsReturned.get(i).$("nombre_provincia"));
+						//System.out.println("ID = "+a.getId()+" - Nombre = "+a.getNombre());
 						Provs.add(a);
 					}    
 				}									

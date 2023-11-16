@@ -40,7 +40,7 @@
           			<form>    	
       					<div class="row">
 							<div class="input-field col s12">
-    							<select id="provincias">
+    							<select id="provincias" name="selectProv">
         							<option value="" disabled selected>Selecciona una provincia</option>
         							<%
         							ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
@@ -65,7 +65,7 @@
 </div>
 
 
-	
+
 	
 	<div class="container">
         <h2 class="center-align">Informe de movimientos por provincia</h2>
@@ -78,9 +78,13 @@
             	<%
             	MovimientoLogicImpl logic2 = new MovimientoLogicImpl();
             	
-            	
-     
-            	ArrayList<Integer> data2 = logic2.getInformeProvincia(99);
+            	//int selectedValue = Integer.parseInt(request.getParameter("selectProv"));
+            	//int selectedValue = 0; 
+            	//if (selectedValueParam != null && !selectedValueParam.isEmpty()) {
+            	//    selectedValue = Integer.parseInt(selectedValueParam);
+            	//}
+     			
+            	ArrayList<Integer> data2 = logic2.getInformeProvincia(14);
             	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
             	int TP1 = 1;
             	int TP2 = 1;
