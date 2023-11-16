@@ -80,15 +80,14 @@
           			<form>    	
       					<div class="row">
 							<div class="input-field col s12">
-    							<select id="provincias">
+    							<select id="provincias" name="selectProv">
         							<option value="" disabled selected>Selecciona una provincia</option>
-        							<%
-        							ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
-        			            	ArrayList<Provincia> data = logic.getAllOnArray();//luego hacer el logic en servlets
-        							
-        							for (int i = 0; i < data.size(); i++) {%>            						 
-              						  <option value="<%=data.get(i).getId()%>"><%=data.get(i).getNombre() %></option>
-           							 <%}%>
+    								<% ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
+       								ArrayList<Provincia> data = logic.getAllOnArray();
+
+       								for (Provincia provincia : data) { %>
+           							<option value=<%=provincia.getId()%>><%=provincia.getNombre() %></option>
+    								<% } %>
        
     							</select>
    	 							<label for="provincias">Provincias</label>
@@ -102,7 +101,7 @@
 </div>
 
 
-	
+
 	
 	<div class="container">
         <h2 class="center-align">Informe de movimientos por provincia</h2>
@@ -115,9 +114,13 @@
             	<%
             	MovimientoLogicImpl logic2 = new MovimientoLogicImpl();
             	
-            	
-     
-            	ArrayList<Integer> data2 = logic2.getInformeProvincia(VALOR AQUI);
+            	//int selectedValue = Integer.parseInt(request.getParameter("selectProv"));
+            	//int selectedValue = 0; 
+            	//if (selectedValueParam != null && !selectedValueParam.isEmpty()) {
+            	//    selectedValue = Integer.parseInt(selectedValueParam);
+            	//}
+     			
+            	ArrayList<Integer> data2 = logic2.getInformeProvincia(14);
             	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
             	int TP1 = 1;
             	int TP2 = 1;
