@@ -18,6 +18,8 @@ import max.Response;
 /**
  * Servlet implementation class Cliente__ThirdPerson
  */
+
+// /api/client/user/maximo
 @WebServlet("/api/client/user/*")
 public class Cliente__ThirdPerson extends servlets.BaseServlet {
 	private static final long serialVersionUID = 1L;

@@ -10,6 +10,7 @@ let openMyProfileDialog = () => {
 };
 
 (async () => {
+	material.loadElements();
 	let usuario = {};
 	let role;
 	const whoIam = await auth.whoIam();

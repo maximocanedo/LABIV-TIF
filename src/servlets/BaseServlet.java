@@ -28,6 +28,7 @@ public abstract class BaseServlet extends HttpServlet {
 		super();
 	}
 	
+	// /api/web?p=1?s=10
 	protected Paginator getPaginator(HttpServletRequest req) {
 		Paginator paginator = Paginator.DEFAULT;
 		if(req.getParameter("p") != null) {
@@ -51,6 +52,7 @@ public abstract class BaseServlet extends HttpServlet {
         // Implementación por defecto de PATCH
     }
 	
+	// 200 OK, 404 Not found
 	protected void sendEmptyResponse(HttpServletResponse response, int statusCode) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
@@ -59,7 +61,10 @@ public abstract class BaseServlet extends HttpServlet {
         response.getWriter().close();
     }
 	
+	
 	public String getPathParameter(HttpServletRequest request, int index) {
+		
+		// /api/client/user/xxx "/"
     	String requestURI = request.getRequestURI();
         String[] segments = requestURI.split("/");
         String param = segments[segments.length - 1 - (index >= 0 ? index : 0)];
@@ -123,10 +128,6 @@ public abstract class BaseServlet extends HttpServlet {
 	@Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = req.getMethod();
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Headers", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "*");
-        resp.setHeader("Access-Control-Expose-Headers", "*");
         resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
         
@@ -147,9 +148,6 @@ public abstract class BaseServlet extends HttpServlet {
         return;
     }
 	public void write(HttpServletResponse res, String text) throws IOException {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-        res.setHeader("Access-Control-Allow-Methods", "*");
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
 		res.getWriter().append(text);

@@ -35,7 +35,7 @@ public class Cuentas extends BaseServlet implements Servlet {
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TokenData td = AuthManager.readToken(request);
-		if(td == null) {
+		if(td == null) { // Si nadie inició sesión
 			response.setStatus(401);
 			return;
 		}

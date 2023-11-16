@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="entity.Administrador" %>
 <%@page import="entity.Cliente" %>
 <%@page import="entity.Provincia" %>
@@ -14,9 +14,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Movimientos por Provincia</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>  
@@ -44,11 +44,14 @@
         							<option value="" disabled selected>Selecciona una provincia</option>
         							<%
         							ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
-        			            	ArrayList<Provincia> data = logic.getAllOnArray();//luego hacer el logic en servlets
+        			            	Response<Provincia> data = logic.getAll();//luego hacer el logic en servlets
+                                    if(data.listReturned != null) {
+                                        for (int i = 0; i < data.listReturned.size(); i++) {%>                                    
+                                      <option value="<%=data.listReturned.get(i).getId()%>"><%=data.listReturned.get(i).getNombre() %></option>
+                                     <%}
+                                    }%>
         							
-        							for (int i = 0; i < data.size(); i++) {%>            						 
-              						  <option value="<%=data.get(i).getId()%>"><%=data.get(i).getNombre() %></option>
-           							 <%}%>
+        							
        
     							</select>
    	 							<label for="provincias">Provincias</label>
@@ -129,7 +132,6 @@
         </div>
 
    	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	
 		
     </main>

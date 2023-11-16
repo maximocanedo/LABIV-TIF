@@ -106,7 +106,7 @@ public class ProvinciaLogicImpl implements IRecordLogic<Provincia, Integer>, IPr
 	}
 	
 	public ArrayList<Provincia> getAllOnArray() {
-		ArrayList<Provincia> Provs = new ArrayList();
+		ArrayList<Provincia> Provs = new ArrayList<Provincia>();
 		Provincia a = new Provincia();
 		try {
 			TransactionResponse<Dictionary> dat = data.getAllDic();

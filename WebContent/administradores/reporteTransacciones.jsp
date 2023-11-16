@@ -14,19 +14,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-
-<link rel="stylesheet" href="../res/styles/init.css" />
+<base href="/TPINT_GRUPO_3_LAB/" />
+<link rel="stylesheet" href="./res/styles/init.css" />
 
 </head>
 <body>
 	<%@ include file="../res/web/drawer.part.html" %>
 	<%@ include file="../res/web/header.part.html" %>
-	<main class="mdc-top-app-bar--fixed-adjust">
+	<main class="mdc-top-app-bar--fixed-adjust" style="width: 50%; display: grid; place-items: center; padding-bottom: 80px;">
 		
 	
 	<div class="container">
@@ -72,9 +71,9 @@
             	    ]
             	};-->
             	<%
-            	MovimientoLogicImpl logic = new MovimientoLogicImpl();
-            	ArrayList<Integer> data = logic.getInforme();
-            	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
+            	//MovimientoLogicImpl logic = new MovimientoLogicImpl();
+            	//ArrayList<Integer> data = logic.getInforme();
+            	ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
             	int TP1 = 0;
             	int TP2 = 0;
             	int TP3 = 0;
@@ -168,6 +167,6 @@
     </main>
 	<%@ include file="../res/web/dialog.part.html" %>
 	<%@ include file="../res/web/snackbar.part.html" %>
-	<script type="module" src="./../res/controller/default.controller.js"></script>
+	<script type="module" src="./res/controller/default.controller.js"></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ import max.TransactionResponse;
 
 public class AuthManager {
 	
+	
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
     
@@ -33,6 +34,7 @@ public class AuthManager {
     	public String role;
     }
 
+    // Después de iniciar sesión. 
     public static String generateJWT(String username, String role) {
 		return Jwts.builder()
 				.subject(username)
@@ -155,7 +157,7 @@ public class AuthManager {
     	if(auth) {
     		String authHeader = req.getHeader("Authorization");
     		String token = authHeader.substring(7);
-    		TokenData td = readJWT(token);
+    		TokenData td = readJWT(token); // Devuelve usuario y rol del token
     		ClienteDaoImpl admindao = new ClienteDaoImpl();
     		try {
 				TransactionResponse<Cliente> findResult = admindao.getById(td.username);
