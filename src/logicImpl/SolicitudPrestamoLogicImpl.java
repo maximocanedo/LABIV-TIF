@@ -114,6 +114,34 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 		}
 		return res;
 	}
+	
+	public Response<SolicitudPrestamo> approve(SolicitudPrestamo data) {
+		TransactionResponse<?> res = TransactionResponse.create();
+		Response<SolicitudPrestamo> r = new Response<SolicitudPrestamo>();
+		try {
+			res = spDao.approve(data);
+			r.die(res.rowsAffected > 0, (res.rowsAffected > 0) ? 200 : 501,  null);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			r.die(false, 500, null);
+			e.printStackTrace();
+		}
+		return r;
+	}
+	
+	public Response<SolicitudPrestamo> reject(SolicitudPrestamo data) {
+		TransactionResponse<?> res = TransactionResponse.create();
+		Response<SolicitudPrestamo> r = new Response<SolicitudPrestamo>();
+		try {
+			res = spDao.reject(data);
+			r.die(res.rowsAffected > 0, (res.rowsAffected > 0) ? 200 : 501,  null);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			r.die(false, 500, null);
+			e.printStackTrace();
+		}
+		return r;
+	}
 
 	/* (non-Javadoc)
 	 * @see logicImpl.ISolicitudPrestamoLogic#delete(entity.SolicitudPrestamo)

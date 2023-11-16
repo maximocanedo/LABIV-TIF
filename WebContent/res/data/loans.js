@@ -24,10 +24,7 @@ const getById = async (id) => {
 	const data = await res.json();
 	return { status, data };
 };
-const pagarCuota = async (k = {
-	"cod_Sol": null,
-	"CBU_Sol": null
-}) => {
+const pagarCuota = async (k) => {
 	const res = await fetch(
 		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/client/pagarcuota", {
 		method: "POST",
@@ -53,9 +50,34 @@ const getPaidInstallments = async (requestId) => {
 	return {status, list};
 };
 
+const approve = async (requestId) => {
+	const res = await fetch(
+		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo", {
+		method: "PUT",
+		headers: auth.AUTH_HEADER,
+		body: JSON.stringify({ "cod_Sol": requestId })
+	});
+	const status = res.status;
+	return { status };
+
+};
+const reject = async (requestId) => {
+	const res = await fetch(
+		"http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo", {
+		method: "DELETE",
+		headers: auth.AUTH_HEADER,
+		body: JSON.stringify({ "cod_Sol": requestId })
+	});
+	const status = res.status;
+	return { status };
+
+};
+
 export {
 	getMyLoanRequests,
 	getById,
 	pagarCuota,
-	getPaidInstallments
+	getPaidInstallments,
+	approve,
+	reject
 };

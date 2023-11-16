@@ -15,61 +15,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Movimientos por Provincia</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
+<link rel="stylesheet" href="../res/styles/init.css" />
+
 </head>
 <body>
-	
-	<nav class="indigo darken-2">
-    <div class="nav-wrapper">
-      <a class="brand-logo" href="#"><img src="https://cadastro.iqnear.com.br/company_logos/banco-empresa-teste-1618528973-992.png" style="width:65px;"/></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/TPINT_GRUPO_3_LAB/clientes/cuentasCliente.jsp">Cuentas</a></li>
-        <li><a href="/TPINT_GRUPO_3_LAB/clientes/transferencias.jsp">Transferencias</a></li>
-        <li><a href="/TPINT_GRUPO_3_LAB/MovimientosRealizados.jsp">Movimientos realizados</a></li>
-        <li>
-        	<a href="#" class="dropdown-trigger" data-target="id_drop">Prestamos
-        	<i class="material-icons right">arrow_drop_down</i></a>
-        	<ul id="id_drop" class="dropdown-content">
-        	<li><a href="/TPINT_GRUPO_3_LAB/prestamos/solicitarPrestamo.jsp">Solicitar prestamo</a></li>
-        	<li class="divider"></li>
-        	<li><a href="#">Prestamos otorgados</a></li>
-        	<li class="divider"></li>
-        	<li><a href="/TPINT_GRUPO_3_LAB/prestamos/pagoPrestamo.jsp">Pago de prestamo</a></li>
-        	<li class="divider"></li>        
- 			</ul>
-        </li>
-        <li><a href="datospersonalesCliente.jsp">Registro personal</a></li>
-        <li><a id="clienteBanco">Bienvenido, 
-
-				<%
-					String nombre="";
-				if((Administrador)session.getAttribute("admin")!=null){
-					Administrador admin= (Administrador)session.getAttribute("admin");
-					nombre= admin.getNombre();
-				}
-				else if((Cliente)session.getAttribute("cliente")!=null){
-					Cliente client= (Cliente)session.getAttribute("cliente");
-					nombre= client.getNombre();
-				}
-					
-				%>
-				<%=nombre %>
-</a></li>
-        <li>
-        	<a class="waves-effect waves-light btn" id="logout-button" href="inicioSesion.jsp">
-        	<i class="material-icons left">exit_to_app</i>Cerrar Sesion</a>
-        </li>       
-      </ul>      
-    </div>
- </nav>
-  
-<div class="transparent-bg"></div>
+	<%@ include file="../res/web/drawer.part.html" %>
+	<%@ include file="../res/web/header.part.html" %>
+	<main class="mdc-top-app-bar--fixed-adjust">
+		
 	
 <div class="wrapper">    
     <div class="container"> 
@@ -126,7 +86,7 @@
             	int TP2 = 1;
             	int TP3 = 1;
             	int TP4 = 1;
-            	if(data !=null && !data.isEmpty()){
+            	if(data2 !=null && !data2.isEmpty()){
             	TP1 = data2.get(0);
             	TP2 = data2.get(1);
             	TP3 = data2.get(2);
@@ -135,7 +95,7 @@
             	%>
             	
         <script>
-            // Datos de prueba, luego serán reemplazados por los datos obtenidos de la base de datos
+            // Datos de prueba, luego seran reemplazados por los datos obtenidos de la base de datos
           var datosTransacciones = { 
                 labels: ["Altas de cuenta", "Altas de prestamo", "Pagos de prestamo", "Transferencias"], // Nombres de los tipos de transacciones
                 datasets: [{
@@ -146,7 +106,7 @@
                 }]
             };
            
-            // Configuración del gráfico de barras
+            // Config del grafico de barras
             var opcionesGrafico = {
             		plugins: {
             	        legend: {
@@ -161,7 +121,7 @@
                 }
             };
 
-            // Obtener el contexto del canvas y dibujar el gráfico
+            // contexto del canvas y grafico
             var ctx = document.getElementById('graficoBarras').getContext('2d');
             var graficoBarras = new Chart(ctx, {
                 type: 'bar',
@@ -172,27 +132,12 @@
         </div>
 
    	
-</body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+	
+		
+    </main>
+	<%@ include file="../res/web/dialog.part.html" %>
+	<%@ include file="../res/web/snackbar.part.html" %>
+	<script type="module" src="./../res/controller/default.controller.js"></script>
 </body>
-<script>
-    M.AutoInit(); 
-</script>
-
-   <footer class="page-footer indigo darken-2">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Pie de pagina Banco</h5>
-                <p class="grey-text text-lighten-4">Informacion relativa al banco</p>
-              </div>              
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            &copy 2023 Copyright - Todos los derechos reservados para el Grupo Nro 3
-			</div>
-          </div>
-</footer>
 </html>

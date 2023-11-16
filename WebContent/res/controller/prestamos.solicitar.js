@@ -119,7 +119,7 @@ const formatearNumeroCuenta = (nc) => {
 		let data = {
 		    "montoPedido_Sol": store.getState().monto,
 		    "cantCuotas_Sol": store.getState().cuotas,
-		    "CBU_Sol": store.getState().cbu
+		    "CBU_CxC": store.getState().cbu
 		};
 		let cnfrm = await material.showDialog("Estás a punto de solicitar un préstamo de " 
 			+ formatearComoDinero(store.getState().monto) + " a pagar en " + store.getState().cuotas + " cuotas de " + formatearComoDinero(calcCuota()) + ". \n¿Continuar?");
