@@ -31,7 +31,7 @@ public class Provincias extends BaseServlet {
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] {"GET"};
+		return new String[] {"GET", "OPTIONS"};
 	}
 
 }
