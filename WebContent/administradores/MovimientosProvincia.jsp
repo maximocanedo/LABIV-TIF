@@ -39,8 +39,8 @@
         			<h5>Ver movimientos por provincia</h5>
           			<form>    	
       					<div class="row">
-							<div class="input-field col s12">
-    							<select id="provincias" name="selectProv">
+							<div class="input-field col s12" >
+    							<select id="provincias" name="selectProv" onchange="obtainSelectedValue()">
         							<option value="" disabled selected>Selecciona una provincia</option>
         							<%
         							ProvinciaLogicImpl logic = new ProvinciaLogicImpl();
@@ -64,7 +64,22 @@
 	</div>
 </div>
 
+<script>
+    function obtainSelectedValue() {
+            var selectedValue = document.getElementById("provincias").value;
 
+            // Hacer una solicitud al servlet usando XMLHttpRequest o Fetch API
+            // Por ejemplo, usando Fetch API:
+            fetch('/informe58?selectProv=' + selectedValue, {
+                method: 'POST' // O 'POST' si es una solicitud POST
+                // Otros parámetros como headers, body, etc., si es necesario
+            }).then(response => {
+                // Lógica para manejar la respuesta del servlet
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
 
 	
 	<div class="container">
@@ -83,9 +98,9 @@
             	//if (selectedValueParam != null && !selectedValueParam.isEmpty()) {
             	//    selectedValue = Integer.parseInt(selectedValueParam);
             	//}
-     			
-            	ArrayList<Integer> data2 = logic2.getInformeProvincia(14);
-            	//ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("informe");   
+     			//int selectedValue= obtainSelectedValue();
+            	//ArrayList<Integer> data2 = logic2.getInformeProvincia(14);
+            	ArrayList<Integer> data2 = (ArrayList<Integer>) request.getAttribute("informe");   
             	int TP1 = 1;
             	int TP2 = 1;
             	int TP3 = 1;
