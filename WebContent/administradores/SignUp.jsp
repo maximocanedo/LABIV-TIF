@@ -46,7 +46,7 @@
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="4"
+                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="2"
                                 maxlength="20" id="txtNombre" class="mdc-text-field__input" required
                                 aria-labelledby="lblNombre">
                         </label>
@@ -59,7 +59,7 @@
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="4"
+                            <input type="text" pattern="^[a-zA-ZáàéèíìïäëöüÿòóùúçÇÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ]{1,48}$" minlength="2"
                                 maxlength="20" required id="txtApellido" class="mdc-text-field__input"
                                 aria-labelledby="lblApellido">
                         </label>
