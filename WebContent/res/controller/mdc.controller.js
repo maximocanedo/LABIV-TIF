@@ -76,6 +76,19 @@ const showSnackbar = (text) => {
 	snackbar.labelText = text;
 	snackbar.open();
 };
+const showBanner = (text, action = { text: "Cerrar", handler: (e) => {} }) => {
+	const banner = new mdc.banner.MDCBanner(
+		document.querySelector(".mdc-banner")
+	);
+	banner.textEl.innerText = text;
+	banner.setPrimaryActionText(action.text);
+	const evlstnr = (e) => {
+		action.handler(e);
+	};
+	banner.primaryActionEl.onclick = () => {};
+	banner.primaryActionEl.onclick = evlstnr;
+	banner.open();
+};
 
 const showOtherDialog = (id) => {
 	const dialog = loadDialog(id);
@@ -136,14 +149,12 @@ const loadElements = () => {
 		var topAppBar = new mdc.topAppBar.MDCTopAppBar(element);
 		//console.log({ topAppBar });
 	});
-	document
-		.querySelectorAll(".mdc-button")
-		.forEach((element) => {
-			const e = rippleIt(element);
-			if (e.root.getAttribute("id") != null) {
-				doc[e.root.getAttribute("id")] = e;
-			}
-		});
+	document.querySelectorAll(".mdc-button").forEach((element) => {
+		const e = rippleIt(element);
+		if (e.root.getAttribute("id") != null) {
+			doc[e.root.getAttribute("id")] = e;
+		}
+	});
 
 	document.querySelectorAll(".mdc-snackbar").forEach((element) => {
 		var md = new mdc.snackbar.MDCSnackbar(element);
@@ -179,4 +190,5 @@ export {
 	loadSnackbar,
 	showSnackbar,
 	showOtherDialog,
+	showBanner,
 };
