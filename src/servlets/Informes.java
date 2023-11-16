@@ -51,9 +51,23 @@ public class Informes extends BaseServlet implements Servlet{
 		dispatcher.forward(request, response);
 	}
 	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        MovimientoLogicImpl logic = new MovimientoLogicImpl();
+        int id = Integer.parseInt(request.getParameter("selectProv"));
+        ArrayList<Integer> data = logic.getInformeProvincia(id);
+
+        request.setAttribute("informe", data);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("administradores/reporteTransacciones.jsp");
+        dispatcher.forward(request, response);
+        
+    }
+	
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "GET", "OPTIONS" };
+		return new String[] { "GET","POST" ,"OPTIONS" };
 	}
 
 }
