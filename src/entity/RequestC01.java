@@ -102,7 +102,7 @@ public class RequestC01 implements IEntity {
 			"issuedOn_rc01", issuedOn,
 			"closedOn_rc01", closedOn,
 			"message_rc01", message,
-			"nuevaClave_rc01", data != null ? data.getContraseña() : null
+			"nuevaClave_rc01", data != null ? data.getContrasena() : null
 		);
 	}
 

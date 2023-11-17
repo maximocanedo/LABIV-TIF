@@ -1,0 +1,40 @@
+body {
+    background: var(--material-grey-50);
+    box-sizing: border-box;
+}
+#principal-grid {
+    --mdc-layout-grid-margin-desktop: 72px;
+    --mdc-layout-grid-margin-tablet: 48px;
+}
+.mdc-card {
+    padding: 5px;
+    .mdc-layout-grid__inner {    
+        row-gap: 0px !important;
+    }
+    .card-title {
+        padding-top: 8px;
+        text-align: center;
+    }
+}
+.di-control {
+    width: 100%;
+}
+.mdc-dialog__content.mdc-layout-grid {
+    width: 100%;
+}
+.mdc-text-field__icon--leading {
+    margin-left: 0px !important;
+    margin-right: 8px !important;
+}
+
+#formDialog {
+    .mdc-dialog__container {
+        .mdc-dialog__surface {
+            overflow: visible !important;
+            .mdc-dialog__content {
+                overflow: visible !important;
+            }
+        }
+
+    }
+}

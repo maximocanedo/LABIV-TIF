@@ -509,7 +509,7 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
         // Devolvemos el resultado de la operación.
         Cliente temp = new Cliente();
         temp.setUsuario(user);
-        temp.setContraseña(plainPassword);
+        temp.setContrasena(plainPassword);
         res.objectReturned = temp;
         
         return res;		
@@ -523,12 +523,12 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	 */
 	public Response<Cliente> updatePassword(Cliente admin, Dictionary params) {
 		Response<Cliente> result = new Response<Cliente>();
-		Schema updatePasswordSchema = new Schema(ClienteDaoImpl.Fields.contraseña);
+		Schema updatePasswordSchema = new Schema(ClienteDaoImpl.Fields.contrasena);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
 			if(validationStatus) {
 				byte[] salt = PasswordUtils.createSalt();
-				byte[] hash = PasswordUtils.createHash(params.$(ClienteDaoImpl.Fields.contraseña.name), salt);
+				byte[] hash = PasswordUtils.createHash(params.$(ClienteDaoImpl.Fields.contrasena.name), salt);
 				try {
 					result = convertWildcard(data.updatePassword(admin.getUsuario(), hash, salt));
 					result.http = result.status ? 200 : 500;
@@ -615,13 +615,13 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	 */
 	public Response<Cliente> login(Dictionary servlet_parameters) {
 		Response<Cliente> response = new Response<Cliente>();
-		Schema schema = new Schema(ClienteDaoImpl.Fields.usuario, ClienteDaoImpl.Fields.contraseña);
+		Schema schema = new Schema(ClienteDaoImpl.Fields.usuario, ClienteDaoImpl.Fields.contrasena);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
 			if(validationResult) {
 				return login(
 						servlet_parameters.$(ClienteDaoImpl.Fields.usuario.name),
-						servlet_parameters.$(ClienteDaoImpl.Fields.contraseña.name)
+						servlet_parameters.$(ClienteDaoImpl.Fields.contrasena.name)
 					);
 			}
 		} catch (SchemaValidationException e) {

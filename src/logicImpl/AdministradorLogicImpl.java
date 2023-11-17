@@ -13,7 +13,6 @@ import entity.Localidad;
 import entity.Paginator;
 import entity.Pais;
 import entity.Provincia;
-import entity.Transferencia;
 import logic.IAdministradorLogic;
 import max.Dictionary;
 import max.IModel;
@@ -56,7 +55,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Convierte un Dictionary a un objeto Administrador, con la opción de omitir los campos HASH y SALT.
+	 * Convierte un Dictionary a un objeto Administrador, con la opciï¿½n de omitir los campos HASH y SALT.
 	 * @param d El objeto Dictionary a convertir.
 	 * @param pass Especifica si se deben incluir los campos HASH y SALT.
 	 * @return Objeto Administrador convertido.
@@ -119,7 +118,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 
 	/**
-	 * Convierte una lista de Dictionary en una lista de objetos Administrador, con la opción de omitir los campos HASH y SALT.
+	 * Convierte una lista de Dictionary en una lista de objetos Administrador, con la opciï¿½n de omitir los campos HASH y SALT.
 	 * @param arg0 Lista de Dictionary que se desea convertir.
 	 * @param includePrivateData Especifica si se deben incluir los campos HASH y SALT.
 	 * @return Lista de objetos Administrador.
@@ -178,7 +177,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	/**
 	 * Deshabilita una cuenta de administrador.
 	 * @param arg0 Objeto Administrador con los datos del usuario a deshabilitar.
-	 * @returns Resultado de la operación.
+	 * @returns Resultado de la operaciï¿½n.
 	 */
 	@Override
 	public Response<Administrador> delete(Administrador arg0) {
@@ -191,10 +190,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		try {
 			res = data.delete(arg0);
 			result = convertWildcard(res);
-			result.message = result.status ? "El registro se eliminó correctamente. " : "No se eliminó el registro. ";
+			result.message = result.status ? "El registro se eliminï¿½ correctamente. " : "No se eliminï¿½ el registro. ";
 			result.http = result.status ? 200 : 500;
 		} catch (SQLException e) {
-			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			result.die(false, 500, "Hubo un error al intentar realizar la transacciï¿½n. ");
 			e.printStackTrace();
 		}
 		return result;
@@ -219,9 +218,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Comprueba si un usuario está activo en la base de datos a partir de su nombre de usuario.
+	 * Comprueba si un usuario estï¿½ activo en la base de datos a partir de su nombre de usuario.
 	 * @param arg0 Nombre de usuario.
-	 * @return Resultado de la operación.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> isActive(String arg0) {
 		Response<Administrador> result = new Response<Administrador>();
@@ -232,7 +231,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 					));
 			result.status = res;
 			result.http = res ? 200 : 404;
-			result.message = res ? "El usuario está activo. " : "El usuario fue deshabilitado o no existe. ";
+			result.message = res ? "El usuario estï¿½ activo. " : "El usuario fue deshabilitado o no existe. ";
 		} catch(SQLException e) {
 			result.die(false, 500, "Hubo un error al intentar realizar la consulta. ");
 			e.printStackTrace();
@@ -241,9 +240,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Examina si existe un usuario en la base de datos a partir de su número de documento.
-	 * @param dni Número de documento a buscar.
-	 * @return Resultado de la operación.
+	 * Examina si existe un usuario en la base de datos a partir de su nï¿½mero de documento.
+	 * @param dni Nï¿½mero de documento a buscar.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> DNIExists(String dni) {
 		Response<Administrador> res = new Response<Administrador>();
@@ -259,9 +258,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Examina si existe un usuario en la base de datos a partir de su número de CUIL.
-	 * @param cuil Número de CUIL a buscar.
-	 * @return Resultado de la operación. 
+	 * Examina si existe un usuario en la base de datos a partir de su nï¿½mero de CUIL.
+	 * @param cuil Nï¿½mero de CUIL a buscar.
+	 * @return Resultado de la operaciï¿½n. 
 	 */
 	public Response<Administrador> CUILExists(String cuil) {
 		Response<Administrador> res = new Response<Administrador>();
@@ -335,10 +334,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		Response<Administrador> result = new Response<Administrador>();
 		try {
 			result = convertWildcard(data.insert(arg0));
-			result.message = result.status ? "El registro se insertó correctamente. " : "No se insertó ningún registro. ";
+			result.message = result.status ? "El registro se insertï¿½ correctamente. " : "No se insertï¿½ ningï¿½n registro. ";
 			result.http = result.status ? 201 : 500;
 		} catch (SQLException e) {
-			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			result.die(false, 500, "Hubo un error al intentar realizar la transacciï¿½n. ");
 			e.printStackTrace();
 		}
 		return result;
@@ -346,9 +345,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	
 	/**
 	 * Valida los datos recibidos en base a la estructura inicial.
-	 * Se usa para validar la información antes de crear una cuenta de administrador.
+	 * Se usa para validar la informaciï¿½n antes de crear una cuenta de administrador.
 	 * @param d Datos a validar.
-	 * @return Resultado de la validación.
+	 * @return Resultado de la validaciï¿½n.
 	 * @throws SchemaValidationException Si uno de los campos no cumple alguna de las validaciones requeridas.
 	 */
 	public boolean validateInitialSchema(Dictionary d) throws SchemaValidationException {
@@ -359,7 +358,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	/**
 	 * Crea una cuenta de administrador.
 	 * @param d Datos del nuevo usuario.
-	 * @return Resultado de la operación.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> createAccount(Dictionary d) {
 		Response<Administrador> res = new Response<Administrador>();
@@ -381,37 +380,37 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		// La encriptamos
         byte[] salt = PasswordUtils.createSalt();
         byte[] hash = PasswordUtils.createHash(plainPassword, salt);
-        // Creamos el dictionary final que se subirá a la base de datos.
+        // Creamos el dictionary final que se subirï¿½ a la base de datos.
         Dictionary finalData = d;
         finalData.put("hash_admin", hash);
         finalData.put("salt_admin", salt);
-        // Convertimos el Dictionary en objeto entidad para trabajar con métodos DAO.
+        // Convertimos el Dictionary en objeto entidad para trabajar con mï¿½todos DAO.
         Administrador obj = convertFull(finalData, true);
         res = insert(obj);
-        // Devolvemos el resultado de la operación.
+        // Devolvemos el resultado de la operaciï¿½n.
         return res;		
 	}
 
 	/**
-	 * Actualiza la contraseña de un administrador.
+	 * Actualiza la contraseï¿½a de un administrador.
 	 * @param admin Objeto Administrador con su nombre de usuario establecido.
-	 * @param params La nueva contraseña.
-	 * @return Resultado de la operación.
+	 * @param params La nueva contraseï¿½a.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> updatePassword(Administrador admin, Dictionary params) {
 		Response<Administrador> result = new Response<Administrador>();
-		Schema updatePasswordSchema = new Schema(AdministradorDaoImpl.Fields.contraseña);
+		Schema updatePasswordSchema = new Schema(AdministradorDaoImpl.Fields.contrasena);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
 			if(validationStatus) {
 				byte[] salt = PasswordUtils.createSalt();
-				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDaoImpl.Fields.contraseña.name), salt);
+				byte[] hash = PasswordUtils.createHash(params.$(AdministradorDaoImpl.Fields.contrasena.name), salt);
 				try {
 					result = convertWildcard(data.updatePassword(admin.getUsuario(), hash, salt));
 					result.http = result.status ? 200 : 500;
-					result.errorMessage = result.status ? "La contraseña se actualizó correctamente. " : "No se actualizó la contraseña. ";
+					result.errorMessage = result.status ? "La contraseÃ±a se actualizï¿½ correctamente. " : "No se actualizï¿½ la contraseï¿½a. ";
 				} catch (SQLException e) {
-					result.die(false, 500, "Hubo un problema al intentar actualizar la contraseña. ");
+					result.die(false, 500, "Hubo un problema al intentar actualizar la contraseï¿½a. ");
 					e.printStackTrace();
 				}
 				
@@ -424,10 +423,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Valida una contraseña en texto plano con la contraseña encriptada de una cuenta de administrador existente.
+	 * Valida una contraseï¿½a en texto plano con la contraseï¿½a encriptada de una cuenta de administrador existente.
 	 * @param admin Objeto Administrador con su nombre de usuario, hash y salt establecidos.
-	 * @param pass Contraseña en texto plano a validar.
-	 * @return Resultado de la operación. 
+	 * @param pass Contraseï¿½a en texto plano a validar.
+	 * @return Resultado de la operaciï¿½n. 
 	 */
 	public Response<Administrador> validatePassword(Administrador admin, String pass) {
 		Response<Administrador> response = new Response<Administrador>();
@@ -444,9 +443,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Intenta iniciar sesión, y devuelve un token JWT.
+	 * Intenta iniciar sesiï¿½n, y devuelve un token JWT.
 	 * @param user Usuario
-	 * @param pass Contraseña, en texto plano
+	 * @param pass Contraseï¿½a, en texto plano
 	 * @return
 	 */
 	public Response<Administrador> login(String user, String pass) {
@@ -461,7 +460,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 					if(adm.isEstado()) {
 						Response<Administrador> resI = validatePassword(adm, pass);
 						if(resI.status) {
-							// Inicio de sesión válido.
+							// Inicio de sesiï¿½n vï¿½lido.
 							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
 							Response<Administrador> resT = new Response<Administrador>();
 							resT.die(true, null);
@@ -486,19 +485,19 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * [TODO Mover de sitio] Inicia sesión a partir de parámetros del Servlet.
-	 * @param servlet_parameters Parámetros recibidos del servlet.
-	 * @return Resultado de la operación.
+	 * [TODO Mover de sitio] Inicia sesiï¿½n a partir de parï¿½metros del Servlet.
+	 * @param servlet_parameters Parï¿½metros recibidos del servlet.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> login(Dictionary servlet_parameters) {
 		Response<Administrador> response = new Response<Administrador>();
-		Schema schema = new Schema(AdministradorDaoImpl.Fields.usuario, AdministradorDaoImpl.Fields.contraseña);
+		Schema schema = new Schema(AdministradorDaoImpl.Fields.usuario, AdministradorDaoImpl.Fields.contrasena);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
 			if(validationResult) {
 				return login(
 						servlet_parameters.$(AdministradorDaoImpl.Fields.usuario.name),
-						servlet_parameters.$(AdministradorDaoImpl.Fields.contraseña.name)
+						servlet_parameters.$(AdministradorDaoImpl.Fields.contrasena.name)
 					);
 			}
 		} catch (SchemaValidationException e) {
@@ -511,7 +510,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Método main usado para pruebas.
+	 * Mï¿½todo main usado para pruebas.
 	 * @param args
 	 */
 	public static void test(String[] args) {
@@ -546,10 +545,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		Response<Administrador> result = new Response<Administrador>();
 		try {
 			result = convertWildcard(data.modify(arg0));
-			result.message = result.status ? "El registro se modificó correctamente. " : "No se modificó ningún registro. ";
+			result.message = result.status ? "El registro se modificï¿½ correctamente. " : "No se modificï¿½ ningï¿½n registro. ";
 			result.http = result.status ? 200 : 500;
 		} catch (SQLException e) {
-			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			result.die(false, 500, "Hubo un error al intentar realizar la transacciï¿½n. ");
 			e.printStackTrace();
 		}
 		return result;
@@ -557,10 +556,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	
 	/**
 	 * Modifica datos en un objeto Administrador.
-	 * Recibe los parámetros directo del servlet, y los valida antes de enviarlo a la sobrecarga de único parámetro de esta función.
-	 * @param arg0 Parámetros enviados por el servlet en cuestión.
+	 * Recibe los parï¿½metros directo del servlet, y los valida antes de enviarlo a la sobrecarga de ï¿½nico parï¿½metro de esta funciï¿½n.
+	 * @param arg0 Parï¿½metros enviados por el servlet en cuestiï¿½n.
 	 * @param user Usuario a ser modificado
-	 * @return Resultado de la operación.
+	 * @return Resultado de la operaciï¿½n.
 	 */
 	public Response<Administrador> modify(Dictionary arg0, Administrador user) {
 		Response<Administrador> res = new Response<Administrador>();
@@ -582,7 +581,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	/**
 	 * Valida un objeto Administrador.
 	 * @param arg0 Objeto Administrador a validar.
-	 * @param validateConstraints Especifica si se deben validar las claves foráneas o únicas, como el usuario o el DNI.
+	 * @param validateConstraints Especifica si se deben validar las claves forï¿½neas o ï¿½nicas, como el usuario o el DNI.
 	 */
 	@Override
 	public Response<Administrador> validate(Administrador arg0, boolean validateConstraints) {

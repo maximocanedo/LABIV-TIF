@@ -23,7 +23,7 @@ public class Cliente implements IEntity {
 	private byte[] salt;
 	private boolean estado;
 	private boolean correoVerificado = false;
-	private String contraseña;
+	private String contrasena;
 	
 	
 	public Cliente() {}
@@ -43,7 +43,7 @@ public class Cliente implements IEntity {
 		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
 		obj.addProperty("correo", correo);
 		obj.addProperty("correoVerificado", correoVerificado);
-		obj.addProperty("contraseña", contraseña);
+		obj.addProperty("contraseña", contrasena);
 		obj.addProperty("estado", estado);
 		
 		return obj;
@@ -178,12 +178,12 @@ public class Cliente implements IEntity {
 		this.estado = estado;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	@Override
