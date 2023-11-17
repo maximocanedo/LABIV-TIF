@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/me")
+@WebServlet("/v2/me")
 public class Me extends BaseServlet {
     protected final ClienteLogicImpl CL = new ClienteLogicImpl();
 
@@ -100,6 +100,7 @@ public class Me extends BaseServlet {
     }
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AuthManager.TokenData td = AuthManager.readToken(request);
+        write(response, "");
         if(td != null) {
             switch(td.role) {
                 case AuthManager.ADMIN:
