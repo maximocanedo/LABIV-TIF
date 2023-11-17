@@ -352,6 +352,18 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return res;
 	}
+
+	public Response<Cliente> getByCUIL(String cuil) {
+		Response<Cliente> res = new Response<>();
+		try {
+			res = convert(data.getByCUIL(cuil));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+	}
 	
 	public String getTwoRandomChars(String input) {
 	    if (input == null || input.length() < 2) {
