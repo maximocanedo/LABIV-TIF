@@ -19,8 +19,8 @@ import oops.SchemaValidationException;
 
 public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAdministradorDao {
 	
-	private Connector db = new Connector(_model.getDatabaseName());
-	private AdministradorLogicImpl logic = new AdministradorLogicImpl();
+	private final Connector db = new Connector(_model.getDatabaseName());
+	private final AdministradorLogicImpl logic = new AdministradorLogicImpl();
 	
 	// Campos
 	public static class Fields {
@@ -199,6 +199,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 		try {
 			res = _model.modify(Dictionary.fromArray("estado_admin", false), a.toIdentifiableDictionary());
 		} catch (SQLException e) {
+			//noinspection CallToPrintStackTrace
 			e.printStackTrace();
 		} catch (SchemaValidationException e) {
 			res.status = false;
@@ -228,8 +229,16 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 	}
 
 	@Override
-	public TransactionResponse<Administrador> getById(String arg0) throws SQLException {
-		return select("CALL administradores__getByUsername(@username)", Dictionary.fromArray("username", arg0));
+	public TransactionResponse<Administrador> getById(String username) throws SQLException {
+		return select("CALL administradores__getByUsername(@username)", Dictionary.fromArray("username", username));
+	}
+
+	public TransactionResponse<Administrador> getByCUIL(String cuil) throws SQLException {
+		return select("CALL administradores__getByCUIL(@cuil)", Dictionary.fromArray("cuil", cuil));
+	}
+
+	public TransactionResponse<Administrador> getByDNI(String dni) throws SQLException {
+		return select("CALL administradores__getByDNI(@dni)", Dictionary.fromArray("dni", dni));
 	}
 
 	@Override
@@ -259,8 +268,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 		return res;
 	}
 	public TransactionResponse<?> updatePassword(String username, byte[] hash, byte[] salt) throws SQLException {
-		TransactionResponse<?> res = TransactionResponse.create();
-		res = new Connector(_model.getDatabaseName())
+		TransactionResponse<?> res = new Connector(_model.getDatabaseName())
 				.transact(
 					"UPDATE " + printTDB() + " SET " + Fields.hash.name + " = @hash, " + Fields.salt.name + " = @salt WHERE " + Fields.usuario.name + " = @usuario", 
 					Dictionary.fromArray(
@@ -273,24 +281,24 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 	}
 	
 	public TransactionResponse<Administrador> getFullById(String arg0) throws SQLException {
-		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
+		TransactionResponse<Administrador> res = new TransactionResponse<>();
 		TransactionResponse<Dictionary> rd = db.fetch("SELECT * FROM " + printTDB() + " WHERE usuario_admin = @user", Dictionary.fromArray( "user", arg0 ));
 		if(rd.nonEmptyResult()) res.rowsReturned = logic.convert(rd.rowsReturned, true);
 		return res;
 	}
 
-	private TransactionResponse<Administrador> select(String arg0) throws SQLException {
-		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
-		TransactionResponse<Dictionary> rd = db.fetch(arg0);
+	private TransactionResponse<Administrador> select(String query) throws SQLException {
+		TransactionResponse<Administrador> res = new TransactionResponse<>();
+		TransactionResponse<Dictionary> rd = db.fetch(query);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
 		return res;
 	}
 
-	private TransactionResponse<Administrador> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<Administrador> res = new TransactionResponse<Administrador>();
-		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
+	private TransactionResponse<Administrador> select(String query, Dictionary params) throws SQLException {
+		TransactionResponse<Administrador> res = new TransactionResponse<>();
+		TransactionResponse<Dictionary> rd = db.fetch(query, params);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
