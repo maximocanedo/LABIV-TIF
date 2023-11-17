@@ -17,14 +17,14 @@ import oops.SchemaValidationException;
 
 public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
 
-	private RequestC01DaoImpl dao = new RequestC01DaoImpl();
+	private final RequestC01DaoImpl dao = new RequestC01DaoImpl();
 	
 	/* (non-Javadoc)
 	 * @see logicImpl.IRequestC01Logic#validate(entity.RequestC01, boolean)
 	 */
 	@Override
 	public Response<RequestC01> validate(RequestC01 arg0, boolean validateConstraints) {
-		Response<RequestC01> res = new Response<RequestC01>();
+		Response<RequestC01> res = new Response<>();
 		try {
 			res.status = validateConstraints 
 					? RequestC01DaoImpl._model.validate(arg0.toDictionary()) 
@@ -54,9 +54,7 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see logicImpl.IRequestC01Logic#modify(entity.RequestC01)
-	 */
+
 	@Override
 	public Response<RequestC01> modify(RequestC01 arg0) {
 		Response<RequestC01> result = new Response<RequestC01>();

@@ -1,0 +1,28 @@
+@import url('./material-colors.css');
+:root {
+    --bg-principal-color: white;
+    --bg-color-1: var(--material-blue-600);
+    --bg-color-2: var(--material-indigo-600);
+    --bg-color-3: var(--material-red-600);
+}
+._root_background {
+    
+    position: fixed;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: #1a237e;
+    background:  linear-gradient(236deg,  #00bfa555,  #651fff55), url('./../noise.svg');
+    
+
+
+   
+    
+}
+
+._root_background::after {
+    content: '';
+    filter: blur(8px), url('./../noise.svg');
+}
