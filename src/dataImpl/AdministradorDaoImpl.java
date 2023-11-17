@@ -129,7 +129,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 			type = Types.BIT;
 			defaultValue = true;
 		}};
-		public static SchemaProperty contraseña = new SchemaProperty("password_admin") {{
+		public static SchemaProperty contrasena = new SchemaProperty("password_admin") {{
 			required = true;
 			minlength = 8;
 			type = Types.VARCHAR;
@@ -179,7 +179,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 				Fields.localidad,
 				Fields.provincia,
 				Fields.correo,
-				Fields.contraseña,
+				Fields.contrasena,
 				Fields.estado
 			);
 
@@ -244,7 +244,7 @@ public class AdministradorDaoImpl implements IRecord<Administrador, String>, IAd
 		return res;
 	}
 
-	// Solucionar bug antes de usar este método.
+	// Solucionar bug antes de usar este mï¿½todo.
 	@Override
 	public TransactionResponse<?> modify(Administrador arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();

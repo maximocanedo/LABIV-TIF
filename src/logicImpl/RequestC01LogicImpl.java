@@ -193,7 +193,7 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 		}
 		if(row.containsKey(RequestC01DaoImpl.Fields.newPassword.name)) {
 			Cliente cl = new Cliente();
-			cl.setContraseña(row.$(RequestC01DaoImpl.Fields.newPassword.name));
+			cl.setContrasena(row.$(RequestC01DaoImpl.Fields.newPassword.name));
 			req.setData(cl);
 		}
 		return req;
@@ -268,15 +268,15 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 		Cliente cliente = buscarCliente.listReturned.get(0);
 		String newlyGeneratedPassword = clogic.generatePassword(cliente);
 		// Modificar cliente con clave nueva
-		cliente.setContraseña(newlyGeneratedPassword);
-		Response<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDaoImpl.Fields.contraseña.name, cliente.getContraseña()));
+		cliente.setContrasena(newlyGeneratedPassword);
+		Response<Cliente> cambiarClaveCliente = clogic.updatePassword(cliente, Dictionary.fromArray(ClienteDaoImpl.Fields.contrasena.name, cliente.getContrasena()));
 		if(cambiarClaveCliente == null || !cambiarClaveCliente.status) {
 			res.die(false, 500, "Hubo un error actualizando la contraseña del cliente. ");
 			return res;
 		}		
 		// Enviar clave al cliente / Guardar en solicitud hasta que esté lista la funcionalidad de correos.
 		Cliente data = new Cliente();
-		data.setContraseña(newlyGeneratedPassword);
+		data.setContrasena(newlyGeneratedPassword);
 		req.setData(data);
 		req.setStatus(true);
 		req.setClosedOn(new java.sql.Timestamp(System.currentTimeMillis()));

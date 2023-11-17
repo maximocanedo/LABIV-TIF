@@ -146,7 +146,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 			type = Types.BIT;
 			defaultValue = true;
 		}};
-		public static SchemaProperty contraseña = new SchemaProperty("password") {{
+		public static SchemaProperty contrasena = new SchemaProperty("password") {{
 			required = true;
 			minlength = 8;
 			type = Types.VARCHAR;
@@ -173,7 +173,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 			Fields.estado
 		);
 	public static final Schema _editable = new Schema(
-			Fields.usuario, // Para identificar al cliente. No se recibe como parámetro.
+			Fields.usuario, // Para identificar al cliente. No se recibe como parï¿½metro.
 			Fields.nombre,
 			Fields.apellido,
 			Fields.sexo,
@@ -304,7 +304,7 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 		return res;
 	}
 
-	// Solucionar bug antes de usar este método.
+	// Solucionar bug antes de usar este mï¿½todo.
 	@Override
 	public TransactionResponse<?> modify(Cliente arg0) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
