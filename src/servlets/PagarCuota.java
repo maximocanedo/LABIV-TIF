@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Administrador;
 import entity.Cliente;
-import entity.DetalleCuotaPrestamo;
-import entity.Movimiento;
-import entity.Paginator;
+import entity.Cuota;
 import logicImpl.AuthManager;
 import logicImpl.SolicitudPrestamoLogicImpl;
 import logicImpl.AuthManager.TokenData;
@@ -55,7 +52,7 @@ public class PagarCuota extends BaseServlet {
 			}
 			entity.SolicitudPrestamo sp = new entity.SolicitudPrestamo();
 			sp.setCodigo(codigo);
-			Response<DetalleCuotaPrestamo> res = cuota.getByRequest(sp);
+			Response<Cuota> res = cuota.getByRequest(sp);
 			response.setStatus(res.http);
 			write(response, res.toFinalJSON());
 		}

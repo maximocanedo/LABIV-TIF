@@ -7,7 +7,7 @@ import java.util.List;
 import dataImpl.ClienteDaoImpl;
 import dataImpl.RequestC01DaoImpl;
 import entity.Cliente;
-import entity.RequestC01;
+import entity.SolicitudCambioClave;
 import logic.IRequestC01Logic;
 import max.Dictionary;
 import max.IRecordLogic;
@@ -15,7 +15,7 @@ import max.Response;
 import max.TransactionResponse;
 import oops.SchemaValidationException;
 
-public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, IRequestC01Logic {
+public class RequestC01LogicImpl implements IRecordLogic<SolicitudCambioClave, Integer>, IRequestC01Logic {
 
 	private final RequestC01DaoImpl dao = new RequestC01DaoImpl();
 	
@@ -23,8 +23,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#validate(entity.RequestC01, boolean)
 	 */
 	@Override
-	public Response<RequestC01> validate(RequestC01 arg0, boolean validateConstraints) {
-		Response<RequestC01> res = new Response<>();
+	public Response<SolicitudCambioClave> validate(SolicitudCambioClave arg0, boolean validateConstraints) {
+		Response<SolicitudCambioClave> res = new Response<>();
 		try {
 			res.status = validateConstraints 
 					? RequestC01DaoImpl._model.validate(arg0.toDictionary()) 
@@ -40,8 +40,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#insert(entity.RequestC01)
 	 */
 	@Override
-	public Response<RequestC01> insert(RequestC01 arg0) {
-		Response<RequestC01> result = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> insert(SolicitudCambioClave arg0) {
+		Response<SolicitudCambioClave> result = new Response<SolicitudCambioClave>();
 		try {
 			result = convertWildcard(dao.insert(arg0));
 			result.objectReturned = arg0;
@@ -56,8 +56,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 
 
 	@Override
-	public Response<RequestC01> modify(RequestC01 arg0) {
-		Response<RequestC01> result = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> modify(SolicitudCambioClave arg0) {
+		Response<SolicitudCambioClave> result = new Response<SolicitudCambioClave>();
 		try {
 			result = convertWildcard(dao.modify(arg0));
 			result.message = result.status ? "El registro se modificó correctamente. " : "No se modificó ningún registro. ";
@@ -73,9 +73,9 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#delete(entity.RequestC01)
 	 */
 	@Override
-	public Response<RequestC01> delete(RequestC01 data) {
+	public Response<SolicitudCambioClave> delete(SolicitudCambioClave data) {
 		TransactionResponse<?> res;
-		Response<RequestC01> result = new Response<RequestC01>();
+		Response<SolicitudCambioClave> result = new Response<SolicitudCambioClave>();
 		try {
 			res = dao.delete(data);
 			result = convertWildcard(res);
@@ -92,8 +92,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#getAll()
 	 */
 	@Override
-	public Response<RequestC01> getAll() {
-		Response<RequestC01> res = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> getAll() {
+		Response<SolicitudCambioClave> res = new Response<SolicitudCambioClave>();
 		try {
 			res = convert(dao.getAll());
 		} catch (SQLException e) {
@@ -108,8 +108,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#getById(java.lang.Integer)
 	 */
 	@Override
-	public Response<RequestC01> getById(Integer id) {
-		Response<RequestC01> res = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> getById(Integer id) {
+		Response<SolicitudCambioClave> res = new Response<SolicitudCambioClave>();
 		try {
 			res = convert(dao.getById(id));
 		} catch (SQLException e) {
@@ -124,8 +124,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#exists(java.lang.Integer)
 	 */
 	@Override
-	public Response<RequestC01> exists(Integer id) {
-		Response<RequestC01> res = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> exists(Integer id) {
+		Response<SolicitudCambioClave> res = new Response<SolicitudCambioClave>();
 		boolean o = false;
 		try {
 			o = dao.exists(id);
@@ -142,8 +142,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#convert(max.data.TransactionResponse)
 	 */
 	@Override
-	public Response<RequestC01> convert(TransactionResponse<RequestC01> data) {
-		Response<RequestC01> x = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> convert(TransactionResponse<SolicitudCambioClave> data) {
+		Response<SolicitudCambioClave> x = new Response<SolicitudCambioClave>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.listReturned = data.rowsReturned;
@@ -155,8 +155,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#convertWildcard(max.data.TransactionResponse)
 	 */
 	@Override
-	public Response<RequestC01> convertWildcard(TransactionResponse<?> data) {
-		Response<RequestC01> x = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> convertWildcard(TransactionResponse<?> data) {
+		Response<SolicitudCambioClave> x = new Response<SolicitudCambioClave>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -167,8 +167,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#convert(max.data.Dictionary)
 	 */
 	@Override
-	public RequestC01 convert(Dictionary row) {
-		RequestC01 req = new RequestC01();
+	public SolicitudCambioClave convert(Dictionary row) {
+		SolicitudCambioClave req = new SolicitudCambioClave();
 		if(row.containsKey(RequestC01DaoImpl.Fields.id.name)) {
 			req.setId(row.$(RequestC01DaoImpl.Fields.id.name));
 		}
@@ -201,8 +201,8 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#convert(java.util.List)
 	 */
 	@Override
-	public List<RequestC01> convert(List<Dictionary> rows) {
-		List<RequestC01> list = new ArrayList<RequestC01>();
+	public List<SolicitudCambioClave> convert(List<Dictionary> rows) {
+		List<SolicitudCambioClave> list = new ArrayList<SolicitudCambioClave>();
 		for(Dictionary row : rows) {
 			list.add(convert(row));
 		}
@@ -213,9 +213,9 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#issue(entity.Cliente)
 	 */
 	@Override
-	public Response<RequestC01> issue(Cliente client) {
-		Response<RequestC01> res = new Response<RequestC01>();
-		RequestC01 req = new RequestC01();
+	public Response<SolicitudCambioClave> issue(Cliente client) {
+		Response<SolicitudCambioClave> res = new Response<SolicitudCambioClave>();
+		SolicitudCambioClave req = new SolicitudCambioClave();
 		req.setIssuer(client);
 		req.setIssuedOn(new java.sql.Timestamp(System.currentTimeMillis()));
 		try {
@@ -235,10 +235,10 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 	 * @see logicImpl.IRequestC01Logic#close(java.lang.Integer)
 	 */
 	@Override
-	public Response<RequestC01> close(Integer id) {
-		Response<RequestC01> res = new Response<RequestC01>();
+	public Response<SolicitudCambioClave> close(Integer id) {
+		Response<SolicitudCambioClave> res = new Response<SolicitudCambioClave>();
 		// Verificar que exista el ID y que esté abierto.
-		Response<RequestC01> buscarId = getById(id);
+		Response<SolicitudCambioClave> buscarId = getById(id);
 		if(buscarId != null && !buscarId.listReturned.isEmpty()) {
 			if(buscarId.listReturned.get(0).isStatus()) {
 				res.die(false, 403, "Esta solicitud ya fue aprobada. ");
@@ -251,7 +251,7 @@ public class RequestC01LogicImpl implements IRecordLogic<RequestC01, Integer>, I
 			res.die(false, 500, "Error desconocido. ");
 			return res;
 		}
-		RequestC01 req = buscarId.listReturned.get(0);
+		SolicitudCambioClave req = buscarId.listReturned.get(0);
 		String dni = req.getIssuer().getDNI();
 		// Generar clave nueva
 		ClienteLogicImpl clogic = new ClienteLogicImpl();

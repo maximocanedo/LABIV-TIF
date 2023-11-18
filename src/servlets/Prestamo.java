@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Cliente;
-import entity.PrestamosCliente;
 import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
 import max.Response;
@@ -48,10 +47,10 @@ public class Prestamo extends BaseServlet {
     		response.setStatus(401);
     		return;
     	}
-    	Response<PrestamosCliente> res = (new PrestamoClienteLogicImpl()).getById(loanId);
+    	Response<entity.Prestamo> res = (new PrestamoClienteLogicImpl()).getById(loanId);
     	response.setStatus(res.http);
     	if(res.nonEmptyResult()) {
-    		PrestamosCliente loan = res.listReturned.get(0);
+    		entity.Prestamo loan = res.listReturned.get(0);
     		if(loan == null) {
     			response.setStatus(503);
     			return;

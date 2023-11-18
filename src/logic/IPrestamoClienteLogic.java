@@ -2,33 +2,33 @@ package logic;
 
 import java.util.List;
 
-import entity.PrestamosCliente;
+import entity.Prestamo;
 import max.Dictionary;
 import max.Response;
 import max.TransactionResponse;
 
 public interface IPrestamoClienteLogic {
 
-	Response<PrestamosCliente> validate(PrestamosCliente data, boolean validatePKDuplicates);
+	Response<Prestamo> validate(Prestamo data, boolean validatePKDuplicates);
 
-	Response<PrestamosCliente> convertWildcard(TransactionResponse<?> data);
+	Response<Prestamo> convertWildcard(TransactionResponse<?> data);
 
-	Response<PrestamosCliente> insert(PrestamosCliente data);
+	Response<Prestamo> insert(Prestamo data);
 
-	Response<PrestamosCliente> modify(PrestamosCliente data);
+	Response<Prestamo> modify(Prestamo data);
 
-	Response<PrestamosCliente> delete(PrestamosCliente data);
+	Response<Prestamo> delete(Prestamo data);
 
-	Response<PrestamosCliente> getAll();
+	Response<Prestamo> getAll();
 
-	PrestamosCliente convert(Dictionary d);
+	Prestamo convert(Dictionary d);
 
-	List<PrestamosCliente> convert(List<Dictionary> rows);
+	List<Prestamo> convert(List<Dictionary> rows);
 
-	Response<PrestamosCliente> getById(Integer id);
+	Response<Prestamo> getById(Integer id);
 
-	Response<PrestamosCliente> getById(String usuario_cl_PxC);
+	Response<Prestamo> getById(String usuario_cl_PxC);
 
-	Response<PrestamosCliente> exists(Integer id);
+	Response<Prestamo> exists(Integer id);
 
 }

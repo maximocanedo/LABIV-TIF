@@ -16,7 +16,7 @@ import data.IRequestC01Dao;
 import entity.*;
 import logicImpl.RequestC01LogicImpl;
 
-public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequestC01Dao {
+public class RequestC01DaoImpl implements IRecord<SolicitudCambioClave, Integer>, IRequestC01Dao {
 	
 	public static class Fields {
 		public static SchemaProperty id = new SchemaProperty("id_rc01") {{
@@ -96,7 +96,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#insert(entity.RequestC01)
 	 */
 	@Override
-	public TransactionResponse<?> insert(RequestC01 data) throws SQLException {
+	public TransactionResponse<?> insert(SolicitudCambioClave data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		Dictionary dict = data.toDictionary();
 		try {
@@ -111,7 +111,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#issue(entity.RequestC01)
 	 */
 	@Override
-	public TransactionResponse<?> issue(RequestC01 data) throws SQLException {
+	public TransactionResponse<?> issue(SolicitudCambioClave data) throws SQLException {
 		data.setStatus(false);
 		TransactionResponse<?> res = TransactionResponse.create();
 		data.setClosedOn(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -127,7 +127,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#close(entity.RequestC01)
 	 */
 	@Override
-	public TransactionResponse<?> close(RequestC01 data) throws SQLException {
+	public TransactionResponse<?> close(SolicitudCambioClave data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		Dictionary dict = data.toDictionary();
 		Dictionary id = data.toIdentifiableDictionary();
@@ -144,7 +144,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#delete(entity.RequestC01)
 	 */
 	@Override
-	public TransactionResponse<?> delete(RequestC01 data) throws SQLException {
+	public TransactionResponse<?> delete(SolicitudCambioClave data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		Dictionary dict = data.toIdentifiableDictionary();
 		try {
@@ -159,7 +159,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#modify(entity.RequestC01)
 	 */
 	@Override
-	public TransactionResponse<?> modify(RequestC01 data) throws SQLException {
+	public TransactionResponse<?> modify(SolicitudCambioClave data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		Dictionary dict = data.toDictionary();
 		Dictionary id = data.toIdentifiableDictionary();
@@ -175,7 +175,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#getAll()
 	 */
 	@Override
-	public TransactionResponse<RequestC01> getAll() throws SQLException {
+	public TransactionResponse<SolicitudCambioClave> getAll() throws SQLException {
 		return select("SELECT * FROM " + printTDB());
 	}
 
@@ -183,7 +183,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 * @see dataImpl.IRequestC01Dao#getById(java.lang.Integer)
 	 */
 	@Override
-	public TransactionResponse<RequestC01> getById(Integer id) throws SQLException {
+	public TransactionResponse<SolicitudCambioClave> getById(Integer id) throws SQLException {
 		return select(
 			"SELECT * FROM " + printTDB() + " WHERE " + Fields.id.name + " = @id", 
 			Dictionary.fromArray("id", id)
@@ -195,7 +195,7 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 	 */
 	@Override
 	public boolean exists(Integer arg0) throws SQLException {
-		RequestC01 a = new RequestC01();
+		SolicitudCambioClave a = new SolicitudCambioClave();
 		a.setId(arg0);
 		return _model.exists(a.toIdentifiableDictionary());
 	}
@@ -207,18 +207,18 @@ public class RequestC01DaoImpl implements IRecord<RequestC01, Integer>, IRequest
 		return _model.exists(d);
 	}
 	
-	private TransactionResponse<RequestC01> select(String arg0) throws SQLException {
+	private TransactionResponse<SolicitudCambioClave> select(String arg0) throws SQLException {
 		RequestC01LogicImpl logic = new RequestC01LogicImpl();
-		TransactionResponse<RequestC01> res = new TransactionResponse<RequestC01>();
+		TransactionResponse<SolicitudCambioClave> res = new TransactionResponse<SolicitudCambioClave>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
 		}
 		return res;
 	}
-	private TransactionResponse<RequestC01> select(String arg0, Dictionary arg1) throws SQLException {
+	private TransactionResponse<SolicitudCambioClave> select(String arg0, Dictionary arg1) throws SQLException {
 		RequestC01LogicImpl logic = new RequestC01LogicImpl();
-		TransactionResponse<RequestC01> res = new TransactionResponse<RequestC01>();
+		TransactionResponse<SolicitudCambioClave> res = new TransactionResponse<SolicitudCambioClave>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);

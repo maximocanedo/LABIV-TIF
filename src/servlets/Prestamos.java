@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Administrador;
 import entity.Cliente;
-import entity.PrestamosCliente;
+import entity.Prestamo;
 import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
 import logicImpl.AuthManager.TokenData;
@@ -34,13 +33,13 @@ public class Prestamos extends BaseServlet {
     PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();
     
     protected void getLoans__Admin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	Response<PrestamosCliente> res = logic.getAll();
+    	Response<Prestamo> res = logic.getAll();
 		write(response, res.toFinalJSON());
     }
     
     protected void getLoans__Client(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Cliente cliente = AuthManager.getActualClient(request, response);
-		Response<PrestamosCliente> res = logic.getById(cliente.getUsuario().toString());
+		Response<Prestamo> res = logic.getById(cliente.getUsuario().toString());
 		write(response, res.toFinalJSON());
     }
 

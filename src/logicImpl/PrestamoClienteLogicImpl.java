@@ -7,7 +7,7 @@ import java.util.List;
 import dataImpl.PrestamosClienteDaoImpl;
 import entity.Cliente;
 import entity.Cuenta;
-import entity.PrestamosCliente;
+import entity.Prestamo;
 import entity.SolicitudPrestamo;
 import logic.IPrestamoClienteLogic;
 import max.Dictionary;
@@ -16,7 +16,7 @@ import max.Response;
 import max.TransactionResponse;
 import oops.SchemaValidationException;
 
-public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, Integer>, IPrestamoClienteLogic {
+public class PrestamoClienteLogicImpl implements IRecordLogic<Prestamo, Integer>, IPrestamoClienteLogic {
 
 	public PrestamoClienteLogicImpl() {}
 	
@@ -26,8 +26,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#validate(entity.PrestamosCliente, boolean)
 	 */
 	@Override
-	public Response<PrestamosCliente> validate(PrestamosCliente data, boolean validatePKDuplicates) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+	public Response<Prestamo> validate(Prestamo data, boolean validatePKDuplicates) {
+		Response<Prestamo> res = new Response<Prestamo>();
 		try {
 			res.status = validatePKDuplicates
 					? PrestamosClienteDaoImpl._model.validate(data.toDictionary()) 
@@ -43,8 +43,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#convertWildcard(max.data.TransactionResponse)
 	 */
 	@Override
-	public Response<PrestamosCliente> convertWildcard(TransactionResponse<?> data) {
-		Response<PrestamosCliente> x = new Response<PrestamosCliente>();
+	public Response<Prestamo> convertWildcard(TransactionResponse<?> data) {
+		Response<Prestamo> x = new Response<Prestamo>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -55,8 +55,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#insert(entity.PrestamosCliente)
 	 */
 	@Override
-	public Response<PrestamosCliente> insert(PrestamosCliente data) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+	public Response<Prestamo> insert(Prestamo data) {
+		Response<Prestamo> res = new Response<Prestamo>();
 		try {
 			res = convertWildcard(pcDao.insert(data));
 			res.objectReturned = data;
@@ -73,8 +73,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#modify(entity.PrestamosCliente)
 	 */
 	@Override
-	public Response<PrestamosCliente> modify(PrestamosCliente data) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+	public Response<Prestamo> modify(Prestamo data) {
+		Response<Prestamo> res = new Response<Prestamo>();
 		TransactionResponse<?> tpr;
 		try {
 			tpr = pcDao.modify(data);
@@ -92,8 +92,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#delete(entity.PrestamosCliente)
 	 */
 	@Override
-	public Response<PrestamosCliente> delete(PrestamosCliente data) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+	public Response<Prestamo> delete(Prestamo data) {
+		Response<Prestamo> res = new Response<Prestamo>();
 		TransactionResponse<?> spr;
 		try {
 			spr = pcDao.delete(data);
@@ -111,9 +111,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#getAll()
 	 */
 	@Override
-	public Response<PrestamosCliente> getAll() {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
-		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
+	public Response<Prestamo> getAll() {
+		Response<Prestamo> res = new Response<Prestamo>();
+		TransactionResponse<Prestamo> tpr = new TransactionResponse<Prestamo>();
 		try {
 			tpr = pcDao.getAll();
 			if(tpr.nonEmptyResult()) {
@@ -130,8 +130,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#convert(max.data.Dictionary)
 	 */
 	@Override
-	public PrestamosCliente convert(Dictionary d) {
-		PrestamosCliente p = new PrestamosCliente();
+	public Prestamo convert(Dictionary d) {
+		Prestamo p = new Prestamo();
 		
 		if(d.$("id_PxC") != null) p.setId(d.$("id_PxC"));
 		if(d.$("usuario_cl_PxC") != null) {
@@ -163,8 +163,8 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#convert(java.util.List)
 	 */
 	@Override
-	public List<PrestamosCliente> convert(List<Dictionary> rows) {
-		List<PrestamosCliente> list = new ArrayList<PrestamosCliente>();
+	public List<Prestamo> convert(List<Dictionary> rows) {
+		List<Prestamo> list = new ArrayList<Prestamo>();
 		for(Dictionary data : rows) {
 			list.add(convert(data));
 		}
@@ -175,9 +175,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#getById(java.lang.Integer)
 	 */
 	@Override
-	public Response<PrestamosCliente> getById(Integer id) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
-		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
+	public Response<Prestamo> getById(Integer id) {
+		Response<Prestamo> res = new Response<Prestamo>();
+		TransactionResponse<Prestamo> tpr = new TransactionResponse<Prestamo>();
 		try {
 			tpr = pcDao.getById(id);
 			if(tpr.nonEmptyResult()) {
@@ -193,9 +193,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#getById(java.lang.String)
 	 */
 	@Override
-	public Response<PrestamosCliente> getById(String usuario_cl_PxC) {
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
-		TransactionResponse<PrestamosCliente> tpr = new TransactionResponse<PrestamosCliente>();
+	public Response<Prestamo> getById(String usuario_cl_PxC) {
+		Response<Prestamo> res = new Response<Prestamo>();
+		TransactionResponse<Prestamo> tpr = new TransactionResponse<Prestamo>();
 		try {
 			tpr = pcDao.getById(usuario_cl_PxC);
 			if(tpr.nonEmptyResult()) {
@@ -212,9 +212,9 @@ public class PrestamoClienteLogicImpl implements IRecordLogic<PrestamosCliente, 
 	 * @see logicImpl.IPrestamoClienteLogic#exists(java.lang.Integer)
 	 */
 	@Override
-	public Response<PrestamosCliente> exists(Integer id) {
+	public Response<Prestamo> exists(Integer id) {
 		
-		Response<PrestamosCliente> res = new Response<PrestamosCliente>();
+		Response<Prestamo> res = new Response<Prestamo>();
 		boolean existe = false;
 		try {
 			existe = pcDao.exists(id);

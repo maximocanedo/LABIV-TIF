@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import data.IPrestamoClienteDao;
-import entity.PrestamosCliente;
+import entity.Prestamo;
 import logicImpl.PrestamoClienteLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -18,7 +18,7 @@ import oops.SchemaValidationException;
 	
 
 
-public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Integer>, IPrestamoClienteDao {
+public class PrestamosClienteDaoImpl implements IRecord<Prestamo, Integer>, IPrestamoClienteDao {
 
 	
 	public PrestamosClienteDaoImpl() {}
@@ -114,7 +114,7 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 * @see dataImpl.IPrestamoClienteDao#insert(entity.PrestamosCliente)
 	 */
 	@Override
-	public TransactionResponse<?> insert(PrestamosCliente data) throws SQLException {
+	public TransactionResponse<?> insert(Prestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			res = _model.create(data.toDictionary());
@@ -128,7 +128,7 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 * @see dataImpl.IPrestamoClienteDao#delete(entity.PrestamosCliente)
 	 */
 	@Override
-	public TransactionResponse<?> delete(PrestamosCliente data) throws SQLException {
+	public TransactionResponse<?> delete(Prestamo data) throws SQLException {
 		TransactionResponse<?> res = null;
 		try {
 			res = _model.delete(data.toIdentifiableDictionary());
@@ -142,7 +142,7 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 * @see dataImpl.IPrestamoClienteDao#modify(entity.PrestamosCliente)
 	 */
 	@Override
-	public TransactionResponse<?> modify(PrestamosCliente data) throws SQLException {
+	public TransactionResponse<?> modify(Prestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
 			res = _model.modify(data.toDictionary(),data.toIdentifiableDictionary());
@@ -156,12 +156,12 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 * @see dataImpl.IPrestamoClienteDao#getAll()
 	 */
 	@Override
-	public TransactionResponse<PrestamosCliente> getAll() throws SQLException {
+	public TransactionResponse<Prestamo> getAll() throws SQLException {
 		return select("SELECT * FROM prestamos__select");
 	}
 	
-	private TransactionResponse<PrestamosCliente> select(String arg0) throws SQLException {
-		TransactionResponse<PrestamosCliente> res = new TransactionResponse<PrestamosCliente>();
+	private TransactionResponse<Prestamo> select(String arg0) throws SQLException {
+		TransactionResponse<Prestamo> res = new TransactionResponse<Prestamo>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
@@ -169,8 +169,8 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 		return res;
 	}	
 
-	private TransactionResponse<PrestamosCliente> select(String arg0, Dictionary arg1) throws SQLException {
-		TransactionResponse<PrestamosCliente> res = new TransactionResponse<PrestamosCliente>();
+	private TransactionResponse<Prestamo> select(String arg0, Dictionary arg1) throws SQLException {
+		TransactionResponse<Prestamo> res = new TransactionResponse<Prestamo>();
 		TransactionResponse<Dictionary> rd = db.fetch(arg0, arg1);
 		if(rd.nonEmptyResult()) {
 			res.rowsReturned = logic.convert(rd.rowsReturned);
@@ -182,14 +182,14 @@ public class PrestamosClienteDaoImpl implements IRecord<PrestamosCliente, Intege
 	 * @see dataImpl.IPrestamoClienteDao#getById(java.lang.Integer)
 	 */
 	@Override
-	public TransactionResponse<PrestamosCliente> getById(Integer id) throws SQLException {
+	public TransactionResponse<Prestamo> getById(Integer id) throws SQLException {
 		return select("SELECT * FROM prestamos__select WHERE id_PxC = @id", Dictionary.fromArray("id",id));
 	}
 	/* (non-Javadoc)
 	 * @see dataImpl.IPrestamoClienteDao#getById(java.lang.String)
 	 */
 	@Override
-	public TransactionResponse<PrestamosCliente> getById(String usuario_cl_PxC) throws SQLException {
+	public TransactionResponse<Prestamo> getById(String usuario_cl_PxC) throws SQLException {
 		return select("SELECT * FROM prestamos__select WHERE usuario_cl_PxC = @usuario_cl_PxC", Dictionary.fromArray("usuario_cl_PxC",usuario_cl_PxC));
 	}
 

@@ -1,8 +1,8 @@
 package api;
 
 import entity.Cliente;
-import entity.DetalleCuotaPrestamo;
-import entity.PrestamosCliente;
+import entity.Cuota;
+import entity.Prestamo;
 import entity.SolicitudPrestamo;
 import logicImpl.AuthManager;
 import logicImpl.DetalleCuotaPrestamoLogicImpl;
@@ -11,7 +11,6 @@ import logicImpl.SolicitudPrestamoLogicImpl;
 import max.Dictionary;
 import max.Response;
 import servlets.BaseServlet;
-import servlets.Prestamo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,7 @@ public class LoanInstallments extends BaseServlet {
     private final PrestamoClienteLogicImpl PCLI = new PrestamoClienteLogicImpl();
     private SolicitudPrestamoLogicImpl logic = new SolicitudPrestamoLogicImpl();
     private DetalleCuotaPrestamoLogicImpl cuota = new DetalleCuotaPrestamoLogicImpl();
-    protected PrestamosCliente getSpecifiedLoan(HttpServletRequest req, HttpServletResponse res) {
+    protected Prestamo getSpecifiedLoan(HttpServletRequest req, HttpServletResponse res) {
         String strid = getPathParameter(req, 1);
         if(strid == null) {
             res.setStatus(400);
@@ -38,7 +37,7 @@ public class LoanInstallments extends BaseServlet {
             res.setStatus(400);
             return null;
         }
-        Response<PrestamosCliente> data = PCLI.getById(id);
+        Response<Prestamo> data = PCLI.getById(id);
         if(data == null || data.listReturned == null) {
             res.setStatus(404);
             return null;
@@ -55,11 +54,11 @@ public class LoanInstallments extends BaseServlet {
         }
         Cliente cliente = AuthManager.getActualClient(request, response);
         if(cliente != null) {
-            PrestamosCliente loan = getSpecifiedLoan(request, response);
+            Prestamo loan = getSpecifiedLoan(request, response);
             String codigo = loan.getSolicitud().getCodigo();
             SolicitudPrestamo sp = new SolicitudPrestamo();
             sp.setCodigo(codigo);
-            Response<DetalleCuotaPrestamo> res = cuota.getByRequest(sp);
+            Response<Cuota> res = cuota.getByRequest(sp);
             response.setStatus(res.http);
             write(response, res.toFinalJSON());
         }
@@ -76,7 +75,7 @@ public class LoanInstallments extends BaseServlet {
                     die(response, false, 400, "Bad request");
                     return;
                 }
-                PrestamosCliente data = getSpecifiedLoan(request, response);
+                Prestamo data = getSpecifiedLoan(request, response);
                 if(data == null) return;
                 SolicitudPrestamo pagarCuota = logic.convert(parameters);
                 pagarCuota.setCodigo(data.getSolicitud().getCodigo());

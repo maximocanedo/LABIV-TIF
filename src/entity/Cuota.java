@@ -7,13 +7,13 @@ import java.sql.Date;
 
 import com.google.gson.JsonObject;
 
-public class DetalleCuotaPrestamo implements IEntity {
+public class Cuota implements IEntity {
 	
 	private int id;
 	private Cliente cliente;
 	private Date fechaPago;
 	private int numeroCuotaPagada;
-	private PrestamosCliente prestamo;
+	private Prestamo prestamo;
 	
 	public JsonObject toJsonObject() {
 		JsonObject obj = new JsonObject();
@@ -29,10 +29,10 @@ public class DetalleCuotaPrestamo implements IEntity {
 		return toJsonObject().toString();
 	}
 	
-	public DetalleCuotaPrestamo() {}
+	public Cuota() {}
 
-	public DetalleCuotaPrestamo(int id_DTPT, Cliente usuario_cl_DTPT, Date fechaPago_DTPT, Integer numCuotaPagada_DTPT,
-			PrestamosCliente cod_Sol_DTPT) {
+	public Cuota(int id_DTPT, Cliente usuario_cl_DTPT, Date fechaPago_DTPT, Integer numCuotaPagada_DTPT,
+				 Prestamo cod_Sol_DTPT) {
 		this.id = id_DTPT;
 		this.cliente = usuario_cl_DTPT;
 		this.fechaPago = fechaPago_DTPT;
@@ -72,11 +72,11 @@ public class DetalleCuotaPrestamo implements IEntity {
 		this.numeroCuotaPagada = numCuotaPagada_DTPT;
 	}
 
-	public PrestamosCliente getCod_Sol_DTPT() {
+	public Prestamo getCod_Sol_DTPT() {
 		return prestamo;
 	}
 
-	public void setCod_Sol_DTPT(PrestamosCliente cod_Sol_DTPT) {
+	public void setCod_Sol_DTPT(Prestamo cod_Sol_DTPT) {
 		this.prestamo = cod_Sol_DTPT;
 	}
 

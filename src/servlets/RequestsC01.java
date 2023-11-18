@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.Administrador;
 import entity.Cliente;
+import entity.SolicitudCambioClave;
 import logicImpl.AuthManager;
 import logicImpl.RequestC01LogicImpl;
 import max.Response;
@@ -36,7 +37,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrador admin = AuthManager.getActualAdmin(request, response);
 		if(admin != null) {
-			Response<entity.RequestC01> fet = logic.getAll();
+			Response<SolicitudCambioClave> fet = logic.getAll();
 			write(response, fet.toFinalJSON());
 			response.setStatus(fet.http);
 		}
@@ -49,7 +50,7 @@ public class RequestsC01 extends BaseServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cliente client = AuthManager.getActualClient(request, response);
 		if(client != null) {
-			Response<entity.RequestC01> fet = logic.issue(client);
+			Response<SolicitudCambioClave> fet = logic.issue(client);
 			write(response, fet.toFinalJSON());
 			response.setStatus(fet.http);
 		}

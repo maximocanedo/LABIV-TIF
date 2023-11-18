@@ -1,7 +1,7 @@
 package api;
 
 import entity.Cliente;
-import entity.PrestamosCliente;
+import entity.Prestamo;
 import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
 import max.Response;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class Loan extends BaseServlet {
     public Loan() { super(); }
     private final PrestamoClienteLogicImpl PCLI = new PrestamoClienteLogicImpl();
-    protected PrestamosCliente getSpecifiedLoan(HttpServletRequest req, HttpServletResponse res) {
+    protected Prestamo getSpecifiedLoan(HttpServletRequest req, HttpServletResponse res) {
         String strid = getPathParameter(req, 0);
         if(strid == null) {
             res.setStatus(400);
@@ -30,7 +30,7 @@ public class Loan extends BaseServlet {
             res.setStatus(400);
             return null;
         }
-        Response<PrestamosCliente> data = PCLI.getById(id);
+        Response<Prestamo> data = PCLI.getById(id);
         if(data == null || data.listReturned == null) {
             res.setStatus(404);
             return null;
@@ -41,7 +41,7 @@ public class Loan extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthManager.TokenData td = AuthManager.readToken(request);
-        PrestamosCliente loan = getSpecifiedLoan(request, response);
+        Prestamo loan = getSpecifiedLoan(request, response);
         if(td != null) {
             switch(td.role) {
                 case AuthManager.ADMIN:

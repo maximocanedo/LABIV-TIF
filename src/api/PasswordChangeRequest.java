@@ -2,7 +2,7 @@ package api;
 
 import entity.Administrador;
 import entity.Cliente;
-import entity.RequestC01;
+import entity.SolicitudCambioClave;
 import logicImpl.AuthManager;
 import logicImpl.RequestC01LogicImpl;
 import max.Response;
@@ -31,13 +31,13 @@ public class PasswordChangeRequest extends BaseServlet {
             response.setStatus(400);
             return;
         }
-        Response<RequestC01> resRCF = logic.getById(id);
+        Response<SolicitudCambioClave> resRCF = logic.getById(id);
         //write(response, new Gson().toJson(resRCF));
         if(resRCF.listReturned.isEmpty()) {
             response.setStatus(404);
             return;
         }
-        RequestC01 requestC01 = resRCF.listReturned.get(0);
+        SolicitudCambioClave solicitudCambioClave = resRCF.listReturned.get(0);
         /* Verificar si es cliente o admin */
         AuthManager.TokenData td = AuthManager.readToken(request);
         if(td != null) {
@@ -48,7 +48,7 @@ public class PasswordChangeRequest extends BaseServlet {
                 case AuthManager.CLIENT:
                     Cliente cliente = AuthManager.getActualClient(request, response);
                     if(cliente == null) return;
-                    if(requestC01.getIssuer().getDNI().equals(cliente.getDNI())) {
+                    if(solicitudCambioClave.getIssuer().getDNI().equals(cliente.getDNI())) {
                         write(response, resRCF.toFinalJSON());
                         response.setStatus(200);
                         return;
@@ -78,7 +78,7 @@ public class PasswordChangeRequest extends BaseServlet {
             response.setStatus(400);
             return;
         }
-        Response<RequestC01> resRCF = logic.getById(id);
+        Response<SolicitudCambioClave> resRCF = logic.getById(id);
         //write(response, new Gson().toJson(resRCF));
         if(resRCF.listReturned.isEmpty()) {
             response.setStatus(404);

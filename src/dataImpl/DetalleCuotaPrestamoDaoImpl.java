@@ -5,9 +5,8 @@ import java.sql.Types;
 
 import data.IDetalleCuotaPrestamoDao;
 import entity.Cliente;
-import entity.DetalleCuotaPrestamo;
+import entity.Cuota;
 import entity.SolicitudPrestamo;
-import entity.Telefono;
 import logicImpl.DetalleCuotaPrestamoLogicImpl;
 import max.Connector;
 import max.Dictionary;
@@ -19,7 +18,7 @@ import max.SchemaProperty;
 import max.TransactionResponse;
 import oops.SchemaValidationException;
 
-public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoDao {
+public class DetalleCuotaPrestamoDaoImpl implements IRecord<Cuota,Integer>, IDetalleCuotaPrestamoDao {
 	
 	public final static Schema _schema = new Schema(
 			new SchemaProperty("id_DTPT"){{
@@ -67,7 +66,7 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 	
 	
 	@Override
-	public TransactionResponse<?> insert(DetalleCuotaPrestamo obj) throws SQLException {
+	public TransactionResponse<?> insert(Cuota obj) throws SQLException {
 		
 		TransactionResponse<?> tr = TransactionResponse.create();
 		
@@ -81,7 +80,7 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 	}
 
 	@Override
-	public TransactionResponse<?> delete(DetalleCuotaPrestamo obj) throws SQLException {
+	public TransactionResponse<?> delete(Cuota obj) throws SQLException {
 		
 		TransactionResponse<?> tr = TransactionResponse.create();
 		
@@ -95,7 +94,7 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 	}
 
 	@Override
-	public TransactionResponse<?> modify(DetalleCuotaPrestamo obj) throws SQLException {
+	public TransactionResponse<?> modify(Cuota obj) throws SQLException {
 		
 		TransactionResponse<?> tr = TransactionResponse.create();
 		
@@ -109,10 +108,10 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 	}
 
 	@Override
-	public TransactionResponse<DetalleCuotaPrestamo> getAll() throws SQLException {
+	public TransactionResponse<Cuota> getAll() throws SQLException {
 		
 		TransactionResponse<Dictionary> tr =dbCon.fetch("SELECT * FROM " + printTDB());
-		TransactionResponse<DetalleCuotaPrestamo> t = TransactionResponse.create();
+		TransactionResponse<Cuota> t = TransactionResponse.create();
 		
 		if(tr.nonEmptyResult()) {
 			t.rowsReturned = lgcp.convert(tr.rowsReturned);			
@@ -121,13 +120,13 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 		return t;
 	}
 	
-	public TransactionResponse<DetalleCuotaPrestamo> getAll(Cliente obj) throws SQLException {
+	public TransactionResponse<Cuota> getAll(Cliente obj) throws SQLException {
 		
 		TransactionResponse<Dictionary> res = dbCon.fetch(
 				"SELECT * FROM cuotas__select WHERE usuario_cl_DTPT = @user ",
 				Dictionary.fromArray("user", obj.getUsuario())
 			);
-			TransactionResponse<DetalleCuotaPrestamo> fres = new TransactionResponse<DetalleCuotaPrestamo>();
+			TransactionResponse<Cuota> fres = new TransactionResponse<Cuota>();
 			fres.status = res.status;
 			if(res.nonEmptyResult()) {
 				fres.rowsReturned = lgcp.convert(res.rowsReturned);
@@ -135,13 +134,13 @@ public class DetalleCuotaPrestamoDaoImpl implements IRecord<DetalleCuotaPrestamo
 			return fres;
 	}
 	
-public TransactionResponse<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo obj) throws SQLException {
+public TransactionResponse<Cuota> getByRequest(SolicitudPrestamo obj) throws SQLException {
 		
 		TransactionResponse<Dictionary> res = dbCon.fetch(
 				"SELECT * FROM tif.detallecuotas WHERE cod_Sol_DTPT = @sp ",
 				Dictionary.fromArray("sp", obj.getCodigo())
 			);
-			TransactionResponse<DetalleCuotaPrestamo> fres = new TransactionResponse<DetalleCuotaPrestamo>();
+			TransactionResponse<Cuota> fres = new TransactionResponse<Cuota>();
 			fres.status = res.status;
 			if(res.nonEmptyResult()) {
 				fres.rowsReturned = lgcp.convert(res.rowsReturned);
@@ -150,13 +149,13 @@ public TransactionResponse<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo 
 	}
 
 	@Override
-	public TransactionResponse<DetalleCuotaPrestamo> getById(Integer id) throws SQLException {
+	public TransactionResponse<Cuota> getById(Integer id) throws SQLException {
 		
 		TransactionResponse<Dictionary> td = dbCon.fetch(
 				"SELECT * FROM " + printTDB() + " WHERE id_DTPT=@id",
 				Dictionary.fromArray("id",id));
 		
-		TransactionResponse<DetalleCuotaPrestamo> t = TransactionResponse.create();
+		TransactionResponse<Cuota> t = TransactionResponse.create();
 		
 		if(td.nonEmptyResult()) {
 			t.rowsReturned=lgcp.convert(td.rowsReturned);			
@@ -170,16 +169,16 @@ public TransactionResponse<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo 
 		return _model.exists(Dictionary.fromArray("id_DTPT",id));
 	}
 	
-	public TransactionResponse<DetalleCuotaPrestamo> filterByUserName(Cliente c) throws SQLException{
+	public TransactionResponse<Cuota> filterByUserName(Cliente c) throws SQLException{
 		
 		return select("SELECT * FROM " + printTDB() + " WHERE usuario_cl_DTPT = @usuario",Dictionary.fromArray("usuario",c.getUsuario()));
 			
 	}
 
-	private TransactionResponse<DetalleCuotaPrestamo> select(String arg0, Dictionary arg1) throws SQLException{
+	private TransactionResponse<Cuota> select(String arg0, Dictionary arg1) throws SQLException{
 		
 		TransactionResponse<Dictionary> td = dbCon.fetch(arg0,arg1);
-		TransactionResponse<DetalleCuotaPrestamo> t = TransactionResponse.create();
+		TransactionResponse<Cuota> t = TransactionResponse.create();
 		
 		if(td.nonEmptyResult()) {
 			t.rowsReturned = lgcp.convert(td.rowsReturned);

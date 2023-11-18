@@ -2,7 +2,7 @@ package api;
 
 import entity.Administrador;
 import entity.Cliente;
-import entity.RequestC01;
+import entity.SolicitudCambioClave;
 import logicImpl.AdministradorLogicImpl;
 import logicImpl.AuthManager;
 import logicImpl.ClienteLogicImpl;
@@ -186,7 +186,7 @@ public class Me extends BaseServlet {
 
     private void client__RequestNewPassword(HttpServletRequest request, HttpServletResponse response, Cliente cliente) throws IOException {
         RequestC01LogicImpl logic = new RequestC01LogicImpl();
-        Response<RequestC01> fet = logic.issue(cliente);
+        Response<SolicitudCambioClave> fet = logic.issue(cliente);
         write(response, fet.toFinalJSON());
         response.setStatus(fet.http);
     }

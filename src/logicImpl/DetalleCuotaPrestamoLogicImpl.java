@@ -6,11 +6,9 @@ import java.util.List;
 
 import dataImpl.DetalleCuotaPrestamoDaoImpl;
 import entity.Cliente;
-import entity.DetalleCuotaPrestamo;
-import entity.Movimiento;
-import entity.PrestamosCliente;
+import entity.Cuota;
+import entity.Prestamo;
 import entity.SolicitudPrestamo;
-import entity.Telefono;
 import logic.IDetalleCuotaPrestamoLogic;
 import max.Dictionary;
 import max.IRecordLogic;
@@ -18,7 +16,7 @@ import max.Response;
 import max.TransactionResponse;
 import oops.SchemaValidationException;
 
-public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaPrestamo,Integer>, IDetalleCuotaPrestamoLogic {
+public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<Cuota,Integer>, IDetalleCuotaPrestamoLogic {
 
 	private static DetalleCuotaPrestamoDaoImpl daoCtPrest = new DetalleCuotaPrestamoDaoImpl();
 	
@@ -29,9 +27,9 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#validate(entity.DetalleCuotaPrestamo, boolean)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> validate(DetalleCuotaPrestamo obj, boolean validar) {
+	public Response<Cuota> validate(Cuota obj, boolean validar) {
 		
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
 				lg.status = validar
@@ -49,9 +47,9 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#insert(entity.DetalleCuotaPrestamo)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> insert(DetalleCuotaPrestamo obj) {
+	public Response<Cuota> insert(Cuota obj) {
 		
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.insert(obj);
@@ -72,9 +70,9 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#modify(entity.DetalleCuotaPrestamo)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> modify(DetalleCuotaPrestamo obj) {
+	public Response<Cuota> modify(Cuota obj) {
 
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.modify(obj);
@@ -95,9 +93,9 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#delete(entity.DetalleCuotaPrestamo)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> delete(DetalleCuotaPrestamo obj) {
+	public Response<Cuota> delete(Cuota obj) {
 
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
 				TransactionResponse<?> t = daoCtPrest.delete(obj);
@@ -118,12 +116,12 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#getAll()
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> getAll() {
+	public Response<Cuota> getAll() {
 
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
-				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getAll();
+				TransactionResponse<Cuota> t = daoCtPrest.getAll();
 				if(t.nonEmptyResult()) {
 					lg.fill(t.rowsReturned);
 				}else {
@@ -141,12 +139,12 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#getById(java.lang.Integer)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> getById(Integer id) {
+	public Response<Cuota> getById(Integer id) {
 
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
-				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getById(id);
+				TransactionResponse<Cuota> t = daoCtPrest.getById(id);
 				if(t.nonEmptyResult()) {
 					lg.fill(t.rowsReturned);
 				}else {
@@ -164,12 +162,12 @@ public class DetalleCuotaPrestamoLogicImpl implements IRecordLogic<DetalleCuotaP
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#filterByUserName(entity.Cliente)
 	 */
 	@Override
-public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
+public Response<Cuota> filterByUserName(Cliente c){
 		
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		
 		try {
-				TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.filterByUserName(c);
+				TransactionResponse<Cuota> t = daoCtPrest.filterByUserName(c);
 				if(t.nonEmptyResult()) {
 					lg.fill(t.rowsReturned);
 					lg.die(true, "Los registros por nombre de usuario se han obtenido exitosamente");
@@ -184,10 +182,10 @@ public Response<DetalleCuotaPrestamo> filterByUserName(Cliente c){
 		return lg;
 	}
 	
-public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+public Response<Cuota> getByRequest(SolicitudPrestamo sp) {
+		Response<Cuota> lg = new Response<>();
 		try {
-			TransactionResponse<DetalleCuotaPrestamo> t = daoCtPrest.getByRequest(sp);
+			TransactionResponse<Cuota> t = daoCtPrest.getByRequest(sp);
 			lg.fill(t.rowsReturned);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -201,9 +199,9 @@ public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#exists(java.lang.Integer)
 	 */
 	@Override
-	public Response<DetalleCuotaPrestamo> exists(Integer id) {
+	public Response<Cuota> exists(Integer id) {
 		
-		Response<DetalleCuotaPrestamo> lg = new Response<>();
+		Response<Cuota> lg = new Response<>();
 		boolean estado = false;
 		
 		try {
@@ -225,9 +223,9 @@ public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#convert(max.data.Dictionary)
 	 */
 	@Override
-	public DetalleCuotaPrestamo convert(Dictionary row) {
+	public Cuota convert(Dictionary row) {
 		
-		DetalleCuotaPrestamo obj = new DetalleCuotaPrestamo();
+		Cuota obj = new Cuota();
 				
 		if(row.$("id_DTPT") != null) obj.setId_DTPT(row.$("id_DTPT"));
 		
@@ -239,7 +237,7 @@ public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
 		
 		if(row.$("numCuotaPagada_DTPT") != null) obj.setNumCuotaPagada_DTPT(row.$("numCuotaPagada_DTPT"));
 				
-		if(row.$("cod_Sol_DTPT") != null)obj.setCod_Sol_DTPT(new PrestamosCliente(){{
+		if(row.$("cod_Sol_DTPT") != null)obj.setCod_Sol_DTPT(new Prestamo(){{
 			this.setSolicitud(new SolicitudPrestamo() {{
 				this.setCodigo(row.$("cod_Sol_DTPT"));
 			}});
@@ -252,9 +250,9 @@ public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
 	 * @see logicImpl.IDetalleCuotaPrestamoLogic#convert(java.util.List)
 	 */
 	@Override
-	public List<DetalleCuotaPrestamo> convert(List<Dictionary> rows) {
+	public List<Cuota> convert(List<Dictionary> rows) {
 		
-		List<DetalleCuotaPrestamo> ls = new ArrayList<>();
+		List<Cuota> ls = new ArrayList<>();
 		
 		for(Dictionary d : rows) {
 			ls.add(convert(d));
@@ -264,9 +262,9 @@ public Response<DetalleCuotaPrestamo> getByRequest(SolicitudPrestamo sp) {
 	}
 
 
-	public Response<DetalleCuotaPrestamo> getAll(Cliente cliente) {
-		Response<DetalleCuotaPrestamo> res = new Response<DetalleCuotaPrestamo>();
-		TransactionResponse<DetalleCuotaPrestamo> tpr = new TransactionResponse<DetalleCuotaPrestamo>();
+	public Response<Cuota> getAll(Cliente cliente) {
+		Response<Cuota> res = new Response<Cuota>();
+		TransactionResponse<Cuota> tpr = new TransactionResponse<Cuota>();
 		try {
 			tpr = daoCtPrest.getAll(cliente);
 			if(tpr.nonEmptyResult()) {

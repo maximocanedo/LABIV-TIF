@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import max.Dictionary;
 import max.IEntity;
 
-public class PrestamosCliente implements IEntity {
+public class Prestamo implements IEntity {
 
 	private int id;
 	private Cliente cliente;
@@ -28,7 +28,7 @@ public class PrestamosCliente implements IEntity {
 		this.cuenta = cuenta;
 	}
 
-	public PrestamosCliente() {}
+	public Prestamo() {}
 	
 	public JsonObject toJsonObject() {
 		JsonObject obj = new JsonObject();

@@ -3,30 +3,30 @@ package logic;
 import java.util.List;
 
 import entity.Cliente;
-import entity.DetalleCuotaPrestamo;
+import entity.Cuota;
 import max.Dictionary;
 import max.Response;
 
 public interface IDetalleCuotaPrestamoLogic {
 
-	Response<DetalleCuotaPrestamo> validate(DetalleCuotaPrestamo obj, boolean validar);
+	Response<Cuota> validate(Cuota obj, boolean validar);
 
-	Response<DetalleCuotaPrestamo> insert(DetalleCuotaPrestamo obj);
+	Response<Cuota> insert(Cuota obj);
 
-	Response<DetalleCuotaPrestamo> modify(DetalleCuotaPrestamo obj);
+	Response<Cuota> modify(Cuota obj);
 
-	Response<DetalleCuotaPrestamo> delete(DetalleCuotaPrestamo obj);
+	Response<Cuota> delete(Cuota obj);
 
-	Response<DetalleCuotaPrestamo> getAll();
+	Response<Cuota> getAll();
 
-	Response<DetalleCuotaPrestamo> getById(Integer id);
+	Response<Cuota> getById(Integer id);
 
-	Response<DetalleCuotaPrestamo> filterByUserName(Cliente c);
+	Response<Cuota> filterByUserName(Cliente c);
 
-	Response<DetalleCuotaPrestamo> exists(Integer id);
+	Response<Cuota> exists(Integer id);
 
-	DetalleCuotaPrestamo convert(Dictionary row);
+	Cuota convert(Dictionary row);
 
-	List<DetalleCuotaPrestamo> convert(List<Dictionary> rows);
+	List<Cuota> convert(List<Dictionary> rows);
 
 }

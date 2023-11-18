@@ -1,7 +1,7 @@
 package api;
 
 import entity.Administrador;
-import entity.RequestC01;
+import entity.SolicitudCambioClave;
 import logicImpl.AuthManager;
 import logicImpl.RequestC01LogicImpl;
 import max.Response;
@@ -23,7 +23,7 @@ public class PasswordChangeRequests extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Administrador admin = AuthManager.getActualAdmin(request, response);
         if(admin != null) {
-            Response<RequestC01> fet = logic.getAll();
+            Response<SolicitudCambioClave> fet = logic.getAll();
             write(response, fet.toFinalJSON());
             response.setStatus(fet.http);
         }
