@@ -1,6 +1,7 @@
 package api;
 
 import entity.PrestamosCliente;
+import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
 import max.Response;
 import servlets.BaseServlet;
@@ -38,6 +39,7 @@ public class Loan extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO Validar que sea administrador o dueño del préstamo.
         resp.setStatus(200);
         PrestamosCliente loan = getSpecifiedLoan(req, resp);
         if(loan == null) return;

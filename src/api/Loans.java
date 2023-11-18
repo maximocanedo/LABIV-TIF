@@ -26,6 +26,7 @@ public class Loans extends BaseServlet {
 
     protected void getLoans__Client(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cliente cliente = AuthManager.getActualClient(request, response);
+        if(cliente == null) return;
         Response<PrestamosCliente> res = logic.getById(cliente.getUsuario().toString());
         write(response, res.toFinalJSON());
     }

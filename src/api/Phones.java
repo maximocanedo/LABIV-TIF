@@ -1,5 +1,6 @@
 package api;
 
+import entity.Administrador;
 import entity.Cliente;
 import entity.Telefono;
 import logicImpl.AuthManager;
@@ -52,13 +53,18 @@ public class Phones extends BaseServlet {
     public Cliente getSpecifiedClient(HttpServletRequest request, HttpServletResponse response) {
         String key = getPathParameter(request, 1);
         if (key == "me") return AuthManager.getActualClient(request, response);
-        AuthManager.getActualAdmin(request, response);
+        Administrador admin = AuthManager.getActualAdmin(request, response);
+        if(admin == null) return null;
         return getURLClient(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cliente cliente = getSpecifiedClient(req, resp);
+        if(cliente == null) {
+            resp.setStatus(403);
+            return;
+        }
         String key = getPathParameter(req, 1);
         if(!Objects.equals(key, "me")) AuthManager.getActualAdmin(req, resp);
         Response<Telefono> res = TLI.getAllFor(cliente);
