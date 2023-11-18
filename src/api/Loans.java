@@ -10,10 +10,12 @@ import max.Response;
 import servlets.BaseServlet;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/v2/loans")
 public class Loans extends BaseServlet {
     public Loans() { super(); }
     private final PrestamoClienteLogicImpl logic = new PrestamoClienteLogicImpl();

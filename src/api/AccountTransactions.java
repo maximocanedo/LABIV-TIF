@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet({
-        "/v2/accounts/CBU/*/movements",
-        "/v2/accounts/No/*/movements"
+        "/v2/accounts/CBU/*/transactions",
+        "/v2/accounts/No/*/transactions"
 })
-public class AccountMovements extends BaseServlet {
-    public AccountMovements() { super(); }
+public class AccountTransactions extends BaseServlet {
+    public AccountTransactions() { super(); }
     private final CuentaLogicImpl CLI = new CuentaLogicImpl();
     private final MovimientoLogicImpl MLI = new MovimientoLogicImpl();
     public Cuenta getSpecifiedAccount(HttpServletRequest req, HttpServletResponse res) {

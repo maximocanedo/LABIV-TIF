@@ -2,9 +2,11 @@ package api;
 
 import entity.Administrador;
 import entity.Cliente;
+import entity.RequestC01;
 import logicImpl.AdministradorLogicImpl;
 import logicImpl.AuthManager;
 import logicImpl.ClienteLogicImpl;
+import logicImpl.RequestC01LogicImpl;
 import max.Dictionary;
 import max.Response;
 import servlets.BaseServlet;
@@ -159,11 +161,36 @@ public class Me extends BaseServlet {
 
     @Override
     protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Administrador admin = AuthManager.getActualAdmin(request, response);
-        if(admin != null) {
-            admin__UpdatePassword(request, response, admin);
+        AuthManager.TokenData td = AuthManager.readToken(request);
+        if(td != null) {
+            switch(td.role) {
+                case AuthManager.ADMIN:
+                    Administrador admin = AuthManager.getActualAdmin(request, response);
+                    if(admin != null) {
+                        admin__UpdatePassword(request, response, admin);
+                    }
+                    break;
+                case AuthManager.CLIENT:
+                    Cliente cliente = AuthManager.getActualClient(request, response);
+                    if(cliente != null)
+                        client__RequestNewPassword(request, response, cliente);
+                    break;
+                default:
+                    response.setStatus(403);
+                    break;
+            }
+        } else {
+            response.setStatus(401);
         }
     }
+
+    private void client__RequestNewPassword(HttpServletRequest request, HttpServletResponse response, Cliente cliente) throws IOException {
+        RequestC01LogicImpl logic = new RequestC01LogicImpl();
+        Response<RequestC01> fet = logic.issue(cliente);
+        write(response, fet.toFinalJSON());
+        response.setStatus(fet.http);
+    }
+
     @Override
     protected String[] getAllowedMethods() {
         return new String[] { GET, PUT, DELETE, PATCH };
