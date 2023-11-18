@@ -1,5 +1,6 @@
 package api;
 
+import entity.Cliente;
 import entity.PrestamosCliente;
 import logicImpl.AuthManager;
 import logicImpl.PrestamoClienteLogicImpl;
@@ -38,12 +39,33 @@ public class Loan extends BaseServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Validar que sea administrador o dueño del préstamo.
-        resp.setStatus(200);
-        PrestamosCliente loan = getSpecifiedLoan(req, resp);
-        if(loan == null) return;
-        write(resp, loan.toJSON());
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AuthManager.TokenData td = AuthManager.readToken(request);
+        PrestamosCliente loan = getSpecifiedLoan(request, response);
+        if(td != null) {
+            switch(td.role) {
+                case AuthManager.ADMIN:
+                    response.setStatus(200);
+                    if(loan == null) return;
+                    write(response, loan.toJSON());
+                    return;
+                case AuthManager.CLIENT:
+                    Cliente cliente = AuthManager.getActualClient(request, response);
+                    if(cliente == null) return;
+                    if(loan.getCliente().getDNI().equals(cliente.getDNI())) {
+                        if(loan == null) return;
+                        write(response, loan.toJSON());
+                    } else {
+                        response.setStatus(403);
+                    }
+                default:
+                    response.setStatus(403);
+                    break;
+            }
+        } else {
+            response.setStatus(401);
+        }
+
     }
 
     @Override
