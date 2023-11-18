@@ -352,6 +352,18 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return res;
 	}
+
+	public Response<Cliente> getByCUIL(String cuil) {
+		Response<Cliente> res = new Response<>();
+		try {
+			res = convert(data.getByCUIL(cuil));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+	}
 	
 	public String getTwoRandomChars(String input) {
 	    if (input == null || input.length() < 2) {
@@ -548,14 +560,14 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 	
 	/**
 	 * Valida una contraseña en texto plano con la contraseña encriptada de una cuenta de Cliente existente.
-	 * @param admin Objeto Cliente con su nombre de usuario, hash y salt establecidos.
+	 * @param cliente Objeto Cliente con su nombre de usuario, hash y salt establecidos.
 	 * @param pass Contraseña en texto plano a validar.
 	 * @return Resultado de la operación. 
 	 */
-	public Response<Cliente> validatePassword(Cliente admin, String pass) {
+	public Response<Cliente> validatePassword(Cliente cliente, String pass) {
 		Response<Cliente> response = new Response<Cliente>();
-		byte[] originalHash = admin.getHash();
-		byte[] originalSalt = admin.getSalt();
+		byte[] originalHash = cliente.getHash();
+		byte[] originalSalt = cliente.getSalt();
 		byte[] newHash = PasswordUtils.createHash(pass, originalSalt);
 		if(Arrays.equals(originalHash, newHash)) {
 			response.status = true;

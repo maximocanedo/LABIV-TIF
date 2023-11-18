@@ -1,9 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +55,7 @@ public class SolicitudPrestamo extends BaseServlet {
 			case AuthManager.CLIENT:
 				Cliente cliente = AuthManager.getActualClient(request, response);
 				if(cliente!=null) {
-					resSL = logic.getById(cliente.getUsuario(), paginator);
+					resSL = logic.getAllForClientByDNI(cliente.getUsuario(), paginator);
 					write(response, resSL.toFinalJSON());
 					response.setStatus(201);
 					return;

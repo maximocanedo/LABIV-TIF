@@ -199,38 +199,37 @@ public class SolicitudPrestamoLogicImpl implements IRecordLogic<SolicitudPrestam
 	/* (non-Javadoc)
 	 * @see logicImpl.ISolicitudPrestamoLogic#getById(java.lang.String)
 	 */
-	@Override
+	public Response<SolicitudPrestamo> getAllForClientByDNI(String DNI) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
+		try {
+			tpr = spDao.getAllForClientByDNI(DNI);
+			if(tpr.rowsReturned != null) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
+	public Response<SolicitudPrestamo> getAllForClientByDNI(String DNI, Paginator paginator) {
+		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
+		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
+		try {
+			tpr = spDao.getAllForClientByDNI(DNI, paginator);
+			if(tpr.rowsReturned != null) {
+				res.fill(tpr.rowsReturned);
+			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			res.die(false, " Hubo un error al intentar realizar la consulta. ");
+		}
+		return res;
+	}
+	
 	public Response<SolicitudPrestamo> getById(String id) {
-		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
-		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
-		try {
-			tpr = spDao.getById(id);
-			if(tpr.rowsReturned != null) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			res.die(false, " Hubo un error al intentar realizar la consulta. ");
-		}
-		return res;
-	}
-	
-	public Response<SolicitudPrestamo> getById(String id, Paginator paginator) {
-		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
-		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
-		try {
-			tpr = spDao.getById(id, paginator);
-			if(tpr.rowsReturned != null) {
-				res.fill(tpr.rowsReturned);
-			} else res.die(false, "Hubo un error al intentar realizar la consulta. ");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			res.die(false, " Hubo un error al intentar realizar la consulta. ");
-		}
-		return res;
-	}
-	
-	public Response<SolicitudPrestamo> getById(Integer id) {
 		Response<SolicitudPrestamo> res = new Response<SolicitudPrestamo>();
 		TransactionResponse<SolicitudPrestamo> tpr = new TransactionResponse<SolicitudPrestamo>();
 		try {

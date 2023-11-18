@@ -28,11 +28,11 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	/**
 	 * Clase de datos.
 	 */
-	private static AdministradorDaoImpl data = new AdministradorDaoImpl();
+	private static final AdministradorDaoImpl data = new AdministradorDaoImpl();
 	
 	/**
 	 * Obtener la estructura de datos de la entidad.
-	 * @return
+	 * @return Schema
 	 */
 	public Schema getSchema() {
 		return AdministradorDaoImpl._schema;
@@ -40,7 +40,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	
 	/**
 	 * Obtener la estructura inicial de datos de la entidad. La que se usa a la hora de crear una cuenta.
-	 * @return
+	 * @return Estructura inicial de datos.
 	 */
 	public Schema getInitialSchema() {
 		return AdministradorDaoImpl._initial;
@@ -55,13 +55,12 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Convierte un Dictionary a un objeto Administrador, con la opci�n de omitir los campos HASH y SALT.
+	 * Convierte un Dictionary a un objeto Administrador, con la opción de omitir los campos HASH y SALT.
 	 * @param d El objeto Dictionary a convertir.
-	 * @param pass Especifica si se deben incluir los campos HASH y SALT.
+	 * @param privateData Especifica si se deben incluir los campos HASH y SALT.
 	 * @return Objeto Administrador convertido.
 	 */
-	private Administrador convertFull(Dictionary d, boolean pass) {
-		boolean privateData = pass;
+	private Administrador convertFull(Dictionary d, boolean privateData) {
 		Administrador a = new Administrador();
 		a.setUsuario(d.$("usuario_admin"));
 		a.setDNI(d.$("dni_admin"));
@@ -70,9 +69,8 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		a.setApellido(d.$("apellido_admin"));
 		a.setSexo(d.$("sexo_admin"));
 		if(d.$("nacionalidad_admin") != null) {
-			Pais nacionalidad = new Pais();
 			PaisLogicImpl pli = new PaisLogicImpl();
-			nacionalidad = pli.convert(d);
+			Pais nacionalidad = pli.convert(d);
 			nacionalidad.setCodigo(d.$("nacionalidad_admin"));
 			a.setNacionalidad(nacionalidad);
 			
@@ -84,6 +82,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 				parsedDate = dateFormat.parse(d.$("fechaNacimiento_admin") + "");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
+				//noinspection CallToPrintStackTrace
 				e.printStackTrace();
 			}
 	        java.sql.Date edate = new java.sql.Date(parsedDate.getTime());
@@ -92,16 +91,14 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 		}
 		a.setDireccion(d.$("direccion_admin"));
 		if(d.$("localidad_admin") != null) {
-			Localidad locty = new Localidad();
 			LocalidadLogicImpl lli = new LocalidadLogicImpl();
-			locty = lli.convert(d);
-			locty.setId((int) Math.round(Double.parseDouble(d.$("localidad_admin") + "")));
-			a.setLocalidad(locty);
+			Localidad localty = lli.convert(d);
+			localty.setId((int) Math.round(Double.parseDouble(d.$("localidad_admin") + "")));
+			a.setLocalidad(localty);
 		}
 		if(d.$("provincia_admin") != null) {
-			Provincia provincia = new Provincia();
 			ProvinciaLogicImpl pli = new ProvinciaLogicImpl();
-			provincia = pli.convert(d);
+			Provincia provincia = pli.convert(d);
 			provincia.setId((int) Math.round(Double.parseDouble(d.$("provincia_admin") + "")));
 			a.setProvincia(provincia);
 		}
@@ -124,7 +121,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Lista de objetos Administrador.
 	 */
 	public List<Administrador> convert(List<Dictionary> arg0, boolean includePrivateData) {
-		List<Administrador> l = new ArrayList<Administrador>();
+		List<Administrador> l = new ArrayList<>();
 		for(Dictionary d : arg0) {
 			l.add(convertFull(d, includePrivateData));
 		}
@@ -147,7 +144,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Objeto convertido.
 	 */
 	public Response<Administrador> convert(TransactionResponse<Administrador> data) {
-		Response<Administrador> x = new Response<Administrador>();
+		Response<Administrador> x = new Response<>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.listReturned = data.rowsReturned;
@@ -161,7 +158,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Objeto convertido.
 	 */
 	public Response<Administrador> convertWildcard(TransactionResponse<?> data) {
-		Response<Administrador> x = new Response<Administrador>();
+		Response<Administrador> x = new Response<>();
 		x.status = data.status;
 		x.errorMessage = data.dbError == null ? null : data.dbError.getMessage();
 		x.exception = data.error;
@@ -176,19 +173,19 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	
 	/**
 	 * Deshabilita una cuenta de administrador.
-	 * @param arg0 Objeto Administrador con los datos del usuario a deshabilitar.
-	 * @returns Resultado de la operaci�n.
+	 * @param admin Objeto Administrador con los datos del usuario a deshabilitar.
+	 * @return Resultado de la operación.
 	 */
 	@Override
-	public Response<Administrador> delete(Administrador arg0) {
+	public Response<Administrador> delete(Administrador admin) {
 		TransactionResponse<?> res;
-		Response<Administrador> result = new Response<Administrador>();
-		if(isRoot(arg0)) {
+		Response<Administrador> result = new Response<>();
+		if(isRoot(admin)) {
 			result.die(false, 406, "Root user cannot be disabled or deleted. ");
 			return result;
 		}
 		try {
-			res = data.delete(arg0);
+			res = data.delete(admin);
 			result = convertWildcard(res);
 			result.message = result.status ? "El registro se elimin� correctamente. " : "No se elimin� el registro. ";
 			result.http = result.status ? 200 : 500;
@@ -205,10 +202,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> exists(String arg0) {
-		Response<Administrador> res = new Response<Administrador>();
-		boolean o = false;
+		Response<Administrador> res = new Response<>();
 		try {
-			o = data.exists(arg0);
+			boolean o = data.exists(arg0);
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,7 +219,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n.
 	 */
 	public Response<Administrador> isActive(String arg0) {
-		Response<Administrador> result = new Response<Administrador>();
+		Response<Administrador> result = new Response<>();
 		try {
 			boolean res = data.exists(Dictionary.fromArray(
 						AdministradorDaoImpl.Fields.usuario.name, arg0,
@@ -245,10 +241,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n.
 	 */
 	public Response<Administrador> DNIExists(String dni) {
-		Response<Administrador> res = new Response<Administrador>();
-		boolean o = false;
+		Response<Administrador> res = new Response<>();
 		try {
-			o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.dni.name, dni));
+			boolean o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.dni.name, dni));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -263,10 +258,9 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n. 
 	 */
 	public Response<Administrador> CUILExists(String cuil) {
-		Response<Administrador> res = new Response<Administrador>();
-		boolean o = false;
+		Response<Administrador> res = new Response<>();
 		try {
-			o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.cuil.name, cuil));
+			boolean o = data.exists(Dictionary.fromArray(AdministradorDaoImpl.Fields.cuil.name, cuil));
 			res.die(o, o ? 200 : 404, "");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -280,7 +274,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> getAll() {
-		Response<Administrador> res = new Response<Administrador>();
+		Response<Administrador> res = new Response<>();
 		try {
 			res = convert(data.getAll());
 		} catch (SQLException e) {
@@ -297,7 +291,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> getAll(Paginator paginator) {
-		Response<Administrador> res = new Response<Administrador>();
+		Response<Administrador> res = new Response<>();
 		try {
 			res = convert(data.getAll(paginator));
 		} catch (SQLException e) {
@@ -314,9 +308,33 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> getById(String arg0) {
-		Response<Administrador> res = new Response<Administrador>();
+		Response<Administrador> res = new Response<>();
 		try {
 			res = convert(data.getById(arg0));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+	}
+
+	public Response<Administrador> getByDNI(String DNI) {
+		Response<Administrador> res = new Response<>();
+		try {
+			res = convert(data.getByDNI(DNI));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			res.die(false, "");
+		}
+		return res;
+	}
+
+	public Response<Administrador> getByCUIL(String CUIL) {
+		Response<Administrador> res = new Response<>();
+		try {
+			res = convert(data.getByCUIL(CUIL));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -331,7 +349,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> insert(Administrador arg0) {
-		Response<Administrador> result = new Response<Administrador>();
+		Response<Administrador> result = new Response<>();
 		try {
 			result = convertWildcard(data.insert(arg0));
 			result.message = result.status ? "El registro se insert� correctamente. " : "No se insert� ning�n registro. ";
@@ -344,7 +362,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * Valida los datos recibidos en base a la estructura inicial.
+	 * Valida los datos recibidos con base en la estructura inicial.
 	 * Se usa para validar la informaci�n antes de crear una cuenta de administrador.
 	 * @param d Datos a validar.
 	 * @return Resultado de la validaci�n.
@@ -357,15 +375,14 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	
 	/**
 	 * Crea una cuenta de administrador.
-	 * @param d Datos del nuevo usuario.
+	 * @param data Datos del nuevo usuario.
 	 * @return Resultado de la operaci�n.
 	 */
-	public Response<Administrador> createAccount(Dictionary d) {
-		Response<Administrador> res = new Response<Administrador>();
+	public Response<Administrador> createAccount(Dictionary data) {
+		Response<Administrador> res = new Response<>();
 		// Validar datos
-		boolean initialSchemaValidated = false;
 		try {
-			initialSchemaValidated = validateInitialSchema(d);
+			boolean initialSchemaValidated = validateInitialSchema(data);
 			if(!initialSchemaValidated) {
 				res.die(false, "Unknown error during validation. ");
 				return res;
@@ -376,16 +393,15 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 			return res;
 		}
 		// Accedemos a la clave provista.
-		String plainPassword = d.$("password_admin");
+		String plainPassword = data.$("password_admin");
 		// La encriptamos
         byte[] salt = PasswordUtils.createSalt();
         byte[] hash = PasswordUtils.createHash(plainPassword, salt);
         // Creamos el dictionary final que se subir� a la base de datos.
-        Dictionary finalData = d;
-        finalData.put("hash_admin", hash);
-        finalData.put("salt_admin", salt);
+        data.put("hash_admin", hash);
+        data.put("salt_admin", salt);
         // Convertimos el Dictionary en objeto entidad para trabajar con m�todos DAO.
-        Administrador obj = convertFull(finalData, true);
+        Administrador obj = convertFull(data, true);
         res = insert(obj);
         // Devolvemos el resultado de la operaci�n.
         return res;		
@@ -398,7 +414,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n.
 	 */
 	public Response<Administrador> updatePassword(Administrador admin, Dictionary params) {
-		Response<Administrador> result = new Response<Administrador>();
+		Response<Administrador> result = new Response<>();
 		Schema updatePasswordSchema = new Schema(AdministradorDaoImpl.Fields.contrasena);
 		try {
 			boolean validationStatus = updatePasswordSchema.validate(params);
@@ -429,7 +445,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n. 
 	 */
 	public Response<Administrador> validatePassword(Administrador admin, String pass) {
-		Response<Administrador> response = new Response<Administrador>();
+		Response<Administrador> response = new Response<>();
 		byte[] originalHash = admin.getHash();
 		byte[] originalSalt = admin.getSalt();
 		byte[] newHash = PasswordUtils.createHash(pass, originalSalt);
@@ -446,10 +462,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * Intenta iniciar sesi�n, y devuelve un token JWT.
 	 * @param user Usuario
 	 * @param pass Contrase�a, en texto plano
-	 * @return
+	 * @return Resultado de la operación.
 	 */
 	public Response<Administrador> login(String user, String pass) {
-		Response<Administrador> res = new Response<Administrador>();
+		Response<Administrador> res = new Response<>();
 		// Validar que el usuario exista:
 		Response<Administrador> userExists =  exists(user);
 		if(userExists.status) {
@@ -462,7 +478,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 						if(resI.status) {
 							// Inicio de sesi�n v�lido.
 							String token = AuthManager.generateJWT(adm.getUsuario(), AuthManager.ADMIN);
-							Response<Administrador> resT = new Response<Administrador>();
+							Response<Administrador> resT = new Response<>();
 							resT.die(true, null);
 							resT.eField = token;
 							return resT;
@@ -490,7 +506,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n.
 	 */
 	public Response<Administrador> login(Dictionary servlet_parameters) {
-		Response<Administrador> response = new Response<Administrador>();
+		Response<Administrador> response = new Response<>();
 		Schema schema = new Schema(AdministradorDaoImpl.Fields.usuario, AdministradorDaoImpl.Fields.contrasena);
 		try {
 			boolean validationResult = schema.validate(servlet_parameters);
@@ -510,10 +526,10 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	}
 	
 	/**
-	 * M�todo main usado para pruebas.
-	 * @param args
+	 * Método main usado para pruebas.
 	 */
-	public static void test(String[] args) {
+	@SuppressWarnings("unused")
+	public static void test() {
 		AdministradorLogicImpl logic = new AdministradorLogicImpl();
 		
 		Dictionary exampleUser = Dictionary.fromArray(
@@ -542,7 +558,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> modify(Administrador arg0) {
-		Response<Administrador> result = new Response<Administrador>();
+		Response<Administrador> result = new Response<>();
 		try {
 			result = convertWildcard(data.modify(arg0));
 			result.message = result.status ? "El registro se modific� correctamente. " : "No se modific� ning�n registro. ";
@@ -562,14 +578,13 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 * @return Resultado de la operaci�n.
 	 */
 	public Response<Administrador> modify(Dictionary arg0, Administrador user) {
-		Response<Administrador> res = new Response<Administrador>();
-		Administrador obj = new Administrador();
+		Response<Administrador> res = new Response<>();
 		try {
 			MySQLSchemaModel model = new MySQLSchemaModel("administradores", "tif", AdministradorDaoImpl._editable);
 			Dictionary v = model.prepareForEditing(arg0);
 			v.put(AdministradorDaoImpl.Fields.usuario.name, user.getUsuario());
-			
-			obj = convert(v);
+
+			Administrador obj = convert(v);
 			return modify(obj);
 		} catch (SchemaValidationException e) {
 			res.die(false, 400, e.getMessage());
@@ -585,7 +600,7 @@ public class AdministradorLogicImpl implements IRecordLogic<Administrador, Strin
 	 */
 	@Override
 	public Response<Administrador> validate(Administrador arg0, boolean validateConstraints) {
-		Response<Administrador> res = new Response<Administrador>();
+		Response<Administrador> res = new Response<>();
 		try {
 			res.status = validateConstraints 
 					? AdministradorDaoImpl._model.validate(arg0.toDictionary()) 

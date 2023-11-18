@@ -291,6 +291,9 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 	public TransactionResponse<Cliente> getByDNI(String dni) throws SQLException {
 		return select(getSelectTemplate() + " WHERE " + Fields.dni.name + " = @dni", Dictionary.fromArray(Fields.dni.name, dni));
 	}
+	public TransactionResponse<Cliente> getByCUIL(String cuil) throws SQLException {
+		return select(getSelectTemplate() + " WHERE " + Fields.cuil.name + " = @cuil", Dictionary.fromArray(Fields.cuil.name, cuil));
+	}
 
 	@Override
 	public TransactionResponse<?> insert(Cliente arg0) throws SQLException {

@@ -1,6 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 8.0.50" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.50" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8" nameIsGenerated="true">
-    <option name="UPDATING_POLICY" value="restart-server" />
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/Index.jsp" />
+    <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+    <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
+    <option name="UPDATING_POLICY" value="redeploy-artifacts" />
     <deployment>
       <artifact name="Exploded WebApp">
         <settings>
