@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import data.ISolicitudPrestamoDao;
-import entity.Cuenta;
 import entity.Paginator;
 import entity.SolicitudPrestamo;
 import logicImpl.SolicitudPrestamoLogicImpl;
@@ -107,9 +106,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		compile(true);
 	}};
 	
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#printTDB()
-	 */
+
 	@Override
 	public String printTDB() {
 		return _model.getDatabaseName() + "." + _model.getTableName();
@@ -117,19 +114,8 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			
 			
 	
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#insert(entity.SolicitudPrestamo)
-	 */
+
 	@Override
-	/*public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
-		TransactionResponse<?> res = TransactionResponse.create();
-		try {
-			res = _model.create(data.toDictionary());
-		} catch(SchemaValidationException e) {
-			e.printStackTrace();
-		}
-		return res;
-	}*/
 	public TransactionResponse<?> insert(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<Dictionary> rows= db.fetch(
 				"CALL SP_INGRESARPEDIDOPRESTAMO (@usuario, @monto, @cantCuotas, @CBU)",
@@ -167,11 +153,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		}
 		return affectedRows;	
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#delete(entity.SolicitudPrestamo)
-	 */
 	@Override
 	public TransactionResponse<?> delete(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = null;
@@ -183,9 +165,6 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		return res;
 	}
 
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#modify(entity.SolicitudPrestamo)
-	 */
 	@Override
 	public TransactionResponse<?> modify(SolicitudPrestamo data) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
@@ -208,9 +187,7 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 			"solicitud", data.getCodigo()
 		));
 	}
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#getAll()
-	 */
+
 	@Override
 	public TransactionResponse<SolicitudPrestamo> getAll() throws SQLException {
 		return select("SELECT * FROM solicitudesDePrestamos__select");
@@ -220,20 +197,16 @@ public class SolicitudPrestamoDaoImpl implements IRecord<SolicitudPrestamo, Stri
 		return select("CALL solicitudesDePrestamos__getAll(@page, @size, NULL)", new Dictionary().paginate(paginator));
 	}
 
-	/* (non-Javadoc)
-	 * @see dataImpl.ISolicitudPrestamoDao#getById(java.lang.String)
-	 */
-	@Override
-	public TransactionResponse<SolicitudPrestamo> getById(String arg0) throws SQLException {
-		return select("SELECT * FROM solicitudesDePrestamos__select WHERE usuario_cl_Sol = @usuario_cl_Sol", Dictionary.fromArray("usuario_cl_Sol",arg0));
+	public TransactionResponse<SolicitudPrestamo> getAllForClientByDNI(String DNI) throws SQLException {
+		return select("SELECT * FROM solicitudesDePrestamos__select WHERE usuario_cl_Sol = @usuario_cl_Sol", Dictionary.fromArray("usuario_cl_Sol",DNI));
 	}
 	
-	public TransactionResponse<SolicitudPrestamo> getById(String arg0, Paginator paginator) throws SQLException {
-		return select("CALL solicitudesDePrestamos__getAllFromClient(@usuario, @page, @size, NULL)", Dictionary.fromArray("usuario",arg0).paginate(paginator));
+	public TransactionResponse<SolicitudPrestamo> getAllForClientByDNI(String DNI, Paginator paginator) throws SQLException {
+		return select("CALL solicitudesDePrestamos__getAllFromClient(@usuario, @page, @size, NULL)", Dictionary.fromArray("usuario", DNI).paginate(paginator));
 	}
 	
-	public TransactionResponse<SolicitudPrestamo> getById(Integer arg0) throws SQLException {
-		return select("SELECT * FROM solicitudesDePrestamos__select WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",arg0));
+	public TransactionResponse<SolicitudPrestamo> getById(String id) throws SQLException {
+		return select("SELECT * FROM solicitudesDePrestamos__select WHERE cod_Sol = @codigo", Dictionary.fromArray("codigo",id));
 	}
 
 	/* (non-Javadoc)

@@ -46,7 +46,7 @@ public class PrestamosCliente implements IEntity {
 		return obj;
 	}
 	
-	public String toJson() {
+	public String toJSON() {
 		return toJsonObject().toString();
 	}
 	
