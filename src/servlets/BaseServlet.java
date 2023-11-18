@@ -19,7 +19,14 @@ import max.Dictionary;
 import max.Response;
 
 public abstract class BaseServlet extends HttpServlet {
-	
+
+	public final String GET = "GET";
+	public final String POST = "POST";
+	public final String PUT = "PUT";
+	public final String DELETE = "DELETE";
+	public final String HEAD = "HEAD";
+	public final String OPTIONS = "OPTIONS";
+	public final String PATCH = "PATCH";
 	private static final long serialVersionUID = 1L;
 
 	protected abstract String[] getAllowedMethods();

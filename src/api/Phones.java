@@ -89,6 +89,6 @@ public class Phones extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "P0ST", "DELETE" };
+        return new String[] { GET, POST, DELETE };
     }
 }

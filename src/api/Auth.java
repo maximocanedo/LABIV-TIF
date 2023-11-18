@@ -70,7 +70,7 @@ public class Auth extends BaseServlet {
 
 	@Override
 	protected String[] getAllowedMethods() {
-		return new String[] { "POST", "OPTIONS" };
+		return new String[] { POST, OPTIONS };
 	}
 
 }

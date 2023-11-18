@@ -73,7 +73,7 @@ public class Client extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "DELETE", "HEAD" };
+        return new String[] { GET, DELETE, HEAD };
     }
 
 }

@@ -37,6 +37,6 @@ public class Localties extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "OPTIONS" };
+        return new String[] { GET, OPTIONS };
     }
 }

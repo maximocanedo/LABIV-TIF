@@ -74,7 +74,7 @@ public class Clients extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "POST", "OPTIONS" };
+        return new String[] { GET, POST, OPTIONS };
     }
 
 

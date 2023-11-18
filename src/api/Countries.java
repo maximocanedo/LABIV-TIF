@@ -23,6 +23,6 @@ public class Countries extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "OPTIONS" };
+        return new String[] { GET, OPTIONS };
     }
 }

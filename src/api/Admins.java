@@ -48,6 +48,6 @@ public class Admins extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "POST" };
+        return new String[] { GET, POST, OPTIONS };
     }
 }

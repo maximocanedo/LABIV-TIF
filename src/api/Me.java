@@ -166,7 +166,7 @@ public class Me extends BaseServlet {
     }
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { "GET", "PUT", "DELETE", "PATCH" };
+        return new String[] { GET, PUT, DELETE, PATCH };
     }
 
 }
