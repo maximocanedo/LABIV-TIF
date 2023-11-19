@@ -147,7 +147,7 @@ const loadElements = () => {
 	});
 	document.querySelectorAll(".mdc-top-app-bar").forEach((element) => {
 		var topAppBar = new mdc.topAppBar.MDCTopAppBar(element);
-		//console.log({ topAppBar });
+		console.log({ topAppBar });
 	});
 	document.querySelectorAll(".mdc-button").forEach((element) => {
 		const e = rippleIt(element);

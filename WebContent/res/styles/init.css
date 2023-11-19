@@ -7,3 +7,12 @@ body {
     margin: 0px;
     padding: 0px;
 }
+.mdc-top-app-bar .mdc-top-app-bar__navigation-icon {
+    /* color: #fff; */
+    color: var(--mdc-theme-primary, #fff);
+}
+.mdc-top-app-bar {
+    background: var(--mdc-theme-on-primary);
+    border-bottom: 1px solid var(--material-grey-200);
+
+}
