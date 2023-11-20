@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+# Carpeta classes y Artifacts
+/classes/
+/classes/*
+classes/
+classes/*
+
 # Log file
 *.log
 
