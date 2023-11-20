@@ -29,3 +29,36 @@ body {
 .full-width {
     width: 100%;
 }
+.danger-action-button {
+    --ripple-color: var(--material-red-500);
+    color: var(--material-red-500) !important;
+}
+.__dialog-header-canvas--l1 {
+    width: 100%;
+    height: 64px;
+    position: relative;
+}
+.__dialog-header-canvas--l2 {
+    position: absolute;
+    width: 100%;
+    height: 48px;
+    top: 0px;
+    left: 0px;
+}
+.__dialog-header-canvas--c2 {
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    background-color: var(--material-blue-50);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--material-blue-500)
+
+}
+
+.text-centered {
+    text-align: center;
+}

@@ -14,6 +14,7 @@
 <%@ include file="../res/web/header.part.html" %>
 
 <main class="mdc-top-app-bar--fixed-adjust">
+    <%@ include file="../res/web/banner.part.html" %>
     <div id="principal-grid" class="mdc-layout-grid mdc-layout-grid__cell--align-middle mdc-layout-grid-margin-12">
         <div class="mdc-layout-grid__inner">
 

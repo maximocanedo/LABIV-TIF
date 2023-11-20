@@ -825,9 +825,8 @@ svg.mdc-button__icon {
 
 .mdc-button .mdc-button__ripple::before,
 .mdc-button .mdc-button__ripple::after {
-    background-color: #6200ee;
-    /* @alternate */
-    background-color: var(--mdc-text-button-hover-state-layer-color, var(--mdc-theme-primary, #6200ee));
+    background-color: var(--ripple-color, var(--mdc-text-button-hover-state-layer-color, var(--mdc-theme-primary, #6200ee)));
+
 }
 
 .mdc-button:hover .mdc-button__ripple::before, .mdc-button.mdc-ripple-surface--hover .mdc-button__ripple::before {
