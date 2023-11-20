@@ -31,7 +31,7 @@
 								<li class="mdc-deprecated-list-item" tabindex="0">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">alternate_email</span>
+										<span class="material-symbols-outlined">alternate_email</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-usuario"
@@ -42,7 +42,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">person</span>
+										<span class="material-symbols-outlined">person</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span
@@ -53,7 +53,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">wc</span>
+										<span class="material-symbols-outlined">wc</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-sexo"></span>
@@ -63,7 +63,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">cake</span>
+										<span class="material-symbols-outlined">cake</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-fechaNacimiento"></span>
@@ -89,7 +89,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">badge</span>
+										<span class="material-symbols-outlined">badge</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-dni"></span>
@@ -100,7 +100,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">badge</span>
+										<span class="material-symbols-outlined">badge</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-cuil"></span>
@@ -110,7 +110,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">place</span>
+										<span class="material-symbols-outlined">place</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span class="mdc-deprecated-list-item__primary-text cnt-direccion"></span>
@@ -120,7 +120,7 @@
 								<li class="mdc-deprecated-list-item">
 									<span class="mdc-deprecated-list-item__ripple"></span>
 									<span class="mdc-deprecated-list-item__graphic">
-										<span class="material-icons">flag</span>
+										<span class="material-symbols-outlined">flag</span>
 									</span>
 									<span class="mdc-deprecated-list-item__text">
 										<span
@@ -137,7 +137,7 @@
 				mdc-layout-grid__cell--span-12-phone mdc-button mdc-button--raised mdc-button--icon-leading">
 					<span class="mdc-button__ripple"></span>
 					<span class="mdc-button__focus-ring"></span>
-					<i class="material-icons mdc-button__icon" aria-hidden="true"
+					<i class="material-symbols-outlined mdc-button__icon" aria-hidden="true"
 					  >edit</i
 					>
 					<span class="mdc-button__label">Actualizar datos personales</span>
@@ -147,7 +147,7 @@
 				mdc-layout-grid__cell--span-12-phone mdc-button mdc-button--raised mdc-button--icon-leading">
 					<span class="mdc-button__ripple"></span>
 					<span class="mdc-button__focus-ring"></span>
-					<i class="material-icons mdc-button__icon" aria-hidden="true"
+					<i class="material-symbols-outlined mdc-button__icon" aria-hidden="true"
 					  >delete</i
 					>
 					<span class="mdc-button__label">Deshabilitar tu cuenta</span>
@@ -169,7 +169,7 @@
 						<h2 class="mdc-dialog__title" id="my-dialog-title">
 							Modificar datos personales
 						</h2>
-						<button class="mdc-icon-button material-icons mdc-dialog__close" data-mdc-dialog-action="close">
+						<button class="mdc-icon-button material-symbols-outlined mdc-dialog__close" data-mdc-dialog-action="close">
 							close
 						</button>
 					</div>
@@ -241,7 +241,7 @@
 												Nacimiento</span>
 										</span>
 										<span class="mdc-notched-outline__trailing"></span>
-									</span><i class="material-icons mdc-text-field__icon mdc-text-field__icon--leading" tabindex="0" role="button">event</i>
+									</span><i class="material-symbols-outlined mdc-text-field__icon mdc-text-field__icon--leading" tabindex="0" role="button">event</i>
 									<input type="date" name="fechaNacimiento" required class="mdc-text-field__input"
 										aria-labelledby="lblFechaNacimiento">
 								</label>
@@ -259,7 +259,7 @@
 											</span>
 											<span class="mdc-notched-outline__trailing"></span>
 										</span>
-										<i class="material-icons mdc-select__icon" tabindex="0" role="button">place</i>
+										<i class="material-symbols-outlined mdc-select__icon" tabindex="0" role="button">place</i>
 										<span class="mdc-select__selected-text-container">
 											<span id="selectedTextProvincia" class="mdc-select__selected-text"></span>
 										</span>
@@ -294,7 +294,7 @@
 											</span>
 											<span class="mdc-notched-outline__trailing"></span>
 										</span>
-										<i class="material-icons mdc-select__icon" tabindex="0" role="button">location_city</i>
+										<i class="material-symbols-outlined mdc-select__icon" tabindex="0" role="button">location_city</i>
 										<span class="mdc-select__selected-text-container">
 											<span id="selectedTextNacionalidadLocalidad" class="mdc-select__selected-text"></span>
 										</span>
@@ -329,7 +329,7 @@
 											</span>
 											<span class="mdc-notched-outline__trailing"></span>
 										</span>
-										<i class="material-icons mdc-select__icon" tabindex="0" role="button">flag</i>
+										<i class="material-symbols-outlined mdc-select__icon" tabindex="0" role="button">flag</i>
 										<span class="mdc-select__selected-text-container">
 											<span id="selectedTextNacionalidad" class="mdc-select__selected-text"></span>
 										</span>
@@ -360,7 +360,7 @@
 											<span class="mdc-floating-label" id="lblDireccion">Dirección</span>
 										</span>
 										<span class="mdc-notched-outline__trailing"></span>
-									</span><i class="material-icons mdc-text-field__icon mdc-text-field__icon--leading" tabindex="0" role="button">home</i>
+									</span><i class="material-symbols-outlined mdc-text-field__icon mdc-text-field__icon--leading" tabindex="0" role="button">home</i>
 									<input type="text" type="text" name="direccion" required minlength="4"
 										class="mdc-text-field__input" aria-labelledby="lblDireccion">
 								</label>

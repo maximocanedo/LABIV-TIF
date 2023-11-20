@@ -14,25 +14,6 @@
 	<%@ include file="../res/web/header.part.html" %>
 
 	<main class="mdc-top-app-bar--fixed-adjust">
-		<div class="mdc-banner" role="banner">
-  <div class="mdc-banner__fixed">
-    <div class="mdc-banner__content"
-         role="alertdialog"
-         aria-live="assertive">
-      <div class="mdc-banner__graphic-text-wrapper">
-        <div class="mdc-banner__text">
-          There was a problem processing a transaction on your credit card.
-        </div>
-      </div>
-      <div class="mdc-banner__actions">
-        <button type="button" class="mdc-button mdc-banner__primary-action">
-          <div class="mdc-button__ripple"></div>
-          <div class="mdc-button__label">Fix it</div>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 		<div id="principal-grid" class="mdc-layout-grid mdc-layout-grid__cell--align-middle mdc-layout-grid-margin-12">
 			<div class="mdc-layout-grid__inner">
 				
@@ -85,7 +66,7 @@
 					<div class="mdc-layout-grid__inner">
 						<div class="super-icon-container mdc-layout-grid__cell--span-12">
 							<div class="icon-container">
-								<i class="material-icons">add</i>
+								<i class="material-symbols-outlined">add</i>
 							</div>
 						</div>
 						<span class="mdc-layout-grid__cell--span-12 mdc-typography--body1 centered-text">Crear cuenta</span>
@@ -195,10 +176,10 @@
         <div class="mdc-data-table__pagination-total" id="tablaSolicitudesPrestamos__textoPaginacion">
           
         </div>
-        <button class="mdc-icon-button material-icons mdc-data-table__pagination-button" data-prev-page="true" id="tablaSolicitudesPrestamos__btnAnterior">
+        <button class="mdc-icon-button material-symbols-outlined mdc-data-table__pagination-button" data-prev-page="true" id="tablaSolicitudesPrestamos__btnAnterior">
           <div class="mdc-button__icon">chevron_left</div>
         </button>
-        <button id="tablaSolicitudesPrestamos__btnSiguiente" class="mdc-icon-button material-icons mdc-data-table__pagination-button" data-next-page="true">
+        <button id="tablaSolicitudesPrestamos__btnSiguiente" class="mdc-icon-button material-symbols-outlined mdc-data-table__pagination-button" data-next-page="true">
           <div class="mdc-button__icon">chevron_right</div>
         </button>      </div>
     </div>
@@ -211,7 +192,7 @@
 		</div>
 <button class="mdc-fab mdc-fab--extended _fab" onclick="window.location = 'http://localhost:8080/TPINT_GRUPO_3_LAB/prestamos/Solicitar.jsp';">
   <div class="mdc-fab__ripple"></div>
-  <span class="material-icons mdc-fab__icon">add</span>
+  <span class="material-symbols-outlined mdc-fab__icon">add</span>
   <span class="mdc-fab__label">Pedir un préstamo</span>
 </button>
     </main>

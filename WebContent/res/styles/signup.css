@@ -1,27 +1,34 @@
 @import url('./material-colors.css');
+
 * {
     box-sizing: border-box;
 }
+
 .grid-center {
     display: grid;
     place-items: center;
 }
+
 @keyframes tab-appear {
     0% {
         opacity: 0;
         left: 100%;
-    } 100% {
+    }
+    100% {
         opacity: 1;
         left: 0px;
     }
 }
+
 @keyframes tab-disappear {
     0% {
         opacity: 1;
-    } 100% {
+    }
+    100% {
         opacity: 0;
     }
 }
+
 .signup__main {
     position: absolute;
     top: 0px;
@@ -50,6 +57,7 @@
             left: 0px;
             width: 100%;
         }
+
         .__signup-card--tab {
             position: absolute;
             top: 0px;
@@ -76,6 +84,7 @@
                 padding: 32px;
                 padding-bottom: 16px;
             }
+
             ._body {
                 padding: 24px 32px;
                 width: 100%;
@@ -84,7 +93,7 @@
                 gap: 25px;
                 justify-content: center;
                 align-items: center;
-    
+
                 .__signup-selectRole {
                     display: flex;
                     flex-direction: row;
@@ -93,6 +102,7 @@
                     gap: 15px;
                 }
             }
+
             ._footer {
                 width: 100%;
                 height: auto;
@@ -100,12 +110,13 @@
                 padding: 16px 32px;
                 display: flex;
                 flex-direction: row-reverse;
-                justify-content:end;
+                justify-content: end;
                 gap: 12px;
                 align-items: end;
                 border-radius: 4px;
             }
         }
+
         .__signup-card--tab._visible {
             opacity: 1;
             left: 0px;
@@ -115,6 +126,7 @@
             animation-duration: 0.4s;
             animation-iteration-count: 1;
         }
+
         .__signup-card--tab._loading {
             opacity: 0.6;
             transition: all 0.5s;
@@ -126,6 +138,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .full-width {
     width: 100%;
 }

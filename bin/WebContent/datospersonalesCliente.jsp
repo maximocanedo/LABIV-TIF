@@ -22,7 +22,7 @@
         <li><a href="#">Movimientos realizados</a></li>
         <li>
         	<a href="#" class="dropdown-trigger" data-target="id_drop">Préstamos
-        	<i class="material-icons right">arrow_drop_down</i></a>
+        	<i class="material-symbols-outlined right">arrow_drop_down</i></a>
         	<ul id="id_drop" class="dropdown-content">
         	<li><a href="#">Solicitar préstamo</a></li>
         	<li class="divider"></li>
@@ -36,7 +36,7 @@
         <li><a id="clienteBanco">Bienvenido, Mario Bustamante</a></li>
         <li>
         	<a class="waves-effect waves-light btn" id="logout-button">
-        	<i class="material-icons left">exit_to_app</i>Cerrar Sesión</a>
+        	<i class="material-symbols-outlined left">exit_to_app</i>Cerrar Sesión</a>
         </li>       
       </ul>      
     </div>
