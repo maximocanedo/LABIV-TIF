@@ -16,6 +16,11 @@ class MDCDropdownList {
 
         this.root = selectContainer;
 
+        const hiddenInput = document.createElement("input");
+        hiddenInput.setAttribute("type", "hidden");
+        hiddenInput.setAttribute("name", this.id);
+        this.hiddenInput = hiddenInput;
+
         const selectAnchor = document.createElement('div');
         selectAnchor.classList.add('mdc-select__anchor');
         selectAnchor.setAttribute('aria-labelledby', 'outlined-select-label');
@@ -76,6 +81,7 @@ class MDCDropdownList {
         selectAnchor.appendChild(notchOutline);
         selectAnchor.appendChild(selectedTextContainer);
         selectAnchor.appendChild(dropdownIcon);
+        selectContainer.appendChild(hiddenInput);
         selectContainer.appendChild(selectAnchor);
 
         const selectMenu = document.createElement('div');
@@ -94,9 +100,11 @@ class MDCDropdownList {
         this.options.forEach(data => this.add(data));
 
         this.materialElement = new mdc.select.MDCSelect(selectContainer);
-        this.materialElement.getValue = () => this.labelText;
-        this.materialElement.foundation.getValue = () => this.labelText;
         this.materialElement.layoutOptions();
+    }
+
+    getValue() {
+        return this.hiddenInput.value;
     }
 
     add(data) {

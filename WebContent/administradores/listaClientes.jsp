@@ -16,43 +16,41 @@
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4" style="overflow-x: hidden">
 
             <form action="#" onsubmit="return false;" name="searchForm">
-                <input type="search" name="q" placeholder="Buscá por nombre, apellido, DNI, CUIL, etc."/>
-                <hr>
-                <label for="showInactiveRadio">
-
-                    <input type="checkbox" name="showInactive" id="showInactiveRadio"/>
-                    Mostrar usuarios deshabilitados
-                </label>
-                <br>
-                <select name="sexo" id="sexo">
-                    <option value="A" selected>Todos los géneros</option>
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                </select>
-                <br>
-                <select name="provincias" id="provincias">
-                    <option selected value="-1">Filtrar por provincia</option>
-                </select>
-                <select name="localidades" id="localidades">
-                    <option selected value="-1">Filtrar por localidad</option>
-                </select>
-                <select name="pais" id="pais">
-                    <option selected value="-1">Filtrar por nacionalidad</option>
-                </select>
-                <br>
-
-
-                <br>
-
-                <button type="button" id="eee" name="searchBtn">Buscar</button>
-                <br>
-                <div id="selects"></div>
+                <div class="mdc-card principal_search_card">
+                    <input type="search" class="pcSearch" name="q" placeholder="Buscá por nombre, apellido, DNI, CUIL, etc." aria-label="Label" />
+                    <span id="filterDetails"></span>
+                    <div class="btns">
+                        <button id="mostrarFiltrosBtn" name="filtrarBtn" class="mdc-icon-button material-symbols-outlined">
+                            <div class="mdc-icon-button__ripple"></div>
+                            filter_alt
+                        </button>
+                        <button id="eee" name="searchBtn"  class="mdc-button mdc-button--raised mdc-button--leading">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-symbols-outlined mdc-button__icon" aria-hidden="true">search</i>
+                            <span class="mdc-button__label">Buscar</span>
+                        </button>
+                    </div>
+                    <div id="selects"></div>
+                </div>
             </form>
             <div class="client-list-container"></div>
 
         </div>
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
-
+<span class="mdc-deprecated-chip" role="row" id="c2">
+  <span class="mdc-deprecated-chip__cell mdc-deprecated-chip__cell--primary" role="gridcell">
+    <button class="mdc-deprecated-chip__action mdc-deprecated-chip__action--primary" type="button" tabindex="0">
+      <span class="mdc-deprecated-chip__ripple mdc-deprecated-chip__ripple--primary"></span>
+      <span class="mdc-deprecated-chip__text-label">Chip foo</span>
+    </button>
+  </span>
+  <span class="mdc-deprecated-chip__cell mdc-deprecated-chip__cell--trailing" role="gridcell">
+    <button class="mdc-deprecated-chip__action mdc-deprecated-chip__action--trailing" type="button" tabindex="-1" data-mdc-deletable="true" aria-label="Remove chip foo">
+      <span class="mdc-deprecated-chip__ripple mdc-deprecated-chip__ripple--trailing"></span>
+      <span class="mdc-deprecated-chip__icon mdc-deprecated-chip__icon--trailing">close</span>
+    </button>
+  </span>
+</span>
         </div>
     </div>
 </main>

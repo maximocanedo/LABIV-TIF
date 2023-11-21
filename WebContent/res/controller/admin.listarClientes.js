@@ -12,7 +12,7 @@ import {
 }
     from './components/index.js';
 
-
+const filterDetails = document.querySelector("#filterDetails");
 const chkDisabled = new MDCCheckbox('Mostrar usuarios deshabilitados');
 const provinciaDDL = new ProvinceDropdownList('Filtrar por provincia', 'Todas las provincias');
 const localidadesDDL = new LocaltiesDropdownList('Filtrar por localidad', provinciaDDL, 'Todas las localidades');
@@ -22,6 +22,41 @@ const sexoDDL = new MDCDropdownList("Filtrar por sexo", [
     { text: "Masculino", value: "M" },
     { text: "Femenino", value: "F"}
 ]);
+console.log(provinciaDDL);
+console.log(chkDisabled);
+const getFilterValues = () => ({
+    includeDisabled: chkDisabled.materialElement.checked,
+    provincia: (() => {
+        return (
+            provinciaDDL.materialElement.foundation.getSelectedIndex() < 1
+                ? {text: null, value: null}
+                : { text: provinciaDDL.selectedText.innerText, value: provinciaDDL.getValue() }
+        );})(),
+    localidad:  (() => { return (localidadesDDL.materialElement.foundation.getSelectedIndex() < 1 ? {text: null, value: null} : { text: localidadesDDL.selectedText.innerText, value: localidadesDDL.getValue() } )})(),
+    pais:  (() => { return (paisesDDL.materialElement.foundation.getSelectedIndex() < 1 ? {text: null, value: null} : { text: paisesDDL.selectedText.innerText, value: paisesDDL.getValue() } )})(),
+    sexo:  (() => { return (sexoDDL.materialElement.foundation.getSelectedIndex() < 1  ? {text: null, value: null} : { text: sexoDDL.selectedText.innerText, value: sexoDDL.getValue() } )})()
+});
+console.log(getFilterValues());
+const updateFilterDetails = (event, details) => {
+    console.log(provinciaDDL);
+    let data = getFilterValues();
+    console.log(data);
+    let str = "";
+    str = `${data.sexo.text == null ? "" : data.sexo.text } ${data.localidad.text != null || data.provincia.text != null ? (data.sexo.text != null ? ", de " : "De ") : ""} ${data.localidad.text != null ? data.localidad.text + " (" + data.provincia.text + ")" : (data.provincia.text != null ? data.provincia.text : "")}`;
+    str += `${data.pais.text != null ? "; Nacional de " + data.pais.text : ""}`;
+    filterDetails.innerText = str;
+}
+provinciaDDL.onChange(updateFilterDetails);
+localidadesDDL.onChange(updateFilterDetails);
+paisesDDL.onChange(updateFilterDetails);
+sexoDDL.onChange(updateFilterDetails);
+
+
+document.querySelector("#mostrarFiltrosBtn").addEventListener('click', e => {
+    let el = document.querySelector("#selects");
+    if(el.classList.contains("hidden")) el.classList.remove("hidden");
+    else el.classList.add("hidden");
+});
 document.querySelector("#selects").append(
     chkDisabled.getElement(), sexoDDL.getElement(), provinciaDDL.getElement(), localidadesDDL.getElement(), paisesDDL.getElement()
 );
@@ -57,24 +92,12 @@ const getData = async (data = null) => {
 
 const searchEvent = async (e) => {
     const q = document.searchForm.q.value;
-    const status = !document.searchForm.showInactive.checked;
-    const province =
-        document.searchForm.provincias.value == "-1"
-            ? null
-            : document.searchForm.provincias.value;
-    const localty =
-        document.searchForm.localidades.value == "-1"
-            ? null
-            : document.searchForm.localidades.value;
-    const sex =
-        document.searchForm.sexo.value == "M" ||
-        document.searchForm.sexo.value == "F"
-            ? document.searchForm.sexo.value
-            : null;
-    const country =
-        document.searchForm.pais.value == "-1"
-            ? null
-            : document.searchForm.pais.value;
+    const fdata = getFilterValues();
+    const status = !fdata.includeDisabled;
+    const province = fdata.provincia.value;
+    const localty = fdata.localidad.value;
+    const sex = fdata.sexo.value != null && (fdata.sexo.value == "M" || fdata.sexo.value == "F") ? fdata.sexo.value : null;
+    const country = fdata.pais.value;
     const data = {
         q,
         status,
