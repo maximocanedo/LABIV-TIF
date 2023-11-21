@@ -30368,7 +30368,7 @@ var exports = {};
                      */
                     MDCSelectFoundation.prototype.layout = function () {
                         if (this.adapter.hasLabel()) {
-                            var optionHasValue = this.getValue().length > 0;
+                            var optionHasValue = (typeof this.getValue() === 'undefined') ? true : this.getValue().length > 0;
                             var isFocused = this.adapter.hasClass(
                                 constants_2.cssClasses.FOCUSED
                             );

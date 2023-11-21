@@ -1,19 +1,37 @@
 "use strict";
 import * as material from "./../controller/mdc.controller.js";
-import * as provinces from "./../data/provinces.js";
-import * as localties from "./../data/localties.js";
-import * as countries from "./../data/countries.js";
 import * as auth from "./../data/auth.js";
+import {
+    ProvinceDropdownList,
+    LocaltiesDropdownList,
+    CountriesDropdownList,
+    MDCDropdownList,
+    TwoLineListElement,
+    ClientListItemElement,
+    MDCCheckbox
+}
+    from './components/index.js';
 
+
+const chkDisabled = new MDCCheckbox('Mostrar usuarios deshabilitados');
+const provinciaDDL = new ProvinceDropdownList('Filtrar por provincia', 'Todas las provincias');
+const localidadesDDL = new LocaltiesDropdownList('Filtrar por localidad', provinciaDDL, 'Todas las localidades');
+const paisesDDL = new CountriesDropdownList('Filtrar por nacionalidad', "Todos los países");
+const sexoDDL = new MDCDropdownList("Filtrar por sexo", [
+    { text: "Todos los géneros", value: "A", selected: true },
+    { text: "Masculino", value: "M" },
+    { text: "Femenino", value: "F"}
+]);
+document.querySelector("#selects").append(
+    chkDisabled.getElement(), sexoDDL.getElement(), provinciaDDL.getElement(), localidadesDDL.getElement(), paisesDDL.getElement()
+);
+console.log(material.mdc);
 const getData = async (data = null) => {
     let ue = "?";
     if (data != null) {
-        // Filtrar propiedades con valores no nulos
         const filteredData = Object.fromEntries(
             Object.entries(data).filter(([key, value]) => value !== null)
         );
-
-        // Convertir a cadena de consulta
         ue += new URLSearchParams(filteredData).toString();
     }
     return fetch("http://localhost:8080/TPINT_GRUPO_3_LAB/api/clients" + ue, {
@@ -69,17 +87,19 @@ const searchEvent = async (e) => {
     fillData(fetchedData);
 };
 
+
+const clientListContainer = document.querySelector(".client-list-container");
+const listaClientes = new TwoLineListElement();
+console.log(listaClientes);
+clientListContainer.append(listaClientes.getElement());
+
 const fillData = (data) => {
-    // Diseñar luego:
-    document.querySelector("ul#listaClientes").innerHTML = "";
+    material.loadElements();
+    listaClientes.clear();
     data.listReturned.forEach((element) => {
-        const item = document.createElement("li");
-        const a = document.createElement("a");
-        a.setAttribute("href", "/clientes/perfil.html?user=" + element.usuario);
-        a.innerText =
-            element.nombre + " " + element.apellido + " (" + element.DNI + ") ";
-        item.append(a);
-        document.querySelector("ul#listaClientes").append(item);
+        const listItem = new ClientListItemElement(element);
+        listItem.handleClick(e => console.log(e));
+        listaClientes.add(listItem);
     });
 };
 
@@ -90,40 +110,5 @@ const fillData = (data) => {
     document.searchForm.searchBtn.addEventListener("click", async () => {
         await searchEvent();
     });
-    // Cargar controles:
-    const provincias = await provinces.getProvinces();
-    console.log({provincias});
-    provincias.forEach((opcion) => {
-        const option = document.createElement("option");
-        option.text = opcion.nombre;
-        option.value = opcion.id;
-        document.searchForm.provincias.appendChild(option);
-    });
-
-    const paises = await countries.getCountries();
-    console.log({paises});
-    paises.forEach((opcion) => {
-        const option = document.createElement("option");
-        option.text = opcion.nombre;
-        option.value = opcion.codigo;
-        document.searchForm.pais.appendChild(option);
-    });
-
-    document.searchForm.provincias.addEventListener("change", async (event) => {
-        const provinceId = document.searchForm.provincias.value;
-        const localidades = await localties.getLocalties(provinceId);
-        document.searchForm.localidades.innerHTML = "";
-        const defOp = document.createElement("option");
-        defOp.text = "Seleccioná una localidad";
-        defOp.value = -1;
-        document.searchForm.localidades.appendChild(defOp);
-        localidades.forEach((opcion) => {
-            const option = document.createElement("option");
-            option.text = opcion.nombre;
-            option.value = opcion.id;
-            document.searchForm.localidades.appendChild(option);
-        });
-    });
-
     fillData(data);
 })();
