@@ -33,24 +33,28 @@
                     <div id="selects"></div>
                 </div>
             </form>
-            <div class="client-list-container"></div>
+            <div class="client-list-container">
+
+            </div>
 
         </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
-<span class="mdc-deprecated-chip" role="row" id="c2">
-  <span class="mdc-deprecated-chip__cell mdc-deprecated-chip__cell--primary" role="gridcell">
-    <button class="mdc-deprecated-chip__action mdc-deprecated-chip__action--primary" type="button" tabindex="0">
-      <span class="mdc-deprecated-chip__ripple mdc-deprecated-chip__ripple--primary"></span>
-      <span class="mdc-deprecated-chip__text-label">Chip foo</span>
-    </button>
-  </span>
-  <span class="mdc-deprecated-chip__cell mdc-deprecated-chip__cell--trailing" role="gridcell">
-    <button class="mdc-deprecated-chip__action mdc-deprecated-chip__action--trailing" type="button" tabindex="-1" data-mdc-deletable="true" aria-label="Remove chip foo">
-      <span class="mdc-deprecated-chip__ripple mdc-deprecated-chip__ripple--trailing"></span>
-      <span class="mdc-deprecated-chip__icon mdc-deprecated-chip__icon--trailing">close</span>
-    </button>
-  </span>
-</span>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--headline2 data__name">Name</span>
+                <span class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-typography--body1 data__username">@username</span>
+                <ul role="menu" class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-list" data-evolution="true">
+                    <li role="menuitem" class="mdc-list mdc-list-item--with-two-lines mdc-list-item--with-leading-icon">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__start">
+                            <span class="material-symbols-outlined">badge</span>
+                        </span>
+                        <span class="mdc-list-item__content" id="MDCListItem$1">
+                            <span class="mdc-list-item__primary-text">Primary text</span>
+                            <span class="mdc-list-item__secondary-text">Secondary text</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </main>

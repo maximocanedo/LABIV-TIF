@@ -1,6 +1,7 @@
 "use strict";
 import * as material from "./../controller/mdc.controller.js";
 import * as auth from "./../data/auth.js";
+import { MDCList } from "./material/components.js";
 import {
     ProvinceDropdownList,
     LocaltiesDropdownList,
@@ -12,6 +13,8 @@ import {
 }
     from './components/index.js';
 
+console.log(material);
+
 const filterDetails = document.querySelector("#filterDetails");
 const chkDisabled = new MDCCheckbox('Mostrar usuarios deshabilitados');
 const provinciaDDL = new ProvinceDropdownList('Filtrar por provincia', 'Todas las provincias');
@@ -22,8 +25,6 @@ const sexoDDL = new MDCDropdownList("Filtrar por sexo", [
     { text: "Masculino", value: "M" },
     { text: "Femenino", value: "F"}
 ]);
-console.log(provinciaDDL);
-console.log(chkDisabled);
 const getFilterValues = () => ({
     includeDisabled: chkDisabled.materialElement.checked,
     provincia: (() => {
@@ -36,11 +37,8 @@ const getFilterValues = () => ({
     pais:  (() => { return (paisesDDL.materialElement.foundation.getSelectedIndex() < 1 ? {text: null, value: null} : { text: paisesDDL.selectedText.innerText, value: paisesDDL.getValue() } )})(),
     sexo:  (() => { return (sexoDDL.materialElement.foundation.getSelectedIndex() < 1  ? {text: null, value: null} : { text: sexoDDL.selectedText.innerText, value: sexoDDL.getValue() } )})()
 });
-console.log(getFilterValues());
 const updateFilterDetails = (event, details) => {
-    console.log(provinciaDDL);
     let data = getFilterValues();
-    console.log(data);
     let str = "";
     str = `${data.sexo.text == null ? "" : data.sexo.text } ${data.localidad.text != null || data.provincia.text != null ? (data.sexo.text != null ? ", de " : "De ") : ""} ${data.localidad.text != null ? data.localidad.text + " (" + data.provincia.text + ")" : (data.provincia.text != null ? data.provincia.text : "")}`;
     str += `${data.pais.text != null ? "; Nacional de " + data.pais.text : ""}`;
@@ -50,7 +48,8 @@ provinciaDDL.onChange(updateFilterDetails);
 localidadesDDL.onChange(updateFilterDetails);
 paisesDDL.onChange(updateFilterDetails);
 sexoDDL.onChange(updateFilterDetails);
-
+const list = new MDCList(document.querySelector('.mdc-list'));
+console.log(list);
 
 document.querySelector("#mostrarFiltrosBtn").addEventListener('click', e => {
     let el = document.querySelector("#selects");
@@ -60,7 +59,6 @@ document.querySelector("#mostrarFiltrosBtn").addEventListener('click', e => {
 document.querySelector("#selects").append(
     chkDisabled.getElement(), sexoDDL.getElement(), provinciaDDL.getElement(), localidadesDDL.getElement(), paisesDDL.getElement()
 );
-console.log(material.mdc);
 const getData = async (data = null) => {
     let ue = "?";
     if (data != null) {
@@ -113,7 +111,6 @@ const searchEvent = async (e) => {
 
 const clientListContainer = document.querySelector(".client-list-container");
 const listaClientes = new TwoLineListElement();
-console.log(listaClientes);
 clientListContainer.append(listaClientes.getElement());
 
 const fillData = (data) => {
