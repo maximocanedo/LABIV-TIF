@@ -8,8 +8,9 @@ import {
     CountriesDropdownList,
     MDCDropdownList,
     TwoLineListElement,
+    TwoLineListItemElement,
     ClientListItemElement,
-    MDCCheckbox
+    MDCCheckbox, ClientDetailsView
 }
     from './components/index.js';
 
@@ -48,8 +49,10 @@ provinciaDDL.onChange(updateFilterDetails);
 localidadesDDL.onChange(updateFilterDetails);
 paisesDDL.onChange(updateFilterDetails);
 sexoDDL.onChange(updateFilterDetails);
-const list = new MDCList(document.querySelector('.mdc-list'));
-console.log(list);
+
+
+
+
 
 document.querySelector("#mostrarFiltrosBtn").addEventListener('click', e => {
     let el = document.querySelector("#selects");
@@ -108,6 +111,7 @@ const searchEvent = async (e) => {
     fillData(fetchedData);
 };
 
+const clientDetailViewContainer = document.querySelector("#clientDetailViewContainer");
 
 const clientListContainer = document.querySelector(".client-list-container");
 const listaClientes = new TwoLineListElement();
@@ -118,7 +122,14 @@ const fillData = (data) => {
     listaClientes.clear();
     data.listReturned.forEach((element) => {
         const listItem = new ClientListItemElement(element);
-        listItem.handleClick(e => console.log(e));
+        listItem.handleClick(e => {
+            console.log(e);
+            let clientData = e.payload;
+
+            let el = new ClientDetailsView(clientData);
+            clientDetailViewContainer.innerHTML = "";
+            clientDetailViewContainer.append(el.getElement());
+        });
         listaClientes.add(listItem);
     });
 };
