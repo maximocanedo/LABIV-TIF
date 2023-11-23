@@ -68,7 +68,7 @@ BtnEnviar.addEventListener("click", async (e) => {
         }
     );
     if (result.status == 200) {
-        window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/Index.jsp";
+        window.location = "../../clientes/dashboard/index.jsp";
 
     }
 });
