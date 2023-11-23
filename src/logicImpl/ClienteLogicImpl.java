@@ -708,4 +708,19 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return res;
 	}
+
+    public Response<Cliente> enable(Cliente client) {
+		TransactionResponse<?> res;
+		Response<Cliente> result = new Response<>();
+		try {
+			res = data.enable(client);
+			result = convertWildcard(res);
+			result.message = result.status ? "El cliente fue habilitado correctamente. " : "No se habilitó la cuenta. ";
+			result.http = result.status ? 200 : 500;
+		} catch (SQLException e) {
+			result.die(false, 500, "Hubo un error al intentar realizar la transacción. ");
+			e.printStackTrace();
+		}
+		return result;
+    }
 }

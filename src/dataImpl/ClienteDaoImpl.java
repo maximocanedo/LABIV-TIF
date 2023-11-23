@@ -213,16 +213,20 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 	public TransactionResponse<?> delete(Cliente a) throws SQLException {
 		TransactionResponse<?> res = TransactionResponse.create();
 		try {
-			// Bug #41. Descomentar cuando se haya resuelto.
 			res = _model.modify(Dictionary.fromArray(Fields.estado.name, false), a.toIdentifiableDictionary());
-			/*res = new Connector(_model.getDatabaseName())
-					.transact(
-						"UPDATE " + printTDB() + " SET " + Fields.estado.name + " = @estado WHERE " + Fields.usuario.name + " = @usuario",
-						Dictionary.fromArray(
-							"estado", false,
-							"usuario", a.getUsuario()
-						)
-					); */
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (SchemaValidationException e) {
+			res.status = false;
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	public TransactionResponse<?> enable(Cliente a) throws SQLException {
+		TransactionResponse<?> res = TransactionResponse.create();
+		try {
+			res = _model.modify(Dictionary.fromArray(Fields.estado.name, true), a.toIdentifiableDictionary());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SchemaValidationException e) {
