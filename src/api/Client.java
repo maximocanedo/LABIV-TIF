@@ -57,6 +57,16 @@ public class Client extends BaseServlet {
     }
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Cliente client = getSpecifiedClient(req, resp);
+        if(client == null) return;
+        if(AuthManager.getActualAdmin(req, resp) == null) return;
+        Response<Cliente> result = CLI.enable(client);
+        resp.setStatus(result.http);
+        write(resp, result.toFinalJSON());
+    }
+
+    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Cliente client = getSpecifiedClient(req, resp);
         if(client == null) return;
@@ -73,7 +83,7 @@ public class Client extends BaseServlet {
 
     @Override
     protected String[] getAllowedMethods() {
-        return new String[] { GET, DELETE, HEAD };
+        return new String[] { GET, DELETE, HEAD, POST };
     }
 
 }
