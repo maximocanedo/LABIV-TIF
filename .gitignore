@@ -6,6 +6,12 @@
 /classes/*
 classes/
 classes/*
+/classes/artifacts
+classes/artifacts
+classes/artifacts/*
+/classes/artifacts/*
+/classes/artifacts/
+classes/artifacts/
 
 # Log file
 *.log
