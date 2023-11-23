@@ -45,3 +45,9 @@ replay_pid*
 /build/
 *.docx
 /bin/
+classes/artifacts/Exploded_WebApp/clientes/SignUp.jsp
+classes/artifacts/Exploded_WebApp/administradores/aprobarPrestamos.jsp
+classes/artifacts/Exploded_WebApp/administradores/SignUp.jsp
+classes/artifacts/Exploded_WebApp/clientes/CorreoVerificacion.jsp
+classes/artifacts/Exploded_WebApp/clientes/IngresarCodigo.jsp
+classes/artifacts/Exploded_WebApp/clientes/Login.jsp
