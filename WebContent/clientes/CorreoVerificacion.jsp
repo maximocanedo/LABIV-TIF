@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="./../res/styles/estiloDatosCliente.css">
     <link rel="stylesheet" href="./../res/controller/material/material-components-web.css"/>
     <link rel="stylesheet" href="./../res/styles/background.css">
-    <link rel="stylesheet" href="./../res/styles/login.css">
+    <link rel="stylesheet" href="../login/index.css">
     <link rel="stylesheet" type="text/css" href="./../res/styles/estiloPaginaCliente-Administrador.css">
 </head>
 <body>
