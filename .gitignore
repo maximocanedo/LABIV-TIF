@@ -10,6 +10,15 @@ classes/*
 classes/artifacts
 classes/artifacts/*
 /classes/artifacts/*
+/classes/artifacts/*/*/*/*
+classes
+classes/artifacts/*/*
+classes/artifacts/*/*/*
+classes/artifacts/*/*/*/*/*
+
+classes/artifacts/*/*/*/*/*/*
+
+classes/artifacts/*/*/*/*/*/*/*
 /classes/artifacts/
 classes/artifacts/
 
