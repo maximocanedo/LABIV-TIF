@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../res/controller/material/material-components-web.css"/>
     <link rel="stylesheet" href="../res/styles/background.css">
     <link rel="stylesheet" href="index.css">

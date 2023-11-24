@@ -7,6 +7,7 @@
     <title>Inicio · Clientes</title>
     <link rel="stylesheet" href="../../res/styles/init.css"/>
     <link rel="stylesheet" href="index.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"></script>
 </head>
 <body class="mdc-typography">

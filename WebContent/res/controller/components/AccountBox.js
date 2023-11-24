@@ -17,7 +17,7 @@ export default class AccountBox {
             'mdc-ripple-surface--accent'
         );
         mainDiv.addEventListener('click', e => {
-            window.location = '/TPINT_GRUPO_3_LAB/clientes/'
+            window.location = '/TPINT_GRUPO_3_LAB/clientes/account/?accountno=' + data.numero;
         })
 
         const innerDiv = document.createElement('div');

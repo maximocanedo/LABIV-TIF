@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Inicio · Clientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"></script>
     <link rel="stylesheet" href="../../res/styles/init.css"/>
     <link rel="stylesheet" href="index.css"/>
