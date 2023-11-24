@@ -33,11 +33,10 @@ public class LoanRequests extends BaseServlet {
                 case AuthManager.ADMIN:
                     resSL = logic.getAll(paginator);
                     write(response, resSL.toFinalJSON());
-
                     return;
                 case AuthManager.CLIENT:
                     Cliente cliente = AuthManager.getActualClient(request, response);
-                    if(cliente!=null) {
+                    if(cliente != null) {
                         resSL = logic.getAllForClientByDNI(cliente.getUsuario(), paginator);
                         write(response, resSL.toFinalJSON());
                         response.setStatus(201);
