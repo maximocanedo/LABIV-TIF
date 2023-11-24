@@ -72,11 +72,14 @@ export default class DataTableView {
 
         this.paginatorTotalSpan = document.createElement("div");
         this.paginatorTotalSpan.classList.add("mdc-data-table__pagination-total");
+        this.paginatorTotalSpan.innerText = `Page ${this.page}`;
         paginatorNavigation.append(this.paginatorTotalSpan);
 
         this.prevPageButton = new PaginationButton("chevron_left");
+        this.prevPageButton.getElement().disabled = (this.page == 1);
         this.prevPageButton.getElement().addEventListener('click', (e) => {
             if(this.page > 1) this.page--;
+            this.prevPageButton.getElement().disabled = (this.page == 1);
             this.dispatchPaginateChangeEvent('prevPage');
         });
         paginatorNavigation.append(this.prevPageButton.getElement());
@@ -115,8 +118,10 @@ export default class DataTableView {
         this.root.addEventListener(type, listener);
     }
     dispatchPaginateChangeEvent(action) {
+        this.paginatorTotalSpan.innerText = `Page ${this.page}`;
         const event = new CustomEvent('paginateChange', { detail: { action, paginator: this.getPaginatorDetails() } });
         this.root.dispatchEvent(event);
+        this.nextPageButton.getElement().disabled = (this.tbody.childElementCount < this.getPaginatorDetails().size);
     }
     getPaginatorDetails() {
         return {

@@ -1,5 +1,5 @@
 'use strict';
-import {IconButtonView} from "./index.js";
+import IconButtonView from "./IconButtonView.js";
 
 export default class PaginationButton extends IconButtonView {
     constructor(iconName) {

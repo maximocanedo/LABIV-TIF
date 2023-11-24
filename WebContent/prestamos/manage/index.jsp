@@ -7,19 +7,13 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="../../res/styles/init.css"/>
     <link rel="stylesheet" type="text/css" href="../../res/styles/estiloPaginaCliente-Administrador.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"></script>
 
 </head>
 <body>
 <%@ include file="../../res/web/drawer.part.html" %>
 <%@ include file="../../res/web/header.part.html" %>
-<main class="mdc-top-app-bar--fixed-adjust">
-    Préstamos
-    <br>
-    <ul id="prestamosList">
-
-    </ul>
-    <br><br><br>
+<main class="mdc-top-app-bar--fixed-adjust center-horizontally">
+    <h3 class="mdc-typography--headline4 text-centered">Solicitudes pendientes</h3>
 </main>
 <%@ include file="../../res/web/dialog.part.html" %>
 <%@ include file="../../res/web/snackbar.part.html" %>

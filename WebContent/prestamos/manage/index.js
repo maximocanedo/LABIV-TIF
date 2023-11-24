@@ -31,10 +31,11 @@ const tablaPrestamos = new DataTableView("Solicitudes de préstamos", {
     ],
     selectable: true
 });
-document.body.append(tablaPrestamos.getElement());
+document.querySelector("main").append(tablaPrestamos.getElement());
 
 
 const loadRequests = async (paginator) => {
+    console.log(tablaPrestamos);
     tablaPrestamos.showProgress();
     tablaPrestamos.clear();
     const {status, list} = await loans.getMyLoanRequests(paginator);

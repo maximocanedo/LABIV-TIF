@@ -1,7 +1,6 @@
 'use strict';
 import { MDCRipple } from "../material/components.js";
-
-export default class IconButtonView {
+class IconButtonView {
     constructor(iconName) {
         this.iconName = iconName;
 
@@ -34,6 +33,7 @@ export default class IconButtonView {
         wrapper.appendChild(button);
 
         this.wrapper =  wrapper;
+        this.materialElement = new MDCRipple(this.wrapper);
     }
     getElement() {
         return this.wrapper;
@@ -42,4 +42,4 @@ export default class IconButtonView {
         this.button.addEventListener('click', callback);
     }
 }
-
+export default IconButtonView;
