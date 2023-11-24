@@ -3,7 +3,7 @@ import * as auth from "./auth.js";
 
 const getMyLoanRequests = async (paginator) => {
     const r = await fetch(
-        "http://localhost:8080/TPINT_GRUPO_3_LAB/api/solicitudprestamo?p=" + paginator.page + "&s=" + paginator.size,
+        "http://localhost:8080/TPINT_GRUPO_3_LAB/v2/loans/requests?p=" + paginator.page + "&s=" + paginator.size,
         {
             method: "GET",
             headers: auth.AUTH_HEADER

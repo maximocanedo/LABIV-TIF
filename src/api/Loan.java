@@ -45,8 +45,8 @@ public class Loan extends BaseServlet {
         if(td != null) {
             switch(td.role) {
                 case AuthManager.ADMIN:
-                    response.setStatus(200);
                     if(loan == null) return;
+                    response.setStatus(200);
                     write(response, loan.toJSON());
                     return;
                 case AuthManager.CLIENT:

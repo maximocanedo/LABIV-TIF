@@ -1,6 +1,6 @@
 "use strict";
 const getCountries = () =>
-    fetch("http://localhost:8080/TPINT_GRUPO_3_LAB/api/countries/list", {
+    fetch("http://localhost:8080/TPINT_GRUPO_3_LAB/v2/countries", {
         method: "GET",
     })
         .then((raw) => raw.json())
