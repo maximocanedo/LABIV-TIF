@@ -33,19 +33,17 @@ const tablaPrestamos = new DataTableView("Solicitudes de préstamos", {
 });
 document.body.append(tablaPrestamos.getElement());
 
-const prestamosList = document.querySelector("#prestamosList");
 
-const loadRequests = async () => {
+const loadRequests = async (paginator) => {
     tablaPrestamos.showProgress();
-    const {status, list} = await loans.getMyLoanRequests({page: 1, size: 10});
+    tablaPrestamos.clear();
+    const {status, list} = await loans.getMyLoanRequests(paginator);
     tablaPrestamos.hideProgress();
     if (status != 200 && status != 201) {
         material.showSnackbar("Hubo un error al intentar obtener los préstamos. ");
         return;
     }
-
     list.map((loan, index) => {
-        console.log(loan);
         const btnCliente = new ButtonView(
             loan.cliente.nombre + " " + loan.cliente.apellido, {
                 iconLeading: "person"
@@ -91,35 +89,14 @@ const loadRequests = async () => {
     });
 };
 
-
-
-
 (async () => {
     const admin = await auth.allowAdmin({
         message: "Iniciá sesión como administrador para revisar y aprobar préstamos. "
     });
-    await loadRequests();
-  /*  const dtv = new DataTableView("Tabla 1", {
-        header: [
-            new TableHeaderCell("Columna 1", {sortable: true}),
-            new TableHeaderCell("Columna 2")
-        ],
-        selectable: true
+    await loadRequests({page: 1, size: 10});
+    tablaPrestamos.addEventListener("paginateChange", e => {
+        (async () => {
+            await loadRequests(e.detail.paginator);
+        })();
     });
-    dtv.fill([
-        new TableBodyRow([
-            new TableBodyCell("Hola"),
-            new TableBodyCell("Hola")
-        ]),
-        new TableBodyRow([
-            new TableBodyCell("Hola"),
-            new TableBodyCell("Hola")
-        ])
-    ]);
-    dtv.addEventListener("paginateChange", e => {
-        console.log(e);
-    });
-    dtv.addEventListener("MDCDataTable:sorted", e => {
-        console.log(e);
-    }); */
 })();

@@ -4,8 +4,9 @@ import PaginationSelect from "./PaginationSelect.js";
 import PaginationButton from "./PaginationButton.js";
 
 export default class DataTableView {
-    constructor(label, data = { header: [], selectable: false }) {
+    constructor(label, data = { header: [], paginator: {default: 10, values: [10, 15, 20]}, selectable: false }) {
         this.selectable = data.selectable?? false;
+        this.paginator = data.paginator?? { default: 10, values: [10, 15, 20] };
         const root = document.createElement("div");
         root.classList.add("mdc-data-table");
 
@@ -62,10 +63,7 @@ export default class DataTableView {
         this.paginatorDefaultCallback = (paginator) => {
             console.log(paginator);
         };
-        this.paginatorSelect = new PaginationSelect({
-            default: 10,
-            values: [10, 25, 100]
-        });
+        this.paginatorSelect = new PaginationSelect(this.paginator);
         rowsPerPage.append(this.paginatorSelect.getElement());
 
         const paginatorNavigation = document.createElement("div");

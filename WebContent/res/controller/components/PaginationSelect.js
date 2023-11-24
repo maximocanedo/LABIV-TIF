@@ -3,6 +3,8 @@ import {MDCSelect} from "../material/components.js";
 export default class PaginationSelect {
     constructor(options) {
         this.options = options;
+        options.default = options.default?? options.values[0];
+        this.defaultIndex = options.values.indexOf(options.default);
 
         const selectContainer = document.createElement('div');
         selectContainer.classList.add(
@@ -115,7 +117,7 @@ export default class PaginationSelect {
 
         this.root = selectContainer;
         this.materialElement = new MDCSelect(selectContainer);
-        this.materialElement.setSelectedIndex(1);
+        this.materialElement.setSelectedIndex(this.defaultIndex);
     }
     onChange(callback) {
         this.root.addEventListener("MDCSelect:change", e => {
