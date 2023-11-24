@@ -11,6 +11,10 @@ import TwoLineListElement from "./TwoLineListElement.js";
 import TwoLineListItemElement from "./TwoLineListItemElement.js";
 import IconButtonView from "./IconButtonView.js";
 import ButtonView from "./ButtonView.js";
+import TableBodyRow from "./TableBodyRow.js";
+import TableBodyCell from "./TableBodyCell.js";
+import TableHeaderCell from "./TableHeaderCell.js";
+import DataTableView from "./DataTableView.js";
 
 export {
     ClientListItemElement,
@@ -24,5 +28,10 @@ export {
     TwoLineListElement,
     TwoLineListItemElement,
     IconButtonView,
-    ButtonView
+    ButtonView,
+
+    TableBodyCell,
+    TableBodyRow,
+    TableHeaderCell,
+    DataTableView
 };

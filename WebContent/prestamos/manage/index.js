@@ -2,6 +2,7 @@
 import * as auth from "../../res/data/auth.js";
 import * as loans from "../../res/data/loans.js";
 import * as material from "../../res/controller/mdc.controller.js";
+import {DataTableView, TableBodyCell, TableBodyRow, TableHeaderCell} from "../../res/controller/components/index.js";
 
 
 const formatearNumeroCuenta = (nc) => {
@@ -124,6 +125,31 @@ let paginator = {
     const admin = await auth.allowAdmin({
         message: "Iniciá sesión como administrador para revisar y aprobar préstamos. "
     });
+    const dtv = new DataTableView("Tabla 1", {
+        header: [
+            new TableHeaderCell("Columna 1", {sortable: true}),
+            new TableHeaderCell("Columna 2")
+        ],
+        selectable: true
+    });
+    dtv.fill([
+        new TableBodyRow([
+            new TableBodyCell("Hola"),
+            new TableBodyCell("Hola")
+        ]),
+        new TableBodyRow([
+            new TableBodyCell("Hola"),
+            new TableBodyCell("Hola")
+        ])
+    ]);
+    dtv.addEventListener("paginateChange", e => {
+        console.log(e);
+    });
+    dtv.addEventListener("MDCDataTable:sorted", e => {
+        console.log(e);
+    })
+    console.log(dtv);
+    document.body.append(dtv.getElement());
     store.dispatch(setSize(parseInt(document.querySelector("#size").value)));
     document.querySelector("#size").addEventListener('change', () => {
         store.dispatch(setSize(parseInt(document.querySelector("#size").value)));
