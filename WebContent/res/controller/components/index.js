@@ -1,4 +1,5 @@
 'use strict'; 
+import AccountBox from './AccountBox.js'; 
 import ButtonView from './ButtonView.js'; 
 import ClientDetailsView from './ClientDetailsView.js'; 
 import ClientListItemElement from './ClientListItemElement.js'; 
@@ -19,7 +20,8 @@ import TwoLineListElement from './TwoLineListElement.js';
 import TwoLineListItemElement from './TwoLineListItemElement.js'; 
  
 export { 
-ButtonView 
+AccountBox 
+,ButtonView 
 ,ClientDetailsView 
 ,ClientListItemElement 
 ,CountriesDropdownList 
@@ -37,4 +39,4 @@ ButtonView
 ,TableHeaderCell 
 ,TwoLineListElement 
 ,TwoLineListItemElement 
-} 
+}; 

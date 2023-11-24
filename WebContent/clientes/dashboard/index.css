@@ -3,6 +3,20 @@ body {
     background: var(--material-grey-50);
     box-sizing: border-box;
 }
+.header-aligned {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+        white-space: nowrap;
+        width: 100%
+    }
+
+}
+div.space {
+    width: 100%;
+}
 
 .account_card {
     user-select: none;

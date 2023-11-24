@@ -2,9 +2,14 @@
 export default class Formatter {
     constructor() {
     }
-
-    static money(str) {
-
+    static accountNumber(nc) {
+        const cleaned = ('' + nc).replace(/\D/g, '');
+        const formatted = cleaned.replace(/(\d{4})(\d{3})(\d{3})/, '$1-$2-$3');
+        return "# " + formatted;
+    }
+    static money(numero) {
+        const numeroFormateado = numero.toLocaleString('es-AR', {style: 'currency', currency: 'ARS'});
+        return numeroFormateado;
     }
     static generateID(length) {
         let result = '';

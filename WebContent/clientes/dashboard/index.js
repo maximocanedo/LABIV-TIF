@@ -4,7 +4,14 @@ import * as auth from "../../res/data/auth.js";
 import * as accounts from "../../res/data/accounts.js";
 import * as loans from "../../res/data/loans.js";
 import * as accountTypes from "../../res/data/accountTypes.js";
-import {DataTableView, TableBodyCell, TableBodyRow, TableHeaderCell} from "../../res/controller/components/index.js";
+import {
+    AccountBox,
+    DataTableView,
+    TableBodyCell,
+    TableBodyRow,
+    TableHeaderCell
+} from "../../res/controller/components/index.js";
+import {MDCIconButtonToggle, MDCRipple} from "../../res/controller/material/components.js";
 
 const formatearNumeroCuenta = (nc) => {
     const cleaned = ('' + nc).replace(/\D/g, '');
@@ -15,33 +22,31 @@ const formatearComoDinero = (numero) => {
     const numeroFormateado = numero.toLocaleString('es-AR', {style: 'currency', currency: 'ARS'});
     return numeroFormateado;
 }
-
 const cargarCuentas = async () => {
     const actualUser = await auth.allowClient();
-    document.querySelectorAll(".account_card:not(.action__account)").forEach(e => {
-        e.classList.add("non-displayable");
-        material.rippleIt(e);
-    });
-    material.rippleIt(document.querySelector(".action__account"));
     const cuentasData = await accounts.getAccounts();
-    console.log(cuentasData);
     const cuentas = cuentasData.data.listReturned;
     if (cuentas == undefined) return;
+    let verSaldoBtn = document.querySelector("#verSaldoBtn");
+    let vs = new MDCIconButtonToggle(verSaldoBtn);
+    let accountBoxes = [];
+    document.querySelector("#accountsGrid").innerHTML = "";
     for (let i = 0; i < cuentas.length; i++) {
-        if (i == 2) {
+        if (i == 29) {
             document.querySelector(".action__account").classList.add("non-displayable");
         }
-        document.querySelectorAll(".account_" + (i + 1)).forEach(e => {
-            e.classList.remove("non-displayable");
-            e.addEventListener("click", event => {
-                window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/account?accountno=" + cuentas[i].numero;
-            })
-        });
-        document.querySelector(".__account_" + (i + 1) + "_tipodesc").innerText = cuentas[i].tipo.descripcion;
-        document.querySelector(".__account_" + (i + 1) + "_saldo").innerText = formatearComoDinero(cuentas[i].saldo);
-        document.querySelector(".__account_" + (i + 1) + "_nc").innerText = formatearNumeroCuenta(cuentas[i].numero);
-        document.querySelector(".__account_" + (i + 1) + "_cbu").innerText = cuentas[i].CBU;
+        const accountBox = new AccountBox(cuentas[i]);
+        accountBoxes.push(accountBox);
+        document.querySelector("#accountsGrid").append(accountBox.getElement());
     }
+    if(accountBoxes.length == 3) {
+        document.querySelector("#crearCuentaBtn").remove();
+    }
+    verSaldoBtn.addEventListener('MDCIconButtonToggle:change', e => {
+        if(e.detail.isOn) {
+            accountBoxes.forEach(accountBox => accountBox.hideSensitiveData());
+        } else accountBoxes.forEach(accountBox => accountBox.showSensitiveData());
+    })
 }
 
 
@@ -51,17 +56,21 @@ const cargarCuentas = async () => {
 
     const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
     const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
-    // Obtener datos del cliente actual. Si no hay cliente redirige a la página de inicio de sesión.
 
     await cargarCuentas();
-
-    document.querySelector(".action__account").addEventListener('click',
+    let refreshAccountSectionBtn = document.querySelector("#refreshAccountSectionBtn");
+    //material.rippleIt(refreshAccountSectionBtn);
+    refreshAccountSectionBtn.addEventListener('click', () => {
+        (async () => {
+            await cargarCuentas();
+        })();
+    });
+    document.querySelector("#crearCuentaBtn").addEventListener('click',
         (async () => {
             const dialog = material.showOtherDialog("#crearCuentaBancaria");
             const tipoCuentaSelect_root = document.querySelector("#tipoCuentaSelect");
             const tipoCuentaSelect = new material.mdc.list.MDCList(tipoCuentaSelect_root);
             tipoCuentaSelect.layout();
-            console.log(tipoCuentaSelect);
             const tipos_f = await accountTypes.getAll();
             const data = tipos_f.data.listReturned;
             if (data == undefined) return;
@@ -89,7 +98,7 @@ const cargarCuentas = async () => {
                 tipoCuentaSelect_root.innerHTML += html;
             }
             tipoCuentaSelect.layout();
-        }));
+        }));// */
 
 
     document.querySelector("#crearCuentaBtn").addEventListener('click', async (e) => {
@@ -169,6 +178,11 @@ const cargarCuentas = async () => {
         (async () => {
             await fillLoanRequestsTable();
         })();
+    });
+    const refreshLoanRequestsSectionBtn = document.querySelector("#refreshLoanRequestsSectionBtn");
+    //new MDCRipple(refreshLoanRequestsSectionBtn);
+    refreshLoanRequestsSectionBtn.addEventListener('click', async (e) => {
+        await fillLoanRequestsTable();
     });
 
     await fillLoanRequestsTable();

@@ -20,7 +20,6 @@ export default class TableBodyRow {
         this.clear();
 
         arr.map(td => {
-            console.log(td);
             this.addRow(td);
         });
     }

@@ -29,7 +29,6 @@ export default class DataTableView {
             tableHeadRow.append(new DataTableView.HeaderCheckboxCell().getElement());
         }
         data.header.map(cell => {
-            console.log(cell);
             tableHeadRow.append(cell.getElement());
         });
 
@@ -60,9 +59,6 @@ export default class DataTableView {
         rowsPerPageLabel.innerText = "Rows per page: ";
         rowsPerPage.append(rowsPerPageLabel);
         this.page = 1;
-        this.paginatorDefaultCallback = (paginator) => {
-            console.log(paginator);
-        };
         this.paginatorSelect = new PaginationSelect(this.paginator);
         rowsPerPage.append(this.paginatorSelect.getElement());
 
