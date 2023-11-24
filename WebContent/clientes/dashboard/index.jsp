@@ -16,7 +16,7 @@
 <main class="mdc-top-app-bar--fixed-adjust">
     <%@ include file="../../res/web/banner.part.html" %>
     <div id="principal-grid" class="mdc-layout-grid mdc-layout-grid__cell--align-middle mdc-layout-grid-margin-12">
-        <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__inner" id="mainGrid">
 
             <span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis cuentas</span>
             <div class="mdc-layout-grid__cell
@@ -74,8 +74,9 @@ mdc-card mdc-layout-grid account_card action__account mdc-ripple-surface mdc-rip
                 </div>
             </div>
             <span class="mdc-layout-grid__cell--span-12 mdc-typography--subtitle6">Mis Solicitudes de préstamos</span>
-
-            <div id="tablaSolicitudesPrestamos" class="mdc-data-table mdc-layout-grid__cell--span-12">
+            <div id="myLoanRequests" class="mdc-data-table mdc-layout-grid__cell--span-12">
+            </div>
+            <div id="tablaSolicitudesPrestamos" class="mdc-data-table mdc-layout-grid__cell--span-12" style="display: none">
                 <div class="mdc-data-table__table-container">
                     <table class="mdc-data-table__table" aria-label="Dessert calories">
                         <thead>

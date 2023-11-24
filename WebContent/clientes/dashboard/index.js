@@ -4,6 +4,7 @@ import * as auth from "../../res/data/auth.js";
 import * as accounts from "../../res/data/accounts.js";
 import * as loans from "../../res/data/loans.js";
 import * as accountTypes from "../../res/data/accountTypes.js";
+import {DataTableView, TableBodyCell, TableBodyRow, TableHeaderCell} from "../../res/controller/components/index.js";
 
 const formatearNumeroCuenta = (nc) => {
     const cleaned = ('' + nc).replace(/\D/g, '');
@@ -33,7 +34,7 @@ const cargarCuentas = async () => {
         document.querySelectorAll(".account_" + (i + 1)).forEach(e => {
             e.classList.remove("non-displayable");
             e.addEventListener("click", event => {
-                window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/MiCuenta.jsp?accountno=" + cuentas[i].numero;
+                window.location = "http://localhost:8080/TPINT_GRUPO_3_LAB/clientes/account?accountno=" + cuentas[i].numero;
             })
         });
         document.querySelector(".__account_" + (i + 1) + "_tipodesc").innerText = cuentas[i].tipo.descripcion;
@@ -127,86 +128,49 @@ const cargarCuentas = async () => {
 
 // Tabla SOLIICITUDES DE PRÉSTAMOS
 (async () => {
-    const paginationReducer = (state = {page: 1, size: 10}, action) => {
-        switch (action.type) {
-            case 'SET_PAGE':
-                return {...state, page: action.payload};
-            case 'NEXT_PAGE':
-                return {...state, page: state.page + 1};
-            case 'PREV_PAGE':
-                return {...state, page: state.page > 1 ? state.page - 1 : 1}
-            case 'SET_SIZE':
-                return {...state, size: action.payload};
-            default:
-                return state;
+    const tablaPrestamos = new DataTableView("Mis solicitudes de préstamos", {
+        header: [
+            new TableHeaderCell("ID", { isNumeric: true }),
+            new TableHeaderCell("Cuenta"),
+            new TableHeaderCell("Monto", { isNumeric: true }),
+            new TableHeaderCell("Cuotas"),
+            new TableHeaderCell("Estado")
+        ],
+        paginator: {
+            default: 5,
+            values: [5, 10, 15]
         }
-    };
-
-    // Crear el store de Redux
-    const store = Redux.createStore(paginationReducer);
-
-    // Acciones para cambiar la página y el tamaño de la página
-    const setPage = (page) => ({
-        type: 'SET_PAGE',
-        payload: page,
     });
+    document.querySelector("#myLoanRequests").append(tablaPrestamos.getElement());
 
-    const nextPage = () => ({
-        type: 'NEXT_PAGE',
-        payload: 1,
-    });
-
-    const prevPage = () => ({
-        type: 'PREV_PAGE',
-        payload: 1,
-    });
-
-    const setSize = (size) => ({
-        type: 'SET_SIZE',
-        payload: size,
-    });
     const fillLoanRequestsTable = async () => {
+        tablaPrestamos.showProgress();
         const cliente = auth.allowClient();
-        const ress = await loans.getMyLoanRequests(store.getState());
+        const ress = await loans.getMyLoanRequests(tablaPrestamos.getPaginatorDetails());
         const data = ress.list;
-        document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML = "";
+        tablaPrestamos.clear();
         for (let i = 0; i < data.length; i++) {
-            let leggend = `<span class="mdc-typography--button importe_${data[i].estado == 1 ? "plus" : (data[i].estado == -1 ? "less" : "none")}">${data[i].estado == 1 ? "Aprobado" : (data[i].estado == -1 ? "Rechazado" : "En espera")}</span>`
-            let html = `
-			<tr class="mdc-data-table__row">
-	          <th class="mdc-data-table__cell mdc-data-table__cell--numeric" scope="row">${data[i].codigo}</th>
-	          <td class="mdc-data-table__cell">${formatearNumeroCuenta(data[i].cuenta.numero)}</td>
-	          <td class="mdc-data-table__cell mdc-data-table__cell--numeric">${formatearComoDinero(data[i].montoPedido)}</td>
-	          <td class="mdc-data-table__cell">${data[i].cantCuotas} &times; ${formatearComoDinero(data[i].montoPorCuota)}</td>
-	          <td class="mdc-data-table__cell">${leggend}</td>
-	        </tr>
-			`;
-            document.querySelector("#tablaSolicitudesPrestamos__body").innerHTML += html;
+            const req = data[i];
+            const leggendEl = document.createElement("span");
+            leggendEl.classList.add("mdc-typography--button", `importe_${data[i].estado == 1 ? "plus" : (data[i].estado == -1 ? "less" : "none")}`);
+            leggendEl.innerText = data[i].estado == 1 ? "Aprobado" : (data[i].estado == -1 ? "Rechazado" : "En espera");
+            const row = new TableBodyRow([
+                new TableBodyCell(req.codigo, { isNumeric: true }),
+                new TableBodyCell(formatearNumeroCuenta(data[i].cuenta.numero)),
+                new TableBodyCell(formatearComoDinero(data[i].montoPedido), { isNumeric: true }),
+                new TableBodyCell(`${data[i].cantCuotas} × ${formatearComoDinero(data[i].montoPorCuota)}`),
+                new TableBodyCell(leggendEl)
+            ], req.codigo);
+            tablaPrestamos.add(row);
         }
+        tablaPrestamos.hideProgress();
     };
-
-    // Suscribirse al estado del store para actualizarse cuando cambie la paginación
-    store.subscribe(async () => {
-        const {page, size} = store.getState();
-        await fillLoanRequestsTable();
-        document.querySelector("#tablaSolicitudesPrestamos__textoPaginacion").innerText = `Página ${page}`;
-        console.log({page, size});
+    tablaPrestamos.addEventListener('paginateChange', e => {
+        (async () => {
+            await fillLoanRequestsTable();
+        })();
     });
 
-    const paginator = {
-        page: 1,
-        size: 10
-    };
-    const mdSelectPaginator = material.loadSelect(document.querySelector("#mdSelectPaginator"));
-    const nextBtn = document.querySelector("#tablaSolicitudesPrestamos__btnSiguiente");
-    const prevBtn = document.querySelector("#tablaSolicitudesPrestamos__btnAnterior");
-
-    mdSelectPaginator.root.addEventListener("MDCSelect:change", e => {
-        let size = e.detail.value;
-        store.dispatch(setSize(size));
-    });
-    nextBtn.addEventListener("click", e => store.dispatch(nextPage()));
-    prevBtn.addEventListener("click", e => store.dispatch(prevPage()));
-    store.dispatch(setPage(1));
+    await fillLoanRequestsTable();
 })();
 
