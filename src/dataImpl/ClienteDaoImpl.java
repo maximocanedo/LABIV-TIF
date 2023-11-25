@@ -354,6 +354,16 @@ public class ClienteDaoImpl implements IRecord<Cliente, String>, IClienteDao {
 		}
 		return res;
 	}
+	public TransactionResponse<?> verifyMail(Cliente cliente, boolean v) throws SQLException {
+		return db.transact(
+				"UPDATE " + printTDB() + " SET " + Fields.correoVerificado.name + " = @cv WHERE "
+				 + Fields.usuario.name + " = @user",
+				Dictionary.fromArray(
+						"cv", v,
+						"user", cliente.getUsuario()
+				)
+		);
+	}
 
 	private TransactionResponse<Cliente> select(String arg0, Dictionary arg1) throws SQLException {
 		TransactionResponse<Cliente> res = new TransactionResponse<Cliente>();

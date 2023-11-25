@@ -42,7 +42,7 @@ public class Cliente implements IEntity {
 		obj.add("localidad", localidad == null ? null : localidad.toJsonObject());
 		obj.add("provincia", provincia == null ? null : provincia.toJsonObject());
 		obj.addProperty("correo", correo);
-		obj.addProperty("correoVerificado", correoVerificado);
+		obj.addProperty("correoVerificado", isCorreoVerificado());
 		obj.addProperty("contraseña", contrasena);
 		obj.addProperty("estado", estado);
 		
@@ -202,7 +202,7 @@ public class Cliente implements IEntity {
 			"localidad", localidad != null ? localidad.getId() : null,
 			"provincia", provincia != null ? provincia.getId() : null,
 			"correo", correo,
-			"correoVerificado", correoVerificado,
+			"correoVerificado", isCorreoVerificado(),
 			"estado", estado
 		);
 	}
@@ -224,7 +224,7 @@ public class Cliente implements IEntity {
 			"salt", salt,
 			"correo", correo,
 			"estado", estado,
-			"correoVerificado", correoVerificado
+			"correoVerificado", isCorreoVerificado()
 		);
 	}
 	
@@ -263,5 +263,13 @@ public class Cliente implements IEntity {
 				"nombre", nombre,
 				"apellido", apellido
 			);
+	}
+
+	public boolean isCorreoVerificado() {
+		return correoVerificado;
+	}
+
+	public void setCorreoVerificado(boolean correoVerificado) {
+		this.correoVerificado = correoVerificado;
 	}
 }

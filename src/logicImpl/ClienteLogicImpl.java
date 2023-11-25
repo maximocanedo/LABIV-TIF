@@ -663,6 +663,19 @@ public class ClienteLogicImpl implements IRecordLogic<Cliente, String>, ICliente
 		}
 		return result;
 	}
+	public Response<Cliente> verifyMail(Cliente cliente, boolean v) {
+		Response<Cliente> result = new Response<>();
+		try {
+			result = convertWildcard(data.verifyMail(cliente, v));
+			result.message = result.status ? "Verificado. " : "Sin verificar. ";
+			result.http = result.status ? 201 : 400;
+
+		} catch(SQLException e) {
+			result.die(false, 500, "Error de la base de datos. ");
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	/**
 	 * Modifica datos en un objeto Cliente.

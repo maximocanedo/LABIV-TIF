@@ -2,6 +2,10 @@ package api;
 
 import com.microsoft.webservices.EnvioMailSoapImpl;
 import email.Mail;
+import entity.Cliente;
+import logicImpl.AuthManager;
+import logicImpl.ClienteLogicImpl;
+import max.Response;
 import servlets.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -55,10 +59,12 @@ public class VerifyMe extends BaseServlet {
      * código aleatorio, al guardarlo, o al enviarlo por mail.
      **/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cliente cliente = AuthManager.getActualClient(request, response);
+        if(cliente == null) return;
         String destinatario;
         // Obtener parametros
-        String email = request.getParameter("email");
-        String asunto = "TEST Emprolijar con html el cuerpo del mail";
+        String email = cliente.getCorreo();
+        String asunto = "Verificación de identidad";
     	/* HTTP 400 Bad Request: Si el usuario envió un correo inválido, no envió el
     	  parámetro necesario o hay un problema de validación.*/
         try {
@@ -82,14 +88,14 @@ public class VerifyMe extends BaseServlet {
             EnvioMailSoapImpl WS = new EnvioMailSoapImpl();
             String ok = WS.enviarMail(destinatario, asunto, cod);
             if (ok == "OK") {
-                die(response, true, 200, "Mail enviado!");
+                die(response, true, 200, "Mail enviado via SOAP! (Cód. " + cod + ")");
                 request.setAttribute("codigo", cod);
                 //RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_3_LAB/clientes/IngresarCodigo.jsp");
                 //rd.forward(request, response);
 
             } else {
                 ok = Mail.enviar(destinatario, asunto, cod);
-                die(response, true, 200, "Mail enviado!");
+                die(response, true, 200, "Mail enviado via Legacy Mode! (Cód. " + cod + ")");
                 request.setAttribute("codigo", cod);
                 //RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_3_LAB/clientes/IngresarCodigo.jsp");
                 //rd.forward(request, response);
@@ -118,13 +124,15 @@ public class VerifyMe extends BaseServlet {
      * (**) Puede ocurrir que el usuario haya solicitado un código, el servidor lo haya enviado, pero antes de que el usuario ingrese el código se haya borrado el código de SESSION.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cliente cliente = AuthManager.getActualClient(request, response);
+        if(cliente == null) return;
         try {
             String codigo, cod;
             // Obtener parametros
 
             //HTTP 404 Not Found: Si no hay ningún código a validar.
             if (request.getParameter("code") == null) {
-                die(response, false, 404, "Bad request");
+                response.setStatus(404);
                 return;
             } else {
                 codigo = request.getParameter("code");
@@ -132,7 +140,7 @@ public class VerifyMe extends BaseServlet {
             }
             //valido que este bien escrito el codigo
             if (codigo.length() < 6 || codigo.length() > 6 || !esNumero(codigo)) {
-                die(response, false, 400, "Bad request");
+                response.setStatus(400);
                 return;
             }
 
@@ -140,12 +148,14 @@ public class VerifyMe extends BaseServlet {
             //HttpSession session = Session.getAttribute("codigoAleatorio");
             //HTTP 200 OK: Si el código enviado por el usuario coincide con el código enviado a su correo.
             if (cod.equals(codigo)) {
-
-
-                die(response, true, 200, "Codigo correcto");
+                response.setStatus(200);
+                cliente.setCorreoVerificado(true);
+                Response<Cliente> res = new ClienteLogicImpl().verifyMail(cliente, true);
+                response.setStatus(res.http);
+                write(response, res.toFinalJSON());
             } else {
                 //HTTP 400 Bad Request: Si el usuario envió un código inválido, no envió el parámetro necesario o hay un problema de validación.
-                die(response, false, 404, "El codigo no coincide con el enviado a tu mail");
+                die(response, false, 400, "El codigo no coincide con el enviado a tu mail");
             }
         } catch (Exception e) {
             //HTTP 500 Internal Server Error: Si hubo un problema al comparar los códigos o una excepción no controlada.
